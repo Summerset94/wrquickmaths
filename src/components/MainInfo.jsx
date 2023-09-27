@@ -1,4 +1,6 @@
 import AttackerTile from "./AttackerTile";
+import React, {useState, useMemo, useEffect} from "react";
+import StatComparison from "./StatComparison";
 
 
 export default function MainInfo(props) {
@@ -9,21 +11,21 @@ export default function MainInfo(props) {
     props.resetButtonClick()
   }
 
-  console.log(attack)
-
-  return(
+   return(
     <>
     <button onClick={goBack}>Back to Champion Select</button>
 
-    <AttackerTile champ={attack} />
-    <AttackerTile champ={defence} />
+    <AttackerTile 
+      champ={attack}
+      index={0}          
+    />
 
+    <AttackerTile 
+      champ={defence}
+      index={1} 
+    />
+
+    <StatComparison />
     </>
-
-        // attacker info
-    //defender info
-    //true attacker numbers
-    //items
-    //abilities
   )
 }

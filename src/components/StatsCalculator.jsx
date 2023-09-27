@@ -1,4 +1,6 @@
 import { useState, useEffect, useMemo } from "react"
+import { useStats } from './StatsContext';
+
 
 export default function StatsCalculator(props) {
   const champ = props.champion
@@ -75,10 +77,21 @@ export default function StatsCalculator(props) {
     }));
   }
 
+  // here we be tryin' pass the memo up
+
+  const { totalStats, setTotalStats } = useStats();
+  const index = props.index;
+
+  useEffect(() => {
+    setTotalStats(prevTotalStats => {
+      const newTotalStats = [...prevTotalStats];
+      newTotalStats[index] = totalMemo;
+      return newTotalStats;
+    });
+  }, [totalMemo]);
+
   return (
     <>
-
-
     <div className="levelSlider">
       <input
         className='slider'
@@ -92,7 +105,7 @@ export default function StatsCalculator(props) {
       <p>Select level: {currentLevel}</p>
 
       <button onClick={() => setContentVisible(!contentVisible)}>
-      Toggle Content
+      Show / hide stats
       </button>
 
       {contentVisible && (<div className={`dynamicStats ${contentVisible ? 'visible' : 'hidden'}`}>

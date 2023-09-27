@@ -1,10 +1,27 @@
+import { useEffect, useState, useMemo } from "react";
 import StatsCalculator from "./StatsCalculator";
+
 export default function AttackerTile(props) {
   const champion = props.champ
+  const index = props.index
+ 
+// visibility button
+  const [isBaseInfoVisible, setIsBaseInfoVisible] = useState(true);
+  const toggleBaseInfoVisibility = () => {
+    setIsBaseInfoVisible(prevState => !prevState);
+  };
+
+//passing total stats up. Fuck modularity it's took me too much time to implement this shit.  
+
 
   return (
     <div className='champTile'>
       
+      <button onClick={toggleBaseInfoVisibility}>
+        Show / hide champion info
+      </button>
+      
+      { isBaseInfoVisible && (<div className='baseInfo'>
       <div className='visitCard'>
         <img src={champion.icon} alt="Champion Icon" className='champIcon'/>
         <div className='nameTile'>
@@ -86,7 +103,14 @@ export default function AttackerTile(props) {
         </table>
       </div>
 
-      <StatsCalculator champion={champion} />
+      <StatsCalculator 
+        champion={champion}
+        index={index}  
+      />
+      </div>
+      )}
+      
+      
     </div>
     )
   

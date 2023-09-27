@@ -3,6 +3,7 @@ import { useState } from 'react';
 import ChampionList from './components/ChampionList';
 import MainInfo from './components/MainInfo';
 import './styles/StatColors.css'
+import { StatsProvider } from './components/StatsContext';
 
 
 function App() {
@@ -32,11 +33,13 @@ function App() {
 
        {champSelected && confirmation ? (        
         <div className='mainTile'>
+          <StatsProvider>
           <MainInfo 
             attack={attackChamp} 
             defence={defenceChamp}
             resetButtonClick={handleConfirm}
           />
+          </StatsProvider>
         </div>
       ) : ( 
         <div className='selectTile'>
