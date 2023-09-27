@@ -1,0 +1,35 @@
+.stat--ad {
+  color: orange;
+}
+
+.stat--ap {
+  color:blueviolet;
+}
+
+.stat--armor, .stat--critChance {
+  color: rgb(247, 247, 5);
+}
+
+.stat--magres {
+  color: cyan;
+}
+
+.stat--hp {
+  color: rgb(0, 204, 0)
+}
+
+.stat--mana {
+  color: rgb(45, 45, 255)
+}
+
+.stat--vamp {
+  color: red
+};
+
+.stat--as {
+  color:rgb(184, 184, 83)
+};
+
+.stat--moveSpeed {
+  color: white;
+}

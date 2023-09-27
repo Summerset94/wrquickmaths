@@ -8,8 +8,8 @@ const ChampionList = ({ onChampClick, champ }) => {
   }
 
   return (
-    <div>
-      <h2>{`${champ} champions`}</h2>
+    <div className='champSelectTile'>
+      <h2>{`${champ} champion`}</h2>
       <select onChange={handleChampSelect}>
         <option value="">Select a champion</option>
         {champions.map((champion) => (

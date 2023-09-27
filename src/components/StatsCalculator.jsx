@@ -13,7 +13,9 @@ export default function StatsCalculator(props) {
       magres: champ.magresBase + (champ.magresScale * (currentLevel - 1)),
       attack: champ.attackBase + (champ.attackScale * (currentLevel - 1)),
       ap: 0,
-      as: champ.asBase + (champ.asScale * (currentLevel - 1))
+      as: champ.asBase + (champ.asScale * (currentLevel - 1)),
+      asBase: champ.asBase,
+      moveSpeed: champ.moveSpeed
     };
   }, [currentLevel, champ]);
 
@@ -25,7 +27,13 @@ export default function StatsCalculator(props) {
       magres: 0,
       attack: 0,
       ap: 0,
-      as: 0
+      as: 0,
+      moveSpeed: 0,
+      flatArmPen: 0,
+      flatMagPen: 0,
+      armPen: 0,
+      magPen: 0,
+      critChance: 0
     }
   }, []);
 
@@ -43,6 +51,13 @@ export default function StatsCalculator(props) {
       dmgReductMag: ((1 - (100/(100 + (baseMemo.magres + bonusMemo.magres))))*100),
       effectiveHealthArm: ((baseMemo.health + bonusMemo.health)/(100/(100 + (baseMemo.armor + bonusMemo.armor)))),
       effectiveHealthMag: ((baseMemo.health + bonusMemo.health)/(100/(100 + (baseMemo.magres + bonusMemo.magres)))),
+      flatArmPen: bonusMemo.flatArmPen,
+      flatMagPen: bonusMemo.flatMagPen,
+      armPen: bonusMemo.armPen,
+      magPen: bonusMemo.magPen,
+      moveSpeed: baseMemo.moveSpeed + bonusMemo.moveSpeed,
+      critChance: bonusMemo.critChance
+
     };
   }, [baseMemo, bonusMemo]);
 
@@ -71,6 +86,8 @@ export default function StatsCalculator(props) {
         onChange={levelSlider}
       />
       <p>Select level: {currentLevel}</p>
+
+      <div className='dynamicStats'>
       <table className='statsTable'>
         <thead>
           <tr>
@@ -80,6 +97,7 @@ export default function StatsCalculator(props) {
           </tr>
         </thead>
         <tbody>
+          
           <tr>
             <td>Stat</td>
             <td>Base at {currentLevel}</td>
@@ -89,84 +107,121 @@ export default function StatsCalculator(props) {
           
           <tr>
             <td>Health</td>
-            <td>{baseMemo.health}</td>
-            <td>{bonusMemo.health}</td>
-            <td>{totalMemo.health}</td>
+            <td className='stat--hp'>{baseMemo.health}</td>
+            <td className='stat--hp'>{bonusMemo.health}</td>
+            <td className='stat--hp'>{totalMemo.health}</td>
           </tr>
 
           <tr>
             <td>Mana</td>
-            <td>{baseMemo.mana}</td>
-            <td>{bonusMemo.mana}</td>
-            <td>{totalMemo.mana}</td>
+            <td className='stat--mana'>{baseMemo.mana}</td>
+            <td className='stat--mana'>{bonusMemo.mana}</td>
+            <td className='stat--mana'>{totalMemo.mana}</td>
           </tr>
 
           <tr>
             <td>Armor</td>
-            <td>{baseMemo.armor}</td>
-            <td>{bonusMemo.armor}</td>
-            <td>{totalMemo.armor}</td>
+            <td className='stat--armor'>{baseMemo.armor}</td>
+            <td className='stat--armor'>{bonusMemo.armor}</td>
+            <td className='stat--armor'>{totalMemo.armor}</td>
           </tr>
 
           <tr>
             <td>Magic Resistance</td>
-            <td>{baseMemo.magres}</td>
-            <td>{bonusMemo.magres}</td>
-            <td>{totalMemo.magres}</td>
+            <td className='stat--magres'>{baseMemo.magres}</td>
+            <td className='stat--magres'>{bonusMemo.magres}</td>
+            <td className='stat--magres'>{totalMemo.magres}</td>
           </tr>
 
           <tr>
             <td>Attack</td>
-            <td>{baseMemo.attack}</td>
-            <td>{bonusMemo.attack}</td>
-            <td>{totalMemo.attack}</td>
+            <td className='stat--ad'>{baseMemo.attack}</td>
+            <td className='stat--ad'>{bonusMemo.attack}</td>
+            <td className='stat--ad'>{totalMemo.attack}</td>
           </tr>
 
           <tr>
             <td>Ability Power</td>
-            <td>{baseMemo.ap}</td>
-            <td>{bonusMemo.ap}</td>
-            <td>{totalMemo.ap}</td>
+            <td className='stat--ap'>{baseMemo.ap}</td>
+            <td className='stat--ap'>{bonusMemo.ap}</td>
+            <td className='stat--ap'>{totalMemo.ap}</td>
           </tr>
 
           <tr>
             <td>Attack speed</td>
-            <td>{baseMemo.as.toFixed(2)}</td>
-            <td>{bonusMemo.as.toFixed(2)}</td>
-            <td>{totalMemo.as.toFixed(2)}</td>
+            <td className='stat--as'>{baseMemo.as.toFixed(2)}</td>
+            <td className='stat--as'>{bonusMemo.as.toFixed(2)}</td>
+            <td className='stat--as'>{totalMemo.as.toFixed(2)}</td>
+          </tr>
+
+          <tr>
+            <td>Movespeed</td>
+            <td className='stat--moveSpeed'>{Math.ceil(baseMemo.moveSpeed)}</td>
+            <td className='stat--moveSpeed'>{Math.ceil(bonusMemo.moveSpeed)}</td>
+            <td className='stat--moveSpeed'>{Math.ceil(totalMemo.moveSpeed)}</td>
           </tr>
 
           <tr>
             <td>DPS</td>
-            <td colSpan={3} >{totalMemo.dps.toFixed(2)}</td>
-          </tr>
+            <td>{totalMemo.dps.toFixed(2)}</td>
+            <td>Crit Chance</td>
+            <td>{Math.floor(totalMemo.critChance*100)}%</td>
+          </tr>          
+        </tbody>
+      </table>
 
-          <tr>
+      <table className="statsTable">
+        <tbody>
+
+        <tr>
             <td colSpan={4}>Damage mitigation, %</td>
           </tr>
           <tr>
             <td colSpan={2}>Physical</td>
-            <td colSpan={2}>{totalMemo.dmgReductArm.toFixed(0)}</td>
+            <td colSpan={2} className='stat--armor'>{totalMemo.dmgReductArm.toFixed(0)}</td>
           </tr>
           <tr>
             <td colSpan={2}>Magical</td>
-            <td colSpan={2}>{totalMemo.dmgReductMag.toFixed(0)}</td>
+            <td colSpan={2} className='stat--magres'>{totalMemo.dmgReductMag.toFixed(0)}</td>
           </tr>
 
           <tr>
-            <td colSpan={4}>Effective HP</td>
+            <td colSpan={4}>Effective HP:</td>
           </tr>
 
           <tr>
             <td colSpan={2}>VS Physical</td>
-            <td colSpan={2}>{totalMemo.effectiveHealthArm.toFixed(0)}</td>
+            <td colSpan={2} className='stat--health'>{totalMemo.effectiveHealthArm.toFixed(0)}</td>
           </tr>
           <tr>
             <td colSpan={2}>VS Magic</td>
-            <td colSpan={2}>{totalMemo.effectiveHealthMag.toFixed(0)}</td>
+            <td colSpan={2} className='stat--health'>{totalMemo.effectiveHealthMag.toFixed(0)}</td>
+          </tr>
+
+          <tr>
+            <td colSpan={4}>Damage Penetration:</td>            
+          </tr>
+
+          <tr>
+            <td colSpan={2}>Flat Armor</td>
+            <td colSpan={2}>{totalMemo.flatArmPen}</td>
+          </tr>
+          <tr>
+            <td colSpan={2}>Flat Magic</td>
+            <td colSpan={2}>{totalMemo.flatMagPen}</td>
+          </tr>
+          <tr>
+            <td colSpan={2}>Percentage Armor</td>
+            <td colSpan={2}>{totalMemo.armPen * 100}</td>
+          </tr>
+          <tr>
+            <td colSpan={2}>Percentage Magic</td>
+            <td colSpan={2}>{totalMemo.magPen * 100}</td>
           </tr>
         </tbody>
       </table>
+      </div>
+
     </div>
   )
 }

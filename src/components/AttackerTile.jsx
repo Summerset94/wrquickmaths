@@ -1,20 +1,23 @@
-
+import StatsCalculator from "./StatsCalculator";
 export default function AttackerTile(props) {
   const champion = props.champ
 
   return (
     <div className='champTile'>
+      
       <div className='visitCard'>
         <img src={champion.icon} alt="Champion Icon" className='champIcon'/>
         <div className='nameTile'>
-        <p className="champName">{champion.name}</p>
+        <h2 className="champName">{champion.name}</h2>
         <p className='champTitle'>{champion.title}</p>
         </div>
         <div className="roleTile">
+          <h3>Position:</h3>
           <p>{champion.rolePrim}</p>
           {champion.roleSecond && <p>{champion.roleSecond}</p>}
         </div>        
       </div>
+      
       <div className='baseStats'>
         <table>
           <thead>
@@ -33,8 +36,8 @@ export default function AttackerTile(props) {
 
             <tr>
               <td>Health</td>
-              <td>{champion.healthBase}</td>
-              <td>{champion.healthScale}</td>
+              <td className='stat--hp'>{champion.healthBase}</td>
+              <td className='stat--hp'>{champion.healthScale}</td>
             </tr>
 
             {!champion.manaBase ? (<tr>
@@ -44,44 +47,46 @@ export default function AttackerTile(props) {
               (
                 <tr>
                 <td>Mana</td>
-                <td>{champion.healthBase}</td>
-                <td>{champion.healthScale}</td>
+                <td className='stat--mana'>{champion.healthBase}</td>
+                <td className='stat--mana'>{champion.healthScale}</td>
                 </tr>
               )}
 
             <tr>
               <td>Armor</td>
-              <td>{champion.armorBase}</td>
-              <td>{champion.armorScale}</td>
+              <td className='stat--armor'>{champion.armorBase}</td>
+              <td className='stat--armor'>{champion.armorScale}</td>
             </tr>
 
             <tr>
               <td>Mag Res</td>
-              <td>{champion.magresBase}</td>
-              <td>{champion.magresScale}</td>
+              <td className='stat--magres'>{champion.magresBase}</td>
+              <td className='stat--magres'>{champion.magresScale}</td>
             </tr>
 
             <tr>
               <td>AD</td>
-              <td>{champion.attackBase}</td>
-              <td>{champion.attackScale}</td>
+              <td className='stat--ad'>{champion.attackBase}</td>
+              <td className='stat--ad'>{champion.attackScale}</td>
             </tr>
 
             <tr>
               <td>AP</td>
-              <td colSpan={2}><sub>*Base AP = 0 and don't scale</sub></td>
+              <td colSpan={2} className='stat--ap'><sub>*Base AP = 0 and don't scale</sub></td>
             </tr>
 
             <tr>
               <td>Attack speed</td>
-              <td>{champion.asBase}</td>
-              <td>{Number(champion.asScale).toFixed(3)}</td>
+              <td className='stat--as'>{champion.asBase}</td>
+              <td className='stat--as'>{Number(champion.asScale).toFixed(3)}</td>
             </tr>
               
 
           </tbody>
         </table>
       </div>
+
+      <StatsCalculator champion={champion} />
     </div>
     )
   

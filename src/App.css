@@ -1,0 +1,111 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  border-radius: 6px;
+}
+
+:root {
+  --dark-bg: rgb(37, 37, 37);
+}
+
+.selectTile {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto;
+  gap: 8px;
+  padding: 8px;
+  align-content: space-around;
+}
+
+.champSelectTile {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.confirmButtonTile {
+  grid-column: 1/3;
+  width: 100%;
+  padding: 3px;
+  display: flex;
+  justify-content: center;
+  margin: 2px;
+}
+
+.confirmButton {
+  padding: 3px;
+}
+
+table{
+  border: 2px solid black;
+  margin: 5px;
+  background-color: var(--dark-bg);
+  color: white
+}
+
+table {
+  padding: 3px;
+  margin: 8px;
+}
+
+th {
+  padding: 3px;
+}
+
+td {
+  border: 1px solid black;
+  padding: 2px 3px;
+  text-align: center;
+}
+
+.champTile {
+  margin: 8px;
+  display: grid;
+  grid-template-columns: 60% 40%;
+  justify-content: space-around;
+}
+
+.visitCard {
+  border: 1px solid black;
+  background-color: var(--dark-bg);
+  color: white;
+  display: flex;
+  flex-direction: row;  
+  padding: 5px;
+  height: fit-content;
+  justify-content: space-between;
+}
+
+.champIcon {
+  max-height: 120px;
+  width: auto;
+  margin: 10px;
+  vertical-align: middle;
+}
+
+.nameTile, .roleTile {
+  padding: 5px;
+}
+
+.roleTile > p {
+  margin: 8px;
+  padding: 7px 15px;
+  border: 2px solid white;
+  border-radius: 20px;
+}
+
+.roleTile {
+  margin-left: 20px;
+}
+
+/* .levelSlider {
+  grid-column-start: 1;
+  grid-column-end: 3;
+} */
+
+.dynamicStats {
+  display: grid;
+  grid-template-columns: 60% 40%;
+}
+

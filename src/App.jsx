@@ -2,6 +2,7 @@ import './App.css';
 import { useState } from 'react';
 import ChampionList from './components/ChampionList';
 import MainInfo from './components/MainInfo';
+import './styles/StatColors.css'
 
 
 function App() {
@@ -29,24 +30,26 @@ function App() {
   return (
     <>
 
-       {champSelected && confirmation ? (
-        <>
-        <MainInfo 
-          attack={attackChamp} 
-          defence={defenceChamp}
-          resetButtonClick={handleConfirm}
-        />
-        </>
+       {champSelected && confirmation ? (        
+        <div className='mainTile'>
+          <MainInfo 
+            attack={attackChamp} 
+            defence={defenceChamp}
+            resetButtonClick={handleConfirm}
+          />
+        </div>
       ) : ( 
         <div className='selectTile'>
-        <ChampionList 
-          onChampClick={handleAttackClick}
-          champ='attacking' />
-        <ChampionList 
-          onChampClick={handleDefenceClick}
-          champ='defending' />
+          <ChampionList 
+            onChampClick={handleAttackClick}
+            champ='attacking' />
+          <ChampionList 
+            onChampClick={handleDefenceClick}
+            champ='defending' />
 
-        <button onClick={handleConfirm} className='confirmButton'>Confirm</button>
+          <div className='confirmButtonTile'>
+          <button onClick={handleConfirm} className='confirmButton'>Confirm</button>
+          </div>        
         </div>
 
       )}
