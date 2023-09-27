@@ -104,8 +104,24 @@ td {
   grid-column-end: 3;
 } */
 
+
+
 .dynamicStats {
   display: grid;
   grid-template-columns: 60% 40%;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.dynamicStats.visible {
+  opacity: 1;
+}
+
+.dynamicStats.hidden {
+  opacity: 0;
+  pointer-events: none; /* Optional: disables interactions when hidden */
+}
+
+button {
+  padding: 3px 5px;
 }
 

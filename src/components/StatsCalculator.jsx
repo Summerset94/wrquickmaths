@@ -3,6 +3,7 @@ import { useState, useEffect, useMemo } from "react"
 export default function StatsCalculator(props) {
   const champ = props.champion
 
+  const [contentVisible, setContentVisible] = useState(true);
   const [currentLevel, setCurrentLevel] = useState(1);
 
   const baseMemo = useMemo(() => {
@@ -75,6 +76,9 @@ export default function StatsCalculator(props) {
   }
 
   return (
+    <>
+
+
     <div className="levelSlider">
       <input
         className='slider'
@@ -87,7 +91,11 @@ export default function StatsCalculator(props) {
       />
       <p>Select level: {currentLevel}</p>
 
-      <div className='dynamicStats'>
+      <button onClick={() => setContentVisible(!contentVisible)}>
+      Toggle Content
+      </button>
+
+      {contentVisible && (<div className={`dynamicStats ${contentVisible ? 'visible' : 'hidden'}`}>
       <table className='statsTable'>
         <thead>
           <tr>
@@ -220,8 +228,10 @@ export default function StatsCalculator(props) {
           </tr>
         </tbody>
       </table>
-      </div>
+      </div>)}
 
     </div>
+
+    </>
   )
 }
