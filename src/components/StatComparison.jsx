@@ -10,10 +10,7 @@ export default function StatComparison(props) {
 
   const formula = useMemo(() => {
 
-    //attacker 
-
-
-    const postMitigationArmor = (target, attacker) => {
+      const postMitigationArmor = (target, attacker) => {
       let mitigatedArmor = 0
       if (attacker.armorReduction && (target.armor - attacker.armorReduction <= 0)) {
         return Math.floor(target.armor - attacker.armorReduction)
@@ -105,9 +102,9 @@ export default function StatComparison(props) {
           <tbody>
             <tr>
               <td>Your dps</td>
-              <td>{formula.attackerDps}</td>
+              <td>{Number(formula.attackerDps).toFixed(2)}</td>
               <td>Enemy dps</td>
-              <td>{formula.defenderDps}</td>
+              <td>{Number(formula.defenderDps).toFixed(2)}</td>
             </tr>
 
             <tr>

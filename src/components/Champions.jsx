@@ -1619,7 +1619,7 @@ const champions = [
   {
     name: 'Samira',
     title: 'The Desert Rose',
-    icon: '../images/portraits/SamiraSquare.webp',
+    icon: '../images/portraits/SamiraSquare.png',
     rolePrim: roles.duo,
     roleSecond: false,
     healthBase: 610,
