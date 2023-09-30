@@ -22,6 +22,7 @@ export default function AttackerTile(props) {
       </button>
       
       { isBaseInfoVisible && (<div className='baseInfo'>
+      <div className='defaultsTile'>
       <div className='visitCard'>
         <img src={champion.icon} alt="Champion Icon" className='champIcon'/>
         <div className='nameTile'>
@@ -101,6 +102,7 @@ export default function AttackerTile(props) {
 
           </tbody>
         </table>
+      </div>
       </div>
 
       <StatsCalculator 

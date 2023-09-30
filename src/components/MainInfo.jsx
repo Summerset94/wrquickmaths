@@ -13,7 +13,7 @@ export default function MainInfo(props) {
 
    return(
     <>
-    <button onClick={goBack}>Back to Champion Select</button>
+    <button onClick={goBack} className='returnButton'>Back to Champion Select</button>
 
     <AttackerTile 
       champ={attack}

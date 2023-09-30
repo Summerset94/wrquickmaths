@@ -86,7 +86,7 @@ export default function StatsCalculator(props) {
       moveSpeed: baseMemo.moveSpeed + bonusMemo.moveSpeed,
       critChance: bonusMemo.critChance,
       critMultiplier: baseMemo.critMultiplier + bonusMemo.critMultiplier,
-      critDamage: ((baseMemo.attack + bonusMemo.attack))*bonusMemo.critMultiplier,
+      critDamage: ((baseMemo.attack + bonusMemo.attack))*(baseMemo.critMultiplier + bonusMemo.critMultiplier),
       armorReduction: bonusMemo.armorReduction,
       cdr: (1-(1/(1+bonusMemo.ah/100)))
     };

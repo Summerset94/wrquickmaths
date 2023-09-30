@@ -258,7 +258,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
       armorReduction: 0,    
   
       description:
-        <div className='description'>
+        <div className='itemDescription'>
           <h3 className='stat--ad'>+{55} Attack Damage</h3>
           <h3>+{15} Ability Haste</h3>
           <h3>+{15} Lethality/flat armor penetration</h3>
@@ -491,8 +491,8 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
 
       description:
         <div className="itemDescription">
-          <h3 class='stat--as'>+ 45% ({(base.asBase * 0.45).toFixed(3)}) Attack Speed</h3>
-          <h3 class>+20 Ability Haste</h3>
+          <h3 className='stat--as'>+ 45% ({(base.asBase * 0.45).toFixed(3)}) Attack Speed</h3>
+          <h3>+20 Ability Haste</h3>
 
           <p><b>Magic Fang:</b> Gain <span className="stat--ad">30 Attack Damage</span> or <span className='stat--ap'>60 Ability Power</span> <abbr title="Based of what BONUS stat you have more. Calculated whenever you select this item from the list"><b>(Adaptive)</b></abbr>.</p>
 
@@ -578,29 +578,38 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
     });
   };
 
+  const [showInventory, setShowInventory] = useState(true);
+
+  const toggleInventory = () => {
+    setShowInventory(prevShowInventory => !prevShowInventory);
+  };
+
 
     return (
-      <div className='inventoryGrid'>    
-        {selectedItems.map((selectedIndex, index) => (
-          <div className='inventorySlot' key={index}>
-            <div>
-              <select onChange={(e) => handleChange(index, e.target.value)}>
-                <option value="" disabled>Select an item</option>                
-                {physical.map((item, itemIndex) => (
-                  <option key={itemIndex} value={itemIndex}>
-                    {item.name}
-                  </option>
-                ))}
-              </select>
-            </div>          
-            {selectedIndex !== null ? 
-              physical[selectedIndex].description : 
-              <div className="itemDescription">
-                <p>Choose an item</p>
-              </div>
-            }
-          </div>
-        ))}
+      <div className='inventoryTile'> 
+        <button onClick={toggleInventory}>Show / hide inventory</button>
+        { showInventory && (<div className='inventoryGrid'>    
+          {selectedItems.map((selectedIndex, index) => (
+            <div className='inventorySlot' key={index}>
+              <div>
+                <select onChange={(e) => handleChange(index, e.target.value)}>
+                  <option value="" disabled>Select an item</option>                
+                  {physical.map((item, itemIndex) => (
+                    <option key={itemIndex} value={itemIndex}>
+                      {item.name}
+                    </option>
+                  ))}
+                </select>
+              </div>          
+              {selectedIndex !== null ? 
+                physical[selectedIndex].description : 
+                <div className="itemDescription">
+                  <p>Choose an item</p>
+                </div>
+              }
+            </div>
+          ))}
+        </div>)}
       </div>
     );
   }
