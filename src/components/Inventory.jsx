@@ -264,7 +264,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
           <h3>+{15} Lethality/flat armor penetration</h3>
   
           <p>Moving builds up <b>Momentum</b> stacks, granting up to 40 movement speed at 100 stacks. Stacks decay when movement impaired. </p>
-          <p>Attacking with max <b>Momentum</b> consumes all stacks and grants <b className='stat--as'>25% ({Number(base.baseAs*0.25).toFixed(3)}) Attack Speed</b> for 4 seconds.</p>
+          <p>Attacking with max <b>Momentum</b> consumes all stacks and grants <b className='stat--as'>25% ({Number(base.asBase*0.25).toFixed(3)}) Attack Speed</b> for 4 seconds.</p>
         </div>
     },
   
@@ -396,7 +396,6 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
       icon: '../images/items/Manamune.png',
 
       health: 0,
-      mana: 0,
       armor: 0,
       magres: 0,
       attack: 25 + Math.floor(total.mana * 0.015),
@@ -408,8 +407,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
       armPen: 0,
       magPen: 0,
       critChance: 0,
-      critMultiplier: 0,
-      ah: 0,
+      critMultiplier: 0,      
       armorReduction: 0,
       mana: 300,
       ah: 20,
@@ -433,8 +431,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
       name: 'Muramana',
       icon: '../images/items/Muramana.png',
 
-      health: 0,
-      mana: 0,
+      health: 0,      
       armor: 0,
       magres: 0,
       attack: 25 + Math.floor(total.mana * 0.015),
@@ -446,8 +443,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
       armPen: 0,
       magPen: 0,
       critChance: 0,
-      critMultiplier: 0,
-      ah: 0,
+      critMultiplier: 0,      
       armorReduction: 0,
       mana: 1000,
       ah: 20,
@@ -531,9 +527,194 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
           <p><b>Sunder:</b>dealing <span className="stat--ad">Physical Damage</span> to a champion reduces their <span className="stat--ad">Armor</span> by <b>4%</b>, stacking 6 times up to <b>24%</b></p>
         </div>
 
+    },
+
+    {
+      name: 'Trinity Force',
+
+      health: 250,
+      mana: 0,
+      armor: 0,
+      magres: 0,
+      attack: 25,
+      ap: 0,
+      as: (base.asBase * 0.3),
+      moveSpeed: (base.moveSpeed * 0.05),
+      flatArmPen: 0,
+      flatMagPen: 0,
+      armPen: 0,
+      magPen: 0,
+      critChance: 0,
+      critMultiplier: 0,
+      ah: 30,
+      armorReduction:0,
+
+      description: 
+        <div className='itemDescription'>
+          <h3 className='stat--hp'>+{250} Max Health</h3>
+          <h3 className='stat--ad'>+{25} Attack Damage</h3>
+          <h3 className='stat--as'>+30% ({(base.asBase * 0.3)}) Attack Speed</h3>
+          <h3>+{25} Ability Haste</h3>
+
+          <p><b>Fervor: </b>+{(base.moveSpeed * 0.05).toFixed(2)} Move Speed</p>
+          <p><b>Spellblade:</b>After casting an ability next basic attack deals <abbr title="200% BASE"><span className='stat--ad'>+{(base.attack * 2).toFixed(2)} Physical Damage</span></abbr> (1.5s Cooldown)</p>
+          <p><b>Rage:</b> Attacks grant <b>20 Move Speed</b> and kills grant <b>60 Move Speed</b> for 2 seconds. Bonuses do not stack. Effect halved for ranged heroes</p>
+        </div>,
+    },
+
+    {
+      name: 'Maw of Malmortius',
+
+      health: 0,
+      mana: 0,
+      armor: 0,
+      magres: 45,
+      attack: 45,
+      ap: 0,
+      as: 0,
+      moveSpeed: 0,
+      flatArmPen: 0,
+      flatMagPen: 0,
+      armPen: 0,
+      magPen: 0,
+      critChance: 0,
+      critMultiplier: 0,
+      ah: 10,
+      armorReduction:0,
+
+      description:
+      <div className='itemDescription'>
+        <h3 className="stat--ad">+{45} Attack Damage</h3>
+        <h3 className="stat--magres">+{45} Magic Resistance</h3>
+        <h3>+10 Ability Haste</h3>
+
+        <p><b>Lifeline:</b> Damage that puts you under <abbr title="35% max hp"><span className="stat--hp">{Math.floor(total.health * 0.35)} Health</span></abbr> grants a Shield that absorbs <abbr title="no modifier"><span className='stat--hp'>350</span></abbr><span className="stat--magres"> Magic Damage</span> for 5 Seconds (90s Cooldown)</p>
+        <p><b>Lifegrip:</b> Triggering Lifeline grants you <span className='stat--ad'>30 Attack Damage</span> and <span className="stat--vamp">10 % Omnivamp</span> until out of combat</p>
+
+      </div>
+    },
+
+    {
+      name: 'Death\'s Dance',
+
+      health: 0,
+      mana: 0,
+      armor: 40,
+      magres: 0,
+      attack: 35,
+      ap: 0,
+      as: 0,
+      moveSpeed: 0,
+      flatArmPen: 0,
+      flatMagPen: 0,
+      armPen: 0,
+      magPen: 0,
+      critChance: 0,
+      critMultiplier: 0,
+      ah: 15,
+      armorReduction:0,
+
+      description:
+        <div className="itemDescription">
+          <h3 className="stat--ad">+{35} Attack Damage</h3>
+          <h3 className="stat--armor">+{40} Armor</h3>
+          <h3>+{15} Ability Haste</h3>
+
+          <p><b>Cauterize:</b> <span className='stat--ad'>35% Physical Damage </span> received <span className="stat--ad">(15% for ranged champions)</span> is dealt to you over 3 seconds as <b>True Damage</b> instead</p>
+          <p><b>Dance:</b> Champion's takedowns cleanse Cauterize's remaining damage and heal you for <abbr title="12% of Max health"><span className="stat--hp">{Math.floor(total.health * 0.12)}</span></abbr> over 2 seconds</p>
+        </div>
+    },
+
+    {
+      name: 'Phantom Dancer',
+
+      health: 0,
+      mana: 0,
+      armor: 0,
+      magres: 0,
+      attack: 25,
+      ap: 0,
+      as: (base.asBase * 0.3),
+      moveSpeed: (base.moveSpeed * 0.05),
+      flatArmPen: 0,
+      flatMagPen: 0,
+      armPen: 0,
+      magPen: 0,
+      critChance: 0.25,
+      critMultiplier: 0,
+      ah: 0,
+      armorReduction:0,
+
+      description:
+        <div className="itemDescription">
+          <h3 className="stat--ad">+{25} Attack Damage</h3>
+          <h3 className="stat--critChance">+{25}% Critical Rate</h3>
+          <h3 className='stat--as'>+{30}% ({(base.asBase * 0.3).toFixed(3)}) Attack Speed</h3>
+
+          <p><b>Shadowwalk:</b>+5% ({Math.floor(base.moveSpeed * 0.05)}) Movement Speed</p>
+
+          <p><b>Spectral Waltz</b>: gain +7% ({Math.floor(base.moveSpeed * 0.07)}) Movement Speed when you attack for 3 seconds. After attacking 4 times gain 25% ({(base.asBase * 0.25).toFixed(3)}) Attack Speed for the same duration</p>
+        </div>
+    },
+
+    {
+      name: 'Wit\'s End',
+
+      health: 0,
+      mana: 0,
+      armor: 0,
+      magres: 50,
+      attack: 0,
+      ap: 0,
+      as: (base.asBase * 0.45),
+      moveSpeed: 0,
+      flatArmPen: 0,
+      flatMagPen: 0,
+      armPen: 0,
+      magPen: 0,
+      critChance: 0,
+      critMultiplier: 0,
+      ah: 0,
+      armorReduction:0,
+
+      description:
+        <div className="itemDescription">
+          <h3 className="stat--as">+45 %({(base.asBase * 0.45).toFixed(3)}) Attack Speed</h3>
+          <h3 className='stat--magres'>+{50} Magic Resistance</h3>
+
+          <p><b>At Wit's End:</b> basic attacks deal <span class='stat--ap'><abbr title="(15 + 65 / 14 * (level - 1))">{Math.ceil(15 + 65 / 14 * (currentLevel - 1))}</abbr> bonus magic damage</span>. While below <span className='stat--hp'><abbr title="50% max hp">{total.health * 0.5} health</abbr></span> dealing damage to enemy champions heals you for (100% for Melee/33% for ranged) damage dealt</p>
+        </div>
+    },
+  
+    {
+      name: 'Essence Reaver',
+      health: 0,
+      mana: 0,
+      armor: 0,
+      magres: 0,
+      attack: 40,
+      ap: 0,
+      as: 0,
+      moveSpeed: 0,
+      flatArmPen: 0,
+      flatMagPen: 0,
+      armPen: 0,
+      magPen: 0,
+      critChance: 0.25,
+      critMultiplier: 0,
+      ah: 20,
+      armorReduction:0,
+
+      description:
+        <div className="itemDescription">
+          <h3 className="stat--ad">+{40} Attack Damage</h3>
+          <h3 className='stat--as'>+{25}% Critical Rate</h3>
+          <h3>+{20} Ability Haste</h3>
+
+          <p>After Attacking a champion your next ability or empowered attack will deal <abbr title="20 + 1 per 10% of critchance">{20 + 1 * Math.floor(total.critChance * 10)}%</abbr> more damage. 4s Cooldown. Cooldown reduced for 1s for each basic attack against a champion</p>
+          <p>attacks restore <span className='stat--mana'>3% missing mana</span> on hit</p>
+        </div>
     }
-  
-  
   ];
 
 
