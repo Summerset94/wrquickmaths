@@ -66,10 +66,17 @@ export default function StatComparison(props) {
 
     const dps = (targetPhysDamageReduction, attacker) => {
       return (attacker.dps * (1 - (targetPhysDamageReduction/100)).toFixed(2))
+    };   
+
+    const dpsAttacker = dps(physicalReductionDefender, atk);
+    const dpsDefender = dps(physicalReductionAttacker, def);
+
+    const critAttack = (targetPhysDamageReduction, attacker) => {
+      return (attacker.critDamage * (1 - targetPhysDamageReduction/100))
     };
 
-    const dpsAttacker = dps(physicalReductionDefender, atk)
-    const dpsDefender = dps(physicalReductionAttacker, def)
+    const critAttAttacker = critAttack(physicalReductionDefender, atk);
+    const critAttDefender = critAttack(physicalReductionAttacker, def);
 
   return {
     attackerArmor: postMitigationArmorAttacker,
@@ -77,14 +84,17 @@ export default function StatComparison(props) {
     attackerPhysReduction: physicalReductionAttacker,
     attackerMagReduction: magicalReductionAttacker,
     attackerDps: dpsAttacker,
+    attackerCriticalStrike: critAttAttacker,
+    attackerCritDps: (dpsAttacker * atk.critMultiplier),
 
 
     defenderArmor: postMitigationArmorDefender,
     defenderMres: postMitigationMresDefender,
     defenderPhysReduction: physicalReductionDefender,
     defenderMagReduction: magicalReductionDefender,
-    defenderDps: dpsDefender
-
+    defenderDps: dpsDefender,
+    defenderCriticalStrike: critAttDefender,
+    defenderCritDps: (dpsDefender * def.critMultiplier)
 
   }
 
@@ -108,6 +118,16 @@ export default function StatComparison(props) {
             </tr>
 
             <tr>
+              <td>Critical Strike damage, dps</td>
+            </tr>
+            <tr>
+              <td>{Number(Math.floor(formula.attackerCriticalStrike))}</td>
+              <td>{(formula.attackerCritDps).toFixed(2)}</td>
+              <td>{Number(Math.floor(formula.defenderCriticalStrike))}</td>
+              <td>{(formula.defenderCritDps).toFixed(2)}</td>
+            </tr>
+
+            <tr>
               <th colSpan={4}>Post-mitigation <span className='stat--armor'>Armor</span> / <span className='stat--magres'>Mres</span>
               </th>              
             </tr>
@@ -122,6 +142,8 @@ export default function StatComparison(props) {
               <td className='stat--armor'>{formula.defenderArmor}</td>
               <td className='stat--magres'>{formula.defenderMres}</td>
             </tr>
+
+
           </tbody>
         </table>
       </div>

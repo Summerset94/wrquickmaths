@@ -1,5 +1,6 @@
 import { useState, useEffect, useMemo } from "react"
 import { useStats } from './StatsContext';
+import Inventory from "./Inventory";
 
 
 export default function StatsCalculator(props) {
@@ -18,27 +19,47 @@ export default function StatsCalculator(props) {
       ap: 0,
       as: champ.asBase + (champ.asScale * (currentLevel - 1)),
       asBase: champ.asBase,
-      moveSpeed: champ.moveSpeed
+      moveSpeed: champ.moveSpeed,
+      critMultiplier: 1.75
     };
   }, [currentLevel, champ]);
 
-  const bonusMemo = useMemo(() => {
-    return {
-      health: 0,
-      mana: 0,
-      armor: 0,
-      magres: 0,
-      attack: 0,
-      ap: 0,
-      as: 0,
-      moveSpeed: 0,
-      flatArmPen: 0,
-      flatMagPen: 0,
-      armPen: 0,
-      magPen: 0,
-      critChance: 0
-    }
-  }, []);
+  //fallback option
+  // const bonusMemo = useMemo(() => {
+  //   return {
+  //     health: 0,
+  //     mana: 0,
+  //     armor: 0,
+  //     magres: 0,
+  //     attack: 0,
+  //     ap: 0,
+  //     as: 0,
+  //     moveSpeed: 0,
+  //     flatArmPen: 0,
+  //     flatMagPen: 0,
+  //     armPen: 0,
+  //     magPen: 0,
+  //     critChance: 0,
+  //     critMultiplier: 1.75
+  //   }
+  // }, []);
+
+  const [bonusMemo, setBonusMemo] = useState({
+    health: 0,
+    mana: 0,
+    armor: 0,
+    magres: 0,
+    attack: 0,
+    ap: 0,
+    as: 0,
+    moveSpeed: 0,
+    flatArmPen: 0,
+    flatMagPen: 0,
+    armPen: 0,
+    magPen: 0,
+    critChance: 0,
+    critMultiplier: 0
+  });
 
   const totalMemo = useMemo(() => {
     return {
@@ -59,8 +80,9 @@ export default function StatsCalculator(props) {
       armPen: bonusMemo.armPen,
       magPen: bonusMemo.magPen,
       moveSpeed: baseMemo.moveSpeed + bonusMemo.moveSpeed,
-      critChance: bonusMemo.critChance
-
+      critChance: bonusMemo.critChance,
+      critMultiplier: baseMemo.critMultiplier + bonusMemo.critMultiplier,
+      critDamage: ((baseMemo.attack + bonusMemo.attack))*bonusMemo.critMultiplier
     };
   }, [baseMemo, bonusMemo]);
 
@@ -70,12 +92,9 @@ export default function StatsCalculator(props) {
     setCurrentLevel(newLevel);
   }
 
-  function handleBonusChange(property, value) {
-    setBonus(prevBonus => ({
-      ...prevBonus,
-      [property]: value
-    }));
-  }
+  function updateBonusMemo(updatedValues) {
+    setBonusMemo((prevStats) => ({...prevStats, ...updatedValues}))
+  };
 
   // here we be tryin' pass the memo up
 
@@ -245,6 +264,14 @@ export default function StatsCalculator(props) {
 
     </div>
 
+    <Inventory 
+      base={baseMemo}
+      bonus={bonusMemo}
+      total={totalMemo}
+      handleBonusChange={updateBonusMemo}
+      currentLevel={currentLevel}
+
+    />
     </>
   )
 }
