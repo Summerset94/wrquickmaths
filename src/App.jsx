@@ -4,6 +4,7 @@ import ChampionList from './components/ChampionList';
 import MainInfo from './components/MainInfo';
 import './styles/StatColors.css'
 import { StatsProvider } from './components/StatsContext';
+import Header from './components/Header';
 
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
   
   return (
     <>
+      <Header />
 
        {champSelected && confirmation ? (        
         <div className='mainTile'>

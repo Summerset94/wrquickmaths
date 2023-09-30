@@ -10,6 +10,27 @@
   --basic-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px
 }
 
+header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+header> h1 {
+  border: 2px solid white;
+  padding: 10px;
+  font-size: 40px;
+  color: white;
+  background-color: var(--dark-bg);
+  width: 100%;
+  text-align: center;
+}
+
+header > p {
+  color: white;
+}
+
 .selectTile {
   margin: 10px auto;
   width: 500px;
