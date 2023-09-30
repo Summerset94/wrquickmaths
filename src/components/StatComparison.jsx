@@ -12,18 +12,18 @@ export default function StatComparison(props) {
 
       const postMitigationArmor = (target, attacker) => {
       let mitigatedArmor = 0
-      if (attacker.armorReduction && (target.armor - attacker.armorReduction <= 0)) {
-        return Math.floor(target.armor - attacker.armorReduction)
+      if (attacker.armorReduction && (target.armor * (1 - attacker.armorReduction) <= 0)) {
+        return (target.armor * (1 - attacker.armorReduction))
       } else if (attacker.armorReduction) { 
        
-        mitigatedArmor = ((target.armor - attacker.armorReduction) * Math.floor(1 - attacker.armPen) - attacker.flatArmPen);
+        mitigatedArmor = ((target.armor * (1 - attacker.armorReduction)) * (1 - attacker.armPen) - attacker.flatArmPen);
        
-        return Math.floor(Math.max(mitigatedArmor, 0))
+        return (Math.max(mitigatedArmor, 0))
 
       } else {
-        mitigatedArmor = (target.armor * Math.floor(1 - attacker.armPen) - attacker.flatArmPen)
+        mitigatedArmor = (target.armor * ((1 - attacker.armPen)) - attacker.flatArmPen)
 
-        return Math.floor(Math.max(mitigatedArmor, 0))
+        return (Math.max(mitigatedArmor, 0))
       }
     };
 

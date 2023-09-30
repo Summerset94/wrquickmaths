@@ -44,6 +44,8 @@ export default function StatsCalculator(props) {
   //   }
   // }, []);
 
+  //cdr for future needs: CDR = (1-(1/(1+AH/100)))
+
   const [bonusMemo, setBonusMemo] = useState({
     health: 0,
     mana: 0,
@@ -58,7 +60,9 @@ export default function StatsCalculator(props) {
     armPen: 0,
     magPen: 0,
     critChance: 0,
-    critMultiplier: 0
+    critMultiplier: 0,
+    armorReduction: 0,
+    ah: 0
   });
 
   const totalMemo = useMemo(() => {
@@ -82,7 +86,9 @@ export default function StatsCalculator(props) {
       moveSpeed: baseMemo.moveSpeed + bonusMemo.moveSpeed,
       critChance: bonusMemo.critChance,
       critMultiplier: baseMemo.critMultiplier + bonusMemo.critMultiplier,
-      critDamage: ((baseMemo.attack + bonusMemo.attack))*bonusMemo.critMultiplier
+      critDamage: ((baseMemo.attack + bonusMemo.attack))*bonusMemo.critMultiplier,
+      armorReduction: bonusMemo.armorReduction,
+      cdr: (1-(1/(1+bonusMemo.ah/100)))
     };
   }, [baseMemo, bonusMemo]);
 
@@ -214,15 +220,15 @@ export default function StatsCalculator(props) {
         <tbody>
 
         <tr>
-            <td colSpan={4}>Damage mitigation, %</td>
+            <td colSpan={4}>Damage mitigation</td>
           </tr>
           <tr>
             <td colSpan={2}>Physical</td>
-            <td colSpan={2} className='stat--armor'>{totalMemo.dmgReductArm.toFixed(0)}</td>
+            <td colSpan={2} className='stat--armor'>{totalMemo.dmgReductArm.toFixed(0)}%</td>
           </tr>
           <tr>
             <td colSpan={2}>Magical</td>
-            <td colSpan={2} className='stat--magres'>{totalMemo.dmgReductMag.toFixed(0)}</td>
+            <td colSpan={2} className='stat--magres'>{totalMemo.dmgReductMag.toFixed(0)}%</td>
           </tr>
 
           <tr>
@@ -252,11 +258,16 @@ export default function StatsCalculator(props) {
           </tr>
           <tr>
             <td colSpan={2}>Percentage Armor</td>
-            <td colSpan={2}>{totalMemo.armPen * 100}</td>
+            <td colSpan={2}>{totalMemo.armPen * 100}%</td>
           </tr>
           <tr>
             <td colSpan={2}>Percentage Magic</td>
-            <td colSpan={2}>{totalMemo.magPen * 100}</td>
+            <td colSpan={2}>{totalMemo.magPen * 100}%</td>
+          </tr>
+
+          <tr>
+            <td colSpan={2}><abbr title="Ability haste converted into cdr">Cooldown reduction</abbr></td>
+            <td colSpan={2}>{Math.floor(totalMemo.cdr*100)}%</td>
           </tr>
         </tbody>
       </table>

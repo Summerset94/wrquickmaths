@@ -4,14 +4,55 @@ import { Tooltip } from 'react-tooltip'
 import '../styles/StatColors.css'
 
 
-export default function Inventory({base, bonus, total, handleBonusChange, currentLevel}) {  
+export default function Inventory({base, bonus, total, handleBonusChange, currentLevel}) { 
+  
 
   const physical = [
     {
+      name: 'Empty slot',
+
+      health: 0,
+      mana: 0,
+      armor: 0,
+      magres: 0,
+      attack: 0,
+      ap: 0,
+      as: 0,
+      moveSpeed: 0,
+      flatArmPen: 0,
+      flatMagPen: 0,
+      armPen: 0,
+      magPen: 0,
+      critChance: 0,
+      critMultiplier: 0,
+      ah: 0,
+      armorReduction: 0,
+
+      description: 
+        <div className='itemDescription'>Empty slot</div>
+
+    },
+    
+    {
       name: 'Guardian Angel',
       icon: '../images/items/Guardian_Angel.png',
-      attack: 40,
+
+      health: 0,
+      mana: 0,
       armor: 40,
+      magres: 0,
+      attack: 40,
+      ap: 0,
+      as: 0,
+      moveSpeed: 0,
+      flatArmPen: 0,
+      flatMagPen: 0,
+      armPen: 0,
+      magPen: 0,
+      critChance: 0,
+      critMultiplier: 0,
+      armorReduction: 0,
+      
       description: <div className='itemDescription'>
         <h3 className='stat--ad'>+{40} Attack Damage</h3>
         <h3 className='stat--armor'>+{40} Armor</h3>
@@ -25,8 +66,24 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
     {
       name: 'Bloodthirster',
       icon: '../images/items/Bloodthirster.png',
+
+      health: 0,
+      mana: 0,
+      armor: 40,
+      magres: 0,
       attack: 55,
+      ap: 0,
+      as: 0,
+      moveSpeed: 0,
+      flatArmPen: 0,
+      flatMagPen: 0,
+      armPen: 0,
+      magPen: 0,
       critChance: 0.25,
+      critMultiplier: 0,
+      armorReduction: 0,
+
+      
       description: <div className='itemDescription'>
         <h3 className='stat--ad'>+ {55} Attack Damage</h3>
         <h3 className='stat--critChance'>+ {Number(0.25*100)}% Critical Rate</h3>
@@ -39,10 +96,23 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
     {
       name: 'Statikk Shiv',
       icon: '../images/items/Statikk_Shiv.png',
-      as: 0.35,
-      critChance: 0.25,
+
+      health: 0,
+      mana: 0,
+      armor: 0,
+      magres: 0,
+      attack: 0,
+      ap: 0,
+      as: (base.asBase*0.35),
       moveSpeed: (0.05 * base.moveSpeed),
-  
+      flatArmPen: 0,
+      flatMagPen: 0,
+      armPen: 0,
+      magPen: 0,
+      critChance: 0.25,
+      critMultiplier: 0,
+      armorReduction: 0,
+       
       description: <div className='itemDescription'>
         <h3 className='stat--as'>+{Number(base.asBase * 0.35).toFixed(3)} Attack Speed</h3>
         <h3 className='stat--critChance'>+ 25% Critical Rate</h3>
@@ -64,8 +134,23 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
     {
       name: 'Blade of the Ruined King',
       icon: '../images/items/Blade_of_the_Ruined_King.png',
+
+      health: 0,
+      mana: 0,
+      armor: 0,
+      magres: 0,
       attack: 20,
+      ap: 0,
       as: (base.asBase * 0.35),
+      moveSpeed: 0,
+      flatArmPen: 0,
+      flatMagPen: 0,
+      armPen: 0,
+      magPen: 0,
+      critChance: 0,
+      critMultiplier: 0,
+      armorReduction: 0,
+      
   
       description: <div className='itemDescription'>
         <h3 className='stat--ad'>+{20} Attack Damage</h3>
@@ -89,9 +174,24 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
     {
       name: 'Rapid Firecannon',
       icon: '../images/items/Rapid_Firecannon.png',
-      critChance: 0.25,
+
+      health: 0,
+      mana: 0,
+      armor: 0,
+      magres: 0,
+      attack: 0,
+      ap: 0,
       as: (base.asBase * 0.35),
       moveSpeed: (0.05 * base.moveSpeed),
+      flatArmPen: 0,
+      flatMagPen: 0,
+      armPen: 0,
+      magPen: 0,
+      critChance: 0.25,
+      critMultiplier: 0,
+      armorReduction: 0,
+
+     
       description:
         <div className='itemDescription'>
           <h3 className='stat--as'>+35% ({(base.asBase * 0.35).toFixed(3)}) Attack Speed</h3>
@@ -110,8 +210,23 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
     {
       name: 'Runaan\'s Hurricane',
       icon: '../images/items/Runaan\'s_Hurricane.png',
-      critChance: 0.25,
+
+      health: 0,
+      mana: 0,
+      armor: 0,
+      magres: 0,
+      attack: 0,
+      ap: 0,
       as: (base.asBase * 0.45),
+      moveSpeed: 0,
+      flatArmPen: 0,
+      flatMagPen: 0,
+      armPen: 0,
+      magPen: 0,
+      critChance: 0.25,
+      critMultiplier: 0,
+      armorReduction: 0,
+      
       description:
         <div className='itemDescription'>
           <h3 className='stat--as'>+45% ({(base.asBase * 0.45).toFixed(3)}) Attack Speed</h3>
@@ -124,9 +239,23 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
     {
       name: 'Youmuu\'s Ghostblade',
       icon: '../images/items/Youmuus.png',
+
+      health: 0,
+      mana: 0,
+      armor: 0,
+      magres: 0,
       attack: 55,
-      ah: 15,
+      ap: 0,
+      as: 0,
+      moveSpeed: 0,
       flatArmPen: 15,
+      flatMagPen: 0,
+      armPen: 0,
+      magPen: 0,
+      critChance: 0,
+      critMultiplier: 0,      
+      ah: 15,
+      armorReduction: 0,    
   
       description:
         <div className='description'>
@@ -142,9 +271,24 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
     {
       name: 'Duskblade of Draktharr',
       icon: '../images/items/Duskblade.png',
+
+      health: 0,
+      mana: 0,
+      armor: 0,
+      magres: 0,
       attack: 55,
-      ah: 10,
+      ap: 0,
+      as: 0,
+      moveSpeed: 0,
       flatArmPen: 15,
+      flatMagPen: 0,
+      armPen: 0,
+      magPen: 0,
+      critChance: 0,
+      critMultiplier: 0,      
+      ah: 10,
+      armorReduction: 0,
+      
   
       description:
         <div className='itemDescription'>
@@ -159,8 +303,22 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
     {
       name: 'Sterak\'s Gage',
       icon: '../images/items/Steraks.png',
+
       health: 400,
+      mana: 0,
+      armor: 0,
+      magres: 0,
       attack: (base.attack*0.5),
+      ap: 0,
+      as: 0,
+      moveSpeed: 0,
+      flatArmPen: 0,
+      flatMagPen: 0,
+      armPen: 0,
+      magPen: 0,
+      critChance: 0,
+      critMultiplier: 0,
+      armorReduction: 0,    
       item_shield: (bonus.health * 0.75),
       
       description:
@@ -177,9 +335,23 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
     {
       name: 'Infinity Edge',
       icon: '../images/Infinity_Edge.png',
+
+      health: 0,
+      mana: 0,
+      armor: 0,
+      magres: 0,
       attack: 55,
+      ap: 0,
+      as: 0,
+      moveSpeed: 0,
+      flatArmPen: 0,
+      flatMagPen: 0,
+      armPen: 0,
+      magPen: 0,
       critChance: 0.25,
       critMultiplier: 0.25,
+      armorReduction: 0,
+      ah: 0,      
   
       description:
         <div className='itemDescription'>
@@ -189,6 +361,177 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
           <p><b>Infinity:</b> Critical Strikes deal 205% damage instead of 175%</p>
         </div>
     },
+
+    {
+      name: 'Mortal Reminder',
+      icon: '../images/Mortal.png', 
+
+      health: 0,
+      mana: 0,
+      armor: 0,
+      magres: 0,
+      attack: 45,
+      ap: 0,
+      as: 0,
+      moveSpeed: 0,
+      flatArmPen: 0,
+      flatMagPen: 0,
+      armPen: ((15 + Number(currentLevel))/100),
+      magPen: 0,
+      critChance: 0,
+      critMultiplier: 0,
+      armorReduction: 0,
+
+      description: 
+        <div className='itemDescription'>
+          <h3 className='stat--ad'>+{45} Attack Damage</h3>
+          <h3>Last Whisper: <abbr title="15 + your current level">+{(15 + Number(currentLevel))}%</abbr> Armor Penetration</h3>
+
+          <p><b>Sepsis:</b> Dealing <span className='stat--ad'>Physical Damage</span> to enemy champions apply 40% <abbr title="Reduces healing and regeneration">Grievous wounds</abbr> to target for 3 seconds. 60% for targets under <span className='stat--hp'>50% Health</span> </p>      
+        </div>
+    },
+
+    {
+      name: 'Manamune',
+      icon: '../images/items/Manamune.png',
+
+      health: 0,
+      mana: 0,
+      armor: 0,
+      magres: 0,
+      attack: 25 + Math.floor(total.mana * 0.015),
+      ap: 0,
+      as: 0,
+      moveSpeed: 0,
+      flatArmPen: 0,
+      flatMagPen: 0,
+      armPen: 0,
+      magPen: 0,
+      critChance: 0,
+      critMultiplier: 0,
+      ah: 0,
+      armorReduction: 0,
+      mana: 300,
+      ah: 20,
+
+      description: 
+        <div className="itemDescription">
+          <h3 className="stat--ad">+{25} Attack Damage</h3>
+          <h3 classname='stat--mana'>+{300} Max mana</h3>
+          <h3>+{20} Ability Haste</h3>
+
+          <p><b>Awe:</b> grants <abbr title="1.5% of maximum mana"><span className="stat--mana">{Math.floor(total.mana * 0.015)}</span></abbr> Attacks damage, refunds <span className='stat--mana'>15%</span> of all Mana spent</p>
+
+
+          <p><b>Mana Charge:</b> Increase max Mana by <span className='stat--mana'>10</span> every attack or when Mana is spent. Triggers up to 3 times every 12 seconds Caps at <span className='stat--mana'>700</span> bonus Mana and transforms into <b>Manamune</b> </p>
+        </div>
+
+
+    },
+
+    {
+      name: 'Muramana',
+      icon: '../images/items/Muramana.png',
+
+      health: 0,
+      mana: 0,
+      armor: 0,
+      magres: 0,
+      attack: 25 + Math.floor(total.mana * 0.015),
+      ap: 0,
+      as: 0,
+      moveSpeed: 0,
+      flatArmPen: 0,
+      flatMagPen: 0,
+      armPen: 0,
+      magPen: 0,
+      critChance: 0,
+      critMultiplier: 0,
+      ah: 0,
+      armorReduction: 0,
+      mana: 1000,
+      ah: 20,
+
+      description: 
+        <div className="itemDescription">
+          <h3 className="stat--ad">+{25} Attack Damage</h3>
+          <h3 classname='stat--mana'>+{1000} Max mana</h3>
+          <h3>+{20} Ability Haste</h3>
+
+          <p><b>Awe:</b> grants <abbr title="1.5% of maximum mana"><span className="stat--mana">{Math.floor(total.mana * 0.015)}</span></abbr> Attacks damage, refunds <span className='stat--mana'>15%</span> of all Mana spent</p>
+
+
+          <p><b>Shock:</b> When an <b>attack</b> hits an enemy champion drains <abbr title="(2.5%) provided numbers are for 100% total pool"><span>{Math.floor(total.mana * 0.025)}</span></abbr> and deals it as <span className='stat--ad'>Physical damage</span>.</p>
+          <p><b>Abilities</b> drains <abbr title="4%"><span className="stat--mana">{Math.floor(total.mana * 0.04)}</span></abbr> <b>current</b> mana and deals additional <abbr title="4% of mana drained + 6% of your Attack Damage"><span className="stat--ad">{Math.floor((total.mana * 0.04) + (total.attack * 0.06))} Physical damage</span></abbr>. Only triggers when remaining mana is above <abbr title="20%"><span className="stat--mana">{Math.floor(total.mana * 0.2)}</span></abbr>. Single attack or ability procs only once for one champion.</p>
+        </div>
+    },
+
+    {
+      name: 'Nashor\'s Tooth',
+      icon: '../images/items/Nashors.png',
+
+      
+
+      health: 0,
+      mana: 0,
+      armor: 0,
+      magres: 0,
+      attack: (bonus.attack > bonus.ap || bonus.ap == 0 ? 30 : 0),
+      ap: (bonus.ap > bonus.attack ? 60 : 0 ),
+      as: Number(base.asBase * 0.45),
+      moveSpeed: 0,
+      flatArmPen: 0,
+      flatMagPen: 0,
+      armPen: 0,
+      magPen: 0,
+      critChance: 0,
+      critMultiplier: 0,
+      ah: 20,
+      armorReduction: 0,
+
+      description:
+        <div className="itemDescription">
+          <h3 class='stat--as'>+ 45% ({(base.asBase * 0.45).toFixed(3)}) Attack Speed</h3>
+          <h3 class>+20 Ability Haste</h3>
+
+          <p><b>Magic Fang:</b> Gain <span className="stat--ad">30 Attack Damage</span> or <span className='stat--ap'>60 Ability Power</span> <abbr title="Based of what BONUS stat you have more. Calculated whenever you select this item from the list"><b>(Adaptive)</b></abbr>.</p>
+
+          <p><b>Gnaw:</b> When basic attack hits enemy champions, it will cause <abbr title="15 + 25% BONUS attack + 25% bonus ap"><span className='stat--ap'>{15 + (bonus.attack * 0.25) + (bonus.ap * 0.25)} bonus Magic damage</span></abbr></p>
+        </div>
+    },
+
+    {
+      name: 'Black Cleaver(stacked)',
+      icon: '../images/items/BC.png',
+      
+      
+      health: 350,
+      mana: 0,
+      armor: 0,
+      magres: 0,
+      attack: 40,
+      ap: 0,
+      as: 0,
+      moveSpeed: 0,
+      flatArmPen: 0,
+      flatMagPen: 0,
+      armPen: 0,
+      magPen: 0,
+      critChance: 0,
+      critMultiplier: 0,
+      ah: 20,
+      armorReduction:0.24,    
+
+      description: 
+        <div className='itemDescription'>
+          <h3 className='stat--hp'>+{350} Max Health</h3>
+          <h3 classname='stat--ad'>+{40} Attack Damage</h3>
+          <h3>+{20} Ability Haste</h3>          
+
+          <p><b>Sunder:</b>dealing <span className="stat--ad">Physical Damage</span> to a champion reduces their <span className="stat--ad">Armor</span> by <b>4%</b>, stacking 6 times up to <b>24%</b></p>
+        </div>
+
+    }
   
   
   ];
@@ -242,8 +585,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
           <div className='inventorySlot' key={index}>
             <div>
               <select onChange={(e) => handleChange(index, e.target.value)}>
-                <option value="" disabled>Select an item</option>
-                <option value="" disabled><b>-----Physical-----</b></option>
+                <option value="" disabled>Select an item</option>                
                 {physical.map((item, itemIndex) => (
                   <option key={itemIndex} value={itemIndex}>
                     {item.name}
