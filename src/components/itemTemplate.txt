@@ -1,0 +1,24 @@
+{
+      name: 'Empty slot',
+
+      health: 0,
+      mana: 0,
+      armor: 0,
+      magres: 0,
+      attack: 0,
+      ap: 0,
+      as: 0,
+      moveSpeed: 0,
+      flatArmPen: 0,
+      flatMagPen: 0,
+      armPen: 0,
+      magPen: 0,
+      critChance: 0,
+      critMultiplier: 0,
+      ah: 0,
+      armorReduction: 0,
+
+      description: 
+        <div className='itemDescription'>Empty slot</div>
+
+    },
