@@ -2,10 +2,60 @@ import { useState, useEffect } from "react";
 import React from 'react';
 import { Tooltip } from 'react-tooltip'
 import '../styles/StatColors.css'
+import { useStats } from './StatsContext';
 
 
 export default function Inventory({base, bonus, total, handleBonusChange, currentLevel}) { 
-  
+
+  // All this cringe to calculate target maxHP damage for Divine
+  const { totalStats } = useStats();
+
+  const target = totalStats[1];
+  const postMitigationArmor = (target, attacker) => {
+    let mitigatedArmor = 0
+    if (attacker.armorReduction && (target.armor * (1 - attacker.armorReduction) <= 0)) {
+      return (target.armor * (1 - attacker.armorReduction))
+    } else if (attacker.armorReduction) { 
+     
+      mitigatedArmor = ((target.armor * (1 - attacker.armorReduction)) * (1 - attacker.armPen) - attacker.flatArmPen);
+     
+      return (Math.max(mitigatedArmor, 0))
+
+    } else {
+      mitigatedArmor = (target.armor * ((1 - attacker.armPen)) - attacker.flatArmPen)
+
+      return (Math.max(mitigatedArmor, 0))
+    }
+  };
+
+  const postMitigationMres = (target, attacker) => {
+    let mitigatedMres = 0
+    if (attacker.magResReduction && (target.magres - attacker.magResReduction <= 0)) {
+      return Math.floor(target.magres - attacker.magResReduction)
+    } else if (attacker.magResReduction) { 
+     
+      mitigatedMres = ((target.magres - attacker.magResReduction) * Math.floor(1 - attacker.armPen) - attacker.flatMagPen);
+     
+      return Math.floor(Math.max(mitigatedMres, 0))
+
+    } else {
+      mitigatedMres = (target.magres * Math.floor(1 - attacker.armPen) - attacker.flatMagPen)
+
+      return Math.floor(Math.max(mitigatedMres, 0))
+    }
+  };
+
+  let targetMres = postMitigationMres(target, total);
+  let targetArmor = postMitigationArmor(target, total);
+  const modifier = ((1 - (100/(100 + (targetArmor)))));
+  const modifierMres = ((1 - (100/(100 + (targetMres)))));
+
+  useEffect(() => {
+    let targetMres = postMitigationMres(target, total)
+    targetArmor = postMitigationArmor(target, total)
+  }, [target, currentLevel])
+
+
 
   const physical = [
     {
@@ -88,7 +138,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
         <h3 className='stat--ad'>+ {55} Attack Damage</h3>
         <h3 className='stat--critChance'>+ {Number(0.25*100)}% Critical Rate</h3>
   
-        <p><b>Bloody: </b> <b className='stat--vamp'>+{Math.floor(total.attack * 12 / 100)}  Physical Vamp</b></p>
+        <p><b>Bloody: </b> <b className='stat--vamp'>+12% (<abbr title="Damage against 0 armor target / post mitigated for current target">{Math.floor((total.attack * 0.12))} / {Math.floor((total.attack * 0.12)* (1 - modifier))}</abbr>)  Physical Vamp</b></p>
         <p><b>Bloodsworn: </b> <b className='stat--vamp'>Physical Vamp</b> overheals you, generating a shield that absorbs <b className='stat--hp'>{(40 + 20 * (currentLevel - 1))}</b> (40 + 20/level) damage. This shield decays out of combat over 10 seconds</p>
       </div>
     },
@@ -157,7 +207,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
         <h3 className='stat--as'>+ {Number(base.asBase * 0.35).toFixed(3)} Attack Speed</h3>
   
         <p>
-          <b>Thirst:</b> <b className='stat--vamp'>+{Math.floor(total.attack * 10 / 100)}  Physical Vamp</b>
+          <b>Thirst:</b> <b className='stat--vamp'>+10% (<abbr title="Damage against 0 armor target / post mitigated for current target">{Math.floor((total.attack * 0.1))} / {Math.floor((total.attack * 0.1)* (1 - modifier))}</abbr>)  Physical Vamp</b>
         </p>
   
         <p>
@@ -589,7 +639,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
         <h3>+10 Ability Haste</h3>
 
         <p><b>Lifeline:</b> Damage that puts you under <abbr title="35% max hp"><span className="stat--hp">{Math.floor(total.health * 0.35)} Health</span></abbr> grants a Shield that absorbs <abbr title="no modifier"><span className='stat--hp'>350</span></abbr><span className="stat--magres"> Magic Damage</span> for 5 Seconds (90s Cooldown)</p>
-        <p><b>Lifegrip:</b> Triggering Lifeline grants you <span className='stat--ad'>30 Attack Damage</span> and <span className="stat--vamp">10 % Omnivamp</span> until out of combat</p>
+        <p><b>Lifegrip:</b> Triggering Lifeline grants you <span className='stat--ad'>30 Attack Damage</span> and <span className="stat--vamp">10 % Omnivamp (Total/Current {Math.floor((total.attack * 0.1))} / {Math.floor((total.attack * 0.1)* (1 - modifier))}; <abbr title="For now it does not calculate your ability damage. placeholder with formula same for AA, just for AP"><span className="stat--ap">{Math.floor((total.ap * 0.1))} / {Math.floor((total.ap * 0.1)* (1 - modifierMres))}</span></abbr> )</span> until out of combat</p>
 
       </div>
     },
@@ -658,6 +708,38 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
     },
 
     {
+      name: 'Phantom Dancer (Stacked)',
+
+      health: 0,
+      mana: 0,
+      armor: 0,
+      magres: 0,
+      attack: 25,
+      ap: 0,
+      as: (base.asBase * 0.3) + (base.asBase * 0.25),
+      moveSpeed: (base.moveSpeed * 0.05),
+      flatArmPen: 0,
+      flatMagPen: 0,
+      armPen: 0,
+      magPen: 0,
+      critChance: 0.25,
+      critMultiplier: 0,
+      ah: 0,
+      armorReduction:0,
+
+      description:
+        <div className="itemDescription">
+          <h3 className="stat--ad">+{25} Attack Damage</h3>
+          <h3 className="stat--critChance">+{25}% Critical Rate</h3>
+          <h3 className='stat--as'>+{30}%, +25% ({((base.asBase * 0.3)+ (base.asBase * 0.25)).toFixed(3)}) Attack Speed</h3>
+
+          <p><b>Shadowwalk:</b>+5% ({Math.floor(base.moveSpeed * 0.05)}) Movement Speed</p>
+
+          <p><b>Spectral Waltz</b>: gain +7% ({Math.floor(base.moveSpeed * 0.07)}) Movement Speed when you attack for 3 seconds. After attacking 4 times gain 25% ({(base.asBase * 0.25).toFixed(3)}) Attack Speed for the same duration</p>
+        </div>
+    },
+
+    {
       name: 'Wit\'s End',
 
       health: 0,
@@ -714,7 +796,424 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
           <p>After Attacking a champion your next ability or empowered attack will deal <abbr title="20 + 1 per 10% of critchance">{20 + 1 * Math.floor(total.critChance * 10)}%</abbr> more damage. 4s Cooldown. Cooldown reduced for 1s for each basic attack against a champion</p>
           <p>attacks restore <span className='stat--mana'>3% missing mana</span> on hit</p>
         </div>
-    }
+    },
+
+    {
+      name: 'Stormrazor',
+      health: 0,
+      mana: 0,
+      armor: 0,
+      magres: 0,
+      attack: 40,
+      ap: 0,
+      as: (base.asBase * 0.2),
+      moveSpeed: 0,
+      flatArmPen: 0,
+      flatMagPen: 0,
+      armPen: 0,
+      magPen: 0,
+      critChance: 0.25,
+      critMultiplier: 0,
+      ah: 0,
+      armorReduction:0,
+
+      description:
+        <div className="itemDescription">
+          <h3 className="stat--ad">+{40} Attack Damage</h3>
+          <h3 className="stat--critChance">+{25}% Critical Rate</h3>
+          <h3 className="stat--as">+20% ({(base.asBase * 0.2).toFixed(3)}) Attack Speed</h3>
+
+          <p><b>Energized:</b> Moving and attacking generate Energized attack. Energized attack deals <abbr title="50 + 5 per level"><span className='stat--ap'>{50 + 5 * (currentLevel - 1)} bonus Magic Damage</span></abbr> and slow by 75% for 0.5 seconds</p>
+        </div>
+    }, 
+    
+    {
+      name: 'Serylda\'s Grudge',
+
+      health: 0,
+      mana: 0,
+      armor: 0,
+      magres: 0,
+      attack: 40,
+      ap: 0,
+      as: 0,
+      moveSpeed: 0,
+      flatArmPen: 0,
+      flatMagPen: 0,
+      armPen: ((15 + Number(currentLevel))/100),
+      magPen: 0,
+      critChance: 0,
+      critMultiplier: 0,
+      ah: 15,
+      armorReduction: 0,
+
+      description: 
+        <div className='itemDescription'>
+          <h3 className='stat--ad'>+{40} Attack Damage</h3>
+          <h3>+{15} Ability Haste</h3>
+          <h3>Last Whisper: <abbr title="15 + your current level"> +{(15 + Number(currentLevel))}%</abbr> Armor Penetration</h3>
+
+          <p><b>Icy:</b> Damaging and active abilities and empowered attacks slow enemies by 30% for 1 second</p>
+        </div>
+    },
+
+    {
+      name: 'Solari Chargeblade',
+
+      health: 0,
+      mana: 0,
+      armor: 0,
+      magres: 0,
+      attack: 0,
+      ap: 0,
+      as: (base.asBase * 0.4),
+      moveSpeed: 0,
+      flatArmPen: 0,
+      flatMagPen: 0,
+      armPen: 0,
+      magPen: 0,
+      critChance: 0.25,
+      critMultiplier: 0,
+      ah: 20,
+      armorReduction: 0,
+
+      description: 
+        <div className='itemDescription'>
+          <h3 className='stat--critChance'>+{25}% Critical Rate</h3>
+          <h3 className="stat--as">+{40}% ({(base.asBase * 0.4).toFixed(3)}) Attack Speed</h3>
+          <h3>+20 Ability Haste</h3>
+
+          <p><b>Sunburst:</b> Using an ability gathers you a stack of <span className='stat--magres'>Radiance</span> for 10 seconds, up to 3 Charges. Attacks that hit enemies use the charge to deal <abbr title="35 + 3 per level"><span className='stat--ap'>{35 + 3 * currentLevel} bonus magic damage on hit</span></abbr>. This bonus can <span className="stat--vamp">Critically strike</span>. Each unique ability can generate 1 charge every 2 seconds</p>
+        </div>
+    },
+
+    {
+      name: 'Navori Quickblades',
+
+      health: 0,
+      mana: 0,
+      armor: 0,
+      magres: 0,
+      attack: 45,
+      ap: 0,
+      as: 0,
+      moveSpeed: 0,
+      flatArmPen: 0,
+      flatMagPen: 0,
+      armPen: 0,
+      magPen: 0,
+      critChance: 0.25,
+      critMultiplier: 0,
+      ah: 15,
+      armorReduction: 0,
+
+      description: 
+        <div className='itemDescription'>
+          <h3 className="stat--ad">+{45} Attack Damage</h3>
+          <h3 className='stat--critChance'>+{25}% Critical Rate</h3>
+          <h3>+{15} Ability Haste</h3>
+
+          <p><b>Deft Strike:</b> <span className="stat--vamp">Critical Attakcs</span> reduce your non-ultimate ability cooldowns by 20% of their remaining cooldown</p>
+        </div>
+    },
+
+    {
+      name: 'Edge of Night',
+
+      health: 250,
+      mana: 0,
+      armor: 0,
+      magres: 0,
+      attack: 50,
+      ap: 0,
+      as: 0,
+      moveSpeed: 0,
+      flatArmPen: 8,
+      flatMagPen: 0,
+      armPen: 0,
+      magPen: 0,
+      critChance: 0,
+      critMultiplier: 0,
+      ah: 0,
+      armorReduction: 0,
+
+      description: 
+        <div className='itemDescription'>
+          <h3 className="stat--hp">+{250} Max Health</h3>
+          <h3 className='stat--ad'>+{50} Attack Damage</h3>
+
+          <p><b>Gouge: +{8} Armor Penetration</b></p>
+          <p><b>Annul:</b> Grants a spell shield that blocks one hostile ability. <b>35 seconds</b> cooldown</p>
+        </div>
+    },
+    
+    {
+      name: 'Hullbreaker',
+
+      health: 300,
+      mana: 0,
+      armor: 0,
+      magres: 0,
+      attack: 55,
+      ap: 0,
+      as: 0,
+      moveSpeed: 0,
+      flatArmPen: 0,
+      flatMagPen: 0,
+      armPen: 0,
+      magPen: 0,
+      critChance: 0,
+      critMultiplier: 0,
+      ah: 0,
+      armorReduction: 0,
+
+      description: 
+        <div className='itemDescription'>
+          <h3 className='stat--hp'>+{300} Max Health</h3>
+          <h3 className='stat--ad'>+{55} Attack Damage</h3>
+
+          <p><b>Boarding Party:</b> When no allied champions are within 1200 units you get:</p>
+          <p><b><u>for Melee:</u> </b> <span className="stat--armor"><abbr title="4 + 46 / 14 * (level - 1)">{Math.floor(4 + 46 / 14 * (currentLevel - 1))} Armor</abbr></span>, <span className="stat--magres"><abbr title="4 + 16 / 14 * (level - 1)">{Math.floor(4 + 16 / 14 * (currentLevel - 1))} Magic Resistance</abbr></span></p>
+          <p><b><u>for Ranged:</u> </b> <span className="stat--armor"><abbr title="2 + 23 / 14 * (level - 1)">{Math.floor(2 + 23 / 14 * (currentLevel - 1))} Armor</abbr></span>, <span className="stat--magres"><abbr title="2 + 8 / 14 * (level - 1)">{Math.floor(2 + 8 / 14 * (currentLevel - 1))} Magic Resistance</abbr></span></p>
+          <p>And deal <b>20%</b> additional Damage to Structures</p>
+
+          <p>Nearby Large Minions gain:</p>
+          <p><b>(for Melee) </b><span className='stat--ad'>{Math.floor(40 + 130 / 14 * (currentLevel - 1))} Armor</span> and <span class='stat--magres'>{Math.floor(20 + 65 / 14 * (currentLevel - 1))} Magic Resistance</span></p>
+          <p><b>(for Ranged) </b><span className='stat--ad'>{Math.floor(20 + 60 / 14 * (currentLevel - 1))} Armor</span> and <span class='stat--magres'>{Math.floor(10 + 30 / 14 * (currentLevel - 1))} Magic Resistance</span></p>
+          <p>Also 10% bonus size and deal 200% bonus damage to turrets</p>
+        </div>
+    },
+
+    {
+      name: 'Hullbreaker (Stacked Melee)',
+
+      health: 300,
+      mana: 0,
+      armor: (Math.floor(4 + 46 / 14 * (currentLevel - 1))),
+      magres: (Math.floor(4 + 16 / 14 * (currentLevel - 1))),
+      attack: 55,
+      ap: 0,
+      as: 0,
+      moveSpeed: 0,
+      flatArmPen: 0,
+      flatMagPen: 0,
+      armPen: 0,
+      magPen: 0,
+      critChance: 0,
+      critMultiplier: 0,
+      ah: 0,
+      armorReduction: 0,
+
+      description: 
+        <div className='itemDescription'>
+          <h3 className='stat--hp'>+{300} Max Health</h3>
+          <h3 className='stat--ad'>+{55} Attack Damage</h3>
+
+          <p><b>Boarding Party:</b> When no allied champions are within 1200 units you get:</p>
+          <p><b><u>for Melee:</u> </b> <span className="stat--armor"><abbr title="4 + 46 / 14 * (level - 1)">{Math.floor(4 + 46 / 14 * (currentLevel - 1))} Armor</abbr></span>, <span className="stat--magres"><abbr title="4 + 16 / 14 * (level - 1)">{Math.floor(4 + 16 / 14 * (currentLevel - 1))} Magic Resistance</abbr></span></p>
+          <p><b><u>for Ranged:</u> </b> <span className="stat--armor"><abbr title="2 + 23 / 14 * (level - 1)">{Math.floor(2 + 23 / 14 * (currentLevel - 1))} Armor</abbr></span>, <span className="stat--magres"><abbr title="2 + 8 / 14 * (level - 1)">{Math.floor(2 + 8 / 14 * (currentLevel - 1))} Magic Resistance</abbr></span></p>
+          <p>And deal <b>20%</b> additional Damage to Structures</p>
+
+          <p>Nearby Large Minions gain:</p>
+          <p><b>(for Melee) </b><span className='stat--ad'>{Math.floor(40 + 130 / 14 * (currentLevel - 1))} Armor</span> and <span class='stat--magres'>{Math.floor(20 + 65 / 14 * (currentLevel - 1))} Magic Resistance</span></p>
+          <p><b>(for Ranged) </b><span className='stat--ad'>{Math.floor(20 + 60 / 14 * (currentLevel - 1))} Armor</span> and <span class='stat--magres'>{Math.floor(10 + 30 / 14 * (currentLevel - 1))} Magic Resistance</span></p>
+          <p>Also 10% bonus size and deal 200% bonus damage to turrets</p>
+        </div>
+    },
+
+    {
+      name: 'Hullbreaker (Stacked Ranged)',
+
+      health: 300,
+      mana: 0,
+      armor: Math.floor(2 + 23 / 14 * (currentLevel - 1)),
+      magres: Math.floor(2 + 8 / 14 * (currentLevel - 1)),
+      attack: 55,
+      ap: 0,
+      as: 0,
+      moveSpeed: 0,
+      flatArmPen: 0,
+      flatMagPen: 0,
+      armPen: 0,
+      magPen: 0,
+      critChance: 0,
+      critMultiplier: 0,
+      ah: 0,
+      armorReduction: 0,
+
+      description: 
+        <div className='itemDescription'>
+          <h3 className='stat--hp'>+{300} Max Health</h3>
+          <h3 className='stat--ad'>+{55} Attack Damage</h3>
+
+          <p><b>Boarding Party:</b> When no allied champions are within 1200 units you get:</p>
+          <p><b><u>for Melee:</u> </b> <span className="stat--armor"><abbr title="4 + 46 / 14 * (level - 1)">{Math.floor(4 + 46 / 14 * (currentLevel - 1))} Armor</abbr></span>, <span className="stat--magres"><abbr title="4 + 16 / 14 * (level - 1)">{Math.floor(4 + 16 / 14 * (currentLevel - 1))} Magic Resistance</abbr></span></p>
+          <p><b><u>for Ranged:</u> </b> <span className="stat--armor"><abbr title="2 + 23 / 14 * (level - 1)">{Math.floor(2 + 23 / 14 * (currentLevel - 1))} Armor</abbr></span>, <span className="stat--magres"><abbr title="2 + 8 / 14 * (level - 1)">{Math.floor(2 + 8 / 14 * (currentLevel - 1))} Magic Resistance</abbr></span></p>
+          <p>And deal <b>20%</b> additional Damage to Structures</p>
+
+          <p>Nearby Large Minions gain:</p>
+          <p><b>(for Melee) </b><span className='stat--ad'>{Math.floor(40 + 130 / 14 * (currentLevel - 1))} Armor</span> and <span class='stat--magres'>{Math.floor(20 + 65 / 14 * (currentLevel - 1))} Magic Resistance</span></p>
+          <p><b>(for Ranged) </b><span className='stat--ad'>{Math.floor(20 + 60 / 14 * (currentLevel - 1))} Armor</span> and <span class='stat--magres'>{Math.floor(10 + 30 / 14 * (currentLevel - 1))} Magic Resistance</span></p>
+          <p>Also 10% bonus size and deal 200% bonus damage to turrets</p>
+        </div>
+    },
+
+    {
+      name: 'Divine Sunderer',
+
+      health: 400,
+      mana: 0,
+      armor: 0,
+      magres: 0,
+      attack: 25,
+      ap: 0,
+      as: 0,
+      moveSpeed: 0,
+      flatArmPen: 0,
+      flatMagPen: 0,
+      armPen: 0,
+      magPen: 0,
+      critChance: 0,
+      critMultiplier: 0,
+      ah: 25,
+      armorReduction: 0,
+
+      description: 
+        <div className='itemDescription'>
+          <h3 className="stat--hp">+{400} Max Health</h3>
+          <h3 className='stat--ad'>+{25} Attack Damage</h3>
+          <h3>+25 Ability Haste</h3>
+
+          <p><b>Spellblade:</b>After using an ability your next attack within 10 seconds will deal <abbr title="10% max HP"><span className="stat--hp">{Math.floor((target.health * 0.1)* (1 - modifier))}</span></abbr> as bonus <span className="stat--ad">Physical damage</span> ( <abbr title="7% max hp"><span className="stat--hp">{Math.floor((target.health * 0.07)* (1 - modifier))}</span></abbr> if attack is ranged)</p>
+          <p>Heal for <abbr title="7%  target max hp"><span className="stat--hp">{Math.floor((target.health * 0.07)* (1 - modifier))}</span></abbr> ( <abbr title="3% max hp"><span className="stat--hp">{Math.floor((target.health * 0.03)* (1 - modifier))}</span></abbr> If attack is ranged ).</p>
+          <p>1.5s Cooldown. Damage is reduced against structures</p>
+        </div>
+    },
+
+    {
+      name: 'Serpent\'s Fang',
+
+      health: 0,
+      mana: 0,
+      armor: 0,
+      magres: 0,
+      attack: 50,
+      ap: 0,
+      as: 0,
+      moveSpeed: 0,
+      flatArmPen: 15,
+      flatMagPen: 0,
+      armPen: 0,
+      magPen: 0,
+      critChance: 0,
+      critMultiplier: 0,
+      ah: 10,
+      armorReduction: 0,
+
+      description: 
+        <div className='itemDescription'>
+          <h3 className='stat--ad'>+{55} Attack Damage</h3>
+          <h3 >+{10} Ability Haste</h3>
+          <h3>+{15} Armor Penetration</h3>
+
+          <p><b>Shield Reaver:</b> Dealing Damage to an enemy champion reduce any shield they gain for 50% (30% if Ranged attack). When damaging enemies not affected by Shield Reaver, reduce all shields on them by 50% (35% for Ranged champions). Shiled reduction not applicable to magic-only shields</p>
+        </div>
+
+    },
+
+    {
+      name: 'Lord Dominik\'s Regards',
+
+      health: 0,
+      mana: 0,
+      armor: 0,
+      magres: 0,
+      attack: 35,
+      ap: 0,
+      as: 0,
+      moveSpeed: 0,
+      flatArmPen: 0,
+      flatMagPen: 0,
+      armPen: ((15 + Number(currentLevel))/100),
+      magPen: 0,
+      critChance: 0.25,
+      critMultiplier: 0,
+      ah: 0,
+      armorReduction: 0,
+
+      description: 
+        <div className='itemDescription'>
+          <h3 className='stat--ad'>+{35} Attack Damage</h3>
+          <h3 className='stat--critChance'>+{25}% Critical Rate</h3>
+          <h3>Last Whisper: <abbr title="15 + your current level">+{(15 + Number(currentLevel))}%</abbr> Armor Penetration</h3>
+
+          <p><b>Rapid Shot:</b> If not engaged in champion combat, your next attack on a chmpion gains 80% ({(base.asBase * 0.8).toFixed(3)}) Attack Speed.</p>
+        </div>
+    },
+
+    {
+      name: 'Immmortal Shieldbow',
+
+      health: 0,
+      mana: 0,
+      armor: 0,
+      magres: 0,
+      attack: 40,
+      ap: 0,
+      as: (base.asBase * 0.15),
+      moveSpeed: 0,
+      flatArmPen: 0,
+      flatMagPen: 0,
+      armPen: 0,
+      magPen: 0,
+      critChance: 0.25,
+      critMultiplier: 0,
+      ah: 0,
+      armorReduction: 0,
+
+      description: 
+        <div className='itemDescription'>
+          <h3 className="stat--ad">+{40} Attack Damage</h3>
+          <h3 className='stat--critChance'>+{25}% Critical Rate</h3>
+          <h3 classname='stat--as'>+15% ({(base.asBase * 0.15).toFixed(3)}) Attack Speed</h3>
+          <h3 className="stat--vamp">+5% (<abbr title="Damage against 0 armor target / post mitigated for current target">{Math.floor(total.attack* 0.05)}/{Math.floor((total.attack * 0.05)* (1 - modifier))}</abbr> ) Physical Vamp</h3>
+
+          <p><b>Lifeline:</b> Damage that puts you under <abbr title="35% of Max Health"><span className='stat--hp'>{Math.floor(total.health * 0.35)} Health</span></abbr> grants a shield that will absorb <span className='stat--armor'><abbr title="200 + 3 per 1% of critical chance">{Math.floor(200 + 3 * (total.critChance * 100))}</abbr> damage</span> for 5 seconds (90 seconds cooldown).</p>
+          <p><b>Battle Furor:</b> Triggering lifeline grants <span className='stat--vamp'><abbr title="5% Physical">{Math.floor(total.attack * 0.05)} (Current target: {Math.floor((total.attack * 0.05)* (1 - modifier))})</abbr>Physical Vamp</span> for 8 seconds</p>
+        </div>
+    },
+
+    {
+      name: 'The Collector',
+
+      health: 0,
+      mana: 0,
+      armor: 0,
+      magres: 0,
+      attack: 40,
+      ap: 0,
+      as: 0,
+      moveSpeed: 0,
+      flatArmPen: 10,
+      flatMagPen: 0,
+      armPen: 0,
+      magPen: 0,
+      critChance: 0.25,
+      critMultiplier: 0,
+      ah: 0,
+      armorReduction: 0,
+
+      description: 
+        <div className='itemDescription'>
+          <h3 className='stat--ad'>+{40} Attack Damage</h3>
+          <h3 className="stat--critChance">+{25}% Critical Rate</h3>
+          <h3>+10 Armor Penetration</h3>
+
+          <p><b>Death And Taxes:</b> Dealing Damage that would leave an enemy champion below <abbr title="5% of their maximum health"><span className="stat--hp">{Math.floor(target.health)} health</span></abbr> execute them. Champion kills grant additional <span className="stat--armor">25 Gold.</span></p>
+        </div>
+
+    },
+
   ];
 
 
@@ -740,7 +1239,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
   useEffect(() => {
     const updatedBonusValues = NewBonusValues(Items);
     handleBonusChange(updatedBonusValues);
-  }, [Items]);
+  }, [Items, currentLevel]);
 
   //state and logic to display inventory and description
    const [selectedItems, setSelectedItems] = useState([null, null, null, null, null]);
