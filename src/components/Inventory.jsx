@@ -52,6 +52,8 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
   const modifier = ((1 - (100/(100 + (targetArmor)))));
   const modifierAtt = ((1 - (100/(100 + (attArmor)))))
   const modifierMres = ((1 - (100/(100 + (targetMres)))));
+  const sunFireEffect = ((16 + 9 / 14 * (currentLevel - 1)) + (bonus.health * 8 / 100));
+
 
 
   useEffect(() => {
@@ -1809,7 +1811,761 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
 
     },
 
-    
+    {
+      name: 'Cosmic Drive',
+
+      health: 0,
+      mana: 0,
+      armor: 0,
+      magres: 0,
+      attack: 0,
+      ap: 75,
+      as: 0,
+      moveSpeed: (base.moveSpeed * 5 / 100),
+      flatArmPen: 0,
+      flatMagPen: 0,
+      armPen: 0,
+      magPen: 0,
+      critChance: 0,
+      critMultiplier: 0,
+      ah: 30,
+      armorReduction: 0,
+
+      description: 
+        <div className='itemDescription'>
+          <h3 className="stat--ap">+75 Ability Power</h3>
+          <h3>+30 Ability Haste</h3>
+          <h3>Hyperdrive: +5% ({Math.floor(base.moveSpeed * 5 / 100)}) Movoment speed</h3>
+
+          <p><b>Spellweaving: </b>Active abilities and empowered attacks grant <abbr title="30 + 70% Ability Haste"><b>{Math.floor(30 + (attacker.ah * 70 /100))} Movement Speed</b></abbr> after dealing damage to enemy champion. This movement speed decays over 2 seconds. Each source has 1s cooldown for triggering the effect. Only <b>Ability Haste</b> from items contributes to Spellweaving's movement speed</p>
+        </div>
+
+    },
+
+    {
+      name: 'Riftmaker',
+
+      health: 150,
+      mana: 0,
+      armor: 0,
+      magres: 0,
+      attack: 0,
+      ap: 80,
+      as: 0,
+      moveSpeed: 0,
+      flatArmPen: 0,
+      flatMagPen: 0,
+      armPen: 0,
+      magPen: 0,
+      critChance: 0,
+      critMultiplier: 0,
+      ah: 15,
+      armorReduction: 0,
+
+      description: 
+        <div className='itemDescription'>
+          <h3 className="stat--hp">+150 Max Health</h3>
+          <h3 className="stat--ap">+80 Ability Power</h3>
+          <h3>+15 Ability Haste</h3>
+          <h3 className="stat--vamp">+12% Omnivamp</h3>
+
+          <p><b>Void Corruption:</b> When in combat with champions gain 1 stack of <b>Corruption</b> every 1 seconds. Every stacks increases the damage you deal by 3% up to 3 stacks. At 3 stacks additional damage becomes <b>true damage</b>.</p>
+        </div>
+
+    },
+
+    {
+      name: 'Horizon Focus',
+
+      health: 150,
+      mana: 0,
+      armor: 0,
+      magres: 0,
+      attack: 0,
+      ap: 80,
+      as: 0,
+      moveSpeed: 0,
+      flatArmPen: 0,
+      flatMagPen: 0,
+      armPen: 0,
+      magPen: 0,
+      critChance: 0,
+      critMultiplier: 0,
+      ah: 15,
+      armorReduction: 0,
+
+      description: 
+        <div className='itemDescription'>
+          <h3 className="stat--hp">+150 Max Health</h3>
+          <h3 className="stat--ap">+80 Ability Power</h3>
+          <h3>+15 Ability Haste</h3>
+          
+          <p><b>Hypershot</b>Apply 1 mark when you damage enemy champion with non-targeted ability from 500 units away; apply 2 marks for immobolizing. MArked enemies are revealed. At 3 stacks detonate them  to deal <abbr title="90 +25% AP; numbers are pre/post-mitigation"><span className="stat--ap">{Math.floor(90 + (total.ap * 25 / 100))} / {Math.floor((90 + (total.ap * 25 / 100)) * (1 - modifierMres))} Magic damage</span></abbr> to the target.</p>
+        </div>
+
+    },
+
+    //Defense items
+
+    {
+      name: 'Sunfire Aegis',
+
+      health: 500,
+      mana: 0,
+      armor: 0,
+      magres: 0,
+      attack: 0,
+      ap: 0,
+      as: 0,
+      moveSpeed: 0,
+      flatArmPen: 0,
+      flatMagPen: 0,
+      armPen: 0,
+      magPen: 0,
+      critChance: 0,
+      critMultiplier: 0,
+      ah: 15,
+      armorReduction: 0,
+
+      description: 
+        <div className='itemDescription'>
+          <h3 className="stat--hp">+500 Max Health</h3>
+          <h3>+15 Ability Haste</h3>
+
+          <p><b>Immolate:</b> deals <abbr title="(16 + 9 / 14 * (level - 1)) + 0.8% of BONUS hp; pre/post mitigation numbers"><span className="stat--ap">{Math.floor(sunFireEffect)} / {Math.floor((sunFireEffect * (1 - modifierMres)))} Magic Damage</span></abbr> per second to nearby enemies. <span className="stat--ap">Immolate</span> increases it's damage by 7% for 5s, stacking up to 6 times to: <span className="stat--ap">{Math.floor((sunFireEffect) + (sunFireEffect * 7 / 100 * 6))} / {Math.floor((((sunFireEffect) + (sunFireEffect * 7 / 100 * 6)) * (1 - modifierMres)))}</span></p> 
+          <p><b>Flametouch:</b> At max stacks <span className="stat--ap">Immolate</span> stacks attacks burn enemies for <abbr title="50% of immolates damage" className="stat--ap">{Math.floor(((sunFireEffect) + (sunFireEffect * 7 / 100 * 6))/2)} / {Math.floor(((((sunFireEffect) + (sunFireEffect * 7 / 100 * 6)) * (1 - modifierMres)))/2)} Magic Damage</abbr>. Immolate deals <abbr title="130%" className="stat--ap">{Math.floor(((sunFireEffect) + (sunFireEffect * 7 / 100 * 6))*(130/100))} Damage to monsters</abbr> and <abbr title="175% + 75% / 14 * (level - 1)" className="stat--ap">{Math.floor(sunFireEffect * (1.75 + 0.75 / 14 * (currentLevel - 1)))} Damage</abbr> to minions</p>         
+        </div>
+
+    },
+
+    {
+      name: 'Spirit Visage',
+
+      health: 350,
+      mana: 0,
+      armor: 0,
+      magres: 50,
+      attack: 0,
+      ap: 0,
+      as: 0,
+      moveSpeed: 0,
+      flatArmPen: 0,
+      flatMagPen: 0,
+      armPen: 0,
+      magPen: 0,
+      critChance: 0,
+      critMultiplier: 0,
+      ah: 20,
+      armorReduction: 0,
+
+      description: 
+        <div className='itemDescription'>
+          <h3 className="stat--hp">+350 Max Health</h3>
+          <h3 className="stat--hp">+100% Health Regen</h3>
+          <h3 className="stat--magres">+50 Magic Resistance</h3>
+          <h3>+20 Ability Haste</h3>
+
+          <p><b>Blessed:</b> Increases all healing and shielding effects on you by <span className="stat--hp">30%</span></p>
+        </div>
+
+    },
+
+    {
+      name: 'Randuin\'s Omen',
+
+      health: 400,
+      mana: 0,
+      armor: 60,
+      magres: 0,
+      attack: 0,
+      ap: 0,
+      as: 0,
+      moveSpeed: 0,
+      flatArmPen: 0,
+      flatMagPen: 0,
+      armPen: 0,
+      magPen: 0,
+      critChance: 0,
+      critMultiplier: 0,
+      ah: 0,
+      armorReduction: 0,
+
+      description: 
+        <div className='itemDescription'>
+          <h3 className="stat--hp">+400 Max Health</h3>
+          <h3 className="stat--armor">+60 Armor</h3>
+
+          <p><b>Cold Steel</b> reduces the attack speed of enemies by <b>15%</b> when struck by basic attack</p>
+          <p><b>Determination:</b> When you are getting critically struck store (20% for melee / 14% for ranged) pre-mitigation damage received as Datermination stacks for 5 seconds (500 stacks max). When you attack a champion consume all stacks and heal for the amount consumed.</p>
+        </div>
+
+    },
+
+    {
+      name: 'Thornmail',
+
+      health: 100,
+      mana: 0,
+      armor: 75,
+      magres: 0,
+      attack: 0,
+      ap: 0,
+      as: 0,
+      moveSpeed: 0,
+      flatArmPen: 0,
+      flatMagPen: 0,
+      armPen: 0,
+      magPen: 0,
+      critChance: 0,
+      critMultiplier: 0,
+      ah: 0,
+      armorReduction: 0,
+
+      description: 
+        <div className='itemDescription'>
+          <h3 className="stat--hp">+100 Max Health</h3>
+          <h3 className="stat--armor">+75 Armor</h3>
+
+          <p><b>Thorns: </b>When struck by attack deal <abbr title="20 + 6% bonus armor + 1% bonus HP; numbers are pre/post-mitigation">{Math.floor((20 + (bonus.armor * 6 / 100) + (bonus.health /100)))}
+          / {Math.floor((20 + (bonus.armor * 6 / 100) + (bonus.health /100)) * (1 - modifierMres))} Magic Damage</abbr> to the attacker and apply 40% <b>Grievous Wounds</b>. 60% for target under 50% health / immobilized.</p>
+          <p><b>Grievous Wounds</b> reduces the effectiveness of healing and regeneration effects.</p>
+        </div>
+
+    },
+
+    {
+      name: 'Warmog\'s Armor',
+
+      health: 700,
+      mana: 0,
+      armor: 0,
+      magres: 0,
+      attack: 0,
+      ap: 0,
+      as: 0,
+      moveSpeed: 0,
+      flatArmPen: 0,
+      flatMagPen: 0,
+      armPen: 0,
+      magPen: 0,
+      critChance: 0,
+      critMultiplier: 0,
+      ah: 10,
+      armorReduction: 0,
+
+      description: 
+        <div className='itemDescription'>
+          <h3 className="stat--hp">+700 Max Health</h3>
+          <h3 className="stat--hp">+200% Health Regen</h3>
+          <h3>+10 Ability Haste</h3>
+
+          <p><b>Warmog's Heart:</b> If you have at least <span className="stat--hp">950 bonus health</span>, and did not take any damage within last 6 seconds, restore <abbr title="5% Max health" className="stat--hp">{Math.floor(total.health * 5 / 100)} Health</abbr> per second</p>
+        </div>
+
+    },
+
+    {
+      name: 'Iceborn Gauntlet',
+
+      health: 250,
+      mana: 250,
+      armor: 50,
+      magres: 0,
+      attack: 0,
+      ap: 0,
+      as: 0,
+      moveSpeed: 0,
+      flatArmPen: 0,
+      flatMagPen: 0,
+      armPen: 0,
+      magPen: 0,
+      critChance: 0,
+      critMultiplier: 0,
+      ah: 30,
+      armorReduction: 0,
+
+      description: 
+        <div className='itemDescription'>
+          <h3 className="stat--hp">+250 Max Health</h3>
+          <h3 className="stat--armor">+50 Armor</h3>
+          <h3 className="stat--mana">+250 Max Mana</h3>
+
+          <p><b>Spellblade: </b>Using an ability causes the next attack within 10 seconds to deal <abbr title="100% base AD + 25% armor; numbers are pre/post mitigation" className="stat--ad">{Math.floor(base.attack + (bonus.armor / 4))} / {Math.floor((base.attack + (bonus.armor / 4)) * (1 - modifier))} Bonus Physical Damage</abbr> in an area and creates an icy zone for 2 seconds that slows by <b>30%</b>. Armor increases the size of a field (1.5s Cooldown). Damage is reduced against structures.</p>
+        </div>
+
+    },
+
+    {
+      name: 'Dead Man\'s Plate',
+
+      health: 250,
+      mana: 0,
+      armor: 50,
+      magres: 0,
+      attack: 0,
+      ap: 0,
+      as: 0,
+      moveSpeed: (base.moveSpeed * 5 / 100),
+      flatArmPen: 0,
+      flatMagPen: 0,
+      armPen: 0,
+      magPen: 0,
+      critChance: 0,
+      critMultiplier: 0,
+      ah: 0,
+      armorReduction: 0,
+
+      description: 
+        <div className='itemDescription'>
+          <h3 className="stat--health">+250 Max Health</h3>
+          <h3 className="stat--armor">+50 Armor</h3>
+
+          <p><b>Relentless:</b> +5% ({Math.floor(base.moveSpeed * 5 / 100)}) Movement Speed</p>
+
+          <p><b>Momentum:</b> Moving builds up stacks, granting up to 40 Movement Speed at 100 stacks. Attacking removes all Momentum stacks, stacks decay when movement impaired.</p>
+
+          <p><b>Crushing blow:</b> Attacks deal up to <span className="stat--ap">100 <abbr title="post-mitigation">({Math.floor(100 * (1 - modifierMres))})</abbr> Bonus Magic Damage</span> based on Momentum removed . Attacks with max Momentum slows the target by 50% for 1 second.</p>
+        </div>
+
+    },
+
+    {
+      name: 'Abyssal Mask',
+
+      health: 250,
+      mana: 300,
+      armor: 0,
+      magres: 40,
+      attack: 0,
+      ap: 0,
+      as: 0,
+      moveSpeed: 0,
+      flatArmPen: 0,
+      flatMagPen: 0,
+      armPen: 0,
+      magPen: 0,
+      critChance: 0,
+      critMultiplier: 0,
+      ah: 10,
+      armorReduction: 0,
+
+      description: 
+        <div className='itemDescription'>
+          <h3 className="stat--hp">+300 Max Health</h3>
+          <h3 className="stat--magres">+40 Magic Resistance</h3>
+          <h3 className="stat--mana">+300 Max Mana</h3>
+          <h3>+10 Ability Haste</h3>
+
+          <p><b>Eternity:</b> restore <span className="stat--mana">Mana</span> equal to 15% damage taken from champions. Regen <span className="stat--hp">Health</span> equal to 20% of mana spent Capped at 25 health per cast.</p>
+          <p><b>Abyssal</b> store <span>20% pre-mitigation magic damage</span> taken for 5 seconds. When you immobilize the champion explode stacks for <span className="stat--ap">Magic Damage</span> equal to stored stacks.</p>
+        </div>
+
+    },
+
+    {
+      name: 'Zeke\'s Convergence',
+
+      health: 0,
+      mana: 150,
+      armor: 40,
+      magres: 40,
+      attack: 0,
+      ap: 0,
+      as: 0,
+      moveSpeed: 0,
+      flatArmPen: 0,
+      flatMagPen: 0,
+      armPen: 0,
+      magPen: 0,
+      critChance: 0,
+      critMultiplier: 0,
+      ah: 10,
+      armorReduction: 0,
+
+      description: 
+        <div className='itemDescription'>
+          <h3 className="stat--armor">+40 Armor</h3>
+          <h3 className="stat--magres">+40 Magic Resistance</h3>
+          <h3 className="stat--mana">+150 Max mana</h3>
+          <h3>+10 Ability Haste</h3>
+
+          <p>
+           <b>Harbringer:</b> While near an allied champion, casting your ultimate ability grants you and a nearby allied champion bonus effects for 10 seconds. Prioritizes highest attack damage ally. You have a 300 range aura that slows enemies within by 20%, and your ally's basic attacks burn their target dealing <span className="stat--ap">30% bonus magic damage</span> over 2 seconds. 
+          </p>
+          <p>
+            <b>Frostfire Covenant: </b>Slowing a burning enemy with your frost aura deals <span className="stat--ap">60 <abbr title="post-mitigated for current target">({Math.floor(60 * (1 - modifierMres))})</abbr> magic damage per second</span>  to nearby enemies and slow them by 50% for 3 seconds. 
+          </p>
+        </div> 
+
+    },
+
+    {
+      name: 'Protector\'s Vow',
+
+      health: 350,
+      mana: 0,
+      armor: 40,
+      magres: 0,
+      attack: 0,
+      ap: 0,
+      as: 0,
+      moveSpeed: 0,
+      flatArmPen: 0,
+      flatMagPen: 0,
+      armPen: 0,
+      magPen: 0,
+      critChance: 0,
+      critMultiplier: 0,
+      ah: 10,
+      armorReduction: 0,
+
+      description: 
+        <div className='itemDescription'>
+          <h3 className="stat--hp">+350 Max Health</h3>
+          <h3 className="stat--armor">+40 Armor</h3>
+          <h3>+10 Ability Haste</h3>
+
+          <p><b>Proptector:</b> Raise your guard when you're near an allied champion. If you or ally take damage, both of you receive <abbr title="125 + 30% BONUS HP" className="stat--hp">{Math.floor(125 + (bonus.health * 30 / 100))} shield</abbr> for 1.5 seconds. 20 seconds cooldown.</p>
+        </div>
+
+    },
+
+    {
+      name: 'Winter\'s Approach',
+
+      health: 350 + Math.floor((attacker.mana) * 8 / 100),
+      mana: 500,
+      armor: 0,
+      magres: 0,
+      attack: 0,
+      ap: 0,
+      as: 0,
+      moveSpeed: 0,
+      flatArmPen: 0,
+      flatMagPen: 0,
+      armPen: 0,
+      magPen: 0,
+      critChance: 0,
+      critMultiplier: 0,
+      ah: 15,
+      armorReduction: 0,
+
+      description: 
+        <div className='itemDescription'>
+          <h3 className="stat--hp">+350 Max Health</h3>
+          <h3 className="stat--mana">+500 Max Mana</h3>
+          <h3>+15 Ability Haste</h3>
+
+          <p><b>Awe:</b> Grants <abbr title="8% of Max mana" className="stat--hp">{Math.floor(total.mana * 8 / 100)} bonus Health</abbr> and refunds <span className="stat--mana">15%</span> of Mana spent</p>
+          <p><b>Mana Charge:</b> Increases <span className="stat--mana">Max mana by 12</span> every Attack, when mana is spent or on taking damage from champions/minions/monsters. Generates up to 3 stacks every 12 seconds. Caps at <span className="stat--mana">700 mana</span> and transforms into <b>Fimbulwinter</b></p>
+        </div>
+
+    },
+
+    {
+      name: 'Fimbulwinter',
+
+      health: 350,
+      mana: 1200 + Math.floor(total.mana * 8 / 100),
+      armor: 0,
+      magres: 0,
+      attack: 0,
+      ap: 0,
+      as: 0,
+      moveSpeed: 0,
+      flatArmPen: 0,
+      flatMagPen: 0,
+      armPen: 0,
+      magPen: 0,
+      critChance: 0,
+      critMultiplier: 0,
+      ah: 15,
+      armorReduction: 0,
+
+      description: 
+      <div className='itemDescription'>
+      <h3 className="stat--hp">+350 Max Health</h3>
+      <h3 className="stat--mana">+1200 Max Mana</h3>
+      <h3>+15 Ability Haste</h3>
+
+      <p><b>Awe:</b> Grants <abbr title="8% of Max mana" className="stat--hp">{Math.floor(total.mana * 8 / 100)} bonus Health</abbr> and refunds <span className="stat--mana">15%</span> of Mana spent</p>
+      <p><b>Frozen Colossus:</b> Immobilizing or slowing an enemy champion consumes <span className="stat--mana">3% current Mana</span> and grants a shield for 3 seconds, absorbing <span className="stat--hp">{Math.floor(100 + 100 / 14 * (currentLevel - 1))}</span>  + <span className="stat--mana">5% current mana</span>, icreased by <b>80%</b> if there are more than 1 enemy champion nearby. Shield triggers when above <abbr title="20% Max" className="stat--mana">{Math.floor(total.mana / 5)} Mana</abbr> (8s Cooldown).</p>
+    </div>
+
+    },
+
+    {
+      name: 'Frozen Heart',
+
+      health: 0,
+      mana: 200,
+      armor: 80,
+      magres: 0,
+      attack: 0,
+      ap: 0,
+      as: 0,
+      moveSpeed: 0,
+      flatArmPen: 0,
+      flatMagPen: 0,
+      armPen: 0,
+      magPen: 0,
+      critChance: 0,
+      critMultiplier: 0,
+      ah: 25,
+      armorReduction: 0,
+
+      description: 
+        <div className='itemDescription'>
+          <h3 className="stat--armor">+80 Armor</h3>
+          <h3 className="stat--mana">+200 Max mana</h3>
+          <h3>+25 Ability Haste</h3>
+
+          <p><b>Winter's Caress:</b> Basic Attacks and <span className="stat--ap">Magic Damage</span> caused by you or inflicted upon you will apply stacks of Chill to enemy for 3 Seconds. Each stack reduce <b>Attack Speed</b> by <b>9%</b> up to a maximum of <b>36%</b> at <b>4 stacks</b>. Each individual ability has a 3 second cooldown on applying stacks.</p>
+        </div>
+
+    },
+
+    {
+      name: 'Force of Nature',
+
+      health: 350,
+      mana: 0,
+      armor: 0,
+      magres: 50,
+      attack: 0,
+      ap: 0,
+      as: 0,
+      moveSpeed: Math.floor(base.moveSpeed * 5 / 100),
+      flatArmPen: 0,
+      flatMagPen: 0,
+      armPen: 0,
+      magPen: 0,
+      critChance: 0,
+      critMultiplier: 0,
+      ah: 0,
+      armorReduction: 0,
+
+      description: 
+        <div className='itemDescription'>
+          <h3 className="stat--hp">+350 Max Health</h3>
+          <h3 className="stat--magres">+50 Magic resistance</h3>
+          <h3>+5% ({Math.floor(base.moveSpeed * 5 / 100)}) Movement Speed</h3>
+
+          <p>
+            <b>Absorb:</b> Taking ability damage from enemy champions grants 1 stack of Steadfast for 7 seconds, max 6 stacks. Dealing damage to enemy champions refresh effect duration. at maximum stacks gain 10% ({Math.floor(base.moveSpeed /10)}) Movement Speed and reduce all incoming magic damage by 25%. (Total Magic Damage reduction: <abbr title='TBD in dynamical calculator' class='stat--magres'>{Math.floor((modifierMres + 0.25) * 100)}</abbr>)%
+          </p>
+        </div>
+
+    },
+
+    {
+      name: 'Ixtali Seedjar',
+
+      health: 425,
+      mana: 0,
+      armor: 0,
+      magres: 0,
+      attack: 0,
+      ap: 0,
+      as: 0,
+      moveSpeed: Math.floor(base.moveSpeed * 5 / 100),
+      flatArmPen: 0,
+      flatMagPen: 0,
+      armPen: 0,
+      magPen: 0,
+      critChance: 0,
+      critMultiplier: 0,
+      ah: 25,
+      armorReduction: 0,
+
+      description: 
+        <div className='itemDescription'>
+          <h3 className="stat--hp">+425 Max Health</h3>
+          <h3>+25 Ability Haste</h3>
+          <h3>+5% ({Math.floor(base.moveSpeed * 5 / 100)}) Movement Speed</h3>
+
+          <p>
+            <b>Harvester:</b> Plants hit by you or your ally drop a seed. Picking up a seed replaces your trinket with corresponding plant for 60 seconds and grants you  <b>+40% ({Math.floor(base.moveSpeed * 40 / 100)}) Movement Speed </b> decaying over 2.5 seconds
+          </p>
+
+          <p>
+            <b>Propagation:</b> Plant your held seed at a terget location causing it to grow to full size over 1 second. Each plant type has 30 seconds cooldown
+          </p>
+        </div>
+
+    },
+
+    {
+      name: 'Dawnshroud',
+
+      health: 250,
+      mana: 0,
+      armor: 50,
+      magres: 30,
+      attack: 0,
+      ap: 0,
+      as: 0,
+      moveSpeed: 0,
+      flatArmPen: 0,
+      flatMagPen: 0,
+      armPen: 0,
+      magPen: 0,
+      critChance: 0,
+      critMultiplier: 0,
+      ah: 0,
+      armorReduction: 0,
+
+      description: 
+        <div className='itemDescription'>
+          <h3 className="stat--hp">+250 Max Health</h3>
+          <h3 className="stat--armor">+50 Armor</h3>
+          <h3 className="stat--magres">+30 Magic Resistance</h3>
+
+          <p>
+            <b>Dawnbringer:</b> If you are within 400 units of enemy champion and you immobilize them or getting immobilized, reveal all nearby enemy champions and deal them <abbr title="80 + 5% BONUS HP; numbers are pre/post-mitigation" className="stat--ap">{Math.floor(80 + bonus.health / 20 )} / {Math.floor((80 + bonus.health / 20 ) * (1 - modifierMres))} Magic Damage</abbr>. (3 seconds Cooldown)
+          </p>
+        </div>
+
+    },
+
+    {
+      name: 'Amaranth Twinguard',
+
+      health: 0,
+      mana: 0,
+      armor: 55,
+      magres: 55,
+      attack: 0,
+      ap: 0,
+      as: 0,
+      moveSpeed: 0,
+      flatArmPen: 0,
+      flatMagPen: 0,
+      armPen: 0,
+      magPen: 0,
+      critChance: 0,
+      critMultiplier: 0,
+      ah: 0,
+      armorReduction: 0,
+
+      description: 
+        <div className='itemDescription'>
+          <h3 className="stat--armor">+55 Armor</h3>
+          <h3 className="stat--magres">+55 Magic Resistance</h3>
+
+          <p>
+            <b>Endurance:</b> Gain 1 stack every 1 seconds while in combat with Enemy Champions.
+          </p>
+          <p>
+            At full stacks gain 20% size, 20% Tenacity, increase both <span className="stat--ad">Armor</span> and <span className="stat--magres">Magic resistance</span> by 30% until Out Of Combat with enemy champions
+          </p>
+        </div>
+
+    },
+
+    {
+      name: 'Amaranth Twinguard (Stacked)',
+
+      // This does not work btw, math not mathing because how react handles state
+
+      health: 0,
+      mana: 0,
+      armor: (55 + (55 * 30 / 100)+ (total.armor * 30 / 100)),
+      magres: (55 + (55 * 30 / 100)+ (total.magres * 30 / 100)),
+      attack: 0,
+      ap: 0,
+      as: 0,
+      moveSpeed: 0,
+      flatArmPen: 0,
+      flatMagPen: 0,
+      armPen: 0,
+      magPen: 0,
+      critChance: 0,
+      critMultiplier: 0,
+      ah: 0,
+      armorReduction: 0,
+
+      description: 
+        <div className='itemDescription'>
+          <h3 className="stat--armor">+55 Armor</h3>
+          <h3 className="stat--magres">+55 Magic Resistance</h3>
+
+          <p>
+            <b>Endurance:</b> Gain 1 stack every 1 seconds while in combat with Enemy Champions.
+          </p>
+          <p>
+            At full stacks gain 20% size, 20% Tenacity, increase both <span className="stat--ad">Armor</span> and <span className="stat--magres">Magic resistance</span> by 30% until Out Of Combat with enemy champions
+          </p>
+        </div>
+
+    },
+
+    {
+      name: 'Mantle of the Twelfth Hour',
+
+      health: 200,
+      mana: 0,
+      armor: 40,
+      magres: 40,
+      attack: 0,
+      ap: 0,
+      as: 0,
+      moveSpeed: 0,
+      flatArmPen: 0,
+      flatMagPen: 0,
+      armPen: 0,
+      magPen: 0,
+      critChance: 0,
+      critMultiplier: 0,
+      ah: 0,
+      armorReduction: 0,
+
+      description: 
+        <div className='itemDescription'>
+          <h3 className="stat--hp">+200 Max Health</h3>
+          <h3 className="stat--armor">+40 Armor</h3>
+          <h3 className="stat--magres">+40 Magic Resistance</h3>
+
+          <p>
+            <b>Lifeline:</b> Damage that puts you under <abbr title="35% max HP" className="stat--hp">{Math.floor(total.health * 35 / 100)} Health</abbr> grants you a heal for <abbr title="200 + 50% BONUS HP" className="stat--hp">{Math.floor(200 + bonus.health/2)} health</abbr> over 3 seconds, and provides <b>50% Slow Resistance</b> and <b>30 Movement Speed</b> for 3 seconds (90 second cooldown).
+          </p>
+        </div>
+
+    },
+
+    {
+      name: 'Searing Crown',
+
+      health: 300,
+      mana: 0,
+      armor: 50,
+      magres: 0,
+      attack: 0,
+      ap: 0,
+      as: 0,
+      moveSpeed: 0,
+      flatArmPen: 0,
+      flatMagPen: 0,
+      armPen: 0,
+      magPen: 0,
+      critChance: 0,
+      critMultiplier: 0,
+      ah: 0,
+      armorReduction: 0,
+
+      description: 
+        <div className='itemDescription'>
+          <h3 className="stat--hp">+300 Max Health</h3>
+          <h3 className="stat--armor">+50 Armor</h3>
+
+          <p>
+            <b>Fiery Touch:</b> After dealing damage with an attack or ability, burn target for 3 seconds dealing <abbr title="1.4% max HP damage. Numbers for current target pre-post/mitigation" className="stat--ap">{Math.floor((target.health * 14 /1000))} / {Math.floor((target.health * 14 /1000) * (1 - modifierMres))} Magic Damage</abbr> per second. Reduced to <span className="stat--ap">{Math.floor((target.health * 7 /1000))} / {Math.floor((target.health * 7 /1000) * (1 - modifierMres))}</span> for ranged users. Deals 150% damage to minions and monsters. Maximum 125 damage to monsters.
+          </p>
+        </div>
+
+    },
+
+
   ];
 
 

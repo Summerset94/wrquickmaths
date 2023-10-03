@@ -102,7 +102,8 @@ export default function StatsCalculator(props) {
       critDamage: ((baseMemo.attack + bonusMemo.attack))*(baseMemo.critMultiplier + bonusMemo.critMultiplier),
       armorReduction: bonusMemo.armorReduction,
       magResReduction: bonusMemo.magResReduction,
-      cdr: (1-(1/(1+bonusMemo.ah/100)))
+      cdr: (1-(1/(1+bonusMemo.ah/100))),
+      ah: bonusMemo.ah
     };
   }, [baseMemo, bonusMemo, rabadonApplied]);
 
