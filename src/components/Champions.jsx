@@ -2382,7 +2382,7 @@ const champions = [
     rolePrim: roles.duo,
     roleSecond: false,
     healthBase: 600,
-    healthScale: 112,
+    healthScale: 83,
     manaBase: 380,
     manaScale: 37,
     armorBase: 31,

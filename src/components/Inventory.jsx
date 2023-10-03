@@ -1,16 +1,17 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import React from 'react';
 import { Tooltip } from 'react-tooltip'
 import '../styles/StatColors.css'
 import { useStats } from './StatsContext';
 
 
-export default function Inventory({base, bonus, total, handleBonusChange, currentLevel}) { 
+export default function Inventory({base, bonus, total, handleBonusChange, currentLevel, bonusEffects, switchHat, index}) { 
 
   // All this cringe to calculate target maxHP damage for Divine
   const { totalStats } = useStats();
 
-  const target = totalStats[1];
+  const attacker = totalStats[index]
+  const target = totalStats[(index == 1 ? 0 : 1)];
   const postMitigationArmor = (target, attacker) => {
     let mitigatedArmor = 0
     if (attacker.armorReduction && (target.armor * (1 - attacker.armorReduction) <= 0)) {
@@ -34,12 +35,12 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
       return Math.floor(target.magres - attacker.magResReduction)
     } else if (attacker.magResReduction) { 
      
-      mitigatedMres = ((target.magres - attacker.magResReduction) * Math.floor(1 - attacker.armPen) - attacker.flatMagPen);
+      mitigatedMres = ((target.magres - attacker.magResReduction) * Math.floor(1 - attacker.magPen) - attacker.flatMagPen);
      
       return Math.floor(Math.max(mitigatedMres, 0))
 
     } else {
-      mitigatedMres = (target.magres * Math.floor(1 - attacker.armPen) - attacker.flatMagPen)
+      mitigatedMres = (target.magres * Math.floor(1 - attacker.magPen) - attacker.flatMagPen)
 
       return Math.floor(Math.max(mitigatedMres, 0))
     }
@@ -47,17 +48,18 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
 
   let targetMres = postMitigationMres(target, total);
   let targetArmor = postMitigationArmor(target, total);
+  let attArmor = postMitigationArmor(total, target);
   const modifier = ((1 - (100/(100 + (targetArmor)))));
+  const modifierAtt = ((1 - (100/(100 + (attArmor)))))
   const modifierMres = ((1 - (100/(100 + (targetMres)))));
+
 
   useEffect(() => {
     let targetMres = postMitigationMres(target, total)
     targetArmor = postMitigationArmor(target, total)
-  }, [target, currentLevel])
+  }, [target, currentLevel]);  
 
-
-
-  const physical = [
+    const physical = [
     {
       name: 'Empty slot',
 
@@ -82,6 +84,8 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
         <div className='itemDescription'>Empty slot</div>
 
     },
+
+    // Physical items
     
     {
       name: 'Guardian Angel',
@@ -607,7 +611,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
           <h3>+{25} Ability Haste</h3>
 
           <p><b>Fervor: </b>+{(base.moveSpeed * 0.05).toFixed(2)} Move Speed</p>
-          <p><b>Spellblade:</b>After casting an ability next basic attack deals <abbr title="200% BASE"><span className='stat--ad'>+{(base.attack * 2).toFixed(2)} Physical Damage</span></abbr> (1.5s Cooldown)</p>
+          <p><b>Spellblade:</b>After casting an ability next basic attack deals <abbr title="200% BASE, numbers are pre-post mitigation"><span className='stat--ad'>+{Math.floor(base.attack * 2)} /  {Math.floor((base.attack * 2) * (1- modifier))} Physical Damage</span></abbr> (1.5s Cooldown)</p>
           <p><b>Rage:</b> Attacks grant <b>20 Move Speed</b> and kills grant <b>60 Move Speed</b> for 2 seconds. Bonuses do not stack. Effect halved for ranged heroes</p>
         </div>,
     },
@@ -1214,6 +1218,598 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
 
     },
 
+    // Magical items
+
+    {
+      name: 'Luden\'s Echo',
+
+      health: 0,
+      mana: 300,
+      armor: 0,
+      magres: 0,
+      attack: 0,
+      ap: 85,
+      as: 0,
+      moveSpeed: 0,
+      flatArmPen: 0,
+      flatMagPen: 0,
+      armPen: 0,
+      magPen: 0,
+      critChance: 0,
+      critMultiplier: 0,
+      ah: 20,
+      armorReduction: 0,
+
+      description: 
+        <div className='itemDescription'>
+          <h3 className='stat--ap'>+{85} Ability Power</h3>
+          <h3 className='stat--mana'>+{300} Max mana</h3>
+          <h3>+{20} Ability Haste</h3>
+          
+          <p><b>Discordic Echo:</b> Moving and casting abilities gain stacks of <b>Discord</b>. At <b>100</b> stacks your next active ability or Empowered attack will deal <abbr title="110 + 10% ap. Numbers are pre/post-mitigation"><span className="stat--ap">{Math.floor(110 + total.ap * 0.1)} / {Math.floor((110 + total.ap * 0.1)*(1 - modifierMres))} bonus magic damage</span></abbr> to your target and up to 3 mearby enemies</p>
+        </div>
+
+    },
+
+    {
+      name: 'Morellonomicon',
+
+      health: 0,
+      mana: 0,
+      armor: 0,
+      magres: 0,
+      attack: 0,
+      ap: 75,
+      as: 0,
+      moveSpeed: 0,
+      flatArmPen: 0,
+      flatMagPen: 0,
+      armPen: 0,
+      magPen: 0,
+      critChance: 0,
+      critMultiplier: 0,
+      ah: 20,
+      armorReduction: 0,
+
+      description: 
+        <div className='itemDescription'>
+          <h3 className="stat--ap">+{75} Ability Power</h3>
+          <h3>+{20} Ability Haste</h3>
+
+          <p><b>Affliction:</b> Dealing <span className="stat--ap">Magic Damage</span> applies <span className="stat--magres">40% Grievous Wounds</span> to enemy (Reduces the effectiveness of healing and Regeneration effect). Effect increased to <span className="stat--magres">60%</span> for targets under <span className="stat--hp">50% Max Health</span></p>
+        </div>
+
+    },
+
+    {
+      name: 'Void Staff',
+
+      health: 0,
+      mana: 0,
+      armor: 0,
+      magres: 0,
+      attack: 0,
+      ap: 70,
+      as: 0,
+      moveSpeed: 0,
+      flatArmPen: 0,
+      flatMagPen: 0,
+      armPen: 0,
+      magPen: (45 / 100),
+      critChance: 0,
+      critMultiplier: 0,
+      ah: 0,
+      armorReduction: 0,
+
+      description: 
+        <div className='itemDescription'>
+          <h3 classname='stat--ap'>+{70} Ability Power</h3>
+          <h3>Dissolve: <span className="stat--magres">+{45}% Magic Penetration</span></h3>
+        </div>
+
+    },
+
+    {
+      name: 'Rabadon\'s Deathcap',
+
+      health: 0,
+      mana: 0,
+      armor: 0,
+      magres: 0,
+      attack: 0,
+      ap: 110,
+      as: 0,
+      moveSpeed: 0,
+      flatArmPen: 0,
+      flatMagPen: 0,
+      armPen: 0,
+      magPen: 0,
+      critChance: 0,
+      critMultiplier: 0,
+      ah: 0,
+      armorReduction: 0,
+
+      description: 
+        <div className='itemDescription'>
+          <h3 className='stat--ap'>+{110} Ability Power</h3>
+          <p><b>Overkill:</b> Increases <span className="stat--ap">Ability Power</span> by <abbr title="40%">{bonusEffects.rabadon}</abbr></p>
+          <button onClick={switchHat}>Enable/Disable bonus AP</button>
+          <p><sub>* please, disable bonus AP before changing items - it does not auto updates for now</sub></p>
+          
+        </div>       
+
+    },
+
+    {
+      name: 'Rylai\'s Crystal Scepter',
+
+      health: 350,
+      mana: 0,
+      armor: 0,
+      magres: 0,
+      attack: 0,
+      ap: 70,
+      as: 0,
+      moveSpeed: 0,
+      flatArmPen: 0,
+      flatMagPen: 0,
+      armPen: 0,
+      magPen: 0,
+      critChance: 0,
+      critMultiplier: 0,
+      ah: 0,
+      armorReduction: 0,
+
+      description: 
+        <div className='itemDescription'>
+          <h3 className="stat--hp">+{350} Max Health</h3>
+          <h3 className="stat--ap">+{70} Ability Power</h3>
+
+          <p><b>Icy:</b> Damaging active abilities and empowered attacks slow enemies by 30% for 1 second.</p>
+        </div>
+
+    },
+
+    {
+      name: 'Liandry\'s Torment',
+
+      health: 200,
+      mana: 0,
+      armor: 0,
+      magres: 0,
+      attack: 0,
+      ap: 75,
+      as: 0,
+      moveSpeed: 0,
+      flatArmPen: 0,
+      flatMagPen: 0,
+      armPen: 0,
+      magPen: 0,
+      critChance: 0,
+      critMultiplier: 0,
+      ah: 0,
+      armorReduction: 0,
+
+      description: 
+        <div className='itemDescription'>
+          <h3 className="stat--hp">+{200} Max Health</h3>
+          <h3 className="stat--ap">+{75} Ability Power</h3>
+
+          <p><b>Torment:</b> Damaging Abilities or empowered attacks deal <abbr title="(0.5% + 0.005% AP) of enemy Max HP. Shows pre/post-mitigated damage"><span className="stat--ap">{Math.floor((5/100 + 5/1000)*target.health)} / {Math.floor((5/100 + 5/1000)*target.health * (1 - modifierMres))} bonus magic damage</span></abbr> each second over 3 seconds</p>
+        </div>
+
+    },
+
+    {
+      name: 'Rod of Ages',
+
+      health: 250,
+      mana: 300,
+      armor: 0,
+      magres: 0,
+      attack: 0,
+      ap: 60,
+      as: 0,
+      moveSpeed: 0,
+      flatArmPen: 0,
+      flatMagPen: 0,
+      armPen: 0,
+      magPen: 0,
+      critChance: 0,
+      critMultiplier: 0,
+      ah: 0,
+      armorReduction: 0,
+
+      description: 
+        <div className='itemDescription'>
+          <h3 className="stat--health">+{250} Max Health</h3>
+          <h3 className="stat--ap">+{60} Ability Power</h3>
+          <h3 className="stat--mana">+{300} Max mana</h3>        
+
+          <p><b>Eternity:</b> restore <span className="stat--mana">Mana</span> equal to 15% damage taken from champions. Regen <span className="stat--hp">Health</span> equal to 20% of mana spent Capped at 25 health per cast.</p>
+          <p><b>Veteran:</b> Each stack provides <span className="stat--hp">20 Health (up to 200)</span>, <span className="stat--mana">10 Mana (up to 100)</span> and <span className="stat--ap">6 Ability Power (up to 60)</span>. Gain 1 stack each 45 seconds. 10 stacks maximum</p>
+        </div>
+
+    },
+
+    {
+      name: 'Rod of Ages (stacked)',
+
+      health: 450,
+      mana: 400,
+      armor: 0,
+      magres: 0,
+      attack: 0,
+      ap: 120,
+      as: 0,
+      moveSpeed: 0,
+      flatArmPen: 0,
+      flatMagPen: 0,
+      armPen: 0,
+      magPen: 0,
+      critChance: 0,
+      critMultiplier: 0,
+      ah: 0,
+      armorReduction: 0,
+
+      description: 
+        <div className='itemDescription'>
+          <h3 className="stat--health">+{450} Max Health</h3>
+          <h3 className="stat--ap">+{120} Ability Power</h3>
+          <h3 className="stat--mana">+{400} Max mana</h3>        
+
+          <p><b>Eternity:</b> restore <span className="stat--mana">Mana</span> equal to 15% damage taken from champions. Regen <span className="stat--hp">Health</span> equal to 20% of mana spent Capped at 25 health per cast.</p>
+          <p><b>Veteran:</b> Each stack provides <span className="stat--hp">20 Health (up to 200)</span>, <span className="stat--mana">10 Mana (up to 100)</span> and <span className="stat--ap">6 Ability Power (up to 60)</span>. Gain 1 stack each 45 seconds. 10 stacks maximum</p>
+        </div>
+
+    },
+
+    {
+      name: 'Lich Bane',
+
+      health: 0,
+      mana: 0,
+      armor: 0,
+      magres: 0,
+      attack: 0,
+      ap: 80,
+      as: 0,
+      moveSpeed: (base.moveSpeed * 5 / 100),
+      flatArmPen: 0,
+      flatMagPen: 0,
+      armPen: 0,
+      magPen: 0,
+      critChance: 0,
+      critMultiplier: 0,
+      ah: 10,
+      armorReduction: 0,
+
+      description: 
+        <div className='itemDescription'>
+          <h3 className="stat--ap">+{80} Ability Power</h3>
+          <h3>+{10} Ability Haste</h3>
+          <h3>Bane: +5% ({Math.floor(base.moveSpeed * 5 / 100)}) Move Speed</h3>
+
+          <p><b>Spellblade</b>Using an ability causes next attack used within 10 seconds to deal <span className='stat--ap'><abbr title="75% BASE AD + 50% AP, numbers are pre-post mitigation damage ">{Math.floor((base.attack * 75 / 100) + (total.ap * 50 / 100))} / {Math.floor(((base.attack * 75 / 100) + (total.ap * 50 / 100) * (1 - modifierMres)))}</abbr> bonus magic damage</span>. Damage is reduced against structures</p>
+        </div>
+
+    },
+
+    {
+      name: 'Archangel\'s Staff',
+
+      health: 0,
+      mana: 500,
+      armor: 0,
+      magres: 0,
+      attack: 0,
+      ap: 35 + (Math.floor(total.mana / 100)),
+      as: 0,
+      moveSpeed: 0,
+      flatArmPen: 0,
+      flatMagPen: 0,
+      armPen: 0,
+      magPen: 0,
+      critChance: 0,
+      critMultiplier: 0,
+      ah: 20,
+      armorReduction: 0,
+
+      description: 
+        <div className='itemDescription'>
+          <h3 className="stat--ap">+{35} Ability Power</h3>
+          <h3 className="stat--mana">+{500} Max Mana</h3>
+          <h3>+{20} Ability Haste</h3>
+          
+          <p><b>Awe:</b> Grants <span className="stat--ap"><abbr title="1% of max mana">{Math.floor(total.mana / 100)} Ability Power</abbr></span> and refunds <span className="stat--mana">25%</span>of all Mana spent</p>
+          <p><b>Mana Charge:</b> Increases max Mana by <span className="stat--mana">15</span> every time mana is spent up to <span className="stat--mana">700</span> bonus Mana. Triggers up to 3 times every 12 seconds. At max stacks transforms into Seraphs Embrace</p>
+        </div>
+
+    },
+
+    {
+      name: 'Seraph\'s Embrace',
+
+      health: 0,
+      mana: 1200,
+      armor: 0,
+      magres: 0,
+      attack: 0,
+      ap: 35 + Math.floor(total.mana * 3 / 100),
+      as: 0,
+      moveSpeed: 0,
+      flatArmPen: 0,
+      flatMagPen: 0,
+      armPen: 0,
+      magPen: 0,
+      critChance: 0,
+      critMultiplier: 0,
+      ah: 20,
+      armorReduction: 0,
+
+      description: 
+        <div className='itemDescription'>
+          <h3 className="stat--ap">+{35} Ability Power</h3>
+          <h3 className='stat--mana'>+{1200} Max Mana</h3>
+          <h3>+{20} Ability Haste</h3>
+
+          <p><b>Awe:</b> Grants <abbr title="3% of Max Mana"><span className="stat--ap">{Math.floor(total.mana * 3 / 100)} Ability Power</span></abbr> and refunds <span className="stat--mana">25%</span>of all Mana spent</p>
+          <p><b>Lifeline:</b> Damage that puts you under <abbr title="35% Health"><span className="stat--hp">{Math.floor(total.health * 35 / 100)} Health</span></abbr> consumes <span className="stat--mana">15% current Mana</span> to grant a shield equal to <abbr title="unfortunately, calculating actual value impossible atm. It's 15% of Current mana + flat 100 points"><span className="stat--hp">100</span></abbr> for 2 seconds (90 seconds cooldown)</p>
+        </div>
+
+    },
+
+    {
+      name: 'Ardent Censer',
+
+      health: 250,
+      mana: 0,
+      armor: 0,
+      magres: 0,
+      attack: 0,
+      ap: 60,
+      as: 0,
+      moveSpeed: (base.moveSpeed * 5 / 100),
+      flatArmPen: 0,
+      flatMagPen: 0,
+      armPen: 0,
+      magPen: 0,
+      critChance: 0,
+      critMultiplier: 0,
+      ah: 10,
+      armorReduction: 0,
+
+      description: 
+        <div className='itemDescription'>
+          <h3 className='stat--health'>+{250} Max Health</h3>
+          <h3 className='stat--ap'>+{60} Ability Power</h3>
+          <h3>+{10} Ability Haste</h3>
+
+          <p><b>Ardent:</b>+5% ({Math.floor(base.moveSpeed * 5 / 100)}) Movement Speed</p>
+          <p><b>Censer:</b> When you <span className="stat--hp">heal / shield</span> an allied champion both of you gain <span className="stat--as"><abbr title="10-30%; 10% + 20% / 14 * (level - 1); numbers are for your character">{(((10/100) + (20/100) / 14 * (currentLevel - 1)) * 100).toFixed(2)}%  ({(base.asBase * ((10/100) + (20/100) / 14 * (currentLevel - 1))).toFixed(3)})</abbr> Attack Speed</span> And your Attacks deal <abbr title="15 + level"><span class='stat--ap'>{15 + Number(currentLevel)} bonus Magic Damage</span></abbr> for 6 seconds. Regen effects do not trigger this effect.</p>
+        </div>
+
+    },
+
+    {
+      name: 'Harmonic Echo',
+
+      health: 0,
+      mana: 300,
+      armor: 0,
+      magres: 0,
+      attack: 0,
+      ap: 75,
+      as: 0,
+      moveSpeed: 0,
+      flatArmPen: 0,
+      flatMagPen: 0,
+      armPen: 0,
+      magPen: 0,
+      critChance: 0,
+      critMultiplier: 0,
+      ah: 100,
+      armorReduction: 0,
+
+      description: 
+        <div className='itemDescription'>
+          <h3 className="stat--ap">+{75} Ability Power</h3>
+          <h3 className='stat--man'>+{300} Max Mana</h3>
+          <h3>+{10} Ability Haste</h3>
+
+          <p><b>Harmonic Echo:</b> Moving and casting abilities build Harmony stacks. At 100 stacks your next healing / shielding ability coast on ally restores <abbr title="70 + 10% AP"><span className="stat--hp">{Math.floor(70 + (total.ap * 10 / 100))} Health</span></abbr> to your target and up to 3 nearby allied champions</p>
+        </div>
+
+    },
+
+    {
+      name: 'Awakened Spulstealer',
+
+      health: 150,
+      mana: 0,
+      armor: 0,
+      magres: 0,
+      attack: 0,
+      ap: 65,
+      as: 0,
+      moveSpeed: 0,
+      flatArmPen: 0,
+      flatMagPen: 15,
+      armPen: 0,
+      magPen: 0,
+      critChance: 0,
+      critMultiplier: 0,
+      ah: 20,
+      armorReduction: 0,
+
+      description: 
+        <div className='itemDescription'>
+          <h3 className="stat--hp">+{150} Max Health</h3>
+          <h3 className="stat--ap">+{65} Ability Power</h3>
+          <h3>+{20} Ability Haste</h3>
+
+          <p><b>Soul Hunt:</b> <span className="stat--ap">+15 Magic Penetration</span></p>
+          <p><b>Soulfire:</b> Takedowns on enemy champions within of 3 seconds of dealing damage to them reduce the remaining cooldowns of your abilities by 25%</p>
+        </div>
+
+    },
+
+    {
+      name: 'Infinity Orb',
+
+      health: 0,
+      mana: 0,
+      armor: 0,
+      magres: 0,
+      attack: 0,
+      ap: 85,
+      as: 0,
+      moveSpeed: (base.moveSpeed * 5 / 100),
+      flatArmPen: 0,
+      flatMagPen: 15,
+      armPen: 0,
+      magPen: 0,
+      critChance: 0,
+      critMultiplier: 0,
+      ah: 0,
+      armorReduction: 0,
+
+      description: 
+        <div className='itemDescription'>
+          <h3 className="stat--ap">+85 Ability Power</h3>
+
+          <p><b>Destiny:</b> +5% ({Math.floor(base.moveSpeed * 5 / 100)}) Movement Speed</p>
+          <p><b>Balance:</b> <span className="stat--ap">+{15} Magic Penetration</span></p>
+          <p><b>Inevitable Demise: </b> Abilities and empowered attacks <span className="stat--vamp">Critically Strike</span> for 20% bonus damage against enemies below <span className='stat--hp'>35% <abbr title="For current target">({Math.floor(target.health * 35 / 100)})</abbr> Health</span></p>
+        </div>
+
+    },
+
+    {
+      name: 'Staff of Flowing Waters',
+
+      health: 0,
+      mana: 300,
+      armor: 0,
+      magres: 0,
+      attack: 0,
+      ap: 65,
+      as: 0,
+      moveSpeed: 0,
+      flatArmPen: 0,
+      flatMagPen: 0,
+      armPen: 0,
+      magPen: 0,
+      critChance: 0,
+      critMultiplier: 0,
+      ah: 20,
+      armorReduction: 0,
+
+      description: 
+        <div className='itemDescription'>
+          <h3 className="stat--ap">+{65} Ability Power</h3>
+          <h3 className="stat--mana">+{300} Max Mana</h3>
+          <h3>+{20} Ability Haste</h3>
+
+          <p><b>Riptide:</b> <span className="stat--hp">Healing / Shielding</span> an ally grants you both <b>15 Ability Haste</b> and <abbr title="20 - 40 ;(20 + 20 / 14 * (target's level - 1)) number is target's level = your level"><span className="stat--ap">{Math.floor(20 + 20 / 14 * (currentLevel - 1))} Ability Power</span></abbr> for 6 seconds</p>
+        </div>
+
+    },
+
+    {
+      name: 'Crystaline Reflector',
+
+      health: 0,
+      mana: 0,
+      armor: 45,
+      magres: 0,
+      attack: 0,
+      ap: 60,
+      as: 0,
+      moveSpeed: 0,
+      flatArmPen: 0,
+      flatMagPen: 0,
+      armPen: 0,
+      magPen: 0,
+      critChance: 0,
+      critMultiplier: 0,
+      ah: 15,
+      armorReduction: 0,
+
+      description: 
+        <div className='itemDescription'>
+          <h3 className="stat--armor">+{45} Armor</h3>
+          <h3 className="stat--ap">+{60} Ability Power</h3>
+          <h3>+15 Ability Haste </h3>
+
+          <p><b>Mirrored Force:</b> Ability casts grant a mirror shard (up to 3) that each block <abbr title="10 + 5% AP, numbers are pre/post mitigation"><span className="stat--ad">{Math.floor(10 + (total.ap * 5 / 100))} / {Math.floor((10 + (total.ap * 5 / 100)) * (1 - modifierAtt))}</span></abbr> form an enemy champion and deal <abbr title="20 + 10% AP; numbers are pre/post mitigation"><span className="stat--ap">{Math.floor(20 + (total.ap/10))} / {Math.floor((20 + (total.ap/10)) * (1 - modifier))} Magic Damage</span></abbr> to them.</p>
+        </div>
+
+    },
+
+    {
+      name: 'Banshee\'s Veil',
+
+      health: 0,
+      mana: 0,
+      armor: 0,
+      magres: 40,
+      attack: 0,
+      ap: 75,
+      as: 0,
+      moveSpeed: 0,
+      flatArmPen: 0,
+      flatMagPen: 0,
+      armPen: 0,
+      magPen: 0,
+      critChance: 0,
+      critMultiplier: 0,
+      ah: 15,
+      armorReduction: 0,
+
+      description: 
+        <div className='itemDescription'>
+          <h3 className="stat--ap">+{75} Ability Power</h3>
+          <h3 className="stat--magres">+{40} Magic Resistance</h3>
+          <h3>+{15} Ability Haste</h3>
+
+          <p><b>Annul:</b> Grants a spell shield that blocks the next hostile ability (35 seconds cooldown)</p>
+        </div>
+
+    },
+
+    {
+      name: 'Imerial Mandate',
+
+      health: 200,
+      mana: 0,
+      armor: 0,
+      magres: 0,
+      attack: 0,
+      ap: 40,
+      as: 0,
+      moveSpeed: 0,
+      flatArmPen: 0,
+      flatMagPen: 0,
+      armPen: 0,
+      magPen: 0,
+      critChance: 0,
+      critMultiplier: 0,
+      ah: 20,
+      armorReduction: 0,
+
+      description: 
+        <div className='itemDescription'>
+          <h3 className="stat--hp">+{200} Max Health</h3>
+          <h3 className='stat--ap'>+{40} Ability Power</h3>
+          <h3>+20 Ability Haste</h3>
+
+          <p><b>Coordinated Fire:</b> Abilities that slow/immobilize a champion deal <abbr title="47-75; 45 + 2 * level; numbers are pre/post-mitigation"><span className="stat--ap">{45 + 2 * currentLevel} / {Math.floor((45 + 2 * currentLevel) * (1 - modifierMres))} Magic Damage</span></abbr> and marks them for 4 seconds (6 seconds cooldown). Allied champion damage detonates the mark dealing <abbr title="94 - 150; 90 + 4 * level; numbers are pre/post-mitigated damage"><span className="stat--ap">{Math.floor(90 + 4 * currentLevel)} / {Math.floor((90 + 4 * currentLevel) * (1 - modifierMres))} Magic Damage</span></abbr> and granting you both <abbr title="Value for your champion">20% ({Math.floor(base.moveSpeed * 20 / 100)}) Movement Speed</abbr> for 2 seconds</p>
+        </div>
+
+    },
+
+    
   ];
 
 

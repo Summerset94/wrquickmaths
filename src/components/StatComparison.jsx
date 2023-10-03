@@ -33,12 +33,12 @@ export default function StatComparison(props) {
         return Math.floor(target.magres - attacker.magResReduction)
       } else if (attacker.magResReduction) { 
        
-        mitigatedMres = ((target.magres - attacker.magResReduction) * Math.floor(1 - attacker.armPen) - attacker.flatMagPen);
+        mitigatedMres = ((target.magres - attacker.magResReduction) * Math.floor(1 - attacker.magPen) - attacker.flatMagPen);
        
         return Math.floor(Math.max(mitigatedMres, 0))
 
       } else {
-        mitigatedMres = (target.magres * Math.floor(1 - attacker.armPen) - attacker.flatMagPen)
+        mitigatedMres = (target.magres * Math.floor(1 - attacker.magPen) - attacker.flatMagPen)
 
         return Math.floor(Math.max(mitigatedMres, 0))
       }

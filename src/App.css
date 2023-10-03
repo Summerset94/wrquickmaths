@@ -254,6 +254,11 @@ button:active {
 .itemDescription > h3 {
   padding: 2px;
   font-size: 16px;
+
+}.itemDescription > h3:first-of-type {
+  margin-top: 6px;
+  padding: 2px;
+  font-size: 16px;
 }
 
 .itemDescription > p {

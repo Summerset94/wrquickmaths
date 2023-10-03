@@ -4,7 +4,7 @@ import Inventory from "./Inventory";
 
 
 export default function StatsCalculator(props) {
-  const champ = props.champion
+  const champ = props.champion  
 
   const [contentVisible, setContentVisible] = useState(true);
   const [currentLevel, setCurrentLevel] = useState(1);
@@ -62,8 +62,21 @@ export default function StatsCalculator(props) {
     critChance: 0,
     critMultiplier: 0,
     armorReduction: 0,
+    magResReduction: 0,
     ah: 0
   });
+
+  const bonusEffectsMemo = useMemo(() =>{
+    return {
+      rabadon: Math.floor((bonusMemo.ap) * 40 / 100),
+    }
+  }, [bonusMemo])
+
+  const [rabadonApplied, setRabadonApplied] = useState(false);
+
+  const toggleRabadon = () => { 
+    setRabadonApplied(oldState => !oldState)
+  }
 
   const totalMemo = useMemo(() => {
     return {
@@ -72,7 +85,7 @@ export default function StatsCalculator(props) {
       armor: baseMemo.armor + bonusMemo.armor,
       magres: baseMemo.magres + bonusMemo.magres,
       attack: baseMemo.attack + bonusMemo.attack,
-      ap: bonusMemo.ap,
+      ap: rabadonApplied ? bonusMemo.ap + bonusEffectsMemo.rabadon : bonusMemo.ap,
       as: baseMemo.as + bonusMemo.as,
       dps: (baseMemo.attack + bonusMemo.attack) * (baseMemo.as + bonusMemo.as),
       dmgReductArm: ((1 - (100/(100 + (baseMemo.armor + bonusMemo.armor))))*100),
@@ -88,9 +101,10 @@ export default function StatsCalculator(props) {
       critMultiplier: baseMemo.critMultiplier + bonusMemo.critMultiplier,
       critDamage: ((baseMemo.attack + bonusMemo.attack))*(baseMemo.critMultiplier + bonusMemo.critMultiplier),
       armorReduction: bonusMemo.armorReduction,
+      magResReduction: bonusMemo.magResReduction,
       cdr: (1-(1/(1+bonusMemo.ah/100)))
     };
-  }, [baseMemo, bonusMemo]);
+  }, [baseMemo, bonusMemo, rabadonApplied]);
 
 
   function levelSlider(n) {
@@ -113,7 +127,7 @@ export default function StatsCalculator(props) {
       newTotalStats[index] = totalMemo;
       return newTotalStats;
     });
-  }, [totalMemo]);
+  }, [bonusMemo, totalMemo]);  
 
   return (
     <>
@@ -279,8 +293,11 @@ export default function StatsCalculator(props) {
       base={baseMemo}
       bonus={bonusMemo}
       total={totalMemo}
+      bonusEffects={bonusEffectsMemo}
       handleBonusChange={updateBonusMemo}
       currentLevel={currentLevel}
+      switchHat={toggleRabadon}
+      index={index}
 
     />
     </>
