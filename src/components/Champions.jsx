@@ -2303,7 +2303,8 @@ const champions = [
     apBase: 0,
     asBase: 0.669,
     asBaseBonus: 0.669*0.33,
-    asScale: 0.669*0.032
+    asScale: 0.669*0.032,
+    critMultiplier: 1.65
   },
 
   {
@@ -2326,7 +2327,8 @@ const champions = [
     apBase: 0,
     asBase: 0.667,
     asBaseBonus: 0.667*0.23,
-    asScale: 0.667*0.032
+    asScale: 0.667*0.032,
+    critMultiplier: 1.65
   },
 
   {

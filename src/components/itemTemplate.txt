@@ -19,6 +19,9 @@
       armorReduction: 0,
 
       description: 
-        <div className='itemDescription'>Empty slot</div>
+        <div className='itemDescription'>
+          <img src="../images/items/_.png" alt="itemIcon" className="itemIcon" />
+
+        </div>
 
     },

@@ -17,10 +17,10 @@ export default function StatsCalculator(props) {
       magres: champ.magresBase + (champ.magresScale * (currentLevel - 1)),
       attack: champ.attackBase + (champ.attackScale * (currentLevel - 1)),
       ap: 0,
-      as: champ.asBase + (champ.asScale * (currentLevel - 1)),
+      as: champ.asBase +  champ.asBaseBonus + (champ.asScale * (currentLevel - 1)),
       asBase: champ.asBase,
       moveSpeed: champ.moveSpeed,
-      critMultiplier: 1.75
+      critMultiplier: (champ.critMultiplier ? champ.critMultiplier : 1.75)
     };
   }, [currentLevel, champ]);
 
@@ -76,18 +76,20 @@ export default function StatsCalculator(props) {
 
   const toggleRabadon = () => { 
     setRabadonApplied(oldState => !oldState)
-  }
+  };
+
+  
 
   const totalMemo = useMemo(() => {
     return {
-      health: baseMemo.health + bonusMemo.health,
+      health: champ.name != 'Pyke' ? (baseMemo.health + bonusMemo.health) : baseMemo.health,
       mana: champ.manaBase ? baseMemo.mana + bonusMemo.mana : 0,
-      armor: baseMemo.armor + bonusMemo.armor,
+      armor: champ.name != 'Pyke' ? (baseMemo.armor + bonusMemo.armor) : baseMemo.armor,
       magres: baseMemo.magres + bonusMemo.magres,
-      attack: baseMemo.attack + bonusMemo.attack,
+      attack: champ.name != 'Pyke' ? (baseMemo.attack + bonusMemo.attack) : (baseMemo.attack + bonusMemo.attack + Math.floor(bonusMemo.health / 14)),
       ap: rabadonApplied ? bonusMemo.ap + bonusEffectsMemo.rabadon : bonusMemo.ap,
       as: baseMemo.as + bonusMemo.as,
-      dps: (baseMemo.attack + bonusMemo.attack) * (baseMemo.as + bonusMemo.as),
+      dps: champ.name != 'Pyke' ? (baseMemo.attack + bonusMemo.attack) * (baseMemo.as + bonusMemo.as) : (baseMemo.attack + bonusMemo.attack + Math.floor(bonusMemo.health / 14)) * (baseMemo.as + bonusMemo.as),
       dmgReductArm: ((1 - (100/(100 + (baseMemo.armor + bonusMemo.armor))))*100),
       dmgReductMag: ((1 - (100/(100 + (baseMemo.magres + bonusMemo.magres))))*100),
       effectiveHealthArm: ((baseMemo.health + bonusMemo.health)/(100/(100 + (baseMemo.armor + bonusMemo.armor)))),

@@ -91,8 +91,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
     
     {
       name: 'Guardian Angel',
-      icon: '../images/items/Guardian_Angel.png',
-
+      
       health: 0,
       mana: 0,
       armor: 40,
@@ -110,6 +109,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
       armorReduction: 0,
       
       description: <div className='itemDescription'>
+        <img src="../images/items/Guardian_Angel.png" alt="itemIcon" className="itemIcon" />
         <h3 className='stat--ad'>+{40} Attack Damage</h3>
         <h3 className='stat--armor'>+{40} Armor</h3>
   
@@ -121,11 +121,10 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
   
     {
       name: 'Bloodthirster',
-      icon: '../images/items/Bloodthirster.png',
-
+      
       health: 0,
       mana: 0,
-      armor: 40,
+      armor: 0,
       magres: 0,
       attack: 55,
       ap: 0,
@@ -141,6 +140,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
 
       
       description: <div className='itemDescription'>
+        <img src="../images/items/Bloodthirster.png" alt="itemIcon" className="itemIcon" />
         <h3 className='stat--ad'>+ {55} Attack Damage</h3>
         <h3 className='stat--critChance'>+ {Number(0.25*100)}% Critical Rate</h3>
   
@@ -150,8 +150,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
     },
   
     {
-      name: 'Statikk Shiv',
-      icon: '../images/items/Statikk_Shiv.png',
+      name: 'Statikk Shiv',      
 
       health: 0,
       mana: 0,
@@ -170,6 +169,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
       armorReduction: 0,
        
       description: <div className='itemDescription'>
+         <img src="../images/items/Statikk_Shiv.png" alt="itemIcon" className="itemIcon" />
         <h3 className='stat--as'>+{Number(base.asBase * 0.35).toFixed(3)} Attack Speed</h3>
         <h3 className='stat--critChance'>+ 25% Critical Rate</h3>
   
@@ -189,8 +189,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
   
     {
       name: 'Blade of the Ruined King',
-      icon: '../images/items/Blade_of_the_Ruined_King.png',
-
+      
       health: 0,
       mana: 0,
       armor: 0,
@@ -209,6 +208,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
       
   
       description: <div className='itemDescription'>
+         <img src="../images/items/Blade_of_the_Ruined_King.png" alt="itemIcon" className="itemIcon" />
         <h3 className='stat--ad'>+{20} Attack Damage</h3>
         <h3 className='stat--as'>+ {Number(base.asBase * 0.35).toFixed(3)} Attack Speed</h3>
   
@@ -229,8 +229,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
   
     {
       name: 'Rapid Firecannon',
-      icon: '../images/items/Rapid_Firecannon.png',
-
+      
       health: 0,
       mana: 0,
       armor: 0,
@@ -250,6 +249,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
      
       description:
         <div className='itemDescription'>
+           <img src="../images/items/Rapid_Firecannon.png" alt="itemIcon" className="itemIcon" />
           <h3 className='stat--as'>+35% ({(base.asBase * 0.35).toFixed(3)}) Attack Speed</h3>
           <h3 className='stat--critChance'>+{0.25*100}% Critical Rate</h3>
   
@@ -265,8 +265,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
   
     {
       name: 'Runaan\'s Hurricane',
-      icon: '../images/items/Runaan\'s_Hurricane.png',
-
+      
       health: 0,
       mana: 0,
       armor: 0,
@@ -285,6 +284,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
       
       description:
         <div className='itemDescription'>
+           <img src="../images/items/Runaan's_Hurricane.png" alt="itemIcon" className="itemIcon" />
           <h3 className='stat--as'>+45% ({(base.asBase * 0.45).toFixed(3)}) Attack Speed</h3>
           <h3 className='stat--critChance'>+ {0.25*100}% Critical Rate</h3>
   
@@ -294,8 +294,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
   
     {
       name: 'Youmuu\'s Ghostblade',
-      icon: '../images/items/Youmuus.png',
-
+      
       health: 0,
       mana: 0,
       armor: 0,
@@ -315,6 +314,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
   
       description:
         <div className='itemDescription'>
+           <img src="../images/items/Youmuus.png" alt="itemIcon" className="itemIcon" />
           <h3 className='stat--ad'>+{55} Attack Damage</h3>
           <h3>+{15} Ability Haste</h3>
           <h3>+{15} Lethality/flat armor penetration</h3>
@@ -326,8 +326,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
   
     {
       name: 'Duskblade of Draktharr',
-      icon: '../images/items/Duskblade.png',
-
+      
       health: 0,
       mana: 0,
       armor: 0,
@@ -348,6 +347,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
   
       description:
         <div className='itemDescription'>
+           <img src="../images/items/Duskblade.png" alt="itemIcon" className="itemIcon" />
           <h3 className='stat--ad'>+{55} Attack Damage</h3>
           <h3>+{10} Ability Haste</h3>
           <h3>+{15} Lethality/flat armor penetration</h3>
@@ -358,8 +358,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
   
     {
       name: 'Sterak\'s Gage',
-      icon: '../images/items/Steraks.png',
-
+      
       health: 400,
       mana: 0,
       armor: 0,
@@ -379,6 +378,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
       
       description:
         <div className='itemDescription'>
+           <img src="../images/items/Steraks.png" alt="itemIcon" className="itemIcon" />
           <h3 className='stat--hp'>+{400} Max Health</h3>
           <h3>Heavy Handed: <abbr title="(50% of BASE attack damage)"><span className='stat--ad'>+{base.attack*0.5}Attack Damage</span></abbr> as BONUS attack damage</h3>
   
@@ -390,8 +390,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
   
     {
       name: 'Infinity Edge',
-      icon: '../images/Infinity_Edge.png',
-
+      
       health: 0,
       mana: 0,
       armor: 0,
@@ -411,6 +410,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
   
       description:
         <div className='itemDescription'>
+           <img src="../images/items/Infinity.png" alt="itemIcon" className="itemIcon" />
           <h3 className='stat--ad'>+{55} Attack Damage</h3>
           <h3 className='stat--critChance'>+{0.25*100}% Critical Rate</h3>
   
@@ -420,7 +420,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
 
     {
       name: 'Mortal Reminder',
-      icon: '../images/Mortal.png', 
+      icon: '', 
 
       health: 0,
       mana: 0,
@@ -440,6 +440,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
 
       description: 
         <div className='itemDescription'>
+           <img src="../images/items/Mortal.png" alt="itemIcon" className="itemIcon" />
           <h3 className='stat--ad'>+{45} Attack Damage</h3>
           <h3>Last Whisper: <abbr title="15 + your current level">+{(15 + Number(currentLevel))}%</abbr> Armor Penetration</h3>
 
@@ -449,8 +450,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
 
     {
       name: 'Manamune',
-      icon: '../images/items/Manamune.png',
-
+      
       health: 0,
       armor: 0,
       magres: 0,
@@ -470,6 +470,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
 
       description: 
         <div className="itemDescription">
+           <img src="../images/items/Manamune.png" alt="itemIcon" className="itemIcon" />
           <h3 className="stat--ad">+{25} Attack Damage</h3>
           <h3 classname='stat--mana'>+{300} Max mana</h3>
           <h3>+{20} Ability Haste</h3>
@@ -485,8 +486,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
 
     {
       name: 'Muramana',
-      icon: '../images/items/Muramana.png',
-
+      
       health: 0,      
       armor: 0,
       magres: 0,
@@ -506,6 +506,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
 
       description: 
         <div className="itemDescription">
+           <img src="../images/items/Muramana.png" alt="itemIcon" className="itemIcon" />
           <h3 className="stat--ad">+{25} Attack Damage</h3>
           <h3 classname='stat--mana'>+{1000} Max mana</h3>
           <h3>+{20} Ability Haste</h3>
@@ -520,10 +521,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
 
     {
       name: 'Nashor\'s Tooth',
-      icon: '../images/items/Nashors.png',
-
       
-
       health: 0,
       mana: 0,
       armor: 0,
@@ -543,6 +541,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
 
       description:
         <div className="itemDescription">
+           <img src="../images/items/Nashors.png" alt="itemIcon" className="itemIcon" />
           <h3 className='stat--as'>+ 45% ({(base.asBase * 0.45).toFixed(3)}) Attack Speed</h3>
           <h3>+20 Ability Haste</h3>
 
@@ -554,8 +553,6 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
 
     {
       name: 'Black Cleaver(stacked)',
-      icon: '../images/items/BC.png',
-      
       
       health: 350,
       mana: 0,
@@ -576,6 +573,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
 
       description: 
         <div className='itemDescription'>
+           <img src="../images/items/BC.png" alt="itemIcon" className="itemIcon" />
           <h3 className='stat--hp'>+{350} Max Health</h3>
           <h3 classname='stat--ad'>+{40} Attack Damage</h3>
           <h3>+{20} Ability Haste</h3>          
@@ -607,6 +605,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
 
       description: 
         <div className='itemDescription'>
+           <img src="../images/items/Trinity.png" alt="itemIcon" className="itemIcon" />
           <h3 className='stat--hp'>+{250} Max Health</h3>
           <h3 className='stat--ad'>+{25} Attack Damage</h3>
           <h3 className='stat--as'>+30% ({(base.asBase * 0.3)}) Attack Speed</h3>
@@ -640,6 +639,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
 
       description:
       <div className='itemDescription'>
+         <img src="../images/items/MOM.png" alt="itemIcon" className="itemIcon" />
         <h3 className="stat--ad">+{45} Attack Damage</h3>
         <h3 className="stat--magres">+{45} Magic Resistance</h3>
         <h3>+10 Ability Haste</h3>
@@ -672,6 +672,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
 
       description:
         <div className="itemDescription">
+           <img src="../images/items/DD.png" alt="itemIcon" className="itemIcon" />
           <h3 className="stat--ad">+{35} Attack Damage</h3>
           <h3 className="stat--armor">+{40} Armor</h3>
           <h3>+{15} Ability Haste</h3>
@@ -703,6 +704,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
 
       description:
         <div className="itemDescription">
+          <img src="../images/items/PD.png" alt="itemIcon" className="itemIcon" />
           <h3 className="stat--ad">+{25} Attack Damage</h3>
           <h3 className="stat--critChance">+{25}% Critical Rate</h3>
           <h3 className='stat--as'>+{30}% ({(base.asBase * 0.3).toFixed(3)}) Attack Speed</h3>
@@ -735,6 +737,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
 
       description:
         <div className="itemDescription">
+          <img src="../images/items/PD.png" alt="itemIcon" className="itemIcon" />
           <h3 className="stat--ad">+{25} Attack Damage</h3>
           <h3 className="stat--critChance">+{25}% Critical Rate</h3>
           <h3 className='stat--as'>+{30}%, +25% ({((base.asBase * 0.3)+ (base.asBase * 0.25)).toFixed(3)}) Attack Speed</h3>
@@ -767,6 +770,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
 
       description:
         <div className="itemDescription">
+          <img src="../images/items/WitsEnd.png" alt="itemIcon" className="itemIcon" />
           <h3 className="stat--as">+45 %({(base.asBase * 0.45).toFixed(3)}) Attack Speed</h3>
           <h3 className='stat--magres'>+{50} Magic Resistance</h3>
 
@@ -795,6 +799,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
 
       description:
         <div className="itemDescription">
+          <img src="../images/items/ER.png" alt="itemIcon" className="itemIcon" />
           <h3 className="stat--ad">+{40} Attack Damage</h3>
           <h3 className='stat--as'>+{25}% Critical Rate</h3>
           <h3>+{20} Ability Haste</h3>
@@ -825,6 +830,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
 
       description:
         <div className="itemDescription">
+          <img src="../images/items/Stormrazor.png" alt="itemIcon" className="itemIcon" />
           <h3 className="stat--ad">+{40} Attack Damage</h3>
           <h3 className="stat--critChance">+{25}% Critical Rate</h3>
           <h3 className="stat--as">+20% ({(base.asBase * 0.2).toFixed(3)}) Attack Speed</h3>
@@ -855,6 +861,8 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
 
       description: 
         <div className='itemDescription'>
+          <img src="../images/items/Serylda.png" alt="itemIcon" className="itemIcon" />
+          <img src="../images/items/Serylda.png" alt="itemIcon" className="itemIcon" />
           <h3 className='stat--ad'>+{40} Attack Damage</h3>
           <h3>+{15} Ability Haste</h3>
           <h3>Last Whisper: <abbr title="15 + your current level"> +{(15 + Number(currentLevel))}%</abbr> Armor Penetration</h3>
@@ -885,6 +893,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
 
       description: 
         <div className='itemDescription'>
+          <img src="../images/items/Solari.png" alt="itemIcon" className="itemIcon" />
           <h3 className='stat--critChance'>+{25}% Critical Rate</h3>
           <h3 className="stat--as">+{40}% ({(base.asBase * 0.4).toFixed(3)}) Attack Speed</h3>
           <h3>+20 Ability Haste</h3>
@@ -915,6 +924,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
 
       description: 
         <div className='itemDescription'>
+          <img src="../images/items/Navori.png" alt="itemIcon" className="itemIcon" />
           <h3 className="stat--ad">+{45} Attack Damage</h3>
           <h3 className='stat--critChance'>+{25}% Critical Rate</h3>
           <h3>+{15} Ability Haste</h3>
@@ -945,6 +955,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
 
       description: 
         <div className='itemDescription'>
+          <img src="../images/items/EdgeOfNight.png" alt="itemIcon" className="itemIcon" />
           <h3 className="stat--hp">+{250} Max Health</h3>
           <h3 className='stat--ad'>+{50} Attack Damage</h3>
 
@@ -975,6 +986,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
 
       description: 
         <div className='itemDescription'>
+          <img src="../images/items/Hullbreaker.png" alt="itemIcon" className="itemIcon" />
           <h3 className='stat--hp'>+{300} Max Health</h3>
           <h3 className='stat--ad'>+{55} Attack Damage</h3>
 
@@ -1012,6 +1024,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
 
       description: 
         <div className='itemDescription'>
+          <img src="../images/items/Hullbreaker.png" alt="itemIcon" className="itemIcon" />
           <h3 className='stat--hp'>+{300} Max Health</h3>
           <h3 className='stat--ad'>+{55} Attack Damage</h3>
 
@@ -1049,6 +1062,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
 
       description: 
         <div className='itemDescription'>
+          <img src="../images/items/Hullbreaker.png" alt="itemIcon" className="itemIcon" />
           <h3 className='stat--hp'>+{300} Max Health</h3>
           <h3 className='stat--ad'>+{55} Attack Damage</h3>
 
@@ -1086,6 +1100,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
 
       description: 
         <div className='itemDescription'>
+          <img src="../images/items/DivineSunderer.png" alt="itemIcon" className="itemIcon" />
           <h3 className="stat--hp">+{400} Max Health</h3>
           <h3 className='stat--ad'>+{25} Attack Damage</h3>
           <h3>+25 Ability Haste</h3>
@@ -1118,6 +1133,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
 
       description: 
         <div className='itemDescription'>
+          <img src="../images/items/Serpent.webp" alt="itemIcon" className="itemIcon" />
           <h3 className='stat--ad'>+{55} Attack Damage</h3>
           <h3 >+{10} Ability Haste</h3>
           <h3>+{15} Armor Penetration</h3>
@@ -1149,6 +1165,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
 
       description: 
         <div className='itemDescription'>
+          <img src="../images/items/LDR.webp" alt="itemIcon" className="itemIcon" />
           <h3 className='stat--ad'>+{35} Attack Damage</h3>
           <h3 className='stat--critChance'>+{25}% Critical Rate</h3>
           <h3>Last Whisper: <abbr title="15 + your current level">+{(15 + Number(currentLevel))}%</abbr> Armor Penetration</h3>
@@ -1179,6 +1196,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
 
       description: 
         <div className='itemDescription'>
+          <img src="../images/items/ISB.webp" alt="itemIcon" className="itemIcon" />
           <h3 className="stat--ad">+{40} Attack Damage</h3>
           <h3 className='stat--critChance'>+{25}% Critical Rate</h3>
           <h3 classname='stat--as'>+15% ({(base.asBase * 0.15).toFixed(3)}) Attack Speed</h3>
@@ -1211,6 +1229,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
 
       description: 
         <div className='itemDescription'>
+          <img src="../images/items/Collector.webp" alt="itemIcon" className="itemIcon" />
           <h3 className='stat--ad'>+{40} Attack Damage</h3>
           <h3 className="stat--critChance">+{25}% Critical Rate</h3>
           <h3>+10 Armor Penetration</h3>
@@ -1244,6 +1263,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
 
       description: 
         <div className='itemDescription'>
+          <img src="../images/items/Ludens.png" alt="itemIcon" className="itemIcon" />
           <h3 className='stat--ap'>+{85} Ability Power</h3>
           <h3 className='stat--mana'>+{300} Max mana</h3>
           <h3>+{20} Ability Haste</h3>
@@ -1275,6 +1295,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
 
       description: 
         <div className='itemDescription'>
+          <img src="../images/items/Morellonomicon.png" alt="itemIcon" className="itemIcon" />
           <h3 className="stat--ap">+{75} Ability Power</h3>
           <h3>+{20} Ability Haste</h3>
 
@@ -1305,7 +1326,8 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
 
       description: 
         <div className='itemDescription'>
-          <h3 classname='stat--ap'>+{70} Ability Power</h3>
+          <img src="../images/items/VoidStaff.png" alt="itemIcon" className="itemIcon" />
+          <h3 className='stat--ap'>+{70} Ability Power</h3>
           <h3>Dissolve: <span className="stat--magres">+{45}% Magic Penetration</span></h3>
         </div>
 
@@ -1333,6 +1355,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
 
       description: 
         <div className='itemDescription'>
+          <img src="../images/items/Rabadon.png" alt="itemIcon" className="itemIcon" />
           <h3 className='stat--ap'>+{110} Ability Power</h3>
           <p><b>Overkill:</b> Increases <span className="stat--ap">Ability Power</span> by <abbr title="40%">{bonusEffects.rabadon}</abbr></p>
           <button onClick={switchHat}>Enable/Disable bonus AP</button>
@@ -1364,6 +1387,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
 
       description: 
         <div className='itemDescription'>
+          <img src="../images/items/Rylais.png" alt="itemIcon" className="itemIcon" />
           <h3 className="stat--hp">+{350} Max Health</h3>
           <h3 className="stat--ap">+{70} Ability Power</h3>
 
@@ -1394,6 +1418,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
 
       description: 
         <div className='itemDescription'>
+          <img src="../images/items/Liandry.png" alt="itemIcon" className="itemIcon" />
           <h3 className="stat--hp">+{200} Max Health</h3>
           <h3 className="stat--ap">+{75} Ability Power</h3>
 
@@ -1424,6 +1449,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
 
       description: 
         <div className='itemDescription'>
+          <img src="../images/items/ROA.png" alt="itemIcon" className="itemIcon" />
           <h3 className="stat--health">+{250} Max Health</h3>
           <h3 className="stat--ap">+{60} Ability Power</h3>
           <h3 className="stat--mana">+{300} Max mana</h3>        
@@ -1456,6 +1482,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
 
       description: 
         <div className='itemDescription'>
+          <img src="../images/items/ROA.png" alt="itemIcon" className="itemIcon" />
           <h3 className="stat--health">+{450} Max Health</h3>
           <h3 className="stat--ap">+{120} Ability Power</h3>
           <h3 className="stat--mana">+{400} Max mana</h3>        
@@ -1488,6 +1515,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
 
       description: 
         <div className='itemDescription'>
+          <img src="../images/items/LichBane.png" alt="itemIcon" className="itemIcon" />
           <h3 className="stat--ap">+{80} Ability Power</h3>
           <h3>+{10} Ability Haste</h3>
           <h3>Bane: +5% ({Math.floor(base.moveSpeed * 5 / 100)}) Move Speed</h3>
@@ -1519,6 +1547,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
 
       description: 
         <div className='itemDescription'>
+          <img src="../images/items/ArchangelStaff.png" alt="itemIcon" className="itemIcon" />
           <h3 className="stat--ap">+{35} Ability Power</h3>
           <h3 className="stat--mana">+{500} Max Mana</h3>
           <h3>+{20} Ability Haste</h3>
@@ -1551,6 +1580,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
 
       description: 
         <div className='itemDescription'>
+          <img src="../images/items/Seraphs.png" alt="itemIcon" className="itemIcon" />
           <h3 className="stat--ap">+{35} Ability Power</h3>
           <h3 className='stat--mana'>+{1200} Max Mana</h3>
           <h3>+{20} Ability Haste</h3>
@@ -1583,7 +1613,8 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
 
       description: 
         <div className='itemDescription'>
-          <h3 className='stat--health'>+{250} Max Health</h3>
+          <img src="../images/items/Ardent.png" alt="itemIcon" className="itemIcon" />
+          <h3 className='stat--hp'>+{250} Max Health</h3>
           <h3 className='stat--ap'>+{60} Ability Power</h3>
           <h3>+{10} Ability Haste</h3>
 
@@ -1610,13 +1641,14 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
       magPen: 0,
       critChance: 0,
       critMultiplier: 0,
-      ah: 100,
+      ah: 10,
       armorReduction: 0,
 
       description: 
         <div className='itemDescription'>
+          <img src="../images/items/HarmonicEcho.png" alt="itemIcon" className="itemIcon" />
           <h3 className="stat--ap">+{75} Ability Power</h3>
-          <h3 className='stat--man'>+{300} Max Mana</h3>
+          <h3 className='stat--mana'>+{300} Max Mana</h3>
           <h3>+{10} Ability Haste</h3>
 
           <p><b>Harmonic Echo:</b> Moving and casting abilities build Harmony stacks. At 100 stacks your next healing / shielding ability coast on ally restores <abbr title="70 + 10% AP"><span className="stat--hp">{Math.floor(70 + (total.ap * 10 / 100))} Health</span></abbr> to your target and up to 3 nearby allied champions</p>
@@ -1625,7 +1657,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
     },
 
     {
-      name: 'Awakened Spulstealer',
+      name: 'Awakened Soulstealer',
 
       health: 150,
       mana: 0,
@@ -1646,6 +1678,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
 
       description: 
         <div className='itemDescription'>
+          <img src="../images/items/Soulstealer.png" alt="itemIcon" className="itemIcon" />
           <h3 className="stat--hp">+{150} Max Health</h3>
           <h3 className="stat--ap">+{65} Ability Power</h3>
           <h3>+{20} Ability Haste</h3>
@@ -1678,6 +1711,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
 
       description: 
         <div className='itemDescription'>
+          <img src="../images/items/Infinity_Orb.png" alt="itemIcon" className="itemIcon" />
           <h3 className="stat--ap">+85 Ability Power</h3>
 
           <p><b>Destiny:</b> +5% ({Math.floor(base.moveSpeed * 5 / 100)}) Movement Speed</p>
@@ -1709,6 +1743,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
 
       description: 
         <div className='itemDescription'>
+          <img src="../images/items/Staff_of_Flowing_Water.png" alt="itemIcon" className="itemIcon" />
           <h3 className="stat--ap">+{65} Ability Power</h3>
           <h3 className="stat--mana">+{300} Max Mana</h3>
           <h3>+{20} Ability Haste</h3>
@@ -1740,6 +1775,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
 
       description: 
         <div className='itemDescription'>
+          <img src="../images/items/Crystalline_Reflector.png" alt="itemIcon" className="itemIcon" />
           <h3 className="stat--armor">+{45} Armor</h3>
           <h3 className="stat--ap">+{60} Ability Power</h3>
           <h3>+15 Ability Haste </h3>
@@ -1771,6 +1807,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
 
       description: 
         <div className='itemDescription'>
+          <img src="../images/items/Banshee's_Veil.png" alt="itemIcon" className="itemIcon" />
           <h3 className="stat--ap">+{75} Ability Power</h3>
           <h3 className="stat--magres">+{40} Magic Resistance</h3>
           <h3>+{15} Ability Haste</h3>
@@ -1802,6 +1839,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
 
       description: 
         <div className='itemDescription'>
+          <img src="../images/items/Imperial_Mandate.webp" alt="itemIcon" className="itemIcon" />
           <h3 className="stat--hp">+{200} Max Health</h3>
           <h3 className='stat--ap'>+{40} Ability Power</h3>
           <h3>+20 Ability Haste</h3>
@@ -1833,9 +1871,10 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
 
       description: 
         <div className='itemDescription'>
+          <img src="../images/items/Cosmic_Drive.webp" alt="itemIcon" className="itemIcon" />
           <h3 className="stat--ap">+75 Ability Power</h3>
           <h3>+30 Ability Haste</h3>
-          <h3>Hyperdrive: +5% ({Math.floor(base.moveSpeed * 5 / 100)}) Movoment speed</h3>
+          <h3>Hyperdrive: +5% ({Math.floor(base.moveSpeed * 5 / 100)}) Movement speed</h3>
 
           <p><b>Spellweaving: </b>Active abilities and empowered attacks grant <abbr title="30 + 70% Ability Haste"><b>{Math.floor(30 + (attacker.ah * 70 /100))} Movement Speed</b></abbr> after dealing damage to enemy champion. This movement speed decays over 2 seconds. Each source has 1s cooldown for triggering the effect. Only <b>Ability Haste</b> from items contributes to Spellweaving's movement speed</p>
         </div>
@@ -1864,6 +1903,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
 
       description: 
         <div className='itemDescription'>
+          <img src="../images/items/Riftmaker.webp" alt="itemIcon" className="itemIcon" />
           <h3 className="stat--hp">+150 Max Health</h3>
           <h3 className="stat--ap">+80 Ability Power</h3>
           <h3>+15 Ability Haste</h3>
@@ -1896,11 +1936,12 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
 
       description: 
         <div className='itemDescription'>
+          <img src="../images/items/Horizon_Focus.webp" alt="itemIcon" className="itemIcon" />
           <h3 className="stat--hp">+150 Max Health</h3>
           <h3 className="stat--ap">+80 Ability Power</h3>
           <h3>+15 Ability Haste</h3>
           
-          <p><b>Hypershot</b>Apply 1 mark when you damage enemy champion with non-targeted ability from 500 units away; apply 2 marks for immobolizing. MArked enemies are revealed. At 3 stacks detonate them  to deal <abbr title="90 +25% AP; numbers are pre/post-mitigation"><span className="stat--ap">{Math.floor(90 + (total.ap * 25 / 100))} / {Math.floor((90 + (total.ap * 25 / 100)) * (1 - modifierMres))} Magic damage</span></abbr> to the target.</p>
+          <p><b>Hypershot:</b> Apply 1 mark when you damage enemy champion with non-targeted ability from 500 units away; apply 2 marks for immobolizing. MArked enemies are revealed. At 3 stacks detonate them  to deal <abbr title="90 +25% AP; numbers are pre/post-mitigation"><span className="stat--ap">{Math.floor(90 + (total.ap * 25 / 100))} / {Math.floor((90 + (total.ap * 25 / 100)) * (1 - modifierMres))} Magic damage</span></abbr> to the target.</p>
         </div>
 
     },
@@ -1929,6 +1970,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
 
       description: 
         <div className='itemDescription'>
+          <img src="../images/items/Sunfire_Aegis.png" alt="itemIcon" className="itemIcon" />
           <h3 className="stat--hp">+500 Max Health</h3>
           <h3>+15 Ability Haste</h3>
 
@@ -1960,6 +2002,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
 
       description: 
         <div className='itemDescription'>
+          <img src="../images/items/Spirit_Visage.png" alt="itemIcon" className="itemIcon" />
           <h3 className="stat--hp">+350 Max Health</h3>
           <h3 className="stat--hp">+100% Health Regen</h3>
           <h3 className="stat--magres">+50 Magic Resistance</h3>
@@ -1992,10 +2035,11 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
 
       description: 
         <div className='itemDescription'>
+          <img src="../images/items/Randuins_Omen.png" alt="itemIcon" className="itemIcon" />
           <h3 className="stat--hp">+400 Max Health</h3>
           <h3 className="stat--armor">+60 Armor</h3>
 
-          <p><b>Cold Steel</b> reduces the attack speed of enemies by <b>15%</b> when struck by basic attack</p>
+          <p><b>Cold Steel:</b> reduces the attack speed of enemies by <b>15%</b> when struck by basic attack</p>
           <p><b>Determination:</b> When you are getting critically struck store (20% for melee / 14% for ranged) pre-mitigation damage received as Datermination stacks for 5 seconds (500 stacks max). When you attack a champion consume all stacks and heal for the amount consumed.</p>
         </div>
 
@@ -2023,10 +2067,11 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
 
       description: 
         <div className='itemDescription'>
+          <img src="../images/items/Thornmail.webp" alt="itemIcon" className="itemIcon" />
           <h3 className="stat--hp">+100 Max Health</h3>
           <h3 className="stat--armor">+75 Armor</h3>
 
-          <p><b>Thorns: </b>When struck by attack deal <abbr title="20 + 6% bonus armor + 1% bonus HP; numbers are pre/post-mitigation">{Math.floor((20 + (bonus.armor * 6 / 100) + (bonus.health /100)))}
+          <p><b>Thorns: </b>When struck by attack deal <abbr title="20 + 6% bonus armor + 1% bonus HP; numbers are pre/post-mitigation" class='stat--vamp'>{Math.floor((20 + (bonus.armor * 6 / 100) + (bonus.health /100)))}
           / {Math.floor((20 + (bonus.armor * 6 / 100) + (bonus.health /100)) * (1 - modifierMres))} Magic Damage</abbr> to the attacker and apply 40% <b>Grievous Wounds</b>. 60% for target under 50% health / immobilized.</p>
           <p><b>Grievous Wounds</b> reduces the effectiveness of healing and regeneration effects.</p>
         </div>
@@ -2055,6 +2100,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
 
       description: 
         <div className='itemDescription'>
+          <img src="../images/items/Warmogs_Armor.png" alt="itemIcon" className="itemIcon" />
           <h3 className="stat--hp">+700 Max Health</h3>
           <h3 className="stat--hp">+200% Health Regen</h3>
           <h3>+10 Ability Haste</h3>
@@ -2086,6 +2132,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
 
       description: 
         <div className='itemDescription'>
+          <img src="../images/items/Iceborn_Gauntlet.png" alt="itemIcon" className="itemIcon" />
           <h3 className="stat--hp">+250 Max Health</h3>
           <h3 className="stat--armor">+50 Armor</h3>
           <h3 className="stat--mana">+250 Max Mana</h3>
@@ -2117,6 +2164,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
 
       description: 
         <div className='itemDescription'>
+          <img src="../images/items/Dead_Mans_Plate.png" alt="itemIcon" className="itemIcon" />
           <h3 className="stat--health">+250 Max Health</h3>
           <h3 className="stat--armor">+50 Armor</h3>
 
@@ -2151,6 +2199,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
 
       description: 
         <div className='itemDescription'>
+          <img src="../images/items/Abyssal_Mask.png" alt="itemIcon" className="itemIcon" />
           <h3 className="stat--hp">+300 Max Health</h3>
           <h3 className="stat--magres">+40 Magic Resistance</h3>
           <h3 className="stat--mana">+300 Max Mana</h3>
@@ -2184,6 +2233,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
 
       description: 
         <div className='itemDescription'>
+          <img src="../images/items/Zekes_Convergence.png" alt="itemIcon" className="itemIcon" />
           <h3 className="stat--armor">+40 Armor</h3>
           <h3 className="stat--magres">+40 Magic Resistance</h3>
           <h3 className="stat--mana">+150 Max mana</h3>
@@ -2221,6 +2271,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
 
       description: 
         <div className='itemDescription'>
+          <img src="../images/items/Protectors_Vow.png" alt="itemIcon" className="itemIcon" />
           <h3 className="stat--hp">+350 Max Health</h3>
           <h3 className="stat--armor">+40 Armor</h3>
           <h3>+10 Ability Haste</h3>
@@ -2252,6 +2303,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
 
       description: 
         <div className='itemDescription'>
+          <img src="../images/items/Winter's_Approach.png" alt="itemIcon" className="itemIcon" />
           <h3 className="stat--hp">+350 Max Health</h3>
           <h3 className="stat--mana">+500 Max Mana</h3>
           <h3>+15 Ability Haste</h3>
@@ -2284,6 +2336,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
 
       description: 
       <div className='itemDescription'>
+          <img src="../images/items/Fimbulwinter.png" alt="itemIcon" className="itemIcon" />
       <h3 className="stat--hp">+350 Max Health</h3>
       <h3 className="stat--mana">+1200 Max Mana</h3>
       <h3>+15 Ability Haste</h3>
@@ -2316,6 +2369,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
 
       description: 
         <div className='itemDescription'>
+          <img src="../images/items/FH.png" alt="itemIcon" className="itemIcon" />
           <h3 className="stat--armor">+80 Armor</h3>
           <h3 className="stat--mana">+200 Max mana</h3>
           <h3>+25 Ability Haste</h3>
@@ -2327,6 +2381,8 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
 
     {
       name: 'Force of Nature',
+
+      // Find a way to implement effect dinamically
 
       health: 350,
       mana: 0,
@@ -2347,6 +2403,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
 
       description: 
         <div className='itemDescription'>
+          <img src="../images/items/Force_of_Nature.png" alt="itemIcon" className="itemIcon" />
           <h3 className="stat--hp">+350 Max Health</h3>
           <h3 className="stat--magres">+50 Magic resistance</h3>
           <h3>+5% ({Math.floor(base.moveSpeed * 5 / 100)}) Movement Speed</h3>
@@ -2380,6 +2437,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
 
       description: 
         <div className='itemDescription'>
+          <img src="../images/items/Ixtali_Seedjar.png" alt="itemIcon" className="itemIcon" />
           <h3 className="stat--hp">+425 Max Health</h3>
           <h3>+25 Ability Haste</h3>
           <h3>+5% ({Math.floor(base.moveSpeed * 5 / 100)}) Movement Speed</h3>
@@ -2417,6 +2475,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
 
       description: 
         <div className='itemDescription'>
+          <img src="../images/items/Dawnshroud.png" alt="itemIcon" className="itemIcon" />
           <h3 className="stat--hp">+250 Max Health</h3>
           <h3 className="stat--armor">+50 Armor</h3>
           <h3 className="stat--magres">+30 Magic Resistance</h3>
@@ -2450,6 +2509,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
 
       description: 
         <div className='itemDescription'>
+          <img src="../images/items/Amaranth.png" alt="itemIcon" className="itemIcon" />
           <h3 className="stat--armor">+55 Armor</h3>
           <h3 className="stat--magres">+55 Magic Resistance</h3>
 
@@ -2487,6 +2547,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
 
       description: 
         <div className='itemDescription'>
+          <img src="../images/items/Amaranth.png" alt="itemIcon" className="itemIcon" />
           <h3 className="stat--armor">+55 Armor</h3>
           <h3 className="stat--magres">+55 Magic Resistance</h3>
 
@@ -2522,6 +2583,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
 
       description: 
         <div className='itemDescription'>
+          <img src="../images/items/12HourMantle.png" alt="itemIcon" className="itemIcon" />
           <h3 className="stat--hp">+200 Max Health</h3>
           <h3 className="stat--armor">+40 Armor</h3>
           <h3 className="stat--magres">+40 Magic Resistance</h3>
@@ -2555,6 +2617,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
 
       description: 
         <div className='itemDescription'>
+          <img src="../images/items/SearingCrown.png" alt="itemIcon" className="itemIcon" />
           <h3 className="stat--hp">+300 Max Health</h3>
           <h3 className="stat--armor">+50 Armor</h3>
 
@@ -2565,7 +2628,213 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
 
     },
 
+    //Support Items
 
+    {
+      name: 'Ancient Coin',
+
+      health: 80,
+      mana: 0,
+      armor: 0,
+      magres: 0,
+      attack: 0,
+      ap: 0,
+      as: 0,
+      moveSpeed: 0,
+      flatArmPen: 0,
+      flatMagPen: 0,
+      armPen: 0,
+      magPen: 0,
+      critChance: 0,
+      critMultiplier: 0,
+      ah: 5,
+      armorReduction: 0,
+
+      description: 
+        <div className='itemDescription'>
+          <img src="../images/items/Ancient_Coin.png" alt="itemIcon" className="itemIcon" />
+          <h3 className="stat--hp">+80 Health</h3>
+          <h3>+5 Ability Hate</h3>
+
+          <p><b>Offering:</b> Generates a charge every 30 seconds, up to 3 charges. While you are near an allied champion, nearby minions that die will each consume a charge. Consuming a charge will grant 55 gold and heal you for 15 - 65 (based on missing health) You earn 50% reduced gold from killing minions and monsters. Killing minions will also grant 100% kill gold Gold 100% kill gold to the nearby ally.</p>
+          <p><b>Mission:</b> This item transforms into <b>Talisman of Ascension</b> after obtaining <b>500</b> gold.</p>
+        </div>
+    },
+
+    {
+      name: 'Talisman of Ascension (Stacked)',
+
+      health: 375,
+      mana: 0,
+      armor: 0,
+      magres: 0,
+      attack: (total.ap < total.attack ? 20 : 0),
+      ap:  (total.ap > total.attack ? 40 : 0),
+      as: 0,
+      moveSpeed: 0,
+      flatArmPen: 0,
+      flatMagPen: 0,
+      armPen: 0,
+      magPen: 0,
+      critChance: 0,
+      critMultiplier: 0,
+      ah: 15,
+      armorReduction: 0,
+
+      description: 
+        <div className='itemDescription'>
+          <img src="../images/items/Talisman_of_Ascension.png" alt="itemIcon" className="itemIcon" />
+          <h3 className="stat--hp">+375 (125 + 250) Health</h3>
+          <h3><span className="stat--ad">+20 Attack Damage</span> or <span className="stat--ap">+40 Ability Power</span> (Adaptive)</h3>
+          <h3>+15 Ability Haste</h3>
+
+          <p>
+            <b>Soulcast:</b> Every 60 seconds gain <b>75 Gold</b> <span className="stat--hp">25 Health</span>, and <span className="stat--ad">2 AD</span> or <span className="stat--ap">4 AP</span> (Adaptive) up to a maximum of <span className="stat--hp">250 Health,</span> and <span className="stat--ad">20 AD</span> or <span className="stat--ap">40 AP</span> (Adaptive).
+            </p>
+        </div>
+
+    },
+
+    {
+      name: 'Spectral Sickle',
+
+      health: 0,
+      mana: 0,
+      armor: 0,
+      magres: 0,
+      attack: (total.ap < total.attack ? 10 : 0),
+      ap:  (total.ap > total.attack ? 20 : 0),
+      as: 0,
+      moveSpeed: 0,
+      flatArmPen: 0,
+      flatMagPen: 0,
+      armPen: 0,
+      magPen: 0,
+      critChance: 0,
+      critMultiplier: 0,
+      ah: 0,
+      armorReduction: 0,
+
+      description: 
+        <div className='itemDescription'>
+          <img src="../images/items/Spectral_Sickle.png" alt="itemIcon" className="itemIcon" />
+          <p><b>Versatile:</b> Gain <span className="stat--ad">10 Attack Damage</span> or <span className="stat--ap">20 Ability Power</span> (Adaptive).</p>
+
+          <p><b>Tribute:</b>  Generates a charge every 30 seconds, up to 3 charges. While you are near an allied champion, your damaging abilities and attacks against champions and structures consume up to one charge per attack or cast. Consuming a charge grants 65 gold and heals for <span className="stat--hp">20 - 80 health (based on missing health)</span> . You earn 50% reduced gold from killing minions and monsters. Killing minions will also grant 100% kill gold to the nearby ally.</p>
+
+          <p><b>Quest:</b> Earn <b>500</b> Gold with this item to transform it into <b>Black Mist Scythe</b>.</p>
+        </div>
+
+    },
+
+    {
+      name: 'Black Mist Scythe (Stacked)',
+
+      health: 250,
+      mana: 0,
+      armor: 0,
+      magres: 0,
+      attack: (total.ap < total.attack ? 34 : 0),
+      ap:  (total.ap > total.attack ? 68 : 0),
+      as: 0,
+      moveSpeed: 0,
+      flatArmPen: 0,
+      flatMagPen: 0,
+      armPen: 0,
+      magPen: 0,
+      critChance: 0,
+      critMultiplier: 0,
+      ah: 10,
+      armorReduction: 0,
+
+      description: 
+        <div className='itemDescription'>
+          <img src="../images/items/Black_Mist_Scythe.png" alt="itemIcon" className="itemIcon" />
+          <h3>+10 Ability Haste</h3>
+
+          <p>
+            <b>Versatile:</b> Gain <span className="stat--ad">14 Attack Damage</span> or <span stat--ap>28 Ability Power</span> (Adaptive).
+          </p>
+
+          <p>
+            <b>Soulcast:</b> Every 60 seconds gain <b>75 Gold</b> <span className="stat--hp">25 Health</span>, and <span className="stat--ad">2 AD</span> or <span className="stat--ap">4 AP</span> (Adaptive) up to a maximum of <span className="stat--hp">250 Health,</span> and <span className="stat--ad">20 AD</span> or <span className="stat--ap">40 AP</span> (Adaptive). 
+          </p>
+
+        </div>
+
+    },
+
+    {
+      name: 'Relic Shield',
+
+      health: 175,
+      mana: 0,
+      armor: 0,
+      magres: 0,
+      attack: 0,
+      ap: 0,
+      as: 0,
+      moveSpeed: 0,
+      flatArmPen: 0,
+      flatMagPen: 0,
+      armPen: 0,
+      magPen: 0,
+      critChance: 0,
+      critMultiplier: 0,
+      ah: 10,
+      armorReduction: 0,
+
+      description: 
+        <div className='itemDescription'>
+          <img src="../images/items/Relic_Shield.png" alt="itemIcon" className="itemIcon" />
+
+          <h3 className="stat--hp">+175 Max Health</h3>
+          <h3>+10 Ability Haste</h3>
+
+          <p>
+            <b>Spoils of War:</b> Generates a charge every 30 seconds, up to 3 charges. While you are near an allied champion, your basic attacks execute minions below <span className="stat--hp">65% of their maximum health</span>, consuming 1 charge per minion. Consuming a charge will heal you for <span className="stat--hp">20 - 80 (based on missing health)</span>, as well as grant 65 Gold to you and 100% kill gold to the nearest allied champion. You earn 50% reduced gold from killing minions and monsters. Killing minions will also grant 100% kill gold to the nearby ally.
+          </p>
+
+          <p>
+            <b>Quest:</b> earn <b>500</b> gold with this item to transform it into <b>Bulwark of the Mountain</b>
+          </p>
+
+        </div>
+    },
+
+    {
+      name: 'Bulwark of the Mountain (Stacked)',
+
+      health: 175+250,
+      mana: 0,
+      armor: 0,
+      magres: 0,
+      attack: (total.ap < total.attack ? 20 : 0),
+      ap:  (total.ap > total.attack ? 40 : 0),
+      as: 0,
+      moveSpeed: 0,
+      flatArmPen: 0,
+      flatMagPen: 0,
+      armPen: 0,
+      magPen: 0,
+      critChance: 0,
+      critMultiplier: 0,
+      ah: 0,
+      armorReduction: 0,
+
+      description: 
+        <div className='itemDescription'>
+          <img src="../images/items/Bulwark_of_the_Mountain.png" alt="itemIcon" className="itemIcon" />
+          <h3 className="stat--hp">+175 Max Health</h3>
+          <h3>+10 Ability Haste</h3>
+
+          <p>
+            <b>Soulcast:</b> Every 60 seconds gain <b>75 Gold</b> <span className="stat--hp">25 Health</span>, and <span className="stat--ad">2 AD</span> or <span className="stat--ap">4 AP</span> (Adaptive) up to a maximum of <span className="stat--hp">250 Health,</span> and <span className="stat--ad">20 AD</span> or <span className="stat--ap">40 AP</span> (Adaptive).
+            </p>
+
+        </div>
+
+    },
   ];
 
 
@@ -2615,6 +2884,8 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
   const toggleInventory = () => {
     setShowInventory(prevShowInventory => !prevShowInventory);
   };
+
+  
 
 
     return (

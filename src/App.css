@@ -256,13 +256,20 @@ button:active {
   font-size: 16px;
 
 }.itemDescription > h3:first-of-type {
-  margin-top: 6px;
+  margin-top: 4px;
   padding: 2px;
   font-size: 16px;
 }
 
 .itemDescription > p {
   font-size: 13px;
+}
+
+.itemIcon {
+  margin-top: 10px;
+  height: 50px;
+  width: 50px;
+  border: 2px solid white;
 }
 
 .comparisonTile {

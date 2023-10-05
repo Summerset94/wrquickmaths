@@ -137,10 +137,10 @@ export default function StatComparison(props) {
             </tr>
 
             <tr>
-              <td className='stat--armor'>{formula.attackerArmor}</td>
-              <td className='stat--magres'>{formula.attackerMres}</td>
-              <td className='stat--armor'>{formula.defenderArmor}</td>
-              <td className='stat--magres'>{formula.defenderMres}</td>
+              <td className='stat--armor'>{Math.floor(formula.attackerArmor)}</td>
+              <td className='stat--magres'>{Math.floor(formula.attackerMres)}</td>
+              <td className='stat--armor'>{Math.floor(formula.defenderArmor)}</td>
+              <td className='stat--magres'>{Math.floor(formula.defenderMres)}</td>
             </tr>
 
 
