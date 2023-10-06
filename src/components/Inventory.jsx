@@ -114,7 +114,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
         <h3 className='stat--armor'>+{40} Armor</h3>
   
         <p>
-          <b>Resurrect: </b> Upon taking lethal damage, restores <abbr title="50% BASE health"><b className='stat--hp'>{Math.floor(base.health / 2)} base Health</b></abbr> {total.mana && <abbr title='30% total'> <span>and <b className='stat--mana'>{Math.floor(total.mana * 0.3)} maximum Mana</b></span> </abbr> } after 4 Seconds of Stasis. (210s. Cooldown)
+          <b>Resurrect: </b> Upon taking lethal damage, restores <abbr title="50% BASE health"><span className='stat--hp'>{Math.floor(base.health / 2)} base Health</span></abbr> {total.mana && <abbr title='30% total'> and <span className='stat--mana'> {Math.floor(total.mana * 0.3)} maximum Mana</span> </abbr> } after 4 Seconds of Stasis. (210s. Cooldown)
         </p>
       </div>
     },
@@ -145,7 +145,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
         <h3 className='stat--critChance'>+ {Number(0.25*100)}% Critical Rate</h3>
   
         <p><b>Bloody: </b> <b className='stat--vamp'>+12% (<abbr title="Damage against 0 armor target / post mitigated for current target">{Math.floor((total.attack * 0.12))} / {Math.floor((total.attack * 0.12)* (1 - modifier))}</abbr>)  Physical Vamp</b></p>
-        <p><b>Bloodsworn: </b> <b className='stat--vamp'>Physical Vamp</b> overheals you, generating a shield that absorbs <b className='stat--hp'>{(40 + 20 * (currentLevel - 1))}</b> (40 + 20/level) damage. This shield decays out of combat over 10 seconds</p>
+        <p><b>Bloodsworn: </b> <span className='stat--vamp'>Physical Vamp</span> overheals you, generating a shield that absorbs <abbr title='40 + (20 * level)' className='stat--hp'>{(40 + 20 * (currentLevel - 1))}</abbr> damage. This shield decays out of combat over 10 seconds</p>
       </div>
     },
   
@@ -210,7 +210,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
       description: <div className='itemDescription'>
          <img src="../images/items/Blade_of_the_Ruined_King.png" alt="itemIcon" className="itemIcon" />
         <h3 className='stat--ad'>+{20} Attack Damage</h3>
-        <h3 className='stat--as'>+ {Number(base.asBase * 0.35).toFixed(3)} Attack Speed</h3>
+        <h3 className='stat--as'>+35% ({Number(base.asBase * 0.35).toFixed(3)}) Attack Speed</h3>
   
         <p>
           <b>Thirst:</b> <b className='stat--vamp'>+10% (<abbr title="Damage against 0 armor target / post mitigated for current target">{Math.floor((total.attack * 0.1))} / {Math.floor((total.attack * 0.1)* (1 - modifier))}</abbr>)  Physical Vamp</b>
@@ -221,7 +221,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
         </p>
   
         <p>
-          <b>Drain:</b> Hitting a champion with 3 consecutive attacks or ablilties deals <abbr title="30 + 5 per level"> <span className='stats-ap'>{30 + 5 * (currentLevel - 1)} magic damage</span> </abbr> and steals 25% of their Move Speed for 2 Seconds (60s Cooldown).
+          <b>Drain:</b> Hitting a champion with 3 consecutive attacks or ablilties deals <abbr title="30 + 5 per level" className='stats--ap'> {30 + 5 * (currentLevel - 1)} magic damage</abbr> and steals 25% of their Move Speed for 2 Seconds (60s Cooldown).
         </p>
   
       </div>
@@ -288,7 +288,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
           <h3 className='stat--as'>+45% ({(base.asBase * 0.45).toFixed(3)}) Attack Speed</h3>
           <h3 className='stat--critChance'>+ {0.25*100}% Critical Rate</h3>
   
-          <p>Attacks strike 2 additional nearby enemies. Each attack  dealing <b className='stat--ad'>{Math.floor(total.attack*0.55)}</b>. These attacks CAN critically hit and trigger on-hit effects.</p>        
+          <p>Attacks strike 2 additional nearby enemies. Each attack  dealing <abbr title="55% Attack Damage" className='stat--ad'>{Math.floor(total.attack*0.55)} damage</abbr>. These attacks CAN critically hit and trigger on-hit effects.</p>        
         </div>
     },
   
@@ -380,9 +380,9 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
         <div className='itemDescription'>
            <img src="../images/items/Steraks.png" alt="itemIcon" className="itemIcon" />
           <h3 className='stat--hp'>+{400} Max Health</h3>
-          <h3>Heavy Handed: <abbr title="(50% of BASE attack damage)"><span className='stat--ad'>+{base.attack*0.5}Attack Damage</span></abbr> as BONUS attack damage</h3>
+          <h3>Heavy Handed: <abbr title="(50% of BASE attack damage)"><span className='stat--ad'>+{base.attack*0.5} Attack Damage</span></abbr> as BONUS attack damage</h3>
   
-          <p><b>Lifeline:</b> Damage that puts you under <abbr title="(35% MAX health)"><span className='stat--hp'>{Math.floor(total.health*0.35)}</span></abbr> triggers a <abbr title="(75% of BONUS health)">{bonus.health * 0.75}<span className='stat--hp'></span></abbr> that decays Over 3 seconds (90 sec Cooldown)</p>
+          <p><b>Lifeline:</b> Damage that puts you under <abbr title="(35% MAX health)"><span className='stat--hp'>{Math.floor(total.health*0.35)} health</span></abbr> triggers a <abbr title="(75% of BONUS health)" className="stat--hp">{bonus.health * 0.75} points </abbr> shield that decays Over 3 seconds (90 sec Cooldown)</p>
   
           <p><b>Sterak's fury:</b> Triggering Lifeline also increases your size and grants <span className='stat--ap'>30% Tenacity</span> for 8 seconds.</p>
         </div>
@@ -403,8 +403,8 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
       flatMagPen: 0,
       armPen: 0,
       magPen: 0,
-      critChance: 0.25,
-      critMultiplier: 0.25,
+      critChance: 25 / 100,
+      critMultiplier: 30 / 100,
       armorReduction: 0,
       ah: 0,      
   

@@ -9,6 +9,20 @@ export default function StatsCalculator(props) {
   const [contentVisible, setContentVisible] = useState(true);
   const [currentLevel, setCurrentLevel] = useState(1);
 
+  let critMultiplier;
+
+switch (champ.name) {
+  case 'Yone':
+  case 'Yasuo':
+    critMultiplier = 1.65;
+    break;
+  case 'Senna':
+    critMultiplier = 1.55;
+    break;
+  default:
+    critMultiplier = 1.75;
+};
+
   const baseMemo = useMemo(() => {
     return {
       health: champ.healthBase + (champ.healthScale * (currentLevel - 1)),
@@ -20,7 +34,7 @@ export default function StatsCalculator(props) {
       as: champ.asBase +  champ.asBaseBonus + (champ.asScale * (currentLevel - 1)),
       asBase: champ.asBase,
       moveSpeed: champ.moveSpeed,
-      critMultiplier: (champ.critMultiplier ? champ.critMultiplier : 1.75)
+      critMultiplier: critMultiplier,
     };
   }, [currentLevel, champ]);
 
@@ -96,18 +110,18 @@ export default function StatsCalculator(props) {
   }
 
   
-
+  //Still no info about how Jhin AS and Crit into AD conversion works
   const totalMemo = useMemo(() => {
     return {
       health: champ.name != 'Pyke' ? (baseMemo.health + bonusMemo.health) : baseMemo.health,
       mana: champ.manaBase ? baseMemo.mana + bonusMemo.mana : 0,
       armor: baseMemo.armor + bonusMemo.armor + (twinguardApplied ? bonusEffectsMemo.twinguardAR : 0),
       magres: baseMemo.magres + bonusMemo.magres + (twinguardApplied ? bonusEffectsMemo.twinguardMR : 0),
-      attack: baseMemo.attack + bonusMemo.attack + (champ.name == 'Pyke' ? Math.floor(bonusMemo.health / 14) : 0),
+      attack: baseMemo.attack + bonusMemo.attack + (champ.name == 'Pyke' ? Math.floor(bonusMemo.health / 14) : 0) + (champ.name === 'Zeri' && (baseMemo.as + bonusMemo.as >= 1.5) ? Math.floor((baseMemo.as + bonusMemo.as - 1.5) * (50 / champ.asBase)) : 0) + (champ.name === 'Jhin' ? Math.ceil((baseMemo.attack + bonusMemo.attack) * 5 * currentLevel / 100) : 0),
       
       ap: bonusMemo.ap + (rabadonApplied ? bonusEffectsMemo.rabadon : 0),
       
-      as: baseMemo.as + bonusMemo.as,
+      as: champ.name != "Zeri" ? baseMemo.as + bonusMemo.as : (baseMemo.as + bonusMemo.as) < 1.5 ? (baseMemo.as + bonusMemo.as) : 1.5,
 
       dps: (baseMemo.attack + bonusMemo.attack + (champ.name === 'Pyke' ? Math.floor(bonusMemo.health / 14) : 0)) * (baseMemo.as + bonusMemo.as),
 
@@ -123,8 +137,8 @@ export default function StatsCalculator(props) {
       magPen: bonusMemo.magPen,
       moveSpeed: baseMemo.moveSpeed + bonusMemo.moveSpeed,
       critChance: bonusMemo.critChance,
-      critMultiplier: baseMemo.critMultiplier + bonusMemo.critMultiplier,
-      critDamage: ((baseMemo.attack + bonusMemo.attack))*(baseMemo.critMultiplier + bonusMemo.critMultiplier),
+      critMultiplier: champ.name != 'Ashe' ? baseMemo.critMultiplier + bonusMemo.critMultiplier : 1,
+      critDamage: ((baseMemo.attack + bonusMemo.attack))*(champ.name != 'Ashe' ? baseMemo.critMultiplier + bonusMemo.critMultiplier : 1),
       armorReduction: bonusMemo.armorReduction,
       magResReduction: bonusMemo.magResReduction,
       cdr: (1-(1/(1+bonusMemo.ah/100))),
@@ -250,11 +264,18 @@ export default function StatsCalculator(props) {
           </tr>
 
           <tr>
-            <td>DPS</td>
+            <td>DPS:</td>
             <td>{totalMemo.dps.toFixed(2)}</td>
             <td>Crit Chance</td>
             <td>{Math.floor(totalMemo.critChance*100)}%</td>
-          </tr>          
+          </tr>   
+
+          <tr>
+            <td>Crit dps:</td>
+            <td>{(totalMemo.dps * totalMemo.critMultiplier).toFixed(2)}</td>
+            <td>Crit Multiplier:</td>
+            <td>{Math.ceil(totalMemo.critMultiplier * 100)}%</td>
+          </tr>       
         </tbody>
       </table>
 
