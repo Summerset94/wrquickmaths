@@ -9,19 +9,29 @@ export default function StatsCalculator(props) {
   const [contentVisible, setContentVisible] = useState(true);
   const [currentLevel, setCurrentLevel] = useState(1);
 
-  let critMultiplier;
+  
+  const baseModifier = useMemo(() => {
+    
+    let critMultiplier;
 
-switch (champ.name) {
-  case 'Yone':
-  case 'Yasuo':
-    critMultiplier = 1.65;
-    break;
-  case 'Senna':
-    critMultiplier = 1.55;
-    break;
-  default:
-    critMultiplier = 1.75;
-};
+    switch (champ.name) {
+      case 'Yone':
+      case 'Yasuo':
+        critMultiplier = 1.65;
+        break;
+      case 'Senna':
+        critMultiplier = 1.55;
+        break;
+      default:
+        critMultiplier = 1.75;
+    };
+    
+    return {
+      critMultiplier,      
+    }
+
+
+  }, [champ, currentLevel])
 
   const baseMemo = useMemo(() => {
     return {
@@ -34,9 +44,11 @@ switch (champ.name) {
       as: champ.asBase +  champ.asBaseBonus + (champ.asScale * (currentLevel - 1)),
       asBase: champ.asBase,
       moveSpeed: champ.moveSpeed,
-      critMultiplier: critMultiplier,
+      critMultiplier: baseModifier.critMultiplier,
     };
   }, [currentLevel, champ]);
+
+  
 
   //fallback option
   // const bonusMemo = useMemo(() => {
@@ -109,21 +121,71 @@ switch (champ.name) {
     setFonStacked(oldState => !oldState)
   }
 
+  const totalModifier = useMemo(() => {
+    let healthMod;
+    let attackMod;
+    let asMod;
+
+  //Health
+    switch (champ.name) {
+      case 'Pyke':
+        healthMod = baseMemo.health;
+        break;
+      default:
+        healthMod = baseMemo.health + bonusMemo.health;
+        break;
+    }  
+    
+  // Attack
+    switch (champ.name) {
+      case 'Pyke':
+        attackMod = Math.ceil(bonusMemo.health / 14);
+        break;
+      case 'Zeri':
+        attackMod = baseMemo.as + bonusMemo.as >= 1.5 ? Math.floor((baseMemo.as + bonusMemo.as - 1.5) * (50 / champ.asBase)) : 0;
+        break;
+      case 'Jhin':
+        attackMod = Math.ceil((baseMemo.attack + bonusMemo.attack) * 5 * currentLevel / 100);
+        break;
+      default:
+        attackMod = 0;
+        break;
+    }
+
+  // Attack Speed
+    switch (champ.name) {
+      case 'Zeri':
+        asMod = (baseMemo.as + bonusMemo.as) < 1.5 ? (baseMemo.as + bonusMemo.as) : 1.5;
+        break;
+      case 'Jhin':
+        asMod = baseMemo.as;
+        break;
+      default:
+        asMod = baseMemo.as + bonusMemo.as;
+        break;
+    }
+  
+    return {
+      health: healthMod,
+      attack: attackMod,
+      as: asMod
+    };
+  }, [champ, baseMemo, bonusMemo, currentLevel]);
   
   //Still no info about how Jhin AS and Crit into AD conversion works
   const totalMemo = useMemo(() => {
     return {
-      health: champ.name != 'Pyke' ? (baseMemo.health + bonusMemo.health) : baseMemo.health,
+      health: totalModifier.health,
       mana: champ.manaBase ? baseMemo.mana + bonusMemo.mana : 0,
       armor: baseMemo.armor + bonusMemo.armor + (twinguardApplied ? bonusEffectsMemo.twinguardAR : 0),
       magres: baseMemo.magres + bonusMemo.magres + (twinguardApplied ? bonusEffectsMemo.twinguardMR : 0),
-      attack: baseMemo.attack + bonusMemo.attack + (champ.name == 'Pyke' ? Math.floor(bonusMemo.health / 14) : 0) + (champ.name === 'Zeri' && (baseMemo.as + bonusMemo.as >= 1.5) ? Math.floor((baseMemo.as + bonusMemo.as - 1.5) * (50 / champ.asBase)) : 0) + (champ.name === 'Jhin' ? Math.ceil((baseMemo.attack + bonusMemo.attack) * 5 * currentLevel / 100) : 0),
+      attack: baseMemo.attack + bonusMemo.attack + totalModifier.attack,
       
       ap: bonusMemo.ap + (rabadonApplied ? bonusEffectsMemo.rabadon : 0),
       
-      as: champ.name != "Zeri" ? baseMemo.as + bonusMemo.as : (baseMemo.as + bonusMemo.as) < 1.5 ? (baseMemo.as + bonusMemo.as) : 1.5,
+      as: totalModifier.as,
 
-      dps: (baseMemo.attack + bonusMemo.attack + (champ.name === 'Pyke' ? Math.floor(bonusMemo.health / 14) : 0)) * (baseMemo.as + bonusMemo.as),
+      dps: (baseMemo.attack + bonusMemo.attack + totalModifier.attack) * (baseMemo.as + bonusMemo.as),
 
       
       dmgReductArm: ((1 - (100/(100 + (baseMemo.armor + bonusMemo.armor +  (twinguardApplied ? bonusEffectsMemo.twinguardAR : 0)))))*100),
