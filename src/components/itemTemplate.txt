@@ -17,6 +17,7 @@
       critMultiplier: 0,
       ah: 0,
       armorReduction: 0,
+      bootsPassive: false,
 
       description: 
         <div className='itemDescription'>

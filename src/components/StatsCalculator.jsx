@@ -63,20 +63,37 @@ export default function StatsCalculator(props) {
     critMultiplier: 0,
     armorReduction: 0,
     magResReduction: 0,
-    ah: 0
+    ah: 0,
+    bootsPassive: false
   });
 
+  // State and functions for changing stats depending on bonus from items passive effects
+
+  const [fonStacked, setFonStacked] = useState(false);
   const bonusEffectsMemo = useMemo(() =>{
     return {
       rabadon: Math.floor((bonusMemo.ap) * 40 / 100),
+      twinguardAR: Math.floor((baseMemo.armor + bonusMemo.armor) * 30 / 100),
+      twinguardMR: Math.floor((baseMemo.magres + bonusMemo.magres) * 30 / 100),
+      fonEffect: fonStacked,
     }
   }, [bonusMemo])
 
   const [rabadonApplied, setRabadonApplied] = useState(false);
+  const [twinguardApplied, setTwinguardapplied] = useState(false);
+  
+
+  const toggleTwinguard = () => {
+    setTwinguardapplied(oldState => !oldState)
+  };
 
   const toggleRabadon = () => { 
     setRabadonApplied(oldState => !oldState)
   };
+
+  const toggleFON = () => {
+    setFonStacked(oldState => !oldState)
+  }
 
   
 
@@ -84,18 +101,24 @@ export default function StatsCalculator(props) {
     return {
       health: champ.name != 'Pyke' ? (baseMemo.health + bonusMemo.health) : baseMemo.health,
       mana: champ.manaBase ? baseMemo.mana + bonusMemo.mana : 0,
-      armor: champ.name != 'Pyke' ? (baseMemo.armor + bonusMemo.armor) : baseMemo.armor,
-      magres: baseMemo.magres + bonusMemo.magres,
-      attack: champ.name != 'Pyke' ? (baseMemo.attack + bonusMemo.attack) : (baseMemo.attack + bonusMemo.attack + Math.floor(bonusMemo.health / 14)),
-      ap: rabadonApplied ? bonusMemo.ap + bonusEffectsMemo.rabadon : bonusMemo.ap,
+      armor: baseMemo.armor + bonusMemo.armor + (twinguardApplied ? bonusEffectsMemo.twinguardAR : 0),
+      magres: baseMemo.magres + bonusMemo.magres + (twinguardApplied ? bonusEffectsMemo.twinguardMR : 0),
+      attack: baseMemo.attack + bonusMemo.attack + (champ.name == 'Pyke' ? Math.floor(bonusMemo.health / 14) : 0),
+      
+      ap: bonusMemo.ap + (rabadonApplied ? bonusEffectsMemo.rabadon : 0),
+      
       as: baseMemo.as + bonusMemo.as,
-      dps: champ.name != 'Pyke' ? (baseMemo.attack + bonusMemo.attack) * (baseMemo.as + bonusMemo.as) : (baseMemo.attack + bonusMemo.attack + Math.floor(bonusMemo.health / 14)) * (baseMemo.as + bonusMemo.as),
-      dmgReductArm: ((1 - (100/(100 + (baseMemo.armor + bonusMemo.armor))))*100),
-      dmgReductMag: ((1 - (100/(100 + (baseMemo.magres + bonusMemo.magres))))*100),
-      effectiveHealthArm: ((baseMemo.health + bonusMemo.health)/(100/(100 + (baseMemo.armor + bonusMemo.armor)))),
-      effectiveHealthMag: ((baseMemo.health + bonusMemo.health)/(100/(100 + (baseMemo.magres + bonusMemo.magres)))),
+
+      dps: (baseMemo.attack + bonusMemo.attack + (champ.name === 'Pyke' ? Math.floor(bonusMemo.health / 14) : 0)) * (baseMemo.as + bonusMemo.as),
+
+      
+      dmgReductArm: ((1 - (100/(100 + (baseMemo.armor + bonusMemo.armor +  (twinguardApplied ? bonusEffectsMemo.twinguardAR : 0)))))*100),
+      dmgReductMag: ((1 - (100/(100 + (baseMemo.magres + bonusMemo.magres + (twinguardApplied ? bonusEffectsMemo.twinguardMR : 0)))))*100),
+      effectiveHealthArm: ((baseMemo.health + bonusMemo.health)/(100/(100 + (baseMemo.armor + bonusMemo.armor + (twinguardApplied ? bonusEffectsMemo.twinguardAR : 0))))),
+      effectiveHealthMag: ((baseMemo.health + bonusMemo.health)/(100/(100 + (baseMemo.magres + bonusMemo.magres + (twinguardApplied ? bonusEffectsMemo.twinguardMR : 0))))),
       flatArmPen: bonusMemo.flatArmPen,
       flatMagPen: bonusMemo.flatMagPen,
+      // Bug: percent mitigation don't re-render dynamically
       armPen: bonusMemo.armPen,
       magPen: bonusMemo.magPen,
       moveSpeed: baseMemo.moveSpeed + bonusMemo.moveSpeed,
@@ -105,9 +128,11 @@ export default function StatsCalculator(props) {
       armorReduction: bonusMemo.armorReduction,
       magResReduction: bonusMemo.magResReduction,
       cdr: (1-(1/(1+bonusMemo.ah/100))),
-      ah: bonusMemo.ah
+      ah: bonusMemo.ah,
+      bootsPassive: bonusMemo.bootsPassive,
+      fonEffect: bonusEffectsMemo.fonEffect
     };
-  }, [baseMemo, bonusMemo, rabadonApplied]);
+  }, [baseMemo, bonusMemo, fonStacked, rabadonApplied, twinguardApplied, currentLevel]);
 
 
   function levelSlider(n) {
@@ -130,7 +155,7 @@ export default function StatsCalculator(props) {
       newTotalStats[index] = totalMemo;
       return newTotalStats;
     });
-  }, [bonusMemo, totalMemo]);  
+  }, [bonusMemo, totalMemo, currentLevel, fonStacked, rabadonApplied, twinguardApplied, fonStacked]);  
 
   return (
     <>
@@ -300,6 +325,8 @@ export default function StatsCalculator(props) {
       handleBonusChange={updateBonusMemo}
       currentLevel={currentLevel}
       switchHat={toggleRabadon}
+      switchTwinguard={toggleTwinguard}
+      switchFON={toggleFON}
       index={index}
 
     />

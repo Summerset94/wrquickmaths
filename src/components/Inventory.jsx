@@ -5,7 +5,7 @@ import '../styles/StatColors.css'
 import { useStats } from './StatsContext';
 
 
-export default function Inventory({base, bonus, total, handleBonusChange, currentLevel, bonusEffects, switchHat, index}) { 
+export default function Inventory({base, bonus, total, handleBonusChange, currentLevel, bonusEffects, switchHat, switchTwinguard, switchFON, index}) { 
 
   // All this cringe to calculate target maxHP damage for Divine
   const { totalStats } = useStats();
@@ -2382,8 +2382,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
     {
       name: 'Force of Nature',
 
-      // Find a way to implement effect dinamically
-
+    
       health: 350,
       mana: 0,
       armor: 0,
@@ -2408,8 +2407,14 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
           <h3 className="stat--magres">+50 Magic resistance</h3>
           <h3>+5% ({Math.floor(base.moveSpeed * 5 / 100)}) Movement Speed</h3>
 
+          {/* Bug: numbers don't update dynamically */}
+          {/* <button onClick={switchFON}>Max stacks on / off</button>
           <p>
-            <b>Absorb:</b> Taking ability damage from enemy champions grants 1 stack of Steadfast for 7 seconds, max 6 stacks. Dealing damage to enemy champions refresh effect duration. at maximum stacks gain 10% ({Math.floor(base.moveSpeed /10)}) Movement Speed and reduce all incoming magic damage by 25%. (Total Magic Damage reduction: <abbr title='TBD in dynamical calculator' class='stat--magres'>{Math.floor((modifierMres + 0.25) * 100)}</abbr>)%
+            <sub>*switch stacks off before changing to other item. Stacks don't remove by themselves.</sub>
+          </p> */}
+
+          <p>
+            <b>Absorb:</b> Taking ability damage from enemy champions grants 1 stack of Steadfast for 7 seconds, max 6 stacks. Dealing damage to enemy champions refresh effect duration. at maximum stacks gain 10% ({Math.floor(base.moveSpeed /10)}) Movement Speed and reduce all incoming magic damage by 25%.
           </p>
         </div>
 
@@ -2513,6 +2518,8 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
           <h3 className="stat--armor">+55 Armor</h3>
           <h3 className="stat--magres">+55 Magic Resistance</h3>
 
+          <button onClick={switchTwinguard}>Enable / disable bonus defence </button>
+          <p><sub>* please, disable bonus defence before changing items - it does not auto updates for now</sub></p>
           <p>
             <b>Endurance:</b> Gain 1 stack every 1 seconds while in combat with Enemy Champions.
           </p>
@@ -2521,45 +2528,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
           </p>
         </div>
 
-    },
-
-    {
-      name: 'Amaranth Twinguard (Stacked)',
-
-      // This does not work btw, math not mathing because how react handles state
-
-      health: 0,
-      mana: 0,
-      armor: (55 + (55 * 30 / 100)+ (total.armor * 30 / 100)),
-      magres: (55 + (55 * 30 / 100)+ (total.magres * 30 / 100)),
-      attack: 0,
-      ap: 0,
-      as: 0,
-      moveSpeed: 0,
-      flatArmPen: 0,
-      flatMagPen: 0,
-      armPen: 0,
-      magPen: 0,
-      critChance: 0,
-      critMultiplier: 0,
-      ah: 0,
-      armorReduction: 0,
-
-      description: 
-        <div className='itemDescription'>
-          <img src="../images/items/Amaranth.png" alt="itemIcon" className="itemIcon" />
-          <h3 className="stat--armor">+55 Armor</h3>
-          <h3 className="stat--magres">+55 Magic Resistance</h3>
-
-          <p>
-            <b>Endurance:</b> Gain 1 stack every 1 seconds while in combat with Enemy Champions.
-          </p>
-          <p>
-            At full stacks gain 20% size, 20% Tenacity, increase both <span className="stat--ad">Armor</span> and <span className="stat--magres">Magic resistance</span> by 30% until Out Of Combat with enemy champions
-          </p>
-        </div>
-
-    },
+    },    
 
     {
       name: 'Mantle of the Twelfth Hour',
@@ -2837,9 +2806,319 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
     },
   ];
 
+    const boots = [
+      {
+        name: 'Empty slot',
+  
+        health: 0,
+        mana: 0,
+        armor: 0,
+        magres: 0,
+        attack: 0,
+        ap: 0,
+        as: 0,
+        moveSpeed: 0,
+        flatArmPen: 0,
+        flatMagPen: 0,
+        armPen: 0,
+        magPen: 0,
+        critChance: 0,
+        critMultiplier: 0,
+        ah: 0,
+        armorReduction: 0,
+        bootsPassive: false,
+  
+        description: 
+          <div className='itemDescription'>
+            <p>
+              No boots selected
+            </p>
+  
+          </div>
+  
+      },
+
+      {
+        name: 'Boots of Speed',
+  
+        health: 0,
+        mana: 0,
+        armor: 0,
+        magres: 0,
+        attack: 0,
+        ap: 0,
+        as: 0,
+        moveSpeed: 25,
+        flatArmPen: 0,
+        flatMagPen: 0,
+        armPen: 0,
+        magPen: 0,
+        critChance: 0,
+        critMultiplier: 0,
+        ah: 0,
+        armorReduction: 0,
+        bootsPassive: false,
+  
+        description: 
+          <div className='itemDescription'>
+            <img src="../images/items/bootsBasic.png" alt="itemIcon" className="itemIcon" />
+
+            <h3 className="stat--moveSpeed">+25 Movement Speed</h3>  
+          </div>
+  
+      },
+
+      {
+        name: 'Gluttonous Greaves',
+  
+        health: 0,
+        mana: 0,
+        armor: 0,
+        magres: 0,
+        attack: 35,
+        ap: 0,
+        as: 0,
+        moveSpeed: 45,
+        flatArmPen: 0,
+        flatMagPen: 0,
+        armPen: 0,
+        magPen: 0,
+        critChance: 0,
+        critMultiplier: 0,
+        ah: 0,
+        armorReduction: 0,
+        bootsPassive: false,
+  
+        description: 
+          <div className='itemDescription'>
+            <img src="../images/items/bootsVamp.png" alt="itemIcon" className="itemIcon" />
+
+            <h3 className="stat--ad">+35 Attack Damage</h3>
+            <h3 className="stat--moveSpeed">+45 Movement Speed</h3>
+
+            <p>
+              <b>Conversion:</b> <span className="stat--vamp">+7% Omnivamp (Total / Current: {Math.floor((total.attack * 7 /100))} / {Math.floor((total.attack * 7  / 100)* (1 - modifier))}; <abbr title="For now it does not calculate your ability damage. placeholder with formula same for AA, just for AP"><span className="stat--ap">{Math.floor((total.ap * 7 / 100))} / {Math.floor((total.ap * 7 / 100)* (1 - modifierMres))}</span></abbr> )</span>  
+            </p>  
+          </div>
+  
+      },
+
+      {
+        name: 'Berserker\'s Greaves',
+  
+        health: 0,
+        mana: 0,
+        armor: 0,
+        magres: 0,
+        attack: 15,
+        ap: 0,
+        as: (base.asBase * 30/100),
+        moveSpeed: 45,
+        flatArmPen: 0,
+        flatMagPen: 0,
+        armPen: 0,
+        magPen: 0,
+        critChance: 0,
+        critMultiplier: 0,
+        ah: 0,
+        armorReduction: 0,
+        bootsPassive: false,
+  
+        description: 
+          <div className='itemDescription'>
+            <img src="../images/items/bootsBerserkers.png" alt="itemIcon" className="itemIcon" />
+
+            <h3 className="stat--ad">+15 Attack Damage</h3>
+            <h3 className="stat--as">+30% ({(base.asBase * 30 / 100).toFixed(3)}) Attack Speed</h3>
+            <h3 className="stat--moveSpeed">+45 Movement Speed</h3>
+  
+          </div>
+  
+      },
+
+      {
+        name: 'Mercury\'s Treads',
+  
+        health: 150,
+        mana: 0,
+        armor: 0,
+        magres: 35,
+        attack: 0,
+        ap: 0,
+        as: 0,
+        moveSpeed: 45,
+        flatArmPen: 0,
+        flatMagPen: 0,
+        armPen: 0,
+        magPen: 0,
+        critChance: 0,
+        critMultiplier: 0,
+        ah: 0,
+        armorReduction: 0,
+        bootsPassive: 'Mercury',
+  
+        description: 
+          <div className='itemDescription'>
+            <img src="../images/items/bootsMercury.png" alt="itemIcon" className="itemIcon" />
+
+            <h3 className="stat--hp">+150 Max Health</h3>
+            <h3 className="stat--hp">+100% Health Regen</h3>
+            <h3 className="stat--magres">+35 Magic Resistance</h3>
+            <h3 className="stat--moveSpeed">+45 Movement Speed</h3>
+
+            <p>
+              <b>Dissolve:</b> reduces <span className="stat--ap">magic damage</span> taken by 15% 
+            </p>  
+          </div>
+  
+      },
+
+      {
+        name: 'Plated Steelcaps',
+  
+        health: 150,
+        mana: 0,
+        armor: 35,
+        magres: 0,
+        attack: 0,
+        ap: 0,
+        as: 0,
+        moveSpeed: 45,
+        flatArmPen: 0,
+        flatMagPen: 0,
+        armPen: 0,
+        magPen: 0,
+        critChance: 0,
+        critMultiplier: 0,
+        ah: 0,
+        armorReduction: 0,
+        bootsPassive: 'Steelcaps',
+  
+        description: 
+          <div className='itemDescription'>
+            <img src="../images/items/bootsSteelcaps.png" alt="itemIcon" className="itemIcon" />
+
+            <h3 className="stat--hp">+150 Max Health</h3>
+            <h3 className="stat--hp">+100% Health Regen</h3>
+            <h3 className="stat--armor">+35 Armor</h3>
+            <h3 className="stat--moveSpeed">+45 Movement Speed</h3>
+
+            <p>
+              <b>Block:</b> reduces <span className="stat--ad">physical damage</span> taken by 15% 
+            </p>    
+          </div>
+  
+      },
+
+      {
+        name: 'Ionian Boots of Lucidity',
+  
+        health: 150,
+        mana: 0,
+        armor: 0,
+        magres: 0,
+        attack: 0,
+        ap: 0,
+        as: 0,
+        moveSpeed: 45,
+        flatArmPen: 0,
+        flatMagPen: 0,
+        armPen: 0,
+        magPen: 0,
+        critChance: 0,
+        critMultiplier: 0,
+        ah: 30,
+        armorReduction: 0,
+        bootsPassive: 'Ionian',
+  
+        description: 
+          <div className='itemDescription'>
+            <img src="../images/items/bootsIonians.png" alt="itemIcon" className="itemIcon" />
+
+            <h3 className="stat--hp">+150 Max Health</h3>
+            <h3>+30 Ability Haste</h3>
+            <h3 className="stat--moveSpeed">+45 Movement Speed</h3>
+
+            <p>
+              <b>Summoned:</b> Reduces summoner spell cooldowns by <b>15%</b>  
+            </p>  
+          </div>
+  
+      },
+
+      {
+        name: 'Boots of Mana',
+  
+        health: 0,
+        mana: 0,
+        armor: 0,
+        magres: 0,
+        attack: 0,
+        ap: 55,
+        as: 0,
+        moveSpeed: 45,
+        flatArmPen: 0,
+        flatMagPen: 8,
+        armPen: 0,
+        magPen: 0,
+        critChance: 0,
+        critMultiplier: 0,
+        ah: 0,
+        armorReduction: 0,
+        bootsPassive: false,
+  
+        description: 
+          <div className='itemDescription'>
+            <img src="../images/items/bootsMana.png" alt="itemIcon" className="itemIcon" />
+
+            <h3 className="stat--ap">+55 Ability Power</h3>
+            <h3 className="stat--mana">+150% Mana Regeneration</h3>
+            <h3 className="stat--moveSpeed">+45 Movement Speed</h3>
+            <h3 className="stat--magres">+8 Magic Penetration</h3>  
+          </div>  
+      },
+
+      {
+        name: 'Boots of Dynamism',
+  
+        health: 0,
+        mana: 0,
+        armor: 0,
+        magres: 0,
+        attack: 35,
+        ap: 0,
+        as: 0,
+        moveSpeed: 45,
+        flatArmPen: 8,
+        flatMagPen: 0,
+        armPen: 0,
+        magPen: 0,
+        critChance: 0,
+        critMultiplier: 0,
+        ah: 0,
+        armorReduction: 0,
+        bootsPassive: false,
+  
+        description: 
+          <div className='itemDescription'>
+            <img src="../images/items/bootsDynamism.png" alt="itemIcon" className="itemIcon" />
+
+            <h3 className="stat--ad">+30 Attack Damage</h3>
+            <h3 className="stat--moveSpeed">+45 Movement Speed</h3>
+            <h3>Strike: <span className="stat--armor">+8 Armor Penetration</span></h3>  
+          </div>
+  
+      },
+
+    ];
+
 
   // State for inventory 
   const [Items, setItems ] = useState([{health: 0}, {armor: 0}, {attack: 0}, {attack: 0}, {attack: 0}]);
+
+  //  State for Boots
+  const [selectedBoots, setSelectedBoots] = useState(null);
+
 
   //  Logic for combining all bonus stat from items
   const NewBonusValues = function(items) {
@@ -2847,14 +3126,17 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
   
     items.forEach(item => {
       Object.keys(item).forEach(key => {
-        if (typeof item[key] === 'number' && !['name', 'icon', 'description'].includes(key)) {
-          aggregatedValues[key] = (aggregatedValues[key] || 0) + item[key];
+        if (key !== 'name' && key !== 'icon' && key !== 'description') {
+          const value = item[key];
+          if (typeof value === 'number' || typeof value === 'string') {
+            aggregatedValues[key] = (aggregatedValues[key] || 0) + value;
+          }
         }
       });
     });
   
     return aggregatedValues;
-  }
+  };
 
   // updating characters bonus stats whenever inventory changes
   useEffect(() => {
@@ -2879,6 +3161,18 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
     });
   };
 
+  const handleBootsChange = (value) => {
+    setSelectedBoots(value);
+
+    const selectedBootId = boots[value].name;
+
+    setItems(prevItems => {
+      const newItems = [...prevItems];
+      newItems[5] = boots[value]; // Assuming the boots slot is at index 5
+      return newItems;
+    });
+  };
+
   const [showInventory, setShowInventory] = useState(true);
 
   const toggleInventory = () => {
@@ -2888,31 +3182,50 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
   
 
 
-    return (
-      <div className='inventoryTile'> 
-        <button onClick={toggleInventory}>Show / hide inventory</button>
-        { showInventory && (<div className='inventoryGrid'>    
-          {selectedItems.map((selectedIndex, index) => (
-            <div className='inventorySlot' key={index}>
-              <div>
-                <select onChange={(e) => handleChange(index, e.target.value)}>
-                  <option value="" disabled>Select an item</option>                
-                  {physical.map((item, itemIndex) => (
-                    <option key={itemIndex} value={itemIndex}>
-                      {item.name}
-                    </option>
-                  ))}
-                </select>
-              </div>          
-              {selectedIndex !== null ? 
-                physical[selectedIndex].description : 
-                <div className="itemDescription">
-                  <p>Choose an item</p>
-                </div>
-              }
+  return (
+    <div className='inventoryTile'> 
+      <button onClick={toggleInventory}>Show / hide inventory</button>
+      { showInventory && (<div className='inventoryGrid'>    
+        {selectedItems.map((selectedIndex, index) => (
+          <div className='inventorySlot' key={index}>
+            <div>
+              <select onChange={(e) => handleChange(index, e.target.value)}>
+                <option value="" disabled>Select an item</option>                
+                {physical.map((item, itemIndex) => (
+                  <option key={itemIndex} value={itemIndex}>
+                    {item.name}
+                  </option>
+                ))}
+              </select>
+            </div>          
+            {selectedIndex !== null ? 
+              physical[selectedIndex].description : 
+              <div className="itemDescription">
+                <p>Choose an item</p>
+              </div>
+            }
+          </div>
+        ))}
+        {/* Additional section for boots */}
+        <div className='inventorySlot'>
+          <div>
+            <select onChange={(e) => handleBootsChange(e.target.value)}>
+              <option value="" disabled>Select boots</option>
+              {boots.map((boot, bootIndex) => (
+                <option key={bootIndex} value={bootIndex}>
+                  {boot.name}
+                </option>
+              ))}
+            </select>
+          </div>
+          {selectedBoots !== null ? 
+            boots[selectedBoots].description : 
+            <div className="itemDescription">
+              <p>Choose boots</p>
             </div>
-          ))}
-        </div>)}
-      </div>
-    );
+          }
+        </div>
+      </div>)}
+    </div>
+  );
   }

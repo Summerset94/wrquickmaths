@@ -8,6 +8,8 @@ export default function StatComparison(props) {
   const atk = totalStats[0];
   const def = totalStats[1];
 
+  
+
   const formula = useMemo(() => {
 
       const postMitigationArmor = (target, attacker) => {
@@ -50,19 +52,19 @@ export default function StatComparison(props) {
     const postMitigationMresAttacker = postMitigationMres(atk ,def);
     const postMitigationMresDefender = postMitigationMres(def ,atk);
 
-    const physicalDamageReduction = (postMitigationArmor) => {
-      return ((1 - (100/(100 + (postMitigationArmor))))*100);
+    const physicalDamageReduction = (postMitigationArmor, champ) => {
+      return ((1 - (100/(100 + (postMitigationArmor))))*100 + (champ.bootsPassive === 'Steelcaps' ? 15 : 0));
     };
 
-    const magicalDamageReduction = (postMitigationMres) => {
-      return ((1 - (100/(100 + (postMitigationMres))))*100);
+    const magicalDamageReduction = (postMitigationMres, champ) => {
+      return ((1 - (100/(100 + (postMitigationMres))))*100 + (champ.bootsPassive === 'Mercury' ? 15 : 0) + (champ.fonEffect ? 25 : 0));
     };
 
-    const physicalReductionAttacker = physicalDamageReduction(postMitigationArmorAttacker);
-    const physicalReductionDefender = physicalDamageReduction(postMitigationArmorDefender);
+    const physicalReductionAttacker = physicalDamageReduction(postMitigationArmorAttacker, atk);
+    const physicalReductionDefender = physicalDamageReduction(postMitigationArmorDefender, def);
 
-    const magicalReductionAttacker = magicalDamageReduction(postMitigationMresAttacker);
-    const magicalReductionDefender = magicalDamageReduction(postMitigationMresDefender);
+    const magicalReductionAttacker = magicalDamageReduction(postMitigationMresAttacker, atk);
+    const magicalReductionDefender = magicalDamageReduction(postMitigationMresDefender, def);
 
     const dps = (targetPhysDamageReduction, attacker) => {
       return (attacker.dps * (1 - (targetPhysDamageReduction/100)).toFixed(2))
@@ -105,7 +107,7 @@ export default function StatComparison(props) {
       <div className='comparisonTile'>
         <table>
           <thead>
-            <th>
+            <th colSpan={4}>
               Stats comparison table
             </th>
           </thead>
@@ -128,7 +130,8 @@ export default function StatComparison(props) {
             </tr>
 
             <tr>
-              <th colSpan={4}>Post-mitigation <span className='stat--armor'>Armor</span> / <span className='stat--magres'>Mres</span>
+              <th colSpan={4}>
+                Post-mitigation <span className='stat--armor'>Physical</span> / <span className='stat--magres'>Magical</span> Damage Reduction
               </th>              
             </tr>
             <tr>
@@ -137,10 +140,10 @@ export default function StatComparison(props) {
             </tr>
 
             <tr>
-              <td className='stat--armor'>{Math.floor(formula.attackerArmor)}</td>
-              <td className='stat--magres'>{Math.floor(formula.attackerMres)}</td>
-              <td className='stat--armor'>{Math.floor(formula.defenderArmor)}</td>
-              <td className='stat--magres'>{Math.floor(formula.defenderMres)}</td>
+              <td className='stat--armor'>{Math.floor(formula.attackerPhysReduction)}%</td>
+              <td className='stat--magres'>{Math.floor(formula.attackerMagReduction)}%</td>
+              <td className='stat--armor'>{Math.floor(formula.defenderPhysReduction)}%</td>
+              <td className='stat--magres'>{Math.floor(formula.defenderMagReduction)}%</td>
             </tr>
 
 
