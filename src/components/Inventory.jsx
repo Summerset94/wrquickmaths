@@ -862,7 +862,6 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
       description: 
         <div className='itemDescription'>
           <img src="../images/items/Serylda.png" alt="itemIcon" className="itemIcon" />
-          <img src="../images/items/Serylda.png" alt="itemIcon" className="itemIcon" />
           <h3 className='stat--ad'>+{40} Attack Damage</h3>
           <h3>+{15} Ability Haste</h3>
           <h3>Last Whisper: <abbr title="15 + your current level"> +{(15 + Number(currentLevel))}%</abbr> Armor Penetration</h3>

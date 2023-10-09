@@ -35,12 +35,12 @@ export default function StatComparison(props) {
         return Math.floor(target.magres - attacker.magResReduction)
       } else if (attacker.magResReduction) { 
        
-        mitigatedMres = ((target.magres - attacker.magResReduction) * Math.floor(1 - attacker.magPen) - attacker.flatMagPen);
+        mitigatedMres = ((target.magres - attacker.magResReduction) * (1 - attacker.magPen) - attacker.flatMagPen);
        
         return Math.floor(Math.max(mitigatedMres, 0))
 
       } else {
-        mitigatedMres = (target.magres * Math.floor(1 - attacker.magPen) - attacker.flatMagPen)
+        mitigatedMres = (target.magres * (1 - attacker.magPen) - attacker.flatMagPen)
 
         return Math.floor(Math.max(mitigatedMres, 0))
       }
@@ -112,20 +112,41 @@ export default function StatComparison(props) {
             </th>
           </thead>
           <tbody>
+          <tr>
+              <td colSpan={2}>Your Stats</td>
+              <td colSpan={2}>Enemy Stats</td>
+            </tr>
+
+          <tr>
+              <th colSpan={4}>Effective (Post-mitigation) <span className='stat--ad'>Attack Damage</span></th>
+            </tr>
             <tr>
-              <td>Your dps</td>
+              <td><span className='stat--ad'>AD:</span></td>
+              <td>{Math.ceil(atk.attack * (100 - formula.defenderPhysReduction)/ 100)}</td>
+              <td><span className='stat--ad'>AD:</span></td>
+              <td>{Math.ceil(def.attack * (100 - formula.attackerPhysReduction)/ 100)}</td>
+            </tr>
+            <tr>
+              <td><span className='stat--vamp'>DPS</span></td>
               <td>{Number(formula.attackerDps).toFixed(2)}</td>
-              <td>Enemy dps</td>
+              <td><span className='stat--vamp'>DPS</span></td>
               <td>{Number(formula.defenderDps).toFixed(2)}</td>
             </tr>
 
             <tr>
-              <td>Critical Strike damage, dps</td>
+              <th colSpan={4}>Critical Strike</th>
+            </tr>
+
+            <tr>
+              <td><span className='stat--ad'>AD:</span></td>
+              <td>{Number(Math.floor(formula.attackerCriticalStrike))}</td>
+              <td><span className='stat--ad'>AD:</span></td>
+              <td>{Number(Math.floor(formula.defenderCriticalStrike))}</td>
             </tr>
             <tr>
-              <td>{Number(Math.floor(formula.attackerCriticalStrike))}</td>
+              <td><span className='stat--vamp'>DPS</span></td>
               <td>{(formula.attackerCritDps).toFixed(2)}</td>
-              <td>{Number(Math.floor(formula.defenderCriticalStrike))}</td>
+              <td><span className='stat--vamp'>DPS</span></td>
               <td>{(formula.defenderCritDps).toFixed(2)}</td>
             </tr>
 
@@ -134,19 +155,14 @@ export default function StatComparison(props) {
                 Post-mitigation <span className='stat--armor'>Physical</span> / <span className='stat--magres'>Magical</span> Damage Reduction
               </th>              
             </tr>
-            <tr>
-              <td colSpan={2}>Your Stats</td>
-              <td colSpan={2}>Enemy Stats</td>
-            </tr>
+            
 
             <tr>
               <td className='stat--armor'>{Math.floor(formula.attackerPhysReduction)}%</td>
               <td className='stat--magres'>{Math.floor(formula.attackerMagReduction)}%</td>
               <td className='stat--armor'>{Math.floor(formula.defenderPhysReduction)}%</td>
               <td className='stat--magres'>{Math.floor(formula.defenderMagReduction)}%</td>
-            </tr>
-
-
+            </tr>    
           </tbody>
         </table>
       </div>

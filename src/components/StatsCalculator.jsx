@@ -1,6 +1,7 @@
 import { useState, useEffect, useMemo } from "react"
 import { useStats } from './StatsContext';
 import Inventory from "./Inventory";
+import Abilities from "./Abilities";
 
 
 export default function StatsCalculator(props) {
@@ -121,6 +122,7 @@ export default function StatsCalculator(props) {
     setFonStacked(oldState => !oldState)
   }
 
+// This Memo because some champs are unique so I have to dance around their stats interactions
   const totalModifier = useMemo(() => {
     let healthMod;
     let attackMod;
@@ -144,6 +146,7 @@ export default function StatsCalculator(props) {
       case 'Zeri':
         attackMod = baseMemo.as + bonusMemo.as >= 1.5 ? Math.floor((baseMemo.as + bonusMemo.as - 1.5) * (50 / champ.asBase)) : 0;
         break;
+  // Jhin is Wrong: there's no source for his passive AD/Critchance to AD conversion numbers
       case 'Jhin':
         attackMod = Math.ceil((baseMemo.attack + bonusMemo.attack) * 5 * currentLevel / 100);
         break;
@@ -172,7 +175,6 @@ export default function StatsCalculator(props) {
     };
   }, [champ, baseMemo, bonusMemo, currentLevel]);
   
-  //Still no info about how Jhin AS and Crit into AD conversion works
   const totalMemo = useMemo(() => {
     return {
       health: totalModifier.health,
@@ -400,6 +402,12 @@ export default function StatsCalculator(props) {
 
     </div>
 
+    <Abilities 
+      champ={champ}
+      currentLevel={currentLevel}
+      index={index}
+      />
+      
     <Inventory 
       base={baseMemo}
       bonus={bonusMemo}

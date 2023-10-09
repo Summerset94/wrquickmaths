@@ -6,7 +6,7 @@
 }
 
 :root {
-  --dark-bg: rgb(37, 37, 37);
+  --dark-bg: rgb(35, 36, 49);
   --basic-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px
 }
 
@@ -83,7 +83,7 @@ button {
   display: flex;
   flex-direction: column;
   margin: 10px;
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgb(57, 30, 68);
   border: 2px solid white;
   box-shadow: var(--basic-shadow);
 }
@@ -223,7 +223,7 @@ button:active {
 
 .inventoryTile {
   margin: 10px;
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(26, 5, 53, 0.4);
   width: 90%;
   display: flex;
   flex-direction: column;
@@ -231,15 +231,15 @@ button:active {
   border: 2px solid black;
 }
 
-.inventoryTile > button {
+.inventoryTile > button, .abilitiesWrap > button {
   color: white;
   background-color: var(--dark-bg);
   padding: 10px;
   border: 1px solid black
 }
 
-.inventorySlot {
-  background-color: var(--dark-bg);
+.inventorySlot, .abilitiesTile {
+  background-color: rgb(4, 4, 61);
   height: 200px;
   width: 90%;
   margin: 10px;
@@ -279,4 +279,59 @@ button:active {
   justify-content: center;
   align-content: center;
 
+}
+
+.abilitiesWrap {
+  display: flex;
+  flex-direction:column;
+  justify-content: center;
+  align-items: center;
+
+  background-color: rgba(0, 0, 0, 0.4);
+
+  margin: 10px;
+  width:90%;
+}
+
+.abilitiesWrap > button {
+  width: fit-content;
+}
+
+.abilitiesGrid {
+  width: 100%;
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 10px;
+}
+
+.abilitiesTile{
+  border: 2px solid white;
+}
+
+.abilitiesTile:nth-child(5) {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  width: 95%
+}
+
+.abilityDescription > h5, .abilityDescription > p, .abilityDescription > h4 {
+  padding-top: 3px;
+}
+
+.abilityDescription > p {
+  font-size:13px
+}
+
+.abilityDescription > h5 {
+  font-size: 15px;
+}
+
+.abilityDescription > h4 {
+  background-color: rgb(42, 42, 78);
+}
+
+.marker--ability {
+  padding: 2px 5px;
+  background-color: rgb(110, 126, 39);
 }

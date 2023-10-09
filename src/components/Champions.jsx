@@ -26,7 +26,7 @@ const champions = [
     apBase: 0,
     asBase: 0.664,
     asBaseBonus: 0.664*0.1,
-    asScale: 0.664*0.012
+    asScale: 0.664*0.012,    
   },
 
 {
