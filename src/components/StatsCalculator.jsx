@@ -49,29 +49,6 @@ export default function StatsCalculator(props) {
     };
   }, [currentLevel, champ]);
 
-  
-
-  //fallback option
-  // const bonusMemo = useMemo(() => {
-  //   return {
-  //     health: 0,
-  //     mana: 0,
-  //     armor: 0,
-  //     magres: 0,
-  //     attack: 0,
-  //     ap: 0,
-  //     as: 0,
-  //     moveSpeed: 0,
-  //     flatArmPen: 0,
-  //     flatMagPen: 0,
-  //     armPen: 0,
-  //     magPen: 0,
-  //     critChance: 0,
-  //     critMultiplier: 1.75
-  //   }
-  // }, []);
-
-  //cdr for future needs: CDR = (1-(1/(1+AH/100)))
 
   const [bonusMemo, setBonusMemo] = useState({
     health: 0,
@@ -329,16 +306,16 @@ export default function StatsCalculator(props) {
 
           <tr>
             <td>DPS:</td>
-            <td>{totalMemo.dps.toFixed(2)}</td>
+            <td className="stat--ad">{totalMemo.dps.toFixed(2)}</td>
             <td>Crit Chance</td>
-            <td>{Math.floor(totalMemo.critChance*100)}%</td>
+            <td className="stat--critChance">{Math.floor(totalMemo.critChance*100)}%</td>
           </tr>   
 
           <tr>
             <td>Crit dps:</td>
-            <td>{(totalMemo.dps * totalMemo.critMultiplier).toFixed(2)}</td>
+            <td className="stat--critChance">{(totalMemo.dps * totalMemo.critMultiplier).toFixed(2)}</td>
             <td>Crit Multiplier:</td>
-            <td>{Math.ceil(totalMemo.critMultiplier * 100)}%</td>
+            <td className="stat--as">{Math.ceil(totalMemo.critMultiplier * 100)}%</td>
           </tr>       
         </tbody>
       </table>
@@ -364,11 +341,11 @@ export default function StatsCalculator(props) {
 
           <tr>
             <td colSpan={2}>VS Physical</td>
-            <td colSpan={2} className='stat--health'>{totalMemo.effectiveHealthArm.toFixed(0)}</td>
+            <td colSpan={2} className='stat--hp'>{totalMemo.effectiveHealthArm.toFixed(0)}</td>
           </tr>
           <tr>
             <td colSpan={2}>VS Magic</td>
-            <td colSpan={2} className='stat--health'>{totalMemo.effectiveHealthMag.toFixed(0)}</td>
+            <td colSpan={2} className='stat--hp'>{totalMemo.effectiveHealthMag.toFixed(0)}</td>
           </tr>
 
           <tr>
@@ -377,24 +354,24 @@ export default function StatsCalculator(props) {
 
           <tr>
             <td colSpan={2}>Flat Armor</td>
-            <td colSpan={2}>{totalMemo.flatArmPen}</td>
+            <td colSpan={2} className="stat--ad">{totalMemo.flatArmPen}</td>
           </tr>
           <tr>
             <td colSpan={2}>Flat Magic</td>
-            <td colSpan={2}>{totalMemo.flatMagPen}</td>
+            <td colSpan={2} className="stat--ap">{totalMemo.flatMagPen}</td>
           </tr>
           <tr>
             <td colSpan={2}>Percentage Armor</td>
-            <td colSpan={2}>{totalMemo.armPen * 100}%</td>
+            <td colSpan={2} className="stat--ad">{totalMemo.armPen * 100}%</td>
           </tr>
           <tr>
             <td colSpan={2}>Percentage Magic</td>
-            <td colSpan={2}>{totalMemo.magPen * 100}%</td>
+            <td colSpan={2} className="stat--ap">{totalMemo.magPen * 100}%</td>
           </tr>
 
           <tr>
             <td colSpan={2}><abbr title="Ability haste converted into cdr">Cooldown reduction</abbr></td>
-            <td colSpan={2}>{Math.floor(totalMemo.cdr*100)}%</td>
+            <td colSpan={2} className="stat--moveSpeed">{Math.floor(totalMemo.cdr*100)}%</td>
           </tr>
         </tbody>
       </table>
@@ -406,6 +383,7 @@ export default function StatsCalculator(props) {
       champ={champ}
       currentLevel={currentLevel}
       index={index}
+      bonus={bonusMemo}
       />
       
     <Inventory 

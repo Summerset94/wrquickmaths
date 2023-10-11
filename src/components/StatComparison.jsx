@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { useStats } from './StatsContext';
 
-export default function StatComparison(props) {
+export default function StatComparison({atkname, defname}) {
 
   const { totalStats } = useStats();
 
@@ -113,24 +113,31 @@ export default function StatComparison(props) {
           </thead>
           <tbody>
           <tr>
-              <td colSpan={2}>Your Stats</td>
-              <td colSpan={2}>Enemy Stats</td>
+              <td colSpan={2}>{atkname} Stats</td>
+              <td colSpan={2}>{defname} Stats</td>
             </tr>
 
           <tr>
-              <th colSpan={4}>Effective (Post-mitigation) <span className='stat--ad'>Attack Damage</span></th>
+              <th colSpan={4}>Effective (Post-mitigation):</th>
             </tr>
             <tr>
-              <td><span className='stat--ad'>AD:</span></td>
-              <td>{Math.ceil(atk.attack * (100 - formula.defenderPhysReduction)/ 100)}</td>
-              <td><span className='stat--ad'>AD:</span></td>
-              <td>{Math.ceil(def.attack * (100 - formula.attackerPhysReduction)/ 100)}</td>
+              <td>AD:</td>
+              <td className="stat--ad">{Math.ceil(atk.attack * (100 - formula.defenderPhysReduction)/ 100)}</td>
+              <td>AD:</td>
+              <td className="stat--ad">{Math.ceil(def.attack * (100 - formula.attackerPhysReduction)/ 100)}</td>
             </tr>
             <tr>
-              <td><span className='stat--vamp'>DPS</span></td>
-              <td>{Number(formula.attackerDps).toFixed(2)}</td>
-              <td><span className='stat--vamp'>DPS</span></td>
-              <td>{Number(formula.defenderDps).toFixed(2)}</td>
+              <td>AP:</td>
+              <td className='stat--ap'>{Math.ceil(atk.ap * (100 - formula.defenderMagReduction)/ 100)}</td>
+              <td>AP:</td>
+              <td className='stat--ap'>{Math.ceil(def.ap * (100 - formula.attackerMagReduction)/ 100)}</td>
+            </tr>
+
+            <tr>
+              <td>DPS</td>
+              <td className="stat--ad">{Number(formula.attackerDps).toFixed(2)}</td>
+              <td>DPS</td>
+              <td className="stat--ad">{Number(formula.defenderDps).toFixed(2)}</td>
             </tr>
 
             <tr>
@@ -138,16 +145,16 @@ export default function StatComparison(props) {
             </tr>
 
             <tr>
-              <td><span className='stat--ad'>AD:</span></td>
-              <td>{Number(Math.floor(formula.attackerCriticalStrike))}</td>
-              <td><span className='stat--ad'>AD:</span></td>
-              <td>{Number(Math.floor(formula.defenderCriticalStrike))}</td>
+              <td>AD:</td>
+              <td className="stat--critChance">{Number(Math.floor(formula.attackerCriticalStrike))}</td>
+              <td>AD:</td>
+              <td className="stat--critChance">{Number(Math.floor(formula.defenderCriticalStrike))}</td>
             </tr>
             <tr>
-              <td><span className='stat--vamp'>DPS</span></td>
-              <td>{(formula.attackerCritDps).toFixed(2)}</td>
-              <td><span className='stat--vamp'>DPS</span></td>
-              <td>{(formula.defenderCritDps).toFixed(2)}</td>
+              <td>DPS</td>
+              <td className="stat--critChance">{(formula.attackerCritDps).toFixed(2)}</td>
+              <td>DPS</td>
+              <td className="stat--critChance">{(formula.defenderCritDps).toFixed(2)}</td>
             </tr>
 
             <tr>

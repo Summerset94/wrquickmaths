@@ -1,7 +1,7 @@
 import { useStats } from "./StatsContext";
 import { useMemo, useState } from "react";
 
-export default function Abilities({champ, currentLevel, index}) {
+export default function Abilities({champ, currentLevel, index, bonus}) {
 
   const { totalStats } = useStats();
 
@@ -694,7 +694,610 @@ const abilities = {
           </p>
         </div>
     }
-  ]
+  ],
+
+  'Akshan': [
+    {
+      description:
+        <div className="abilityDescription">
+          <h4>
+          <span className="marker--ability">P</span> DIRTY FIGHTING
+          </h4>
+
+          <h5>
+          Cooldown: 
+            {' '}{(12*mod.atkcdr).toFixed(1)} - lvl 1 / 
+            {' '}{(8*mod.atkcdr).toFixed(1)} - lvl 5 / 
+            {' '}{(4*mod.atkcdr).toFixed(1)}  - lvl9
+          </h5>
+          
+          <p>
+            Every three hits from attacks and abilities deal bonus <abbr title="25-180 based on level" className="stat--ap">{Math.floor(25 + (155/14+(currentLevel - 1)))} Magic Damage</abbr> and gain a shield that absorbs <abbr title="40-300 based on level +40 bonus AD" className="stat--hp">{Math.floor(40+(260/14*(currentLevel - 1))+ (bonus.attack * 40 / 100))} Damage</abbr> for 2 seconds. <br />
+            After launching a basic attack. Akshan will fire a second shot that deals <abbr title="50% AD" className="stat--ad">{Math.ceil(atk.attack/2)} Physical Damage</abbr>. He can cancel this shot to gain <abbr title="40-120 based an level">{Math.ceil(40 + (80/14*(currentLevel - 1)))}</abbr> decaying over 1 second.
+          </p>
+        </div>
+    },
+
+    {
+      description:
+        <div className="abilityDescription">
+          <h4>
+          <span className="marker--ability">1</span> AVENGERANG
+          </h4>
+
+          <h5>
+          Cooldown: 
+            {' '}{(8*mod.atkcdr).toFixed(1)} / 
+            {' '}{(7*mod.atkcdr).toFixed(1)} / 
+            {' '}{(6*mod.atkcdr).toFixed(1)} / 
+            {' '}{(5*mod.atkcdr).toFixed(1)} 
+          </h5>
+           <h5 className="stat--mana">
+          Cost: 
+            {' '}{50} / 
+            {' '}{50} / 
+            {' '}{50} / 
+            {' '}{50} 
+          </h5>
+
+          <h5 className="stat--ad">
+          Damage:
+        </h5>
+
+        <p className="stat--ad">Pre-mitigation: 
+          {' '}{Math.floor(((5)+(atk.attack * 80 / 100)))} / 
+          {' '}{Math.floor(((30)+(atk.attack * 80 / 100)))} / 
+          {' '}{Math.floor(((55)+(atk.attack * 80 / 100)))} / 
+          {' '}{Math.floor(((80)+(atk.attack * 80 / 100)))}
+        </p>
+
+        <p className="stat--ad">Post-mitigation: 
+          {' '}{Math.floor(((5)+(atk.attack * 80 / 100)) * (1 - mod.defPhysRed))} / 
+          {' '}{Math.floor(((30)+(atk.attack * 80 / 100))* (1 - mod.defPhysRed))} / 
+          {' '}{Math.floor(((55)+(atk.attack * 80 / 100))* (1 - mod.defPhysRed))} / 
+          {' '}{Math.floor(((80)+(atk.attack * 80 / 100))* (1 - mod.defPhysRed))}          
+        </p>
+
+          <p>
+            Akshan throws a boomerang that deals <span className="stat--ad">5 / 3 / 55 / 80 (+80% AD) Physical Damage</span> to enemies it passes through and revealing them, granting sight of the area along its path, as well as extending its range every time it hits an enemy. If the boomerang hits an enemy champion, Akshan gains bonus <abbr title="40%">{Math.ceil(atk.moveSpeed * 40 / 100)} Movement Speed</abbr> decaying over time. Upon reaching maximum range, the boomerang returns to Akshan, applying the same effects to enemies hit along the way. Avengerang's damage is reduced against non-champions.
+          </p>
+        </div>
+    },
+
+    {
+      description:
+        <div className="abilityDescription">
+          <h4>
+          <span className="marker--ability">2</span> GOING ROGUE
+          </h4>
+
+          <h5>
+          Cooldown: 
+            {' '}{(14*mod.atkcdr).toFixed(1)} / 
+            {' '}{(10*mod.atkcdr).toFixed(1)} / 
+            {' '}{(6*mod.atkcdr).toFixed(1)} / 
+            {' '}{(2*mod.atkcdr).toFixed(1)} 
+          </h5>
+           <h5 className="stat--mana">
+          Cost: 
+            {' '}{30} / 
+            {' '}{30} / 
+            {' '}{30} / 
+            {' '}{30} 
+          </h5>
+
+          <p>
+            Enemies that kill allied champions become Scoundrels for a duration. When Akshan takes down a Scoundrel, he gains bonus gold and revives the allies slain. Active: Become camouflaged for a few seconds and gain bonus <abbr title="80% / 90% / 100% / 110%"> {Math.ceil(atk.moveSpeed * 80 / 100)} / {Math.ceil(atk.moveSpeed * 90 / 100)} / {Math.ceil(atk.moveSpeed * 100 / 100)} / {Math.ceil(atk.moveSpeed * 110 / 100)} Movement Speed</abbr> towards Scoundrels. Always camouflaged when Akshan is near terrain or in brushes. Gain <span className="stat--mana">2% missing mana regen</span> per second when chasing Scoundrels.
+          </p>
+        </div>
+    },
+
+    {
+      description:
+        <div className="abilityDescription">
+          <h4>
+          <span className="marker--ability">3</span> HEROIC SWING
+          </h4>
+
+          <h5>
+          Cooldown: 
+            {' '}{(18*mod.atkcdr).toFixed(1)} / 
+            {' '}{(16*mod.atkcdr).toFixed(1)} / 
+            {' '}{(14*mod.atkcdr).toFixed(1)} / 
+            {' '}{(12*mod.atkcdr).toFixed(1)} 
+          </h5>
+           <h5 className="stat--mana">
+          Cost: 
+            {' '}{50} / 
+            {' '}{50} / 
+            {' '}{50} / 
+            {' '}{50} 
+          </h5>
+
+          <h5 className="stat--ad">
+            Damage:
+          </h5>
+
+          <p className="stat--ad">Pre-mitigation: 
+            {' '}{Math.floor(((30)+(atk.attack * 15 / 100)))} / 
+            {' '}{Math.floor(((70)+(atk.attack * 15 / 100)))} / 
+            {' '}{Math.floor(((110)+(atk.attack * 15 / 100)))} / 
+            {' '}{Math.floor(((150)+(atk.attack * 15 / 100)))}
+          </p>
+
+          <p className="stat--ad">Post-mitigation: 
+            {' '}{Math.floor(((30)+(atk.attack * 15 / 100)) * (1 - mod.defPhysRed))} / 
+            {' '}{Math.floor(((70)+(atk.attack * 15 / 100))* (1 - mod.defPhysRed))} / 
+            {' '}{Math.floor(((110)+(atk.attack * 15 / 100))* (1 - mod.defPhysRed))} / 
+            {' '}{Math.floor(((150)+(atk.attack * 15 / 100))* (1 - mod.defPhysRed))}          
+          </p>
+
+          <p>
+          Fires a hook to attach and swing around terrain, attacking the nearest enemy dealing <span className="stat--ad">30 / 70 / 110 / 150 (+15% AD) physical damage</span> per shot. <br />
+          If Akshan collides with an enemy champion or terrain, he will jump off the rope. <br />
+          Champion takedowns refresh Heroic Swing's cooldown. Heroic Swing prioritizes champions recently damaged by Akshan and applies On-hit effects at 25% effectiveness. 
+          </p>
+        </div>
+    },
+
+    {
+      description:
+        <div className="abilityDescription">
+          <h4>
+          <span className="marker--ability">ULT</span> COMEUPPANCE
+          </h4>
+
+          <h5>
+          Cooldown: 
+            {' '}{(65*mod.atkcdr).toFixed(1)} / 
+            {' '}{(60*mod.atkcdr).toFixed(1)} / 
+            {' '}{(55*mod.atkcdr).toFixed(1)}
+          </h5>
+           <h5 className="stat--mana">
+          Cost: 
+            {' '}{100} / 
+            {' '}{100} / 
+            {' '}{100}
+          </h5>
+
+          <h5 className="stat--ad">
+            Minimum Damage:
+          </h5>
+
+          <p className="stat--ad">Pre-mitigation: 
+            {' '}{Math.floor(((20)+(atk.attack * 10 / 100)) * 5)} / 
+            {' '}{Math.floor(((30)+(atk.attack * 10 / 100)) * 6)} / 
+            {' '}{Math.floor(((40)+(atk.attack * 10 / 100)) * 7)}
+          </p>
+
+          <p className="stat--ad">Post-mitigation: 
+            {' '}{Math.floor((((20)+(atk.attack * 10 / 100))*5) * (1 - mod.defPhysRed))} / 
+            {' '}{Math.floor((((30)+(atk.attack * 10 / 100))*6)* (1 - mod.defPhysRed))} / 
+            {' '}{Math.floor((((40)+(atk.attack * 10 / 100))*7)* (1 - mod.defPhysRed))}         
+          </p>
+
+          <h5 className="stat--ad">
+            Maximum Damage:
+          </h5>
+
+          <p className="stat--ad">Pre-mitigation: 
+            {' '}{Math.floor(((80)+(atk.attack * 40 / 100)) * 5)} / 
+            {' '}{Math.floor(((120)+(atk.attack * 40 / 100)) * 6)} / 
+            {' '}{Math.floor(((160)+(atk.attack * 40 / 100)) * 7)}
+          </p>
+
+          <p className="stat--ad">Post-mitigation: 
+            {' '}{Math.floor((((20)+(atk.attack * 40 / 100))*5) * (1 - mod.defPhysRed))} / 
+            {' '}{Math.floor((((30)+(atk.attack * 40 / 100))*6)* (1 - mod.defPhysRed))} / 
+            {' '}{Math.floor((((40)+(atk.attack * 40 / 100))*7)* (1 - mod.defPhysRed))}         
+          </p>
+
+
+          <p>
+            Locks onto an enemy champion, charging multiple shots over a few seconds, fires up to 5 / 6 / 7 shots, dealing <span className="stat--ad">20 / 30 / 40 (+10% AD) physical damage per shot</span> to the first enemy or structure hit, increased up to <span className="stat--ad">80 / 120 / 160 (+40% AD) physical damage per shot</span> based on target's missing Health.
+          </p>
+        </div>
+    }
+  ],
+
+  'Alistar': [
+    {
+      description:
+        <div className="abilityDescription">
+          <h4>
+          <span className="marker--ability">P</span> TRIUMPHANT ROAR 
+          </h4>
+
+          <h5>
+          Cooldown: 
+            {' '}{(40*mod.atkcdr).toFixed(1)}
+          </h5>
+
+          <p>
+            When Alistar takes damage, he heals himself for <abbr title="27-160 based on level" className="stat--hp">{Math.ceil( (17.5 )+ (9.5 * currentLevel))}</abbr> and nearby allied champions for <abbr title="54-320 based on level" className="stat--hp">{Math.ceil((35) + (19 * currentLevel))}</abbr>. Knocking up or stunning champions with Alistar's abilities reduces the cooldown by 10 seconds.
+          </p>
+        </div>
+    },
+
+    {
+      description:
+        <div className="abilityDescription">
+          <h4>
+          <span className="marker--ability">1</span> PULVERIZE
+          </h4>
+
+          <h5>
+          Cooldown: 
+            {' '}{(15*mod.atkcdr).toFixed(1)} / 
+            {' '}{(14*mod.atkcdr).toFixed(1)} / 
+            {' '}{(12*mod.atkcdr).toFixed(1)} / 
+            {' '}{(11*mod.atkcdr).toFixed(1)} 
+          </h5>
+           <h5 className="stat--mana">
+          Cost: 
+            {' '}{65} / 
+            {' '}{70} / 
+            {' '}{75} / 
+            {' '}{80} 
+          </h5>
+
+          <h5 className="stat--ap">
+            Damage:
+          </h5>
+
+          <p className="stat--ad">Pre-mitigation: 
+            {' '}{Math.floor(((60)+(atk.ap * 50 / 100)))} / 
+            {' '}{Math.floor(((110)+(atk.ap * 50 / 100)))} / 
+            {' '}{Math.floor(((160)+(atk.ap * 50 / 100)))} / 
+            {' '}{Math.floor(((210)+(atk.ap * 50 / 100)))}
+          </p>
+
+          <p className="stat--ad">Post-mitigation: 
+            {' '}{Math.floor(((60)+(atk.ap * 50 / 100)) * (1 - mod.defMagRed))} / 
+            {' '}{Math.floor(((110)+(atk.ap * 50 / 100))* (1 - mod.defMagRed))} / 
+            {' '}{Math.floor(((160)+(atk.ap * 50 / 100))* (1 - mod.defMagRed))} / 
+            {' '}{Math.floor(((210)+(atk.ap * 50 / 100))* (1 - mod.defMagRed))}          
+          </p>
+
+          <p>
+          Alistar smashes the ground, dealing <span className="stat--ap">60 / 110 / 160 / 210 (+50% AP) Magic Damage</span> to nearby enemies and tossing them into the air for 1 second.
+          </p>
+        </div>
+    },
+
+    {
+      description:
+        <div className="abilityDescription">
+          <h4>
+          <span className="marker--ability">2</span> HEADBUTT
+          </h4>
+
+          <h5>
+          Cooldown: 
+            {' '}{(14*mod.atkcdr).toFixed(1)} / 
+            {' '}{(12*mod.atkcdr).toFixed(1)} / 
+            {' '}{(11*mod.atkcdr).toFixed(1)} / 
+            {' '}{(9*mod.atkcdr).toFixed(1)} 
+          </h5>
+           <h5 className="stat--mana">
+          Cost: 
+            {' '}{65} / 
+            {' '}{70} / 
+            {' '}{75} / 
+            {' '}{80} 
+          </h5>
+
+          <h5 className="stat--ap">
+            Damage:
+          </h5>
+
+          <p className="stat--ad">Pre-mitigation: 
+            {' '}{Math.floor(((50)+(atk.ap * 60 / 100)))} / 
+            {' '}{Math.floor(((120)+(atk.ap * 60 / 100)))} / 
+            {' '}{Math.floor(((190)+(atk.ap * 60 / 100)))} / 
+            {' '}{Math.floor(((260)+(atk.ap * 60 / 100)))}
+          </p>
+
+          <p className="stat--ad">Post-mitigation: 
+            {' '}{Math.floor(((50)+(atk.ap * 60 / 100)) * (1 - mod.defMagRed))} / 
+            {' '}{Math.floor(((120)+(atk.ap * 60 / 100))* (1 - mod.defMagRed))} / 
+            {' '}{Math.floor(((190)+(atk.ap * 60 / 100))* (1 - mod.defMagRed))} / 
+            {' '}{Math.floor(((260)+(atk.ap * 60 / 100))* (1 - mod.defMagRed))}          
+          </p>
+
+          <p>
+            Alistar rams a target with his head, dealing <span className="stat--ap">50 / 120 / 190 / 260 (+60% AP) Magic Damage</span> and knocking the target back. <br />
+            Can be cast on turrets to deal 75% damage.
+          </p>
+        </div>
+    },
+
+    {
+      description:
+        <div className="abilityDescription">
+          <h4>
+          <span className="marker--ability">3</span> TRAMPLE
+          </h4>
+
+          <h5>
+          Cooldown: 
+            {' '}{(12*mod.atkcdr).toFixed(1)} / 
+            {' '}{(11*mod.atkcdr).toFixed(1)} / 
+            {' '}{(11*mod.atkcdr).toFixed(1)} / 
+            {' '}{(10*mod.atkcdr).toFixed(1)} 
+          </h5>
+           <h5 className="stat--mana">
+          Cost: 
+            {' '}{50} / 
+            {' '}{60} / 
+            {' '}{70} / 
+            {' '}{80} 
+          </h5>
+
+          <h5 className="stat--ap">
+            Damage:
+          </h5>
+
+          <p className="stat--ad">Pre-mitigation: 
+            {' '}{Math.floor(((100)+(atk.ap * 40 / 100)))} / 
+            {' '}{Math.floor(((150)+(atk.ap * 40 / 100)))} / 
+            {' '}{Math.floor(((200)+(atk.ap * 40 / 100)))} / 
+            {' '}{Math.floor(((250)+(atk.ap * 40 / 100)))}
+          </p>
+
+          <p className="stat--ad">Post-mitigation: 
+            {' '}{Math.floor(((100)+(atk.ap * 40 / 100)) * (1 - mod.defMagRed))} / 
+            {' '}{Math.floor(((150)+(atk.ap * 40 / 100))* (1 - mod.defMagRed))} / 
+            {' '}{Math.floor(((200)+(atk.ap * 40 / 100))* (1 - mod.defMagRed))} / 
+            {' '}{Math.floor(((250)+(atk.ap * 40 / 100))* (1 - mod.defMagRed))}          
+          </p>
+
+          <p>
+            Alistar tramples the ground beneath him for 5 seconds, dealing up to <span className="stat--ap">100 / 150 / 200 / 250 (+40% AP) Magic Damage</span> to nearby enemies through 10 pulses with a pulse every 0.5 seconds and gaining a Trample stack each time at least one enemy champion is damaged, up to 5 stacks. <br />
+            At 5 Trample stacks Alistar's next basic attack within 5 seconds is empowered to deal <abbr title="40-320 based on level" className="stat--ap">{(20) + (20 * currentLevel)} Magic Damage</abbr> to target and stun it for 1 second.
+          </p>
+        </div>
+    },
+
+    {
+      description:
+        <div className="abilityDescription">
+          <h4>
+          <span className="marker--ability">ULT</span> UNBREAKABLE WILL
+          </h4>
+
+          <h5>
+          Cooldown: 
+            {' '}{(75*mod.atkcdr).toFixed(1)} / 
+            {' '}{(65*mod.atkcdr).toFixed(1)} / 
+            {' '}{(55*mod.atkcdr).toFixed(1)}
+          </h5>
+           <h5 className="stat--mana">
+          Cost: 
+            {' '}{100} / 
+            {' '}{100} / 
+            {' '}{100}
+          </h5>
+
+          <p>
+            Alistar let's out the wild roar, removes all crowd control effects from himself and gains <b>55% / 65% / 75%</b> damage reduction for 7 seconds.
+          </p>
+        </div>
+    }
+  ],
+
+  'Amumu': [
+    {
+      description:
+        <div className="abilityDescription">
+          <h4>
+          <span className="marker--ability">P</span> CURSED TOUCH
+          </h4>         
+
+          <p>
+            Amumu's basic attacks Curse his enemies, causing them to take bonus <b>10% True Damage</b> from incoming <span className="stat--ap">Magic Damage</span>
+          </p>
+        </div>
+    },
+
+    {
+      description:
+        <div className="abilityDescription">
+          <h4>
+          <span className="marker--ability">1</span> BANDAGE TOSS
+          </h4>
+
+          <h5>
+          Cast cooldown: 
+            {' '}{(3).toFixed(1)} / 
+            {' '}{(3).toFixed(1)} / 
+            {' '}{(3).toFixed(1)} / 
+            {' '}{(3).toFixed(1)} 
+          </h5>
+          <h5>
+          Charge cooldown: 
+            {' '}{(14*mod.atkcdr).toFixed(1)} / 
+            {' '}{(13.5*mod.atkcdr).toFixed(1)} / 
+            {' '}{(13*mod.atkcdr).toFixed(1)} / 
+            {' '}{(12.5*mod.atkcdr).toFixed(1)} 
+          </h5>
+           <h5 className="stat--mana">
+          Cost: 
+            {' '}{35} / 
+            {' '}{40} / 
+            {' '}{45} / 
+            {' '}{50} 
+          </h5>
+
+          <h5 className="stat--ap">
+            Damage:
+          </h5>
+
+          <p className="stat--ad">Pre-mitigation: 
+            {' '}{Math.floor(((70)+(atk.ap * 70 / 100)))} / 
+            {' '}{Math.floor(((105)+(atk.ap * 70 / 100)))} / 
+            {' '}{Math.floor(((140)+(atk.ap * 70 / 100)))} / 
+            {' '}{Math.floor(((175)+(atk.ap * 70 / 100)))}
+          </p>
+
+          <p className="stat--ad">Post-mitigation: 
+            {' '}{Math.floor(((70)+(atk.ap * 70 / 100)) * (1 - mod.defMagRed))} / 
+            {' '}{Math.floor(((1005)+(atk.ap * 70 / 100))* (1 - mod.defMagRed))} / 
+            {' '}{Math.floor(((140)+(atk.ap * 70 / 100))* (1 - mod.defMagRed))} / 
+            {' '}{Math.floor(((175)+(atk.ap * 70 / 100))* (1 - mod.defMagRed))}          
+          </p>
+
+          <p>
+            <b>Bandage Toss</b> charges are stored every 14 / 13.5 / 13 / 12.5 seconds up to 2 charges max.
+
+            <b>Active:</b> Launches a bandage that pulls Amumu to target, stuns the target fot 1 second and deals <span className="stat--ap">70 / 105 / 140 / 175 (+70% AP) Magic Damage</span> to target.            
+          </p>
+        </div>
+    },
+
+    {
+      description:
+        <div className="abilityDescription">
+          <h4>
+          <span className="marker--ability">2</span> DESPAIR
+          </h4>
+
+          <h5>
+          Cooldown: 
+            {' '}{(1).toFixed(1)} / 
+            {' '}{(1).toFixed(1)} / 
+            {' '}{(1).toFixed(1)} / 
+            {' '}{(1).toFixed(1)} 
+          </h5>
+           <h5 className="stat--mana">
+          Cost: 
+            {' '}{10} / 
+            {' '}{11} / 
+            {' '}{12} / 
+            {' '}{13} 
+          </h5>
+
+          <h5 className="stat--ap">
+            Damage:
+          </h5>
+
+          <p className="stat--ad">Pre-mitigation: 
+            {' '}{Math.floor(((15)+(def.health *(1 + (Math.floor(atk.ap * 6 / 1000))) / 100)))} / 
+            {' '}{Math.floor(((20)+(def.health *(1.2 + (Math.floor(atk.ap * 6 / 1000))) / 100)))} / 
+            {' '}{Math.floor(((25)+(def.health *(1.4 + (Math.floor(atk.ap * 6 / 1000))) / 100)))} / 
+            {' '}{Math.floor(((30)+(def.health *(1.6 + (Math.floor(atk.ap * 6 / 1000))) / 100)))}
+          </p>
+
+          <p className="stat--ad">Post-mitigation: 
+            {' '}{Math.floor(((15)+(def.health * (1 + (Math.floor(atk.ap * 6 / 1000)))/ 100)) * (1 - mod.defMagRed))} / 
+            {' '}{Math.floor(((20)+(def.health * (1.2 + (Math.floor(atk.ap * 6 / 1000))) / 100))* (1 - mod.defMagRed))} / 
+            {' '}{Math.floor(((25)+(def.health * (1.4 + (Math.floor(atk.ap * 6 / 1000))) / 100))* (1 - mod.defMagRed))} / 
+            {' '}{Math.floor(((30)+(def.health * (1.6 + (Math.floor(atk.ap * 6 / 1000))) / 100))* (1 - mod.defMagRed))}          
+          </p>
+
+          <p>
+            Amumu begins weeping to deal <span className="stat--ap">15 / 20 / 25 / 30 <span className="stat--hp">(+1 / 1.2 / 1.4 / 1.6% <span className="stat--ap">(+0.6% per 100 AP)</span> of the target's maximum health)</span> Magic Damage</span> to nearby enemies every second
+          </p>
+        </div>
+    },
+
+    {
+      description:
+        <div className="abilityDescription">
+          <h4>
+          <span className="marker--ability">3</span> TANTRUM
+          </h4>
+
+          <h5>
+          Cooldown: 
+            {' '}{(9*mod.atkcdr).toFixed(1)} / 
+            {' '}{(8*mod.atkcdr).toFixed(1)} / 
+            {' '}{(7*mod.atkcdr).toFixed(1)} / 
+            {' '}{(6*mod.atkcdr).toFixed(1)} 
+          </h5>
+           <h5 className="stat--mana">
+          Cost: 
+            {' '}{35} / 
+            {' '}{35} / 
+            {' '}{35} / 
+            {' '}{35} 
+          </h5>
+
+          <p className="stat--armor">Physical Damage Reduction: 
+            {' '}{Math.floor(((4)+(atk.armor * 3 / 100)+(atk.magres * 3 / 100)))} / 
+            {' '}{Math.floor(((6)+(atk.armor * 3 / 100)+(atk.magres * 3 / 100)))} / 
+            {' '}{Math.floor(((8)+(atk.armor * 3 / 100)+(atk.magres * 3 / 100)))} / 
+            {' '}{Math.floor(((10)+(atk.armor * 3 / 100)+(atk.magres * 3 / 100)))}
+          </p>
+
+          <h5 className="stat--ap">
+            Damage:
+          </h5>
+
+          <p className="stat--ad">Pre-mitigation: 
+            {' '}{Math.floor(((90)+(atk.ap * 50 / 100)))} / 
+            {' '}{Math.floor(((120)+(atk.ap * 50 / 100)))} / 
+            {' '}{Math.floor(((150)+(atk.ap * 50 / 100)))} / 
+            {' '}{Math.floor(((180)+(atk.ap * 50 / 100)))}
+          </p>
+
+          <p className="stat--ad">Post-mitigation: 
+            {' '}{Math.floor(((90)+(atk.ap * 50 / 100)) * (1 - mod.defMagRed))} / 
+            {' '}{Math.floor(((120)+(atk.ap * 50 / 100))* (1 - mod.defMagRed))} / 
+            {' '}{Math.floor(((150)+(atk.ap * 50 / 100))* (1 - mod.defMagRed))} / 
+            {' '}{Math.floor(((180)+(atk.ap * 50 / 100))* (1 - mod.defMagRed))}          
+          </p>
+
+          <p>
+            <b>Passive:</b> Amumu blocks <span className="stat--ad">4 / 6 / 8 / 10 <span className="stat--armor">(+3% armor)</span> <span className="stat--magres">(+3% magic resistance)</span> Physical damage</span> on any instance of physical damage done to him. <br />
+            <b>ACTIVE:</b> Amumu throws a Tantrum dealing <span className="stat--ap">90 / 120 / 150 / 180 (+50% AP) Magic Damage</span> to all enemies in small area around him and slowing them by <b>20%</b> for 0.5 seconds. <br />
+            Tantrum's cooldown is reduced by 0.5 seconds each time Amumu is hit by basic attack.
+          </p>
+        </div>
+    },
+
+    {
+      description:
+        <div className="abilityDescription">
+          <h4>
+          <span className="marker--ability">ULT</span> CURSE OF THE SAD MUMMY
+          </h4>
+
+          <h5>
+          Cooldown: 
+            {' '}{(95*mod.atkcdr).toFixed(1)} / 
+            {' '}{(85*mod.atkcdr).toFixed(1)} / 
+            {' '}{(75*mod.atkcdr).toFixed(1)}
+          </h5>
+           <h5 className="stat--mana">
+          Cost: 
+            {' '}{100} / 
+            {' '}{100} / 
+            {' '}{100}
+          </h5>
+
+          <h5 className="stat--ap">
+            Damage:
+          </h5>
+
+          <p className="stat--ad">Pre-mitigation: 
+            {' '}{Math.floor(((150)+(atk.ap * 80 / 100)))} / 
+            {' '}{Math.floor(((250)+(atk.ap * 80 / 100)))} / 
+            {' '}{Math.floor(((350)+(atk.ap * 80 / 100)))}
+          </p>
+
+          <p className="stat--ad">Post-mitigation: 
+            {' '}{Math.floor(((150)+(atk.ap * 80 / 100)) * (1 - mod.defMagRed))} / 
+            {' '}{Math.floor(((250)+(atk.ap * 80 / 100))* (1 - mod.defMagRed))} / 
+            {' '}{Math.floor(((350)+(atk.ap * 80 / 100))* (1 - mod.defMagRed))}
+          </p>
+
+          <p>
+            Amumu releases his curse, dealing <span className="stat--ap">150 / 250 / 350 (+80% AP) Magic Damage</span> and stunning all enemies in a circular area around him for 1.5 seconds.
+          </p>
+        </div>
+    }
+  ],
 }
 
 const chosenAbilities = abilities[champ.name] || [];

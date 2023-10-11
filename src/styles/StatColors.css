@@ -3,11 +3,15 @@
 }
 
 .stat--ap {
-  color:blueviolet;
+  color:rgb(234, 0, 255);
 }
 
-.stat--armor, .stat--critChance {
+.stat--armor {
   color: rgb(247, 247, 5);
+}
+
+.stat--critChance {
+  color: rgb(255, 94, 0);
 }
 
 .stat--magres {
@@ -24,12 +28,12 @@
 
 .stat--vamp {
   color: red
-};
+}
 
 .stat--as {
-  color:yellow
-};
+  color:rgb(255, 255, 0)
+}
 
 .stat--moveSpeed {
-  color: white;
+  color: rgb(50, 197, 255);
 }

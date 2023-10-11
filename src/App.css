@@ -239,7 +239,7 @@ button:active {
 }
 
 .inventorySlot, .abilitiesTile {
-  background-color: rgb(4, 4, 61);
+  background-color: rgb(27, 27, 36);
   height: 200px;
   width: 90%;
   margin: 10px;

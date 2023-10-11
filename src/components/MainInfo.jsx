@@ -25,7 +25,9 @@ export default function MainInfo(props) {
       index={1} 
     />
 
-    <StatComparison />
+    <StatComparison
+      atkname={attack.name}
+      defname={defence.name} />
     </>
   )
 }
