@@ -53,11 +53,11 @@ export default function StatComparison({atkname, defname}) {
     const postMitigationMresDefender = postMitigationMres(def ,atk);
 
     const physicalDamageReduction = (postMitigationArmor, champ) => {
-      return ((1 - (100/(100 + (postMitigationArmor))))*100 + (champ.bootsPassive === 'Steelcaps' ? 15 : 0));
+      return ((1 - (100/(100 + (postMitigationArmor))))*100 + (champ.bootsPassive === 'Steelcaps' ? 10 : 0));
     };
 
     const magicalDamageReduction = (postMitigationMres, champ) => {
-      return ((1 - (100/(100 + (postMitigationMres))))*100 + (champ.bootsPassive === 'Mercury' ? 15 : 0) + (champ.fonEffect ? 25 : 0));
+      return ((1 - (100/(100 + (postMitigationMres))))*100 + (champ.bootsPassive === 'Mercury' ? 12 : 0) + (champ.fonEffect ? 25 : 0));
     };
 
     const physicalReductionAttacker = physicalDamageReduction(postMitigationArmorAttacker, atk);

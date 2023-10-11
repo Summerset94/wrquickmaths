@@ -335,7 +335,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
       ap: 0,
       as: 0,
       moveSpeed: 0,
-      flatArmPen: 15,
+      flatArmPen: 18,
       flatMagPen: 0,
       armPen: 0,
       magPen: 0,
@@ -352,7 +352,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
           <h3>+{10} Ability Haste</h3>
           <h3>+{15} Lethality/flat armor penetration</h3>
   
-          <p><b>Nightstalker:</b> The first attack against a champion deals <abbr title="20 + 7.5 per level"><b className='stat--ad'>{Math.floor(20 + 7.5*(currentLevel - 1))} physical damage</b></abbr> and slows target by 99% for 0.25s (10s cooldown). Champions takedown refresh cooldown duration</p>
+          <p><b>Nightstalker:</b> The first attack against a champion deals <abbr title="20 + 7.5 per level"><b className='stat--ad'>{Math.floor(60 + (100/14)*(currentLevel - 1))} physical damage</b></abbr> and slows target by 99% for 0.35s (10s cooldown). Champions takedown refresh cooldown duration</p>
         </div>
     },
   
@@ -1650,7 +1650,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
           <h3 className='stat--mana'>+{300} Max Mana</h3>
           <h3>+{10} Ability Haste</h3>
 
-          <p><b>Harmonic Echo:</b> Moving and casting abilities build Harmony stacks. At 100 stacks your next healing / shielding ability coast on ally restores <abbr title="70 + 10% AP"><span className="stat--hp">{Math.floor(70 + (total.ap * 10 / 100))} Health</span></abbr> to your target and up to 3 nearby allied champions</p>
+          <p><b>Harmonic Echo:</b> Moving and casting abilities build Harmony stacks. At 100 stacks your next healing / shielding ability coast on ally restores <abbr title="130 + 10% AP"><span className="stat--hp">{Math.floor(130 + (total.ap * 10 / 100))} Health</span></abbr> to your target and up to 3 nearby allied champions</p>
         </div>
 
     },
@@ -2624,7 +2624,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
           <h3 className="stat--hp">+80 Health</h3>
           <h3>+5 Ability Hate</h3>
 
-          <p><b>Offering:</b> Generates a charge every 30 seconds, up to 3 charges. While you are near an allied champion, nearby minions that die will each consume a charge. Consuming a charge will grant 55 gold and heal you for 15 - 65 (based on missing health) You earn 50% reduced gold from killing minions and monsters. Killing minions will also grant 100% kill gold Gold 100% kill gold to the nearby ally.</p>
+          <p><b>Offering:</b> Generates a charge every 30 seconds, up to 3 charges. While you are near an allied champion, nearby minions that die will each consume a charge. Consuming a charge will grant 65 gold and heal you for 20 - 80 (based on missing health) You earn 50% reduced gold from killing minions and monsters. Killing minions will also grant 100% kill gold Gold 100% kill gold to the nearby ally.</p>
           <p><b>Mission:</b> This item transforms into <b>Talisman of Ascension</b> after obtaining <b>500</b> gold.</p>
         </div>
     },
@@ -2760,7 +2760,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
           <h3>+10 Ability Haste</h3>
 
           <p>
-            <b>Spoils of War:</b> Generates a charge every 30 seconds, up to 3 charges. While you are near an allied champion, your basic attacks execute minions below <span className="stat--hp">65% of their maximum health</span>, consuming 1 charge per minion. Consuming a charge will heal you for <span className="stat--hp">20 - 80 (based on missing health)</span>, as well as grant 65 Gold to you and 100% kill gold to the nearest allied champion. You earn 50% reduced gold from killing minions and monsters. Killing minions will also grant 100% kill gold to the nearby ally.
+            <b>Spoils of War:</b> Generates a charge every 30 seconds, up to 3 charges. While you are near an allied champion, your basic attacks execute minions below <span className="stat--hp">65% of their maximum health</span>, consuming 1 charge per minion. Consuming a charge will heal you for <span className="stat--hp">15 - 65 (based on missing health)</span>, as well as grant 65 Gold to you and 100% kill gold to the nearest allied champion. You earn 50% reduced gold from killing minions and monsters. Killing minions will also grant 100% kill gold to the nearby ally.
           </p>
 
           <p>
@@ -2909,7 +2909,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
         mana: 0,
         armor: 0,
         magres: 0,
-        attack: 15,
+        attack: 18,
         ap: 0,
         as: (base.asBase * 30/100),
         moveSpeed: 45,
@@ -2938,7 +2938,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
       {
         name: 'Mercury\'s Treads',
   
-        health: 150,
+        health: 200,
         mana: 0,
         armor: 0,
         magres: 35,
@@ -2966,7 +2966,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
             <h3 className="stat--moveSpeed">+45 Movement Speed</h3>
 
             <p>
-              <b>Dissolve:</b> reduces <span className="stat--ap">magic damage</span> taken by 15% 
+              <b>Dissolve:</b> reduces <span className="stat--ap">magic damage</span> taken by 12% 
             </p>  
           </div>
   
@@ -3003,7 +3003,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
             <h3 className="stat--moveSpeed">+45 Movement Speed</h3>
 
             <p>
-              <b>Block:</b> reduces <span className="stat--ad">physical damage</span> taken by 15% 
+              <b>Block:</b> reduces <span className="stat--ad">physical damage</span> taken by 10% 
             </p>    
           </div>
   
@@ -3088,7 +3088,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
         ap: 0,
         as: 0,
         moveSpeed: 45,
-        flatArmPen: 8,
+        flatArmPen: 10,
         flatMagPen: 0,
         armPen: 0,
         magPen: 0,

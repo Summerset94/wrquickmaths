@@ -104,6 +104,7 @@ export default function StatsCalculator(props) {
     let healthMod;
     let attackMod;
     let asMod;
+    let critChanceMod;
 
   //Health
     switch (champ.name) {
@@ -144,11 +145,25 @@ export default function StatsCalculator(props) {
         asMod = baseMemo.as + bonusMemo.as;
         break;
     }
+
+  //Crit Chance
+  switch (champ.name) {
+    case 'Yone':
+      critChanceMod = Math.max(bonusMemo.critChance * 2 || 1);
+      break;
+    case 'Yasuo':
+      critChanceMod = Math.max(bonusMemo.critChance * 2 || 1);
+      break;
+    default:
+      critChanceMod = bonusMemo.critChance;
+      break;
+  }  
   
     return {
       health: healthMod,
       attack: attackMod,
-      as: asMod
+      as: asMod,
+      critChance: critChanceMod
     };
   }, [champ, baseMemo, bonusMemo, currentLevel]);
   
@@ -177,7 +192,7 @@ export default function StatsCalculator(props) {
       armPen: bonusMemo.armPen,
       magPen: bonusMemo.magPen,
       moveSpeed: baseMemo.moveSpeed + bonusMemo.moveSpeed,
-      critChance: bonusMemo.critChance,
+      critChance: totalModifier.critChance,
       critMultiplier: champ.name != 'Ashe' ? baseMemo.critMultiplier + bonusMemo.critMultiplier : 1,
       critDamage: ((baseMemo.attack + bonusMemo.attack))*(champ.name != 'Ashe' ? baseMemo.critMultiplier + bonusMemo.critMultiplier : 1),
       armorReduction: bonusMemo.armorReduction,

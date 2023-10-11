@@ -1,0 +1,17 @@
+<h5 className="stat--ap">
+            Damage:
+          </h5>
+
+          <p className="stat--ad">Pre-mitigation: 
+            {' '}{Math.floor(((abase1)+(atk.ap * amod / 100)))} / 
+            {' '}{Math.floor(((abase2)+(atk.ap * amod / 100)))} / 
+            {' '}{Math.floor(((abase3)+(atk.ap * amod / 100)))} / 
+            {' '}{Math.floor(((abase4)+(atk.ap * amod / 100)))}
+          </p>
+
+          <p className="stat--ad">Post-mitigation: 
+            {' '}{Math.floor(((abase1)+(atk.ap * amod / 100)) * (1 - mod.defMagRed))} / 
+            {' '}{Math.floor(((abase2)+(atk.ap * amod / 100))* (1 - mod.defMagRed))} / 
+            {' '}{Math.floor(((abase3)+(atk.ap * amod / 100))* (1 - mod.defMagRed))} / 
+            {' '}{Math.floor(((abase4)+(atk.ap * amod / 100))* (1 - mod.defMagRed))}          
+          </p>

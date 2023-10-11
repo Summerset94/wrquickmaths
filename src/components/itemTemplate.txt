@@ -29,66 +29,30 @@
 
   // abilities template
 
-    {
-      description:
-        <div className="abilityDescription">
-          <h4>
-          <span className="marker--ability">x</span> 
-          </h4>
+{
+  description:
+    <div className="abilityDescription">
+      <h4>
+      <span className="marker--ability">x</span> 
+      </h4>
 
-          <h5>
-          Cooldown: 
-            {' '}{(y*mod.atkcdr).toFixed(1)} / 
-            {' '}{(y*mod.atkcdr).toFixed(1)} / 
-            {' '}{(y*mod.atkcdr).toFixed(1)} / 
-            {' '}{(y*mod.atkcdr).toFixed(1)} 
-          </h5>
-           <h5 className="stat--mana">
-          Cost: 
-            {' '}{q} / 
-            {' '}{q} / 
-            {' '}{q} / 
-            {' '}{q} 
-          </h5>
+      <h5>
+      Cooldown: 
+        {' '}{(y*mod.atkcdr).toFixed(1)} / 
+        {' '}{(y*mod.atkcdr).toFixed(1)} / 
+        {' '}{(y*mod.atkcdr).toFixed(1)} / 
+        {' '}{(y*mod.atkcdr).toFixed(1)} 
+      </h5>
+        <h5 className="stat--mana">
+      Cost: 
+        {' '}{q} / 
+        {' '}{q} / 
+        {' '}{q} / 
+        {' '}{q} 
+      </h5>
 
-          <p>
-            
-          </p>
-        </div>
-    }
-
-<h5 className="stat--ad">
-  Damage:
-</h5>
-
-<p className="stat--ad">Pre-mitigation: 
-  {' '}{Math.floor(((abase1)+(atk.attack * amod / 100)))} / 
-  {' '}{Math.floor(((abase2)+(atk.attack * amod / 100)))} / 
-  {' '}{Math.floor(((abase3)+(atk.attack * amod / 100)))} / 
-  {' '}{Math.floor(((abase4)+(atk.attack * amod / 100)))}
-</p>
-
-<p className="stat--ad">Post-mitigation: 
-  {' '}{Math.floor(((abase1)+(atk.attack * amod / 100)) * (1 - mod.defPhysRed))} / 
-  {' '}{Math.floor(((abase2)+(atk.attack * amod / 100))* (1 - mod.defPhysRed))} / 
-  {' '}{Math.floor(((abase3)+(atk.attack * amod / 100))* (1 - mod.defPhysRed))} / 
-  {' '}{Math.floor(((abase4)+(atk.attack * amod / 100))* (1 - mod.defPhysRed))}          
-</p>
-
-<h5 className="stat--ap">
-  Damage:
-</h5>
-
-<p className="stat--ad">Pre-mitigation: 
-  {' '}{Math.floor(((abase1)+(atk.ap * amod / 100)))} / 
-  {' '}{Math.floor(((abase2)+(atk.ap * amod / 100)))} / 
-  {' '}{Math.floor(((abase3)+(atk.ap * amod / 100)))} / 
-  {' '}{Math.floor(((abase4)+(atk.ap * amod / 100)))}
-</p>
-
-<p className="stat--ad">Post-mitigation: 
-  {' '}{Math.floor(((abase1)+(atk.ap * amod / 100)) * (1 - mod.defMagRed))} / 
-  {' '}{Math.floor(((abase2)+(atk.ap * amod / 100))* (1 - mod.defMagRed))} / 
-  {' '}{Math.floor(((abase3)+(atk.ap * amod / 100))* (1 - mod.defMagRed))} / 
-  {' '}{Math.floor(((abase4)+(atk.ap * amod / 100))* (1 - mod.defMagRed))}          
-</p>
+      <p>
+        
+      </p>
+    </div>
+}

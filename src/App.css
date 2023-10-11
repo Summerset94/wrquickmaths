@@ -335,3 +335,15 @@ button:active {
   padding: 2px 5px;
   background-color: rgb(110, 126, 39);
 }
+
+.bugsTile {
+  width: 70%;
+  grid-column-start: 1;
+  grid-column-end: 3;
+  margin-left: 30px;
+  padding-bottom: 10px;
+}
+
+.bugsTile > p, .bugsTile > ol {
+  font-size: smaller;
+}
