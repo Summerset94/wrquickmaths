@@ -412,6 +412,7 @@ export default function StatsCalculator(props) {
       switchTwinguard={toggleTwinguard}
       switchFON={toggleFON}
       index={index}
+      champ={champ}
 
     />
     </>

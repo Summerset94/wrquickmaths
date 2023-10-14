@@ -32,17 +32,17 @@ export default function StatComparison({atkname, defname}) {
     const postMitigationMres = (target, attacker) => {
       let mitigatedMres = 0
       if (attacker.magResReduction && (target.magres - attacker.magResReduction <= 0)) {
-        return Math.floor(target.magres - attacker.magResReduction)
+        return (target.magres - attacker.magResReduction)
       } else if (attacker.magResReduction) { 
        
         mitigatedMres = ((target.magres - attacker.magResReduction) * (1 - attacker.magPen) - attacker.flatMagPen);
        
-        return Math.floor(Math.max(mitigatedMres, 0))
+        return Math.max(mitigatedMres, 0)
 
       } else {
         mitigatedMres = (target.magres * (1 - attacker.magPen) - attacker.flatMagPen)
 
-        return Math.floor(Math.max(mitigatedMres, 0))
+        return Math.max(mitigatedMres, 0)
       }
     };
 
@@ -53,11 +53,11 @@ export default function StatComparison({atkname, defname}) {
     const postMitigationMresDefender = postMitigationMres(def ,atk);
 
     const physicalDamageReduction = (postMitigationArmor, champ) => {
-      return ((1 - (100/(100 + (postMitigationArmor))))*100 + (champ.bootsPassive === 'Steelcaps' ? 10 : 0));
+      return Math.round((1 - (100/(100 + (postMitigationArmor))))*100*(1 + (champ.bootsPassive === 'Steelcaps' ? 0.1 : 0)) );
     };
 
     const magicalDamageReduction = (postMitigationMres, champ) => {
-      return ((1 - (100/(100 + (postMitigationMres))))*100 + (champ.bootsPassive === 'Mercury' ? 12 : 0) + (champ.fonEffect ? 25 : 0));
+      return Math.round((1 - (100/(100 + (postMitigationMres))))*100*((1 + (champ.bootsPassive === 'Mercury' ? 0.12 : 0) + (champ.fonEffect ? 0.25 : 0))));
     };
 
     const physicalReductionAttacker = physicalDamageReduction(postMitigationArmorAttacker, atk);
@@ -165,10 +165,10 @@ export default function StatComparison({atkname, defname}) {
             
 
             <tr>
-              <td className='stat--armor'>{Math.floor(formula.attackerPhysReduction)}%</td>
-              <td className='stat--magres'>{Math.floor(formula.attackerMagReduction)}%</td>
-              <td className='stat--armor'>{Math.floor(formula.defenderPhysReduction)}%</td>
-              <td className='stat--magres'>{Math.floor(formula.defenderMagReduction)}%</td>
+              <td className='stat--armor'>{(formula.attackerPhysReduction)}%</td>
+              <td className='stat--magres'>{(formula.attackerMagReduction)}%</td>
+              <td className='stat--armor'>{(formula.defenderPhysReduction)}%</td>
+              <td className='stat--magres'>{(formula.defenderMagReduction)}%</td>
             </tr>    
           </tbody>
         </table>

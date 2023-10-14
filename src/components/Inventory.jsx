@@ -32,26 +32,26 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
   const postMitigationMres = (target, attacker) => {
     let mitigatedMres = 0
     if (attacker.magResReduction && (target.magres - attacker.magResReduction <= 0)) {
-      return Math.floor(target.magres - attacker.magResReduction)
+      return Math.round(target.magres - attacker.magResReduction)
     } else if (attacker.magResReduction) { 
      
-      mitigatedMres = ((target.magres - attacker.magResReduction) * Math.floor(1 - attacker.magPen) - attacker.flatMagPen);
+      mitigatedMres = ((target.magres - attacker.magResReduction) * Math.round(1 - attacker.magPen) - attacker.flatMagPen);
      
-      return Math.floor(Math.max(mitigatedMres, 0))
+      return Math.round(Math.max(mitigatedMres, 0))
 
     } else {
-      mitigatedMres = (target.magres * Math.floor(1 - attacker.magPen) - attacker.flatMagPen)
+      mitigatedMres = (target.magres * Math.round(1 - attacker.magPen) - attacker.flatMagPen)
 
-      return Math.floor(Math.max(mitigatedMres, 0))
+      return Math.round(Math.max(mitigatedMres, 0))
     }
   };
 
   let targetMres = postMitigationMres(target, total);
   let targetArmor = postMitigationArmor(target, total);
   let attArmor = postMitigationArmor(total, target);
-  const modifier = ((1 - (100/(100 + (targetArmor)))));
-  const modifierAtt = ((1 - (100/(100 + (attArmor)))))
-  const modifierMres = ((1 - (100/(100 + (targetMres)))));
+  const modifier = ((1 - (100/(100 + (targetArmor))))*(1 + (target.bootsPassive === 'Steelcaps' ? 0.1 : 0)));
+  const modifierAtt = ((1 - (100/(100 + (attArmor))))*(1 + (total.bootsPassive === 'Steelcaps' ? 0.1 : 0)))
+  const modifierMres = ((1 - (100/(100 + (targetMres))))*(1 + (target.bootsPassive === 'Mercury' ? 0.12 : 0) + (target.fonEffect ? 0.25 : 0)));
   const sunFireEffect = ((16 + 9 / 14 * (currentLevel - 1)) + (bonus.health * 8 / 100));
 
 
@@ -114,7 +114,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
         <h3 className='stat--armor'>+{40} Armor</h3>
   
         <p>
-          <b>Resurrect: </b> Upon taking lethal damage, restores <abbr title="50% BASE health"><span className='stat--hp'>{Math.floor(base.health / 2)} base Health</span></abbr> {total.mana && <abbr title='30% total'> and <span className='stat--mana'> {Math.floor(total.mana * 0.3)} maximum Mana</span> </abbr> } after 4 Seconds of Stasis. (210s. Cooldown)
+          <b>Resurrect: </b> Upon taking lethal damage, restores <abbr title="50% BASE health"><span className='stat--hp'>{Math.round(base.health / 2)} base Health</span></abbr> {total.mana && <abbr title='30% total'> and <span className='stat--mana'> {Math.round(total.mana * 0.3)} maximum Mana</span> </abbr> } after 4 Seconds of Stasis. (210s. Cooldown)
         </p>
       </div>
     },
@@ -144,7 +144,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
         <h3 className='stat--ad'>+ {55} Attack Damage</h3>
         <h3 className='stat--critChance'>+ {Number(0.25*100)}% Critical Rate</h3>
   
-        <p><b>Bloody: </b> <b className='stat--vamp'>+12% (<abbr title="Damage against 0 armor target / post mitigated for current target">{Math.floor((total.attack * 0.12))} / {Math.floor((total.attack * 0.12)* (1 - modifier))}</abbr>)  Physical Vamp</b></p>
+        <p><b>Bloody: </b> <b className='stat--vamp'>+12% (<abbr title="Damage against 0 armor target / post mitigated for current target">{Math.round((total.attack * 0.12))} / {Math.round((total.attack * 0.12)* (1 - modifier))}</abbr>)  Physical Vamp</b></p>
         <p><b>Bloodsworn: </b> <span className='stat--vamp'>Physical Vamp</span> overheals you, generating a shield that absorbs <abbr title='40 + (20 * level)' className='stat--hp'>{(40 + 20 * (currentLevel - 1))}</abbr> damage. This shield decays out of combat over 10 seconds</p>
       </div>
     },
@@ -213,7 +213,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
         <h3 className='stat--as'>+35% ({Number(base.asBase * 0.35).toFixed(3)}) Attack Speed</h3>
   
         <p>
-          <b>Thirst:</b> <b className='stat--vamp'>+10% (<abbr title="Damage against 0 armor target / post mitigated for current target">{Math.floor((total.attack * 0.1))} / {Math.floor((total.attack * 0.1)* (1 - modifier))}</abbr>)  Physical Vamp</b>
+          <b>Thirst:</b> <b className='stat--vamp'>+10% (<abbr title="Damage against 0 armor target / post mitigated for current target">{Math.round((total.attack * 0.1))} / {Math.round((total.attack * 0.1)* (1 - modifier))}</abbr>)  Physical Vamp</b>
         </p>
   
         <p>
@@ -288,7 +288,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
           <h3 className='stat--as'>+45% ({(base.asBase * 0.45).toFixed(3)}) Attack Speed</h3>
           <h3 className='stat--critChance'>+ {0.25*100}% Critical Rate</h3>
   
-          <p>Attacks strike 2 additional nearby enemies. Each attack  dealing <abbr title="55% Attack Damage" className='stat--ad'>{Math.floor(total.attack*0.55)} damage</abbr>. These attacks CAN critically hit and trigger on-hit effects.</p>        
+          <p>Attacks strike 2 additional nearby enemies. Each attack  dealing <abbr title="55% Attack Damage" className='stat--ad'>{Math.round(total.attack*0.55)} damage</abbr>. These attacks CAN critically hit and trigger on-hit effects.</p>        
         </div>
     },
   
@@ -352,7 +352,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
           <h3>+{10} Ability Haste</h3>
           <h3>+{15} Lethality/flat armor penetration</h3>
   
-          <p><b>Nightstalker:</b> The first attack against a champion deals <abbr title="20 + 7.5 per level"><b className='stat--ad'>{Math.floor(60 + (100/14)*(currentLevel - 1))} physical damage</b></abbr> and slows target by 99% for 0.35s (10s cooldown). Champions takedown refresh cooldown duration</p>
+          <p><b>Nightstalker:</b> The first attack against a champion deals <abbr title="20 + 7.5 per level"><b className='stat--ad'>{Math.round(60 + (100/14)*(currentLevel - 1))} physical damage</b></abbr> and slows target by 99% for 0.35s (10s cooldown). Champions takedown refresh cooldown duration</p>
         </div>
     },
   
@@ -382,7 +382,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
           <h3 className='stat--hp'>+{400} Max Health</h3>
           <h3>Heavy Handed: <abbr title="(50% of BASE attack damage)"><span className='stat--ad'>+{base.attack*0.5} Attack Damage</span></abbr> as BONUS attack damage</h3>
   
-          <p><b>Lifeline:</b> Damage that puts you under <abbr title="(35% MAX health)"><span className='stat--hp'>{Math.floor(total.health*0.35)} health</span></abbr> triggers a <abbr title="(75% of BONUS health)" className="stat--hp">{bonus.health * 0.75} points </abbr> shield that decays Over 3 seconds (90 sec Cooldown)</p>
+          <p><b>Lifeline:</b> Damage that puts you under <abbr title="(35% MAX health)"><span className='stat--hp'>{Math.round(total.health*0.35)} health</span></abbr> triggers a <abbr title="(75% of BONUS health)" className="stat--hp">{bonus.health * 0.75} points </abbr> shield that decays Over 3 seconds (90 sec Cooldown)</p>
   
           <p><b>Sterak's fury:</b> Triggering Lifeline also increases your size and grants <span className='stat--ap'>30% Tenacity</span> for 8 seconds.</p>
         </div>
@@ -454,7 +454,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
       health: 0,
       armor: 0,
       magres: 0,
-      attack: 25 + Math.floor(total.mana * 0.015),
+      attack: 25 + Math.round(total.mana * 0.015),
       ap: 0,
       as: 0,
       moveSpeed: 0,
@@ -475,7 +475,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
           <h3 classname='stat--mana'>+{300} Max mana</h3>
           <h3>+{20} Ability Haste</h3>
 
-          <p><b>Awe:</b> grants <abbr title="1.5% of maximum mana"><span className="stat--mana">{Math.floor(total.mana * 0.015)}</span></abbr> Attacks damage, refunds <span className='stat--mana'>15%</span> of all Mana spent</p>
+          <p><b>Awe:</b> grants <abbr title="1.5% of maximum mana"><span className="stat--mana">{Math.round(total.mana * 0.015)}</span></abbr> Attacks damage, refunds <span className='stat--mana'>15%</span> of all Mana spent</p>
 
 
           <p><b>Mana Charge:</b> Increase max Mana by <span className='stat--mana'>10</span> every attack or when Mana is spent. Triggers up to 3 times every 12 seconds Caps at <span className='stat--mana'>700</span> bonus Mana and transforms into <b>Manamune</b> </p>
@@ -490,7 +490,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
       health: 0,      
       armor: 0,
       magres: 0,
-      attack: 25 + Math.floor(total.mana * 0.015),
+      attack: 25 + Math.round(total.mana * 0.015),
       ap: 0,
       as: 0,
       moveSpeed: 0,
@@ -511,11 +511,11 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
           <h3 classname='stat--mana'>+{1000} Max mana</h3>
           <h3>+{20} Ability Haste</h3>
 
-          <p><b>Awe:</b> grants <abbr title="1.5% of maximum mana"><span className="stat--mana">{Math.floor(total.mana * 0.015)}</span></abbr> Attacks damage, refunds <span className='stat--mana'>15%</span> of all Mana spent</p>
+          <p><b>Awe:</b> grants <abbr title="1.5% of maximum mana"><span className="stat--mana">{Math.round(total.mana * 0.015)}</span></abbr> Attacks damage, refunds <span className='stat--mana'>15%</span> of all Mana spent</p>
 
 
-          <p><b>Shock:</b> When an <b>attack</b> hits an enemy champion drains <abbr title="(2.5%) provided numbers are for 100% total pool"><span>{Math.floor(total.mana * 0.025)}</span></abbr> and deals it as <span className='stat--ad'>Physical damage</span>.</p>
-          <p><b>Abilities</b> drains <abbr title="4%"><span className="stat--mana">{Math.floor(total.mana * 0.04)}</span></abbr> <b>current</b> mana and deals additional <abbr title="4% of mana drained + 6% of your Attack Damage"><span className="stat--ad">{Math.floor((total.mana * 0.04) + (total.attack * 0.06))} Physical damage</span></abbr>. Only triggers when remaining mana is above <abbr title="20%"><span className="stat--mana">{Math.floor(total.mana * 0.2)}</span></abbr>. Single attack or ability procs only once for one champion.</p>
+          <p><b>Shock:</b> When an <b>attack</b> hits an enemy champion drains <abbr title="(2.5%) provided numbers are for 100% total pool"><span>{Math.round(total.mana * 0.025)}</span></abbr> and deals it as <span className='stat--ad'>Physical damage</span>.</p>
+          <p><b>Abilities</b> drains <abbr title="4%"><span className="stat--mana">{Math.round(total.mana * 0.04)}</span></abbr> <b>current</b> mana and deals additional <abbr title="4% of mana drained + 6% of your Attack Damage"><span className="stat--ad">{Math.round((total.mana * 0.04) + (total.attack * 0.06))} Physical damage</span></abbr>. Only triggers when remaining mana is above <abbr title="20%"><span className="stat--mana">{Math.round(total.mana * 0.2)}</span></abbr>. Single attack or ability procs only once for one champion.</p>
         </div>
     },
 
@@ -612,7 +612,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
           <h3>+{25} Ability Haste</h3>
 
           <p><b>Fervor: </b>+{(base.moveSpeed * 0.05).toFixed(2)} Move Speed</p>
-          <p><b>Spellblade:</b>After casting an ability next basic attack deals <abbr title="200% BASE, numbers are pre-post mitigation"><span className='stat--ad'>+{Math.floor(base.attack * 2)} /  {Math.floor((base.attack * 2) * (1- modifier))} Physical Damage</span></abbr> (1.5s Cooldown)</p>
+          <p><b>Spellblade:</b>After casting an ability next basic attack deals <abbr title="200% BASE, numbers are pre-post mitigation"><span className='stat--ad'>+{Math.round(base.attack * 2)} /  {Math.round((base.attack * 2) * (1- modifier))} Physical Damage</span></abbr> (1.5s Cooldown)</p>
           <p><b>Rage:</b> Attacks grant <b>20 Move Speed</b> and kills grant <b>60 Move Speed</b> for 2 seconds. Bonuses do not stack. Effect halved for ranged heroes</p>
         </div>,
     },
@@ -644,8 +644,8 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
         <h3 className="stat--magres">+{45} Magic Resistance</h3>
         <h3>+10 Ability Haste</h3>
 
-        <p><b>Lifeline:</b> Damage that puts you under <abbr title="35% max hp"><span className="stat--hp">{Math.floor(total.health * 0.35)} Health</span></abbr> grants a Shield that absorbs <abbr title="no modifier"><span className='stat--hp'>350</span></abbr><span className="stat--magres"> Magic Damage</span> for 5 Seconds (90s Cooldown)</p>
-        <p><b>Lifegrip:</b> Triggering Lifeline grants you <span className='stat--ad'>30 Attack Damage</span> and <span className="stat--vamp">10 % Omnivamp (Total/Current {Math.floor((total.attack * 0.1))} / {Math.floor((total.attack * 0.1)* (1 - modifier))}; <abbr title="For now it does not calculate your ability damage. placeholder with formula same for AA, just for AP"><span className="stat--ap">{Math.floor((total.ap * 0.1))} / {Math.floor((total.ap * 0.1)* (1 - modifierMres))}</span></abbr> )</span> until out of combat</p>
+        <p><b>Lifeline:</b> Damage that puts you under <abbr title="35% max hp"><span className="stat--hp">{Math.round(total.health * 0.35)} Health</span></abbr> grants a Shield that absorbs <abbr title="no modifier"><span className='stat--hp'>350</span></abbr><span className="stat--magres"> Magic Damage</span> for 5 Seconds (90s Cooldown)</p>
+        <p><b>Lifegrip:</b> Triggering Lifeline grants you <span className='stat--ad'>30 Attack Damage</span> and <span className="stat--vamp">10 % Omnivamp (Total/Current {Math.round((total.attack * 0.1))} / {Math.round((total.attack * 0.1)* (1 - modifier))}; <abbr title="For now it does not calculate your ability damage. placeholder with formula same for AA, just for AP"><span className="stat--ap">{Math.round((total.ap * 0.1))} / {Math.round((total.ap * 0.1)* (1 - modifierMres))}</span></abbr> )</span> until out of combat</p>
 
       </div>
     },
@@ -678,7 +678,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
           <h3>+{15} Ability Haste</h3>
 
           <p><b>Cauterize:</b> <span className='stat--ad'>35% Physical Damage </span> received <span className="stat--ad">(15% for ranged champions)</span> is dealt to you over 3 seconds as <b>True Damage</b> instead</p>
-          <p><b>Dance:</b> Champion's takedowns cleanse Cauterize's remaining damage and heal you for <abbr title="12% of Max health"><span className="stat--hp">{Math.floor(total.health * 0.12)}</span></abbr> over 2 seconds</p>
+          <p><b>Dance:</b> Champion's takedowns cleanse Cauterize's remaining damage and heal you for <abbr title="12% of Max health"><span className="stat--hp">{Math.round(total.health * 0.12)}</span></abbr> over 2 seconds</p>
         </div>
     },
 
@@ -709,9 +709,9 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
           <h3 className="stat--critChance">+{25}% Critical Rate</h3>
           <h3 className='stat--as'>+{30}% ({(base.asBase * 0.3).toFixed(3)}) Attack Speed</h3>
 
-          <p><b>Shadowwalk:</b>+5% ({Math.floor(base.moveSpeed * 0.05)}) Movement Speed</p>
+          <p><b>Shadowwalk:</b>+5% ({Math.round(base.moveSpeed * 0.05)}) Movement Speed</p>
 
-          <p><b>Spectral Waltz</b>: gain +7% ({Math.floor(base.moveSpeed * 0.07)}) Movement Speed when you attack for 3 seconds. After attacking 4 times gain 25% ({(base.asBase * 0.25).toFixed(3)}) Attack Speed for the same duration</p>
+          <p><b>Spectral Waltz</b>: gain +7% ({Math.round(base.moveSpeed * 0.07)}) Movement Speed when you attack for 3 seconds. After attacking 4 times gain 25% ({(base.asBase * 0.25).toFixed(3)}) Attack Speed for the same duration</p>
         </div>
     },
 
@@ -742,9 +742,9 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
           <h3 className="stat--critChance">+{25}% Critical Rate</h3>
           <h3 className='stat--as'>+{30}%, +25% ({((base.asBase * 0.3)+ (base.asBase * 0.25)).toFixed(3)}) Attack Speed</h3>
 
-          <p><b>Shadowwalk:</b>+5% ({Math.floor(base.moveSpeed * 0.05)}) Movement Speed</p>
+          <p><b>Shadowwalk:</b>+5% ({Math.round(base.moveSpeed * 0.05)}) Movement Speed</p>
 
-          <p><b>Spectral Waltz</b>: gain +7% ({Math.floor(base.moveSpeed * 0.07)}) Movement Speed when you attack for 3 seconds. After attacking 4 times gain 25% ({(base.asBase * 0.25).toFixed(3)}) Attack Speed for the same duration</p>
+          <p><b>Spectral Waltz</b>: gain +7% ({Math.round(base.moveSpeed * 0.07)}) Movement Speed when you attack for 3 seconds. After attacking 4 times gain 25% ({(base.asBase * 0.25).toFixed(3)}) Attack Speed for the same duration</p>
         </div>
     },
 
@@ -774,7 +774,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
           <h3 className="stat--as">+45 %({(base.asBase * 0.45).toFixed(3)}) Attack Speed</h3>
           <h3 className='stat--magres'>+{50} Magic Resistance</h3>
 
-          <p><b>At Wit's End:</b> basic attacks deal <span class='stat--ap'><abbr title="(15 + 65 / 14 * (level - 1))">{Math.ceil(15 + 65 / 14 * (currentLevel - 1))}</abbr> bonus magic damage</span>. While below <span className='stat--hp'><abbr title="50% max hp">{total.health * 0.5} health</abbr></span> dealing damage to enemy champions heals you for (100% for Melee/33% for ranged) damage dealt</p>
+          <p><b>At Wit's End:</b> basic attacks deal <span class='stat--ap'><abbr title="(15 + 65 / 14 * (level - 1))">{Math.round(15 + 65 / 14 * (currentLevel - 1))}</abbr> bonus magic damage</span>. While below <span className='stat--hp'><abbr title="50% max hp">{total.health * 0.5} health</abbr></span> dealing damage to enemy champions heals you for (100% for Melee/33% for ranged) damage dealt</p>
         </div>
     },
   
@@ -804,7 +804,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
           <h3 className='stat--as'>+{25}% Critical Rate</h3>
           <h3>+{20} Ability Haste</h3>
 
-          <p>After Attacking a champion your next ability or empowered attack will deal <abbr title="20 + 1 per 10% of critchance">{20 + 1 * Math.floor(total.critChance * 10)}%</abbr> more damage. 4s Cooldown. Cooldown reduced for 1s for each basic attack against a champion</p>
+          <p>After Attacking a champion your next ability or empowered attack will deal <abbr title="20 + 1 per 10% of critchance">{20 + 1 * Math.round(total.critChance * 10)}%</abbr> more damage. 4s Cooldown. Cooldown reduced for 1s for each basic attack against a champion</p>
           <p>attacks restore <span className='stat--mana'>3% missing mana</span> on hit</p>
         </div>
     },
@@ -990,13 +990,13 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
           <h3 className='stat--ad'>+{55} Attack Damage</h3>
 
           <p><b>Boarding Party:</b> When no allied champions are within 1200 units you get:</p>
-          <p><b><u>for Melee:</u> </b> <span className="stat--armor"><abbr title="4 + 46 / 14 * (level - 1)">{Math.floor(4 + 46 / 14 * (currentLevel - 1))} Armor</abbr></span>, <span className="stat--magres"><abbr title="4 + 16 / 14 * (level - 1)">{Math.floor(4 + 16 / 14 * (currentLevel - 1))} Magic Resistance</abbr></span></p>
-          <p><b><u>for Ranged:</u> </b> <span className="stat--armor"><abbr title="2 + 23 / 14 * (level - 1)">{Math.floor(2 + 23 / 14 * (currentLevel - 1))} Armor</abbr></span>, <span className="stat--magres"><abbr title="2 + 8 / 14 * (level - 1)">{Math.floor(2 + 8 / 14 * (currentLevel - 1))} Magic Resistance</abbr></span></p>
+          <p><b><u>for Melee:</u> </b> <span className="stat--armor"><abbr title="4 + 46 / 14 * (level - 1)">{Math.round(4 + 46 / 14 * (currentLevel - 1))} Armor</abbr></span>, <span className="stat--magres"><abbr title="4 + 16 / 14 * (level - 1)">{Math.round(4 + 16 / 14 * (currentLevel - 1))} Magic Resistance</abbr></span></p>
+          <p><b><u>for Ranged:</u> </b> <span className="stat--armor"><abbr title="2 + 23 / 14 * (level - 1)">{Math.round(2 + 23 / 14 * (currentLevel - 1))} Armor</abbr></span>, <span className="stat--magres"><abbr title="2 + 8 / 14 * (level - 1)">{Math.round(2 + 8 / 14 * (currentLevel - 1))} Magic Resistance</abbr></span></p>
           <p>And deal <b>20%</b> additional Damage to Structures</p>
 
           <p>Nearby Large Minions gain:</p>
-          <p><b>(for Melee) </b><span className='stat--ad'>{Math.floor(40 + 130 / 14 * (currentLevel - 1))} Armor</span> and <span class='stat--magres'>{Math.floor(20 + 65 / 14 * (currentLevel - 1))} Magic Resistance</span></p>
-          <p><b>(for Ranged) </b><span className='stat--ad'>{Math.floor(20 + 60 / 14 * (currentLevel - 1))} Armor</span> and <span class='stat--magres'>{Math.floor(10 + 30 / 14 * (currentLevel - 1))} Magic Resistance</span></p>
+          <p><b>(for Melee) </b><span className='stat--ad'>{Math.round(40 + 130 / 14 * (currentLevel - 1))} Armor</span> and <span class='stat--magres'>{Math.round(20 + 65 / 14 * (currentLevel - 1))} Magic Resistance</span></p>
+          <p><b>(for Ranged) </b><span className='stat--ad'>{Math.round(20 + 60 / 14 * (currentLevel - 1))} Armor</span> and <span class='stat--magres'>{Math.round(10 + 30 / 14 * (currentLevel - 1))} Magic Resistance</span></p>
           <p>Also 10% bonus size and deal 200% bonus damage to turrets</p>
         </div>
     },
@@ -1006,8 +1006,8 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
 
       health: 300,
       mana: 0,
-      armor: (Math.floor(4 + 46 / 14 * (currentLevel - 1))),
-      magres: (Math.floor(4 + 16 / 14 * (currentLevel - 1))),
+      armor: (Math.round(4 + 46 / 14 * (currentLevel - 1))),
+      magres: (Math.round(4 + 16 / 14 * (currentLevel - 1))),
       attack: 55,
       ap: 0,
       as: 0,
@@ -1028,13 +1028,13 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
           <h3 className='stat--ad'>+{55} Attack Damage</h3>
 
           <p><b>Boarding Party:</b> When no allied champions are within 1200 units you get:</p>
-          <p><b><u>for Melee:</u> </b> <span className="stat--armor"><abbr title="4 + 46 / 14 * (level - 1)">{Math.floor(4 + 46 / 14 * (currentLevel - 1))} Armor</abbr></span>, <span className="stat--magres"><abbr title="4 + 16 / 14 * (level - 1)">{Math.floor(4 + 16 / 14 * (currentLevel - 1))} Magic Resistance</abbr></span></p>
-          <p><b><u>for Ranged:</u> </b> <span className="stat--armor"><abbr title="2 + 23 / 14 * (level - 1)">{Math.floor(2 + 23 / 14 * (currentLevel - 1))} Armor</abbr></span>, <span className="stat--magres"><abbr title="2 + 8 / 14 * (level - 1)">{Math.floor(2 + 8 / 14 * (currentLevel - 1))} Magic Resistance</abbr></span></p>
+          <p><b><u>for Melee:</u> </b> <span className="stat--armor"><abbr title="4 + 46 / 14 * (level - 1)">{Math.round(4 + 46 / 14 * (currentLevel - 1))} Armor</abbr></span>, <span className="stat--magres"><abbr title="4 + 16 / 14 * (level - 1)">{Math.round(4 + 16 / 14 * (currentLevel - 1))} Magic Resistance</abbr></span></p>
+          <p><b><u>for Ranged:</u> </b> <span className="stat--armor"><abbr title="2 + 23 / 14 * (level - 1)">{Math.round(2 + 23 / 14 * (currentLevel - 1))} Armor</abbr></span>, <span className="stat--magres"><abbr title="2 + 8 / 14 * (level - 1)">{Math.round(2 + 8 / 14 * (currentLevel - 1))} Magic Resistance</abbr></span></p>
           <p>And deal <b>20%</b> additional Damage to Structures</p>
 
           <p>Nearby Large Minions gain:</p>
-          <p><b>(for Melee) </b><span className='stat--ad'>{Math.floor(40 + 130 / 14 * (currentLevel - 1))} Armor</span> and <span class='stat--magres'>{Math.floor(20 + 65 / 14 * (currentLevel - 1))} Magic Resistance</span></p>
-          <p><b>(for Ranged) </b><span className='stat--ad'>{Math.floor(20 + 60 / 14 * (currentLevel - 1))} Armor</span> and <span class='stat--magres'>{Math.floor(10 + 30 / 14 * (currentLevel - 1))} Magic Resistance</span></p>
+          <p><b>(for Melee) </b><span className='stat--ad'>{Math.round(40 + 130 / 14 * (currentLevel - 1))} Armor</span> and <span class='stat--magres'>{Math.round(20 + 65 / 14 * (currentLevel - 1))} Magic Resistance</span></p>
+          <p><b>(for Ranged) </b><span className='stat--ad'>{Math.round(20 + 60 / 14 * (currentLevel - 1))} Armor</span> and <span class='stat--magres'>{Math.round(10 + 30 / 14 * (currentLevel - 1))} Magic Resistance</span></p>
           <p>Also 10% bonus size and deal 200% bonus damage to turrets</p>
         </div>
     },
@@ -1044,8 +1044,8 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
 
       health: 300,
       mana: 0,
-      armor: Math.floor(2 + 23 / 14 * (currentLevel - 1)),
-      magres: Math.floor(2 + 8 / 14 * (currentLevel - 1)),
+      armor: Math.round(2 + 23 / 14 * (currentLevel - 1)),
+      magres: Math.round(2 + 8 / 14 * (currentLevel - 1)),
       attack: 55,
       ap: 0,
       as: 0,
@@ -1066,13 +1066,13 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
           <h3 className='stat--ad'>+{55} Attack Damage</h3>
 
           <p><b>Boarding Party:</b> When no allied champions are within 1200 units you get:</p>
-          <p><b><u>for Melee:</u> </b> <span className="stat--armor"><abbr title="4 + 46 / 14 * (level - 1)">{Math.floor(4 + 46 / 14 * (currentLevel - 1))} Armor</abbr></span>, <span className="stat--magres"><abbr title="4 + 16 / 14 * (level - 1)">{Math.floor(4 + 16 / 14 * (currentLevel - 1))} Magic Resistance</abbr></span></p>
-          <p><b><u>for Ranged:</u> </b> <span className="stat--armor"><abbr title="2 + 23 / 14 * (level - 1)">{Math.floor(2 + 23 / 14 * (currentLevel - 1))} Armor</abbr></span>, <span className="stat--magres"><abbr title="2 + 8 / 14 * (level - 1)">{Math.floor(2 + 8 / 14 * (currentLevel - 1))} Magic Resistance</abbr></span></p>
+          <p><b><u>for Melee:</u> </b> <span className="stat--armor"><abbr title="4 + 46 / 14 * (level - 1)">{Math.round(4 + 46 / 14 * (currentLevel - 1))} Armor</abbr></span>, <span className="stat--magres"><abbr title="4 + 16 / 14 * (level - 1)">{Math.round(4 + 16 / 14 * (currentLevel - 1))} Magic Resistance</abbr></span></p>
+          <p><b><u>for Ranged:</u> </b> <span className="stat--armor"><abbr title="2 + 23 / 14 * (level - 1)">{Math.round(2 + 23 / 14 * (currentLevel - 1))} Armor</abbr></span>, <span className="stat--magres"><abbr title="2 + 8 / 14 * (level - 1)">{Math.round(2 + 8 / 14 * (currentLevel - 1))} Magic Resistance</abbr></span></p>
           <p>And deal <b>20%</b> additional Damage to Structures</p>
 
           <p>Nearby Large Minions gain:</p>
-          <p><b>(for Melee) </b><span className='stat--ad'>{Math.floor(40 + 130 / 14 * (currentLevel - 1))} Armor</span> and <span class='stat--magres'>{Math.floor(20 + 65 / 14 * (currentLevel - 1))} Magic Resistance</span></p>
-          <p><b>(for Ranged) </b><span className='stat--ad'>{Math.floor(20 + 60 / 14 * (currentLevel - 1))} Armor</span> and <span class='stat--magres'>{Math.floor(10 + 30 / 14 * (currentLevel - 1))} Magic Resistance</span></p>
+          <p><b>(for Melee) </b><span className='stat--ad'>{Math.round(40 + 130 / 14 * (currentLevel - 1))} Armor</span> and <span class='stat--magres'>{Math.round(20 + 65 / 14 * (currentLevel - 1))} Magic Resistance</span></p>
+          <p><b>(for Ranged) </b><span className='stat--ad'>{Math.round(20 + 60 / 14 * (currentLevel - 1))} Armor</span> and <span class='stat--magres'>{Math.round(10 + 30 / 14 * (currentLevel - 1))} Magic Resistance</span></p>
           <p>Also 10% bonus size and deal 200% bonus damage to turrets</p>
         </div>
     },
@@ -1104,8 +1104,8 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
           <h3 className='stat--ad'>+{25} Attack Damage</h3>
           <h3>+25 Ability Haste</h3>
 
-          <p><b>Spellblade:</b>After using an ability your next attack within 10 seconds will deal <abbr title="10% max HP"><span className="stat--hp">{Math.floor((target.health * 0.1)* (1 - modifier))}</span></abbr> as bonus <span className="stat--ad">Physical damage</span> ( <abbr title="7% max hp"><span className="stat--hp">{Math.floor((target.health * 0.07)* (1 - modifier))}</span></abbr> if attack is ranged)</p>
-          <p>Heal for <abbr title="7%  target max hp"><span className="stat--hp">{Math.floor((target.health * 0.07)* (1 - modifier))}</span></abbr> ( <abbr title="3% max hp"><span className="stat--hp">{Math.floor((target.health * 0.03)* (1 - modifier))}</span></abbr> If attack is ranged ).</p>
+          <p><b>Spellblade:</b>After using an ability your next attack within 10 seconds will deal <abbr title="10% max HP"><span className="stat--hp">{Math.round((target.health * 0.1)* (1 - modifier))}</span></abbr> as bonus <span className="stat--ad">Physical damage</span> ( <abbr title="7% max hp"><span className="stat--hp">{Math.round((target.health * 0.07)* (1 - modifier))}</span></abbr> if attack is ranged)</p>
+          <p>Heal for <abbr title="7%  target max hp"><span className="stat--hp">{Math.round((target.health * 0.07)* (1 - modifier))}</span></abbr> ( <abbr title="3% max hp"><span className="stat--hp">{Math.round((target.health * 0.03)* (1 - modifier))}</span></abbr> If attack is ranged ).</p>
           <p>1.5s Cooldown. Damage is reduced against structures</p>
         </div>
     },
@@ -1199,10 +1199,10 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
           <h3 className="stat--ad">+{40} Attack Damage</h3>
           <h3 className='stat--critChance'>+{25}% Critical Rate</h3>
           <h3 classname='stat--as'>+15% ({(base.asBase * 0.15).toFixed(3)}) Attack Speed</h3>
-          <h3 className="stat--vamp">+5% (<abbr title="Damage against 0 armor target / post mitigated for current target">{Math.floor(total.attack* 0.05)}/{Math.floor((total.attack * 0.05)* (1 - modifier))}</abbr> ) Physical Vamp</h3>
+          <h3 className="stat--vamp">+5% (<abbr title="Damage against 0 armor target / post mitigated for current target">{Math.round(total.attack* 0.05)}/{Math.round((total.attack * 0.05)* (1 - modifier))}</abbr> ) Physical Vamp</h3>
 
-          <p><b>Lifeline:</b> Damage that puts you under <abbr title="35% of Max Health"><span className='stat--hp'>{Math.floor(total.health * 0.35)} Health</span></abbr> grants a shield that will absorb <span className='stat--armor'><abbr title="200 + 3 per 1% of critical chance">{Math.floor(200 + 3 * (total.critChance * 100))}</abbr> damage</span> for 5 seconds (90 seconds cooldown).</p>
-          <p><b>Battle Furor:</b> Triggering lifeline grants <span className='stat--vamp'><abbr title="5% Physical">{Math.floor(total.attack * 0.05)} (Current target: {Math.floor((total.attack * 0.05)* (1 - modifier))})</abbr>Physical Vamp</span> for 8 seconds</p>
+          <p><b>Lifeline:</b> Damage that puts you under <abbr title="35% of Max Health"><span className='stat--hp'>{Math.round(total.health * 0.35)} Health</span></abbr> grants a shield that will absorb <span className='stat--armor'><abbr title="200 + 3 per 1% of critical chance">{Math.round(200 + 3 * (total.critChance * 100))}</abbr> damage</span> for 5 seconds (90 seconds cooldown).</p>
+          <p><b>Battle Furor:</b> Triggering lifeline grants <span className='stat--vamp'><abbr title="5% Physical">{Math.round(total.attack * 0.05)} (Current target: {Math.round((total.attack * 0.05)* (1 - modifier))})</abbr>Physical Vamp</span> for 8 seconds</p>
         </div>
     },
 
@@ -1233,7 +1233,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
           <h3 className="stat--critChance">+{25}% Critical Rate</h3>
           <h3>+10 Armor Penetration</h3>
 
-          <p><b>Death And Taxes:</b> Dealing Damage that would leave an enemy champion below <abbr title="5% of their maximum health"><span className="stat--hp">{Math.floor(target.health)} health</span></abbr> execute them. Champion kills grant additional <span className="stat--armor">25 Gold.</span></p>
+          <p><b>Death And Taxes:</b> Dealing Damage that would leave an enemy champion below <abbr title="5% of their maximum health"><span className="stat--hp">{Math.round(target.health)} health</span></abbr> execute them. Champion kills grant additional <span className="stat--armor">25 Gold.</span></p>
         </div>
 
     },
@@ -1267,7 +1267,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
           <h3 className='stat--mana'>+{300} Max mana</h3>
           <h3>+{20} Ability Haste</h3>
           
-          <p><b>Discordic Echo:</b> Moving and casting abilities gain stacks of <b>Discord</b>. At <b>100</b> stacks your next active ability or Empowered attack will deal <abbr title="110 + 10% ap. Numbers are pre/post-mitigation"><span className="stat--ap">{Math.floor(110 + total.ap * 0.1)} / {Math.floor((110 + total.ap * 0.1)*(1 - modifierMres))} bonus magic damage</span></abbr> to your target and up to 3 mearby enemies</p>
+          <p><b>Discordic Echo:</b> Moving and casting abilities gain stacks of <b>Discord</b>. At <b>100</b> stacks your next active ability or Empowered attack will deal <abbr title="110 + 10% ap. Numbers are pre/post-mitigation"><span className="stat--ap">{Math.round(110 + total.ap * 0.1)} / {Math.round((110 + total.ap * 0.1)*(1 - modifierMres))} bonus magic damage</span></abbr> to your target and up to 3 mearby enemies</p>
         </div>
 
     },
@@ -1421,7 +1421,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
           <h3 className="stat--hp">+{200} Max Health</h3>
           <h3 className="stat--ap">+{75} Ability Power</h3>
 
-          <p><b>Torment:</b> Damaging Abilities or empowered attacks deal <abbr title="(0.5% + 0.005% AP) of enemy Max HP. Shows pre/post-mitigated damage"><span className="stat--ap">{Math.floor((5/100 + 5/1000)*target.health)} / {Math.floor((5/100 + 5/1000)*target.health * (1 - modifierMres))} bonus magic damage</span></abbr> each second over 3 seconds</p>
+          <p><b>Torment:</b> Damaging Abilities or empowered attacks deal <abbr title="(0.5% + 0.005% AP) of enemy Max HP. Shows pre/post-mitigated damage"><span className="stat--ap">{Math.round((5/100 + 5/1000)*target.health)} / {Math.round((5/100 + 5/1000)*target.health * (1 - modifierMres))} bonus magic damage</span></abbr> each second over 3 seconds</p>
         </div>
 
     },
@@ -1517,9 +1517,9 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
           <img src="../images/items/LichBane.png" alt="itemIcon" className="itemIcon" />
           <h3 className="stat--ap">+{80} Ability Power</h3>
           <h3>+{10} Ability Haste</h3>
-          <h3>Bane: +5% ({Math.floor(base.moveSpeed * 5 / 100)}) Move Speed</h3>
+          <h3>Bane: +5% ({Math.round(base.moveSpeed * 5 / 100)}) Move Speed</h3>
 
-          <p><b>Spellblade</b>Using an ability causes next attack used within 10 seconds to deal <span className='stat--ap'><abbr title="75% BASE AD + 50% AP, numbers are pre-post mitigation damage ">{Math.floor((base.attack * 75 / 100) + (total.ap * 50 / 100))} / {Math.floor(((base.attack * 75 / 100) + (total.ap * 50 / 100) * (1 - modifierMres)))}</abbr> bonus magic damage</span>. Damage is reduced against structures</p>
+          <p><b>Spellblade</b>Using an ability causes next attack used within 10 seconds to deal <span className='stat--ap'><abbr title="75% BASE AD + 50% AP, numbers are pre-post mitigation damage ">{Math.round((base.attack * 75 / 100) + (total.ap * 50 / 100))} / {Math.round(((base.attack * 75 / 100) + (total.ap * 50 / 100) * (1 - modifierMres)))}</abbr> bonus magic damage</span>. Damage is reduced against structures</p>
         </div>
 
     },
@@ -1532,7 +1532,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
       armor: 0,
       magres: 0,
       attack: 0,
-      ap: 35 + (Math.floor(total.mana / 100)),
+      ap: 35 + (Math.round(total.mana / 100)),
       as: 0,
       moveSpeed: 0,
       flatArmPen: 0,
@@ -1551,7 +1551,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
           <h3 className="stat--mana">+{500} Max Mana</h3>
           <h3>+{20} Ability Haste</h3>
           
-          <p><b>Awe:</b> Grants <span className="stat--ap"><abbr title="1% of max mana">{Math.floor(total.mana / 100)} Ability Power</abbr></span> and refunds <span className="stat--mana">25%</span>of all Mana spent</p>
+          <p><b>Awe:</b> Grants <span className="stat--ap"><abbr title="1% of max mana">{Math.round(total.mana / 100)} Ability Power</abbr></span> and refunds <span className="stat--mana">25%</span>of all Mana spent</p>
           <p><b>Mana Charge:</b> Increases max Mana by <span className="stat--mana">15</span> every time mana is spent up to <span className="stat--mana">700</span> bonus Mana. Triggers up to 3 times every 12 seconds. At max stacks transforms into Seraphs Embrace</p>
         </div>
 
@@ -1565,7 +1565,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
       armor: 0,
       magres: 0,
       attack: 0,
-      ap: 35 + Math.floor(total.mana * 3 / 100),
+      ap: 35 + Math.round(total.mana * 3 / 100),
       as: 0,
       moveSpeed: 0,
       flatArmPen: 0,
@@ -1584,8 +1584,8 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
           <h3 className='stat--mana'>+{1200} Max Mana</h3>
           <h3>+{20} Ability Haste</h3>
 
-          <p><b>Awe:</b> Grants <abbr title="3% of Max Mana"><span className="stat--ap">{Math.floor(total.mana * 3 / 100)} Ability Power</span></abbr> and refunds <span className="stat--mana">25%</span>of all Mana spent</p>
-          <p><b>Lifeline:</b> Damage that puts you under <abbr title="35% Health"><span className="stat--hp">{Math.floor(total.health * 35 / 100)} Health</span></abbr> consumes <span className="stat--mana">15% current Mana</span> to grant a shield equal to <abbr title="unfortunately, calculating actual value impossible atm. It's 15% of Current mana + flat 100 points"><span className="stat--hp">100</span></abbr> for 2 seconds (90 seconds cooldown)</p>
+          <p><b>Awe:</b> Grants <abbr title="3% of Max Mana"><span className="stat--ap">{Math.round(total.mana * 3 / 100)} Ability Power</span></abbr> and refunds <span className="stat--mana">25%</span>of all Mana spent</p>
+          <p><b>Lifeline:</b> Damage that puts you under <abbr title="35% Health"><span className="stat--hp">{Math.round(total.health * 35 / 100)} Health</span></abbr> consumes <span className="stat--mana">15% current Mana</span> to grant a shield equal to <abbr title="unfortunately, calculating actual value impossible atm. It's 15% of Current mana + flat 100 points"><span className="stat--hp">100</span></abbr> for 2 seconds (90 seconds cooldown)</p>
         </div>
 
     },
@@ -1617,7 +1617,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
           <h3 className='stat--ap'>+{60} Ability Power</h3>
           <h3>+{10} Ability Haste</h3>
 
-          <p><b>Ardent:</b>+5% ({Math.floor(base.moveSpeed * 5 / 100)}) Movement Speed</p>
+          <p><b>Ardent:</b>+5% ({Math.round(base.moveSpeed * 5 / 100)}) Movement Speed</p>
           <p><b>Censer:</b> When you <span className="stat--hp">heal / shield</span> an allied champion both of you gain <span className="stat--as"><abbr title="10-30%; 10% + 20% / 14 * (level - 1); numbers are for your character">{(((10/100) + (20/100) / 14 * (currentLevel - 1)) * 100).toFixed(2)}%  ({(base.asBase * ((10/100) + (20/100) / 14 * (currentLevel - 1))).toFixed(3)})</abbr> Attack Speed</span> And your Attacks deal <abbr title="15 + level"><span class='stat--ap'>{15 + Number(currentLevel)} bonus Magic Damage</span></abbr> for 6 seconds. Regen effects do not trigger this effect.</p>
         </div>
 
@@ -1650,7 +1650,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
           <h3 className='stat--mana'>+{300} Max Mana</h3>
           <h3>+{10} Ability Haste</h3>
 
-          <p><b>Harmonic Echo:</b> Moving and casting abilities build Harmony stacks. At 100 stacks your next healing / shielding ability coast on ally restores <abbr title="130 + 10% AP"><span className="stat--hp">{Math.floor(130 + (total.ap * 10 / 100))} Health</span></abbr> to your target and up to 3 nearby allied champions</p>
+          <p><b>Harmonic Echo:</b> Moving and casting abilities build Harmony stacks. At 100 stacks your next healing / shielding ability coast on ally restores <abbr title="130 + 10% AP"><span className="stat--hp">{Math.round(130 + (total.ap * 10 / 100))} Health</span></abbr> to your target and up to 3 nearby allied champions</p>
         </div>
 
     },
@@ -1713,9 +1713,9 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
           <img src="../images/items/Infinity_Orb.png" alt="itemIcon" className="itemIcon" />
           <h3 className="stat--ap">+85 Ability Power</h3>
 
-          <p><b>Destiny:</b> +5% ({Math.floor(base.moveSpeed * 5 / 100)}) Movement Speed</p>
+          <p><b>Destiny:</b> +5% ({Math.round(base.moveSpeed * 5 / 100)}) Movement Speed</p>
           <p><b>Balance:</b> <span className="stat--ap">+{15} Magic Penetration</span></p>
-          <p><b>Inevitable Demise: </b> Abilities and empowered attacks <span className="stat--vamp">Critically Strike</span> for 20% bonus damage against enemies below <span className='stat--hp'>35% <abbr title="For current target">({Math.floor(target.health * 35 / 100)})</abbr> Health</span></p>
+          <p><b>Inevitable Demise: </b> Abilities and empowered attacks <span className="stat--vamp">Critically Strike</span> for 20% bonus damage against enemies below <span className='stat--hp'>35% <abbr title="For current target">({Math.round(target.health * 35 / 100)})</abbr> Health</span></p>
         </div>
 
     },
@@ -1747,7 +1747,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
           <h3 className="stat--mana">+{300} Max Mana</h3>
           <h3>+{20} Ability Haste</h3>
 
-          <p><b>Riptide:</b> <span className="stat--hp">Healing / Shielding</span> an ally grants you both <b>15 Ability Haste</b> and <abbr title="20 - 40 ;(20 + 20 / 14 * (target's level - 1)) number is target's level = your level"><span className="stat--ap">{Math.floor(20 + 20 / 14 * (currentLevel - 1))} Ability Power</span></abbr> for 6 seconds</p>
+          <p><b>Riptide:</b> <span className="stat--hp">Healing / Shielding</span> an ally grants you both <b>15 Ability Haste</b> and <abbr title="20 - 40 ;(20 + 20 / 14 * (target's level - 1)) number is target's level = your level"><span className="stat--ap">{Math.round(20 + 20 / 14 * (currentLevel - 1))} Ability Power</span></abbr> for 6 seconds</p>
         </div>
 
     },
@@ -1779,7 +1779,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
           <h3 className="stat--ap">+{60} Ability Power</h3>
           <h3>+15 Ability Haste </h3>
 
-          <p><b>Mirrored Force:</b> Ability casts grant a mirror shard (up to 3) that each block <abbr title="10 + 5% AP, numbers are pre/post mitigation"><span className="stat--ad">{Math.floor(10 + (total.ap * 5 / 100))} / {Math.floor((10 + (total.ap * 5 / 100)) * (1 - modifierAtt))}</span></abbr> form an enemy champion and deal <abbr title="20 + 10% AP; numbers are pre/post mitigation"><span className="stat--ap">{Math.floor(20 + (total.ap/10))} / {Math.floor((20 + (total.ap/10)) * (1 - modifier))} Magic Damage</span></abbr> to them.</p>
+          <p><b>Mirrored Force:</b> Ability casts grant a mirror shard (up to 3) that each block <abbr title="10 + 5% AP, numbers are pre/post mitigation"><span className="stat--ad">{Math.round(10 + (total.ap * 5 / 100))} / {Math.round((10 + (total.ap * 5 / 100)) * (1 - modifierAtt))}</span></abbr> form an enemy champion and deal <abbr title="20 + 10% AP; numbers are pre/post mitigation"><span className="stat--ap">{Math.round(20 + (total.ap/10))} / {Math.round((20 + (total.ap/10)) * (1 - modifier))} Magic Damage</span></abbr> to them.</p>
         </div>
 
     },
@@ -1843,7 +1843,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
           <h3 className='stat--ap'>+{40} Ability Power</h3>
           <h3>+20 Ability Haste</h3>
 
-          <p><b>Coordinated Fire:</b> Abilities that slow/immobilize a champion deal <abbr title="47-75; 45 + 2 * level; numbers are pre/post-mitigation"><span className="stat--ap">{45 + 2 * currentLevel} / {Math.floor((45 + 2 * currentLevel) * (1 - modifierMres))} Magic Damage</span></abbr> and marks them for 4 seconds (6 seconds cooldown). Allied champion damage detonates the mark dealing <abbr title="94 - 150; 90 + 4 * level; numbers are pre/post-mitigated damage"><span className="stat--ap">{Math.floor(90 + 4 * currentLevel)} / {Math.floor((90 + 4 * currentLevel) * (1 - modifierMres))} Magic Damage</span></abbr> and granting you both <abbr title="Value for your champion">20% ({Math.floor(base.moveSpeed * 20 / 100)}) Movement Speed</abbr> for 2 seconds</p>
+          <p><b>Coordinated Fire:</b> Abilities that slow/immobilize a champion deal <abbr title="47-75; 45 + 2 * level; numbers are pre/post-mitigation"><span className="stat--ap">{45 + 2 * currentLevel} / {Math.round((45 + 2 * currentLevel) * (1 - modifierMres))} Magic Damage</span></abbr> and marks them for 4 seconds (6 seconds cooldown). Allied champion damage detonates the mark dealing <abbr title="94 - 150; 90 + 4 * level; numbers are pre/post-mitigated damage"><span className="stat--ap">{Math.round(90 + 4 * currentLevel)} / {Math.round((90 + 4 * currentLevel) * (1 - modifierMres))} Magic Damage</span></abbr> and granting you both <abbr title="Value for your champion">20% ({Math.round(base.moveSpeed * 20 / 100)}) Movement Speed</abbr> for 2 seconds</p>
         </div>
 
     },
@@ -1873,9 +1873,9 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
           <img src="../images/items/Cosmic_Drive.webp" alt="itemIcon" className="itemIcon" />
           <h3 className="stat--ap">+75 Ability Power</h3>
           <h3>+30 Ability Haste</h3>
-          <h3>Hyperdrive: +5% ({Math.floor(base.moveSpeed * 5 / 100)}) Movement speed</h3>
+          <h3>Hyperdrive: +5% ({Math.round(base.moveSpeed * 5 / 100)}) Movement speed</h3>
 
-          <p><b>Spellweaving: </b>Active abilities and empowered attacks grant <abbr title="30 + 70% Ability Haste"><b>{Math.floor(30 + (attacker.ah * 70 /100))} Movement Speed</b></abbr> after dealing damage to enemy champion. This movement speed decays over 2 seconds. Each source has 1s cooldown for triggering the effect. Only <b>Ability Haste</b> from items contributes to Spellweaving's movement speed</p>
+          <p><b>Spellweaving: </b>Active abilities and empowered attacks grant <abbr title="30 + 70% Ability Haste"><b>{Math.round(30 + (attacker.ah * 70 /100))} Movement Speed</b></abbr> after dealing damage to enemy champion. This movement speed decays over 2 seconds. Each source has 1s cooldown for triggering the effect. Only <b>Ability Haste</b> from items contributes to Spellweaving's movement speed</p>
         </div>
 
     },
@@ -1940,7 +1940,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
           <h3 className="stat--ap">+80 Ability Power</h3>
           <h3>+15 Ability Haste</h3>
           
-          <p><b>Hypershot:</b> Apply 1 mark when you damage enemy champion with non-targeted ability from 500 units away; apply 2 marks for immobolizing. MArked enemies are revealed. At 3 stacks detonate them  to deal <abbr title="90 +25% AP; numbers are pre/post-mitigation"><span className="stat--ap">{Math.floor(90 + (total.ap * 25 / 100))} / {Math.floor((90 + (total.ap * 25 / 100)) * (1 - modifierMres))} Magic damage</span></abbr> to the target.</p>
+          <p><b>Hypershot:</b> Apply 1 mark when you damage enemy champion with non-targeted ability from 500 units away; apply 2 marks for immobolizing. MArked enemies are revealed. At 3 stacks detonate them  to deal <abbr title="90 +25% AP; numbers are pre/post-mitigation"><span className="stat--ap">{Math.round(90 + (total.ap * 25 / 100))} / {Math.round((90 + (total.ap * 25 / 100)) * (1 - modifierMres))} Magic damage</span></abbr> to the target.</p>
         </div>
 
     },
@@ -1973,8 +1973,8 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
           <h3 className="stat--hp">+500 Max Health</h3>
           <h3>+15 Ability Haste</h3>
 
-          <p><b>Immolate:</b> deals <abbr title="(16 + 9 / 14 * (level - 1)) + 0.8% of BONUS hp; pre/post mitigation numbers"><span className="stat--ap">{Math.floor(sunFireEffect)} / {Math.floor((sunFireEffect * (1 - modifierMres)))} Magic Damage</span></abbr> per second to nearby enemies. <span className="stat--ap">Immolate</span> increases it's damage by 7% for 5s, stacking up to 6 times to: <span className="stat--ap">{Math.floor((sunFireEffect) + (sunFireEffect * 7 / 100 * 6))} / {Math.floor((((sunFireEffect) + (sunFireEffect * 7 / 100 * 6)) * (1 - modifierMres)))}</span></p> 
-          <p><b>Flametouch:</b> At max stacks <span className="stat--ap">Immolate</span> stacks attacks burn enemies for <abbr title="50% of immolates damage" className="stat--ap">{Math.floor(((sunFireEffect) + (sunFireEffect * 7 / 100 * 6))/2)} / {Math.floor(((((sunFireEffect) + (sunFireEffect * 7 / 100 * 6)) * (1 - modifierMres)))/2)} Magic Damage</abbr>. Immolate deals <abbr title="130%" className="stat--ap">{Math.floor(((sunFireEffect) + (sunFireEffect * 7 / 100 * 6))*(130/100))} Damage to monsters</abbr> and <abbr title="175% + 75% / 14 * (level - 1)" className="stat--ap">{Math.floor(sunFireEffect * (1.75 + 0.75 / 14 * (currentLevel - 1)))} Damage</abbr> to minions</p>         
+          <p><b>Immolate:</b> deals <abbr title="(16 + 9 / 14 * (level - 1)) + 0.8% of BONUS hp; pre/post mitigation numbers"><span className="stat--ap">{Math.round(sunFireEffect)} / {Math.round((sunFireEffect * (1 - modifierMres)))} Magic Damage</span></abbr> per second to nearby enemies. <span className="stat--ap">Immolate</span> increases it's damage by 7% for 5s, stacking up to 6 times to: <span className="stat--ap">{Math.round((sunFireEffect) + (sunFireEffect * 7 / 100 * 6))} / {Math.round((((sunFireEffect) + (sunFireEffect * 7 / 100 * 6)) * (1 - modifierMres)))}</span></p> 
+          <p><b>Flametouch:</b> At max stacks <span className="stat--ap">Immolate</span> stacks attacks burn enemies for <abbr title="50% of immolates damage" className="stat--ap">{Math.round(((sunFireEffect) + (sunFireEffect * 7 / 100 * 6))/2)} / {Math.round(((((sunFireEffect) + (sunFireEffect * 7 / 100 * 6)) * (1 - modifierMres)))/2)} Magic Damage</abbr>. Immolate deals <abbr title="130%" className="stat--ap">{Math.round(((sunFireEffect) + (sunFireEffect * 7 / 100 * 6))*(130/100))} Damage to monsters</abbr> and <abbr title="175% + 75% / 14 * (level - 1)" className="stat--ap">{Math.round(sunFireEffect * (1.75 + 0.75 / 14 * (currentLevel - 1)))} Damage</abbr> to minions</p>         
         </div>
 
     },
@@ -2070,8 +2070,8 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
           <h3 className="stat--hp">+100 Max Health</h3>
           <h3 className="stat--armor">+75 Armor</h3>
 
-          <p><b>Thorns: </b>When struck by attack deal <abbr title="20 + 6% bonus armor + 1% bonus HP; numbers are pre/post-mitigation" class='stat--vamp'>{Math.floor((20 + (bonus.armor * 6 / 100) + (bonus.health /100)))}
-          / {Math.floor((20 + (bonus.armor * 6 / 100) + (bonus.health /100)) * (1 - modifierMres))} Magic Damage</abbr> to the attacker and apply 40% <b>Grievous Wounds</b>. 60% for target under 50% health / immobilized.</p>
+          <p><b>Thorns: </b>When struck by attack deal <abbr title="20 + 6% bonus armor + 1% bonus HP; numbers are pre/post-mitigation" class='stat--vamp'>{Math.round((20 + (bonus.armor * 6 / 100) + (bonus.health /100)))}
+          / {Math.round((20 + (bonus.armor * 6 / 100) + (bonus.health /100)) * (1 - modifierMres))} Magic Damage</abbr> to the attacker and apply 40% <b>Grievous Wounds</b>. 60% for target under 50% health / immobilized.</p>
           <p><b>Grievous Wounds</b> reduces the effectiveness of healing and regeneration effects.</p>
         </div>
 
@@ -2104,7 +2104,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
           <h3 className="stat--hp">+200% Health Regen</h3>
           <h3>+10 Ability Haste</h3>
 
-          <p><b>Warmog's Heart:</b> If you have at least <span className="stat--hp">950 bonus health</span>, and did not take any damage within last 6 seconds, restore <abbr title="5% Max health" className="stat--hp">{Math.floor(total.health * 5 / 100)} Health</abbr> per second</p>
+          <p><b>Warmog's Heart:</b> If you have at least <span className="stat--hp">950 bonus health</span>, and did not take any damage within last 6 seconds, restore <abbr title="5% Max health" className="stat--hp">{Math.round(total.health * 5 / 100)} Health</abbr> per second</p>
         </div>
 
     },
@@ -2136,7 +2136,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
           <h3 className="stat--armor">+50 Armor</h3>
           <h3 className="stat--mana">+250 Max Mana</h3>
 
-          <p><b>Spellblade: </b>Using an ability causes the next attack within 10 seconds to deal <abbr title="100% base AD + 25% armor; numbers are pre/post mitigation" className="stat--ad">{Math.floor(base.attack + (bonus.armor / 4))} / {Math.floor((base.attack + (bonus.armor / 4)) * (1 - modifier))} Bonus Physical Damage</abbr> in an area and creates an icy zone for 2 seconds that slows by <b>30%</b>. Armor increases the size of a field (1.5s Cooldown). Damage is reduced against structures.</p>
+          <p><b>Spellblade: </b>Using an ability causes the next attack within 10 seconds to deal <abbr title="100% base AD + 25% armor; numbers are pre/post mitigation" className="stat--ad">{Math.round(base.attack + (bonus.armor / 4))} / {Math.round((base.attack + (bonus.armor / 4)) * (1 - modifier))} Bonus Physical Damage</abbr> in an area and creates an icy zone for 2 seconds that slows by <b>30%</b>. Armor increases the size of a field (1.5s Cooldown). Damage is reduced against structures.</p>
         </div>
 
     },
@@ -2167,11 +2167,11 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
           <h3 className="stat--health">+250 Max Health</h3>
           <h3 className="stat--armor">+50 Armor</h3>
 
-          <p><b>Relentless:</b> +5% ({Math.floor(base.moveSpeed * 5 / 100)}) Movement Speed</p>
+          <p><b>Relentless:</b> +5% ({Math.round(base.moveSpeed * 5 / 100)}) Movement Speed</p>
 
           <p><b>Momentum:</b> Moving builds up stacks, granting up to 40 Movement Speed at 100 stacks. Attacking removes all Momentum stacks, stacks decay when movement impaired.</p>
 
-          <p><b>Crushing blow:</b> Attacks deal up to <span className="stat--ap">100 <abbr title="post-mitigation">({Math.floor(100 * (1 - modifierMres))})</abbr> Bonus Magic Damage</span> based on Momentum removed . Attacks with max Momentum slows the target by 50% for 1 second.</p>
+          <p><b>Crushing blow:</b> Attacks deal up to <span className="stat--ap">100 <abbr title="post-mitigation">({Math.round(100 * (1 - modifierMres))})</abbr> Bonus Magic Damage</span> based on Momentum removed . Attacks with max Momentum slows the target by 50% for 1 second.</p>
         </div>
 
     },
@@ -2242,7 +2242,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
            <b>Harbringer:</b> While near an allied champion, casting your ultimate ability grants you and a nearby allied champion bonus effects for 10 seconds. Prioritizes highest attack damage ally. You have a 300 range aura that slows enemies within by 20%, and your ally's basic attacks burn their target dealing <span className="stat--ap">30% bonus magic damage</span> over 2 seconds. 
           </p>
           <p>
-            <b>Frostfire Covenant: </b>Slowing a burning enemy with your frost aura deals <span className="stat--ap">60 <abbr title="post-mitigated for current target">({Math.floor(60 * (1 - modifierMres))})</abbr> magic damage per second</span>  to nearby enemies and slow them by 50% for 3 seconds. 
+            <b>Frostfire Covenant: </b>Slowing a burning enemy with your frost aura deals <span className="stat--ap">60 <abbr title="post-mitigated for current target">({Math.round(60 * (1 - modifierMres))})</abbr> magic damage per second</span>  to nearby enemies and slow them by 50% for 3 seconds. 
           </p>
         </div> 
 
@@ -2275,7 +2275,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
           <h3 className="stat--armor">+40 Armor</h3>
           <h3>+10 Ability Haste</h3>
 
-          <p><b>Proptector:</b> Raise your guard when you're near an allied champion. If you or ally take damage, both of you receive <abbr title="125 + 30% BONUS HP" className="stat--hp">{Math.floor(125 + (bonus.health * 30 / 100))} shield</abbr> for 1.5 seconds. 20 seconds cooldown.</p>
+          <p><b>Proptector:</b> Raise your guard when you're near an allied champion. If you or ally take damage, both of you receive <abbr title="125 + 30% BONUS HP" className="stat--hp">{Math.round(125 + (bonus.health * 30 / 100))} shield</abbr> for 1.5 seconds. 20 seconds cooldown.</p>
         </div>
 
     },
@@ -2283,7 +2283,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
     {
       name: 'Winter\'s Approach',
 
-      health: 350 + Math.floor((attacker.mana) * 8 / 100),
+      health: 350 + Math.round((attacker.mana) * 8 / 100),
       mana: 500,
       armor: 0,
       magres: 0,
@@ -2307,7 +2307,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
           <h3 className="stat--mana">+500 Max Mana</h3>
           <h3>+15 Ability Haste</h3>
 
-          <p><b>Awe:</b> Grants <abbr title="8% of Max mana" className="stat--hp">{Math.floor(total.mana * 8 / 100)} bonus Health</abbr> and refunds <span className="stat--mana">15%</span> of Mana spent</p>
+          <p><b>Awe:</b> Grants <abbr title="8% of Max mana" className="stat--hp">{Math.round(total.mana * 8 / 100)} bonus Health</abbr> and refunds <span className="stat--mana">15%</span> of Mana spent</p>
           <p><b>Mana Charge:</b> Increases <span className="stat--mana">Max mana by 12</span> every Attack, when mana is spent or on taking damage from champions/minions/monsters. Generates up to 3 stacks every 12 seconds. Caps at <span className="stat--mana">700 mana</span> and transforms into <b>Fimbulwinter</b></p>
         </div>
 
@@ -2317,7 +2317,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
       name: 'Fimbulwinter',
 
       health: 350,
-      mana: 1200 + Math.floor(total.mana * 8 / 100),
+      mana: 1200 + Math.round(total.mana * 8 / 100),
       armor: 0,
       magres: 0,
       attack: 0,
@@ -2340,8 +2340,8 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
       <h3 className="stat--mana">+1200 Max Mana</h3>
       <h3>+15 Ability Haste</h3>
 
-      <p><b>Awe:</b> Grants <abbr title="8% of Max mana" className="stat--hp">{Math.floor(total.mana * 8 / 100)} bonus Health</abbr> and refunds <span className="stat--mana">15%</span> of Mana spent</p>
-      <p><b>Frozen Colossus:</b> Immobilizing or slowing an enemy champion consumes <span className="stat--mana">3% current Mana</span> and grants a shield for 3 seconds, absorbing <span className="stat--hp">{Math.floor(100 + 100 / 14 * (currentLevel - 1))}</span>  + <span className="stat--mana">5% current mana</span>, icreased by <b>80%</b> if there are more than 1 enemy champion nearby. Shield triggers when above <abbr title="20% Max" className="stat--mana">{Math.floor(total.mana / 5)} Mana</abbr> (8s Cooldown).</p>
+      <p><b>Awe:</b> Grants <abbr title="8% of Max mana" className="stat--hp">{Math.round(total.mana * 8 / 100)} bonus Health</abbr> and refunds <span className="stat--mana">15%</span> of Mana spent</p>
+      <p><b>Frozen Colossus:</b> Immobilizing or slowing an enemy champion consumes <span className="stat--mana">3% current Mana</span> and grants a shield for 3 seconds, absorbing <span className="stat--hp">{Math.round(100 + 100 / 14 * (currentLevel - 1))}</span>  + <span className="stat--mana">5% current mana</span>, icreased by <b>80%</b> if there are more than 1 enemy champion nearby. Shield triggers when above <abbr title="20% Max" className="stat--mana">{Math.round(total.mana / 5)} Mana</abbr> (8s Cooldown).</p>
     </div>
 
     },
@@ -2389,7 +2389,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
       attack: 0,
       ap: 0,
       as: 0,
-      moveSpeed: Math.floor(base.moveSpeed * 5 / 100),
+      moveSpeed: Math.round(base.moveSpeed * 5 / 100),
       flatArmPen: 0,
       flatMagPen: 0,
       armPen: 0,
@@ -2404,7 +2404,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
           <img src="../images/items/Force_of_Nature.png" alt="itemIcon" className="itemIcon" />
           <h3 className="stat--hp">+350 Max Health</h3>
           <h3 className="stat--magres">+50 Magic resistance</h3>
-          <h3>+5% ({Math.floor(base.moveSpeed * 5 / 100)}) Movement Speed</h3>
+          <h3>+5% ({Math.round(base.moveSpeed * 5 / 100)}) Movement Speed</h3>
 
           {/* Bug: numbers don't update dynamically */}
           {/* <button onClick={switchFON}>Max stacks on / off</button>
@@ -2413,7 +2413,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
           </p> */}
 
           <p>
-            <b>Absorb:</b> Taking ability damage from enemy champions grants 1 stack of Steadfast for 7 seconds, max 6 stacks. Dealing damage to enemy champions refresh effect duration. at maximum stacks gain 10% ({Math.floor(base.moveSpeed /10)}) Movement Speed and reduce all incoming magic damage by 25%.
+            <b>Absorb:</b> Taking ability damage from enemy champions grants 1 stack of Steadfast for 7 seconds, max 6 stacks. Dealing damage to enemy champions refresh effect duration. at maximum stacks gain 10% ({Math.round(base.moveSpeed /10)}) Movement Speed and reduce all incoming magic damage by 25%.
           </p>
         </div>
 
@@ -2429,7 +2429,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
       attack: 0,
       ap: 0,
       as: 0,
-      moveSpeed: Math.floor(base.moveSpeed * 5 / 100),
+      moveSpeed: Math.round(base.moveSpeed * 5 / 100),
       flatArmPen: 0,
       flatMagPen: 0,
       armPen: 0,
@@ -2444,10 +2444,10 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
           <img src="../images/items/Ixtali_Seedjar.png" alt="itemIcon" className="itemIcon" />
           <h3 className="stat--hp">+425 Max Health</h3>
           <h3>+25 Ability Haste</h3>
-          <h3>+5% ({Math.floor(base.moveSpeed * 5 / 100)}) Movement Speed</h3>
+          <h3>+5% ({Math.round(base.moveSpeed * 5 / 100)}) Movement Speed</h3>
 
           <p>
-            <b>Harvester:</b> Plants hit by you or your ally drop a seed. Picking up a seed replaces your trinket with corresponding plant for 60 seconds and grants you  <b>+40% ({Math.floor(base.moveSpeed * 40 / 100)}) Movement Speed </b> decaying over 2.5 seconds
+            <b>Harvester:</b> Plants hit by you or your ally drop a seed. Picking up a seed replaces your trinket with corresponding plant for 60 seconds and grants you  <b>+40% ({Math.round(base.moveSpeed * 40 / 100)}) Movement Speed </b> decaying over 2.5 seconds
           </p>
 
           <p>
@@ -2485,7 +2485,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
           <h3 className="stat--magres">+30 Magic Resistance</h3>
 
           <p>
-            <b>Dawnbringer:</b> If you are within 400 units of enemy champion and you immobilize them or getting immobilized, reveal all nearby enemy champions and deal them <abbr title="80 + 5% BONUS HP; numbers are pre/post-mitigation" className="stat--ap">{Math.floor(80 + bonus.health / 20 )} / {Math.floor((80 + bonus.health / 20 ) * (1 - modifierMres))} Magic Damage</abbr>. (3 seconds Cooldown)
+            <b>Dawnbringer:</b> If you are within 400 units of enemy champion and you immobilize them or getting immobilized, reveal all nearby enemy champions and deal them <abbr title="80 + 5% BONUS HP; numbers are pre/post-mitigation" className="stat--ap">{Math.round(80 + bonus.health / 20 )} / {Math.round((80 + bonus.health / 20 ) * (1 - modifierMres))} Magic Damage</abbr>. (3 seconds Cooldown)
           </p>
         </div>
 
@@ -2557,7 +2557,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
           <h3 className="stat--magres">+40 Magic Resistance</h3>
 
           <p>
-            <b>Lifeline:</b> Damage that puts you under <abbr title="35% max HP" className="stat--hp">{Math.floor(total.health * 35 / 100)} Health</abbr> grants you a heal for <abbr title="200 + 50% BONUS HP" className="stat--hp">{Math.floor(200 + bonus.health/2)} health</abbr> over 3 seconds, and provides <b>50% Slow Resistance</b> and <b>30 Movement Speed</b> for 3 seconds (90 second cooldown).
+            <b>Lifeline:</b> Damage that puts you under <abbr title="35% max HP" className="stat--hp">{Math.round(total.health * 35 / 100)} Health</abbr> grants you a heal for <abbr title="200 + 50% BONUS HP" className="stat--hp">{Math.round(200 + bonus.health/2)} health</abbr> over 3 seconds, and provides <b>50% Slow Resistance</b> and <b>30 Movement Speed</b> for 3 seconds (90 second cooldown).
           </p>
         </div>
 
@@ -2590,7 +2590,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
           <h3 className="stat--armor">+50 Armor</h3>
 
           <p>
-            <b>Fiery Touch:</b> After dealing damage with an attack or ability, burn target for 3 seconds dealing <abbr title="1.4% max HP damage. Numbers for current target pre-post/mitigation" className="stat--ap">{Math.floor((target.health * 14 /1000))} / {Math.floor((target.health * 14 /1000) * (1 - modifierMres))} Magic Damage</abbr> per second. Reduced to <span className="stat--ap">{Math.floor((target.health * 7 /1000))} / {Math.floor((target.health * 7 /1000) * (1 - modifierMres))}</span> for ranged users. Deals 150% damage to minions and monsters. Maximum 125 damage to monsters.
+            <b>Fiery Touch:</b> After dealing damage with an attack or ability, burn target for 3 seconds dealing <abbr title="1.4% max HP damage. Numbers for current target pre-post/mitigation" className="stat--ap">{Math.round((target.health * 14 /1000))} / {Math.round((target.health * 14 /1000) * (1 - modifierMres))} Magic Damage</abbr> per second. Reduced to <span className="stat--ap">{Math.round((target.health * 7 /1000))} / {Math.round((target.health * 7 /1000) * (1 - modifierMres))}</span> for ranged users. Deals 150% damage to minions and monsters. Maximum 125 damage to monsters.
           </p>
         </div>
 
@@ -2896,7 +2896,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
             <h3 className="stat--moveSpeed">+45 Movement Speed</h3>
 
             <p>
-              <b>Conversion:</b> <span className="stat--vamp">+7% Omnivamp (Total / Current: {Math.floor((total.attack * 7 /100))} / {Math.floor((total.attack * 7  / 100)* (1 - modifier))}; <abbr title="For now it does not calculate your ability damage. placeholder with formula same for AA, just for AP"><span className="stat--ap">{Math.floor((total.ap * 7 / 100))} / {Math.floor((total.ap * 7 / 100)* (1 - modifierMres))}</span></abbr> )</span>  
+              <b>Conversion:</b> <span className="stat--vamp">+7% Omnivamp (Total / Current: {Math.round((total.attack * 7 /100))} / {Math.round((total.attack * 7  / 100)* (1 - modifier))}; <abbr title="For now it does not calculate your ability damage. placeholder with formula same for AA, just for AP"><span className="stat--ap">{Math.round((total.ap * 7 / 100))} / {Math.round((total.ap * 7 / 100)* (1 - modifierMres))}</span></abbr> )</span>  
             </p>  
           </div>
   

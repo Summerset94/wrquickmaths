@@ -3,15 +3,15 @@
           </h5>
 
           <p className="stat--ad">Pre-mitigation: 
-            {' '}{Math.floor(((abase1)+(atk.attack * amod / 100)))} / 
-            {' '}{Math.floor(((abase2)+(atk.attack * amod / 100)))} / 
-            {' '}{Math.floor(((abase3)+(atk.attack * amod / 100)))} / 
-            {' '}{Math.floor(((abase4)+(atk.attack * amod / 100)))}
+            {' '}{Math.round(((abase1)+(atk.attack * amod / 100)))} / 
+            {' '}{Math.round(((abase2)+(atk.attack * amod / 100)))} / 
+            {' '}{Math.round(((abase3)+(atk.attack * amod / 100)))} / 
+            {' '}{Math.round(((abase4)+(atk.attack * amod / 100)))}
           </p>
 
           <p className="stat--ad">Post-mitigation: 
-            {' '}{Math.floor(((abase1)+(atk.attack * amod / 100)) * (1 - mod.defPhysRed))} / 
-            {' '}{Math.floor(((abase2)+(atk.attack * amod / 100))* (1 - mod.defPhysRed))} / 
-            {' '}{Math.floor(((abase3)+(atk.attack * amod / 100))* (1 - mod.defPhysRed))} / 
-            {' '}{Math.floor(((abase4)+(atk.attack * amod / 100))* (1 - mod.defPhysRed))}          
+            {' '}{Math.round(((abase1)+(atk.attack * amod / 100)) * (1 - mod.defPhysRed))} / 
+            {' '}{Math.round(((abase2)+(atk.attack * amod / 100))* (1 - mod.defPhysRed))} / 
+            {' '}{Math.round(((abase3)+(atk.attack * amod / 100))* (1 - mod.defPhysRed))} / 
+            {' '}{Math.round(((abase4)+(atk.attack * amod / 100))* (1 - mod.defPhysRed))}          
           </p>
