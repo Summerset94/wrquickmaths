@@ -65,8 +65,8 @@ export default function AttackerTile(props) {
               (
                 <tr>
                 <td>Mana</td>
-                <td className='stat--mana'>{champion.healthBase}</td>
-                <td className='stat--mana'>{champion.healthScale}</td>
+                <td className='stat--mana'>{champion.manaBase}</td>
+                <td className='stat--mana'>{champion.manaScale}</td>
                 </tr>
               )}
 

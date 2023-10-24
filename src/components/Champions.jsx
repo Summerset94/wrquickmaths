@@ -8,21 +8,22 @@ support: <span className="role"><img src="../images/laneIcons/laneSupport.webp" 
 
 const champions = [
  {
+    id: 'aatrox',
     name: 'Aatrox',
     title: 'the Darkin Blade',
     icon: '../images/portraits/AatroxSquare.webp',
     rolePrim: roles.baron,
     roleSecond: roles.jungle,
     healthBase: 600,
-    healthScale: 95,
+    healthScale: 128,
     manaBase: false,
     armorBase: 40,
-    armorScale: 4,
+    armorScale: 4.5,
     magresBase: 40,
-    magresScale: 2,
+    magresScale: 1.5,
     moveSpeed: 355,
     attackBase: 62,
-    attackScale: 4,
+    attackScale: 5.5,
     apBase: 0,
     asBase: 0.664,
     asBaseBonus: 0.664*0.1,
@@ -30,22 +31,23 @@ const champions = [
   },
 
 {
+    id: 'ahri',
     name: 'Ahri',
     title: 'The Nine-Tailed Fox',
     icon: '../images/portraits/AhriSquare.webp',
     rolePrim: roles.middle,
     roleSecond: false,
     healthBase: 530,
-    healthScale: 78,
+    healthScale: 105,
     manaBase: 435,
-    manaScale: 37,
+    manaScale: 49,
     armorBase: 30,
-    armorScale: 3,
+    armorScale: 3.9,
     magresBase: 30,
-    magresScale: 1,
+    magresScale: 0.9,
     moveSpeed: 340,
     attackBase: 52,
-    attackScale: 3,
+    attackScale: 3.6,
     apBase: 0,
     asBase: 0.625,
     asBaseBonus: 0.625*0.2,
@@ -53,22 +55,23 @@ const champions = [
   },
 
 {
+    id:'akali',
     name: 'Akali',
     title: 'The Rogue Assasin',
     icon: '../images/portraits/AkaliSquare.webp',
     rolePrim: roles.middle,
     roleSecond: roles.baron,
     healthBase: 600,
-    healthScale: 93,
+    healthScale: 125,
     manaBase: false,
     manaScale: 0,
     armorBase: 34,
-    armorScale: 4,
+    armorScale: 3.64,
     magresBase: 38,
-    magresScale: 2,
+    magresScale: 2.35,
     moveSpeed: 355,
     attackBase: 64,
-    attackScale: 4,
+    attackScale: 4.57,
     apBase: 0,
     asBase: 0.667,
     asBaseBonus: 0.667*0.2,
@@ -76,22 +79,23 @@ const champions = [
   },
 
 {
+    id:'akshan',
     name: 'Akshan',
     title: 'The Rogue Sentinel',
     icon: '../images/portraits/AkshanSquare.webp',
     rolePrim: roles.middle,
     roleSecond: roles.duo,
     healthBase: 570,
-    healthScale: 86,
+    healthScale: 115,
     manaBase: 390,
-    manaScale: 37,
+    manaScale: 49,
     armorBase: 35,
-    armorScale: 3,
+    armorScale: 3.93,
     magresBase: 30,
-    magresScale: 1,
+    magresScale: 0.9,
     moveSpeed: 340,
     attackBase: 52,
-    attackScale: 5,
+    attackScale: 5.5,
     apBase: 0,
     asBase: 0.5,
     asBaseBonus: 0.5*0.4,
@@ -105,20 +109,21 @@ const champions = [
     rolePrim: roles.support,
     roleSecond: false,
     healthBase: 610,
-    healthScale: 100,
+    healthScale: 135,
     manaBase: 345,
-    manaScale: 31,
+    manaScale: 41,
     armorBase: 45,
-    armorScale: 4,
+    armorScale: 4.7,
     magresBase: 38,
-    magresScale: 2,
+    magresScale: 1.64,
     moveSpeed: 340,
     attackBase: 58,
     attackScale: 3,
     apBase: 0,
     asBase: 0.667,
     asBaseBonus: 0.667*0.2,
-    asScale: 0.667*0.022
+    asScale: 0.667*0.022,
+    id:'alistar'
   },
 
 {
@@ -128,20 +133,21 @@ const champions = [
     rolePrim: roles.jungle,
     roleSecond: roles.support,
     healthBase: 650,
-    healthScale: 71,
+    healthScale: 95,
     manaBase: 390,
-    manaScale: 49,
+    manaScale: 65,
     armorBase: 35,
-    armorScale: 4,
+    armorScale: 3.93,
     magresBase: 38,
-    magresScale: 2,
+    magresScale: 0.86,
     moveSpeed: 345,
     attackBase: 52,
-    attackScale: 3,
+    attackScale: 3.4,
     apBase: 0,
     asBase: 0.667,
     asBaseBonus: 0.667*0.2,
-    asScale: 0.667*0.022
+    asScale: 0.667*0.022,
+    id:'amumu'
   },
 
 {
@@ -151,20 +157,21 @@ const champions = [
     rolePrim: roles.middle,
     roleSecond: false,
     healthBase: 530,
-    healthScale: 96,
+    healthScale: 105,
     manaBase: 435,
-    manaScale: 43,
+    manaScale: 57,
     armorBase: 30,
-    armorScale: 3,
+    armorScale: 4.71,
     magresBase: 30,
-    magresScale: 1,
+    magresScale: 0.86,
     moveSpeed: 340,
     attackBase: 52,
-    attackScale: 2,
+    attackScale: 2.71,
     apBase: 0,
     asBase: 0.625,
     asBaseBonus: 0.625*0.2,
-    asScale: 0
+    asScale: 0,
+    id:'annie'
   },
 
 {
@@ -174,20 +181,21 @@ const champions = [
     rolePrim: roles.duo,
     roleSecond: roles.support,
     healthBase: 570,
-    healthScale: 76,
+    healthScale: 115,
     manaBase: 345,
-    manaScale: 30,
+    manaScale: 33,
     armorBase: 35,
-    armorScale: 3,
+    armorScale: 3.9,
     magresBase: 30,
-    magresScale: 1,
+    magresScale: 0.9,
     moveSpeed: 335,
     attackBase: 58,
-    attackScale: 2,
+    attackScale: 2.7,
     apBase: 0,
     asBase: 0.624,
     asBaseBonus: 0.667*0.33,
-    asScale: 0.667*0.032
+    asScale: 0.667*0.032,
+    id:'ashe'
   },
 
   {
@@ -197,20 +205,21 @@ const champions = [
     rolePrim: roles.middle,
     roleSecond: false,
     healthBase: 570,
-    healthScale: 86,
+    healthScale: 115,
     manaBase: 435,
-    manaScale: 43,
+    manaScale: 57,
     armorBase: 30,
-    armorScale: 3,
+    armorScale: 3.9,
     magresBase: 30,
-    magresScale: 1,
+    magresScale: 0.9,
     moveSpeed: 335,
     attackBase: 52,
-    attackScale: 2,
+    attackScale: 2.7,
     apBase: 0,
     asBase: 0.625,
     asBaseBonus: 0.625*0.2,
-    asScale: 0
+    asScale: 0,
+    id:'aurelionsol'
   },
 
   {
@@ -220,20 +229,21 @@ const champions = [
     rolePrim: roles.support,
     roleSecond: false,
     healthBase: 650,
-    healthScale: 86,
+    healthScale: 115,
     manaBase: 300,
-    manaScale: 31,
+    manaScale: 41,
     armorBase: 50,
-    armorScale: 4,
+    armorScale: 5.1,
     magresBase: 38,
-    magresScale: 2,
+    magresScale: 1.6,
     moveSpeed: 335,
     attackBase: 58,
-    attackScale: 2,
+    attackScale: 1.7,
     apBase: 0,
     asBase: 0.667,
     asBaseBonus: 0.667*0.2,
-    asScale: 0.667*0.022
+    asScale: 0.667*0.022,
+    id:'blitzcrank'
   },
 
   {
@@ -243,20 +253,21 @@ const champions = [
     rolePrim: roles.middle,
     roleSecond: roles.support,
     healthBase: 530,
-    healthScale: 71,
+    healthScale: 95,
     manaBase: 435,
-    manaScale: 37,
+    manaScale: 45,
     armorBase: 30,
-    armorScale: 3,
+    armorScale: 3.9,
     magresBase: 30,
-    magresScale: 1,
+    magresScale: 0.9,
     moveSpeed: 350,
     attackBase: 58,
-    attackScale: 3,
+    attackScale: 3.6,
     apBase: 0,
     asBase: 0.625,
     asBaseBonus: 0.625*0.2,
-    asScale: 0
+    asScale: 0,
+    id:'brand'
   },
 
   {
@@ -265,21 +276,22 @@ const champions = [
     icon: '../images/portraits/BraumSquare.webp',
     rolePrim: roles.support,
     roleSecond: false,
-    healthBase: 686,
-    healthScale: 71,
+    healthBase: 610,
+    healthScale: 115,
     manaBase: 300,
-    manaScale: 37,
+    manaScale: 49,
     armorBase: 46,
-    armorScale: 4,
+    armorScale: 5.14,
     magresBase: 38,
-    magresScale: 2,
+    magresScale: 1.64,
     moveSpeed: 345,
     attackBase: 54,
-    attackScale: 3,
+    attackScale: 3.64,
     apBase: 0,
     asBase: 0.667,
     asBaseBonus: 0.667*0.2,
-    asScale: 0.667*0.022
+    asScale: 0.667*0.022,
+    id:'braum'
   },
 
   {
@@ -289,20 +301,21 @@ const champions = [
     rolePrim: roles.duo,
     roleSecond: false,
     healthBase: 570,
-    healthScale: (86),
+    healthScale: (115),
     manaBase: 345,
-    manaScale: 31,
+    manaScale: 41,
     armorBase: 35,
-    armorScale: 3,
+    armorScale: 3.9,
     magresBase: 30,
-    magresScale: 1,
+    magresScale: 0.9,
     moveSpeed: 335,
     attackBase: 54,
     attackScale: 4,
     apBase: 0,
     asBase: 0.624,
     asBaseBonus: 0.624*0.33,
-    asScale: 0.624*0.032
+    asScale: 0.624*0.032,
+    id:'caitlyn'
   },
 
   {
@@ -314,18 +327,19 @@ const champions = [
     healthBase: 650,
     healthScale: 120,
     manaBase: 390,
-    manaScale: 25,
+    manaScale: 33,
     armorBase: 40,
-    armorScale: 4,
+    armorScale: 4.71,
     magresBase: 38,
-    magresScale: 2,
+    magresScale: 1.64,
     moveSpeed: 350,
     attackBase: 58,
-    attackScale: 4,
+    attackScale: 4.57,
     apBase: 0,
     asBase: 0.667,
     asBaseBonus: 0.624*0.23,
-    asScale: 0.667*0.022
+    asScale: 0.667*0.022,
+    id:'camille'
   },
 
   {
@@ -339,16 +353,17 @@ const champions = [
     manaBase: 435,
     manaScale: 50,
     armorBase: 35,
-    armorScale: 4,
+    armorScale: 4.5,
     magresBase: 30,
-    magresScale: 1,
+    magresScale: 0.86,
     moveSpeed: 335,
     attackBase: 52,
-    attackScale: 3,
+    attackScale: 3.64,
     apBase: 0,
     asBase: 0.625,
     asBaseBonus: 0.625*0.2,
-    asScale: 0.625*0.022
+    asScale: 0.625*0.022,
+    id:'corki'
   },
 
   {
@@ -360,18 +375,19 @@ const champions = [
     healthBase: 610,
     healthScale: 136,
     manaBase: 345,
-    manaScale: 31,
+    manaScale: 41,
     armorBase: 45,
-    armorScale: 4,
+    armorScale: 5.14,
     magresBase: 38,
-    magresScale: 2,
+    magresScale: 1.64,
     moveSpeed: 350,
     attackBase: 70,
-    attackScale: 5,
+    attackScale: 5.5,
     apBase: 0,
     asBase: 0.664,
     asBaseBonus: 0.664*0.13,
-    asScale: 0.664*0.012
+    asScale: 0.664*0.012,
+    id:'darius'
   },
 
   {
@@ -381,20 +397,21 @@ const champions = [
     rolePrim: roles.baron,
     roleSecond: roles.jungle,
     healthBase: 600,
-    healthScale: 93,
+    healthScale: 125,
     manaBase: 435,
-    manaScale: 31,
+    manaScale: 41,
     armorBase: 40,
-    armorScale: 4,
+    armorScale: 4.36,
     magresBase: 38,
-    magresScale: 2,
+    magresScale: 1.64,
     moveSpeed: 355,
     attackBase: 52,
-    attackScale: 3,
+    attackScale: 3.64,
     apBase: 0,
     asBase: 0.667,
     asBaseBonus: 0.667*0.2,
-    asScale: 0.667*0.022
+    asScale: 0.667*0.022,
+    id:'diana'
   },
 
   {
@@ -404,20 +421,21 @@ const champions = [
     rolePrim: roles.baron,
     roleSecond: roles.jungle,
     healthBase: 650,
-    healthScale: 78,
+    healthScale: 105,
     manaBase: false,
     manaScale: 0,
     armorBase: 35,
-    armorScale: 4,
+    armorScale: 3.9,
     magresBase: 38,
-    magresScale: 2,
+    magresScale: 1.64,
     moveSpeed: 355,
     attackBase: 58,
-    attackScale: 4,
+    attackScale: 4.6,
     apBase: 0,
     asBase: 0.667,
     asBaseBonus: 0.667*0.2,
-    asScale: 0.667*0.022
+    asScale: 0.667*0.022,
+    id:'drmundo'
   },
 
   {
@@ -427,20 +445,21 @@ const champions = [
     rolePrim: roles.duo,
     roleSecond: false,
     healthBase: 610,
-    healthScale: 86,
+    healthScale: 115,
     manaBase: 480,
-    manaScale: 49,
+    manaScale: 65,
     armorBase: 35,
-    armorScale: 4,
+    armorScale: 4.4,
     magresBase: 30,
-    magresScale: 1,
+    magresScale: 0.9,
     moveSpeed: 340,
     attackBase: 66,
-    attackScale: 4,
+    attackScale: 4.5,
     apBase: 0,
     asBase: 0.624,
     asBaseBonus: 0.624*0.33,
-    asScale: 0.624*0.032
+    asScale: 0.624*0.032,
+    id:'draven'
   },
 
   {
@@ -450,20 +469,21 @@ const champions = [
     rolePrim: roles.middle,
     roleSecond: roles.jungle,
     healthBase: 610,
-    healthScale: 78,
+    healthScale: 105,
     manaBase: 390,
-    manaScale: 43,
+    manaScale: 57,
     armorBase: 40,
-    armorScale: 3,
+    armorScale: 3.5,
     magresBase: 38,
-    magresScale: 4,
+    magresScale: 1.64,
     moveSpeed: 350,
     attackBase: 58,
-    attackScale: 3,
+    attackScale: 3.64,
     apBase: 0,
     asBase: 0.667,
     asBaseBonus: 0.667*0.2,
-    asScale: 0.667*0.022
+    asScale: 0.667*0.022,
+    id:'ekko'
   },
 
   {
@@ -472,21 +492,22 @@ const champions = [
     icon: '../images/portraits/EvelynnSquare.webp',
     rolePrim: roles.jungle,
     roleSecond: false,
-    healthBase: 610,
-    healthScale: 78,
-    manaBase: 390,
-    manaScale: 43,
-    armorBase: 40,
-    armorScale: 3,
+    healthBase: 570,
+    healthScale: 115,
+    manaBase: 345,
+    manaScale: 49,
+    armorBase: 45,
+    armorScale: 4.36,
     magresBase: 38,
-    magresScale: 4,
+    magresScale: 1.64,
     moveSpeed: 350,
-    attackBase: 58,
-    attackScale: 3,
+    attackBase: 64,
+    attackScale: 3.65,
     apBase: 0,
     asBase: 0.667,
     asBaseBonus: 0.667*0.2,
-    asScale: 0.667*0.022
+    asScale: 0.667*0.022,
+    id:'evelynn'
   },
 
   {
@@ -496,20 +517,21 @@ const champions = [
     rolePrim: roles.duo,
     roleSecond: roles.middle,
     healthBase: 570,
-    healthScale: 78,
+    healthScale: 105,
     manaBase: 390,
-    manaScale: 37,
+    manaScale: 49,
     armorBase: 30,
-    armorScale: 4,
+    armorScale: 4.4,
     magresBase: 30,
-    magresScale: 1,
+    magresScale: 0.9,
     moveSpeed: 335,
     attackBase: 58,
     attackScale: 4,
     apBase: 0,
     asBase: 0.624,
     asBaseBonus: 0.624*0.33,
-    asScale: 0.624*0.022
+    asScale: 0.624*0.022,
+    id:"ezreal"
   },
 
   {
@@ -521,18 +543,19 @@ const champions = [
     healthBase: 610,
     healthScale: 115,
     manaBase: 300,
-    manaScale: 37,
+    manaScale: 49,
     armorBase: 40,
-    armorScale: 4,
+    armorScale: 4.36,
     magresBase: 38,
-    magresScale: 2,
+    magresScale: 1.64,
     moveSpeed: 355,
     attackBase: 70,
-    attackScale: 4,
+    attackScale: 4.57,
     apBase: 0,
     asBase: 0.667,
     asBaseBonus: 0.667*0.2,
-    asScale: 0.667*0.022
+    asScale: 0.667*0.022,
+    id:'fiora'
   },
 
   {
@@ -542,20 +565,21 @@ const champions = [
     rolePrim: roles.middle,
     roleSecond: roles.jungle,
     healthBase: 610,
-    healthScale: 93,
+    healthScale: 125,
     manaBase: 345,
-    manaScale: 37,
+    manaScale: 49,
     armorBase: 30,
-    armorScale: 4,
+    armorScale: 4.36,
     magresBase: 38,
-    magresScale: 2,
+    magresScale: 1.64,
     moveSpeed: 345,
     attackBase: 58,
-    attackScale: 3,
+    attackScale: 3.64,
     apBase: 0,
     asBase: 0.667,
     asBaseBonus: 0.667*0.2,
-    asScale: 0.667*0.022
+    asScale: 0.667*0.022,
+    id:'fizz'
   },
 
   {
@@ -565,20 +589,21 @@ const champions = [
     rolePrim: roles.middle,
     roleSecond: roles.support,
     healthBase: 570,
-    healthScale: 100,
+    healthScale: 135,
     manaBase: 435,
-    manaScale: 25,
+    manaScale: 33,
     armorBase: 30,
-    armorScale: 3,
+    armorScale: 3.93,
     magresBase: 38,
-    magresScale: 2,
+    magresScale: 1.64,
     moveSpeed: 345,
     attackBase: 58,
-    attackScale: 3,
+    attackScale: 3.64,
     apBase: 0,
     asBase: 0.667,
     asBaseBonus: 0.667*0.2,
-    asScale: 0.667*0.022
+    asScale: 0.667*0.022,
+    id:'galio'
   },
 
   {
@@ -588,20 +613,21 @@ const champions = [
     rolePrim: roles.baron,
     roleSecond: false,
     healthBase: 650,
-    healthScale: 93,
+    healthScale: 125,
     manaBase: false,
     manaScale: 0,
     armorBase: 45,
-    armorScale: 5,
+    armorScale: 5.8,
     magresBase: 38,
-    magresScale: 2,
+    magresScale: 2.64,
     moveSpeed: 350,
     attackBase: 64,
-    attackScale: 5,
+    attackScale: 5.5,
     apBase: 0,
     asBase: 0.667,
     asBaseBonus: 0.667*0.2,
-    asScale: 0.667*0.022
+    asScale: 0.667*0.022,
+    id:'garen'
   },
 
   {
@@ -611,20 +637,21 @@ const champions = [
     rolePrim: roles.baron,
     roleSecond: roles.jungle,
     healthBase: 650,
-    healthScale: 86,
+    healthScale: 125,
     manaBase: 390,
-    manaScale: 43,
+    manaScale: 59,
     armorBase: 40,
-    armorScale: 4,
+    armorScale: 4.3,
     magresBase: 38,
-    magresScale: 2,
+    magresScale: 1.64,
     moveSpeed: 340,
     attackBase: 70,
-    attackScale: 3,
+    attackScale: 3.64,
     apBase: 0,
     asBase: 0.667,
     asBaseBonus: 0.667*0.2,
-    asScale: 0.667*0.022
+    asScale: 0.667*0.022,
+    id:'gragas'
   },
 
   {
@@ -634,20 +661,21 @@ const champions = [
     rolePrim: roles.jungle,
     roleSecond: roles.baron,
     healthBase: 570,
-    healthScale: 86,
+    healthScale: 115,
     manaBase: 390,
-    manaScale: 37,
+    manaScale: 49,
     armorBase: 35,
-    armorScale: 3,
+    armorScale: 3.9,
     magresBase: 38,
-    magresScale: 2,
+    magresScale: 1.64,
     moveSpeed: 350,
     attackBase: 64,
-    attackScale: 3,
+    attackScale: 3.64,
     apBase: 0,
     asBase: 1,
     asBaseBonus: 1*0.03,
-    asScale: 1*0.022
+    asScale: 1*0.022,
+    id:'graves'
   },
 
   {
@@ -657,20 +685,21 @@ const champions = [
     rolePrim: roles.baron,
     roleSecond: roles.jungle,
     healthBase: 660,
-    healthScale: 86,
+    healthScale: 116,
     manaBase: 345,
-    manaScale: 31,
+    manaScale: 41,
     armorBase: 45,
-    armorScale: 4,
+    armorScale: 4.7,
     magresBase: 38,
-    magresScale: 2,
+    magresScale: 1.6,
     moveSpeed: 340,
     attackBase: 58,
-    attackScale: 3,
+    attackScale: 3.6,
     apBase: 0,
     asBase: 0.667,
     asBaseBonus: 0.667*0.23,
-    asScale: 0.667*0.022
+    asScale: 0.667*0.022,
+    id:'gwen'
   },
   
   {
@@ -680,20 +709,21 @@ const champions = [
     rolePrim: roles.jungle,
     roleSecond: false,
     healthBase: 630,
-    healthScale: 89,
+    healthScale: 120,
     manaBase: 380,
-    manaScale: 43,
+    manaScale: 57,
     armorBase: 37,
-    armorScale: 4,
+    armorScale: 4.5,
     magresBase: 36,
-    magresScale: 2,
+    magresScale: 1.5,
     moveSpeed: 350,
     attackBase: 58,
-    attackScale: 3,
+    attackScale: 3.64,
     apBase: 0,
     asBase: 0.667,
     asBaseBonus: 0.667*0.2,
-    asScale: 0.667*0.022
+    asScale: 0.667*0.022,
+    id:'hecarim'
   },
   
   {
@@ -703,20 +733,21 @@ const champions = [
     rolePrim: roles.baron,
     roleSecond: roles.middle,
     healthBase: 650,
-    healthScale: 86,
+    healthScale: 118,
     manaBase: 345,
-    manaScale: 25,
+    manaScale: 33,
     armorBase: 40,
-    armorScale: 3,
+    armorScale: 3.9,
     magresBase: 38,
-    magresScale: 2,
+    magresScale: 1.64,
     moveSpeed: 350,
     attackBase: 58,
-    attackScale: 4,
+    attackScale: 4.6,
     apBase: 0,
     asBase: 0.667,
     asBaseBonus: 0.667*0.2,
-    asScale: 0.667*0.022
+    asScale: 0.667*0.022,
+    id:'irelia'
   },
 
   {
@@ -726,20 +757,21 @@ const champions = [
     rolePrim: roles.support,
     roleSecond: false,
     healthBase: 570,
-    healthScale: 71,
+    healthScale: 95,
     manaBase: 435,
-    manaScale: 43,
-    armorBase: 40,
-    armorScale: 4,
-    magresBase: 30,
-    magresScale: 1,
+    manaScale: 57,
+    armorBase: 42,
+    armorScale: 4.36,
+    magresBase: 35,
+    magresScale: 0.86,
     moveSpeed: 361,
     attackBase: 52,
-    attackScale: 2,
+    attackScale: 2.71,
     apBase: 0,
     asBase: 0.625,
     asBaseBonus: 0.625*0.2,
-    asScale: 0
+    asScale: 0,
+    id:"janna"
   },
 
 
@@ -750,20 +782,21 @@ const champions = [
     rolePrim: roles.jungle,
     roleSecond: false,
     healthBase: 650,
-    healthScale: 86,
+    healthScale: 115,
     manaBase: 390,
-    manaScale: 31,
+    manaScale: 41,
     armorBase: 40,
-    armorScale: 4,
+    armorScale: 4.36,
     magresBase: 38,
-    magresScale: 2,
+    magresScale: 1.64,
     moveSpeed: 350,
     attackBase: 58,
-    attackScale: 4,
+    attackScale: 4.55,
     apBase: 0,
     asBase: 0.667,
     asBaseBonus: 0.667*0.2,
-    asScale: 0.667*0.022
+    asScale: 0.667*0.022,
+    id:'jarvaniv'
   },  
   
   {
@@ -775,18 +808,19 @@ const champions = [
     healthBase: 650,
     healthScale: 112,
     manaBase: 390,
-    manaScale: 43,
+    manaScale: 57,
     armorBase: 40,
-    armorScale: 3,
+    armorScale: 3.92,
     magresBase: 38,
-    magresScale: 2,
+    magresScale: 1.64,
     moveSpeed: 355,
     attackBase: 58,
-    attackScale: 4,
+    attackScale: 4.57,
     apBase: 0,
     asBase: 0.664,
     asBaseBonus: 0.664*0.13,
-    asScale: 0.664*0.022
+    asScale: 0.664*0.022,
+    id:'jax'
   },
 
   {
@@ -796,20 +830,21 @@ const champions = [
     rolePrim: roles.baron,
     roleSecond: roles.middle,
     healthBase: 610,
-    healthScale: 78,
+    healthScale: 105,
     manaBase: 345,
-    manaScale: 43,
-    armorBase: 40,
-    armorScale: 4,
-    magresBase: 30,
-    magresScale: 1,
+    manaScale: 57,
+    armorBase: 45,
+    armorScale: 6.4,
+    magresBase: 35,
+    magresScale: 2.9,
     moveSpeed: 345,
     attackBase: 54,
-    attackScale: 4,
+    attackScale: 4.6,
     apBase: 0,
     asBase: 0.669,
     asBaseBonus: 0.669*0.36,
-    asScale: 0.669*0.032
+    asScale: 0.669*0.032,
+    id:'jayce'
   },
 
   {
@@ -819,20 +854,21 @@ const champions = [
     rolePrim: roles.duo,
     roleSecond: false,
     healthBase: 570,
-    healthScale: 86,
+    healthScale: 115,
     manaBase: 390,
-    manaScale: 43,
+    manaScale: 57,
     armorBase: 35,
-    armorScale: 3,
+    armorScale: 3.9,
     magresBase: 30,
-    magresScale: 1,
+    magresScale: 0.9,
     moveSpeed: 340,
     attackBase: 58,
     attackScale: 4,
     apBase: 0,
     asBase: 0.629,
     asBaseBonus: 0.629*0.05,
-    asScale: 0.629*0.032
+    asScale: 0.629*0.032,
+    id:'jhin'
   },
 
   {
@@ -842,20 +878,21 @@ const champions = [
     rolePrim: roles.duo,
     roleSecond: false,
     healthBase: 610,
-    healthScale: 78,
+    healthScale: 105,
     manaBase: 345,
-    manaScale: 37,
+    manaScale: 49,
     armorBase: 35,
-    armorScale: 4,
+    armorScale: 4.4,
     magresBase: 30,
-    magresScale: 1,
+    magresScale: 0.9,
     moveSpeed: 335,
     attackBase: 58,
     attackScale: 4,
     apBase: 0,
     asBase: 0.624,
     asBaseBonus: 0.624*0.33,
-    asScale: 0.624*0.017
+    asScale: 0.624*0.017,
+    id:'jinx'
   },
 
   {
@@ -865,20 +902,21 @@ const champions = [
     rolePrim: roles.duo,
     roleSecond: roles.middle,
     healthBase: 570,
-    healthScale: 86,
+    healthScale: 115,
     manaBase: 435,
-    manaScale: 31,
+    manaScale: 41,
     armorBase: 35,
-    armorScale: 3,
+    armorScale: 3.5,
     magresBase: 30,
-    magresScale: 1,
+    magresScale: 0.9,
     moveSpeed: 340,
     attackBase: 62,
-    attackScale: 3,
+    attackScale: 3.5,
     apBase: 0,
     asBase: 0.626,
     asBaseBonus: 0.626*0.23,
-    asScale: 0.626*0.032
+    asScale: 0.626*0.032,
+    id:'kaisa'
   },
 
   {
@@ -888,20 +926,21 @@ const champions = [
     rolePrim: roles.support,
     roleSecond: roles.middle,
     healthBase: 570,
-    healthScale: 93,
+    healthScale: 125,
     manaBase: 390,
-    manaScale: 43,
+    manaScale: 57,
     armorBase: 35,
-    armorScale: 4,
+    armorScale: 4.71,
     magresBase: 32,
-    magresScale: 1,
+    magresScale: 0.86,
     moveSpeed: 350,
     attackBase: 58,
-    attackScale: 3,
+    attackScale: 3.64,
     apBase: 0,
     asBase: 0.625,
     asBaseBonus: 0.625*0.2,
-    asScale: 0.625*0.022
+    asScale: 0.625*0.022,
+    id:'karma'
   },
 
   {
@@ -911,20 +950,21 @@ const champions = [
     rolePrim: roles.middle,
     roleSecond: false,
     healthBase: 600,
-    healthScale: 78,
+    healthScale: 105,
     manaBase: 480,
-    manaScale: 49,
+    manaScale: 65,
     armorBase: 30,
-    armorScale: 3,
+    armorScale: 3.93,
     magresBase: 38,
-    magresScale: 2,
+    magresScale: 1.64,
     moveSpeed: 350,
     attackBase: 58,
-    attackScale: 4,
+    attackScale: 4.57,
     apBase: 0,
     asBase: 0.667,
     asBaseBonus: 0.667*0.2,
-    asScale: 0.667*0.022
+    asScale: 0.667*0.022,
+    id:'kassadin'
   },
 
   {
@@ -934,20 +974,21 @@ const champions = [
     rolePrim: roles.middle,
     roleSecond: false,
     healthBase: 570,
-    healthScale: 86,
+    healthScale: 115,
     manaBase: false,
     manaScale: 0,
     armorBase: 30,
-    armorScale: 4,
+    armorScale: 4.36,
     magresBase: 38,
-    magresScale: 2,
+    magresScale: 1.64,
     moveSpeed: 345,
     attackBase: 58,
-    attackScale: 3,
+    attackScale: 3.64,
     apBase: 0,
     asBase: 0.667,
     asBaseBonus: 0.667*0.2,
-    asScale: 0.667*0.022
+    asScale: 0.667*0.022,
+    id:'katarina'
   },
 
   {
@@ -957,20 +998,21 @@ const champions = [
     rolePrim: roles.baron,
     roleSecond: roles.middle,
     healthBase: 570,
-    healthScale: 71,
+    healthScale: 95,
     manaBase: 345,
-    manaScale: 31,
+    manaScale: 41,
     armorBase: 30,
-    armorScale: 3,
+    armorScale: 3.3,
     magresBase: 30,
-    magresScale: 1,
+    magresScale: 0.9,
     moveSpeed: 345,
     attackBase: 52,
-    attackScale: 2,
+    attackScale: 2.7,
     apBase: 0,
     asBase: 0.667,
     asBaseBonus: 0.667*0.23,
-    asScale: 0.667*0.022
+    asScale: 0.667*0.022,
+    id:'kayle'
   },
 
   {
@@ -980,20 +1022,21 @@ const champions = [
     rolePrim: roles.jungle,
     roleSecond: false,
     healthBase: 600,
-    healthScale: 83,
+    healthScale: 112,
     manaBase: 420,
-    manaScale: 45,
+    manaScale: 60,
     armorBase: 37,
-    armorScale: 4,
+    armorScale: 4.5,
     magresBase: 36,
-    magresScale: 2,
+    magresScale: 1.5,
     moveSpeed: 350,
     attackBase: 70,
-    attackScale: 3,
+    attackScale: 4,
     apBase: 0,
     asBase: 0.667,
     asBaseBonus: 0.667*0.2,
-    asScale: 0.667*0.022
+    asScale: 0.667*0.022,
+    id:'kayn'
   },
 
   {
@@ -1003,20 +1046,21 @@ const champions = [
     rolePrim: roles.baron,
     roleSecond: roles.middle,
     healthBase: 610,
-    healthScale: 78,
+    healthScale: 105,
     manaBase: false,
     manaScale: 50,
     armorBase: 40,
-    armorScale: 4,
+    armorScale: 4.35,
     magresBase: 30,
-    magresScale: 1,
+    magresScale: 0.86,
     moveSpeed: 340,
     attackBase: 58,
-    attackScale: 3,
+    attackScale: 3.64,
     apBase: 0,
     asBase: 0.625,
     asBaseBonus: 0.625*0.2,
-    asScale: 0.625*0.022
+    asScale: 0.625*0.022,
+    id:'kennen'
   },
 
   {
@@ -1026,20 +1070,21 @@ const champions = [
     rolePrim: roles.jungle,
     roleSecond: false,
     healthBase: 610,
-    healthScale: 78,
+    healthScale: 105,
     manaBase: 390,
-    manaScale: 37,
+    manaScale: 49,
     armorBase: 35,
-    armorScale: 3,
+    armorScale: 3.9,
     magresBase: 38,
-    magresScale: 2,
+    magresScale: 1.64,
     moveSpeed: 355,
     attackBase: 54,
-    attackScale: 4,
+    attackScale: 4.57,
     apBase: 0,
     asBase: 0.667,
     asBaseBonus: 0.667*0.2,
-    asScale: 0.667*0.022
+    asScale: 0.667*0.022,
+    id:'khazix'
   },
 
   {
@@ -1049,20 +1094,21 @@ const champions = [
     rolePrim: roles.jungle,
     roleSecond: false,
     healthBase: 650,
-    healthScale: 78,
+    healthScale: 105,
     manaBase: false,
     manaScale: 50,
     armorBase: 35,
-    armorScale: 4,
+    armorScale: 4.7,
     magresBase: 38,
-    magresScale: 2,
+    magresScale: 1.64,
     moveSpeed: 355,
     attackBase: 66,
-    attackScale: 4,
+    attackScale: 4.57,
     apBase: 0,
     asBase: 0.667,
     asBaseBonus: 0.667*0.2,
-    asScale: 0.667*0.022
+    asScale: 0.667*0.022,
+    id:'leesin'
   },
 
   {
@@ -1072,20 +1118,21 @@ const champions = [
     rolePrim: roles.support,
     roleSecond: false,
     healthBase: 690,
-    healthScale: 78,
+    healthScale: 105,
     manaBase: 390,
-    manaScale: 31,
+    manaScale: 41,
     armorBase: 50,
-    armorScale: 4,
+    armorScale: 4.7,
     magresBase: 38,
-    magresScale: 2,
+    magresScale: 1.64,
     moveSpeed: 345,
     attackBase: 62,
     attackScale: 3,
     apBase: 0,
     asBase: 0.667,
     asBaseBonus: 0.667*0.2,
-    asScale: 0.667*0.012
+    asScale: 0.667*0.012,
+    id:'leona'
   },
 
   {
@@ -1097,18 +1144,19 @@ const champions = [
     healthBase: 570,
     healthScale: 104,
     manaBase: 420,
-    manaScale: 37,
+    manaScale: 50,
     armorBase: 34,
-    armorScale: 3,
+    armorScale: 4,
     magresBase: 32,
     magresScale: 1,
     moveSpeed: 340,
     attackBase: 62,
-    attackScale: 2,
+    attackScale: 2.5,
     apBase: 0,
     asBase: 0.625,
     asBaseBonus: 0.625*0.2,
-    asScale: 0.625*0.022
+    asScale: 0.625*0.022,
+    id:'lillia'
   },
 
   {
@@ -1118,20 +1166,21 @@ const champions = [
     rolePrim: roles.duo,
     roleSecond: roles.middle,
     healthBase: 610,
-    healthScale: 86,
+    healthScale: 115,
     manaBase: 390,
-    manaScale: 37,
+    manaScale: 49,
     armorBase: 35,
-    armorScale: 3,
+    armorScale: 3.9,
     magresBase: 30,
-    magresScale: 1,
+    magresScale: 0.8,
     moveSpeed: 345,
     attackBase: 64,
     attackScale: 3,
     apBase: 0,
     asBase: 0.624,
     asBaseBonus: 0.624*0.33,
-    asScale: 0.624*0.032
+    asScale: 0.624*0.032,
+    id:'lucian'
   },
 
   {
@@ -1141,20 +1190,21 @@ const champions = [
     rolePrim: roles.support,
     roleSecond: false,
     healthBase: 530,
-    healthScale: 71,
+    healthScale: 95,
     manaBase: 480,
-    manaScale: 43,
+    manaScale: 57,
     armorBase: 40,
-    armorScale: 4,
+    armorScale: 4.36,
     magresBase: 30,
-    magresScale: 1,
+    magresScale: 0.86,
     moveSpeed: 340,
     attackBase: 46,
-    attackScale: 2,
+    attackScale: 2.71,
     apBase: 0,
     asBase: 0.625,
     asBaseBonus: 0.625*0.2,
-    asScale: 0.625*0
+    asScale: 0.625*0,
+    id:'lulu'
   },
 
   {
@@ -1164,20 +1214,21 @@ const champions = [
     rolePrim: roles.support,
     roleSecond: false,
     healthBase: 530,
-    healthScale: 78,
+    healthScale: 105,
     manaBase: 480,
-    manaScale: 37,
+    manaScale: 49,
     armorBase: 30,
-    armorScale: 4,
+    armorScale: 4.71,
     magresBase: 30,
-    magresScale: 1,
+    magresScale: 0.86,
     moveSpeed: 340,
     attackBase: 52,
-    attackScale: 3,
+    attackScale: 3.64,
     apBase: 0,
     asBase: 0.625,
     asBaseBonus: 0.625*0.2,
-    asScale: 0.6625*0
+    asScale: 0.6625*0,
+    id:'lux'
   },
 
   {
@@ -1187,20 +1238,21 @@ const champions = [
     rolePrim: roles.baron,
     roleSecond: false,
     healthBase: 650,
-    healthScale: 86,
+    healthScale: 115,
     manaBase: 345,
-    manaScale: 31,
+    manaScale: 41,
     armorBase: 45,
-    armorScale: 4,
+    armorScale: 4.36,
     magresBase: 38,
-    magresScale: 2,
+    magresScale: 1.64,
     moveSpeed: 350,
     attackBase: 52,
-    attackScale: 3,
+    attackScale: 3.64,
     apBase: 0,
     asBase: 0.667,
     asBaseBonus: 0.667*0.2,
-    asScale: 0.667*0.022
+    asScale: 0.667*0.022,
+    id:'malphite'
   },
 
   {
@@ -1210,19 +1262,20 @@ const champions = [
     rolePrim: roles.jungle,
     roleSecond: false,
     healthBase: 610,
-    healthScale: 78,
+    healthScale: 105,
     manaBase: 345,
-    manaScale: 37,
+    manaScale: 49,
     armorBase: 40,
-    armorScale: 3,
+    armorScale: 3.9,
     magresBase: 38,
-    magresScale: 2,
+    magresScale: 1.64,
     moveSpeed: 355,
     attackBase: 54,
-    attackScale: 3,
+    attackScale: 3.64,
     apBase: 0,
     asBase: 0.82,
-    asScale: 0.014285714
+    asScale: 0.014285714,
+    id:'masteryi'
   },
 
   {
@@ -1232,20 +1285,21 @@ const champions = [
     rolePrim: roles.duo,
     roleSecond: false,
     healthBase: 570,
-    healthScale: 86,
+    healthScale: 115,
     manaBase: 390,
-    manaScale: 31,
+    manaScale: 41,
     armorBase: 34,
     armorScale: 4,
     magresBase: 30,
-    magresScale: 1,
+    magresScale: 0.9,
     moveSpeed: 335,
     attackBase: 54,
     attackScale: 3,
     apBase: 0,
     asBase: 0.623,
     asBaseBonus: 0.623*0.3,
-    asScale: 0.623*0.032
+    asScale: 0.623*0.032,
+    id:'missfortune'
   },
 
   {
@@ -1255,20 +1309,21 @@ const champions = [
     rolePrim: roles.support,
     roleSecond: roles.middle,
     healthBase: 570,
-    healthScale: 78,
+    healthScale: 105,
     manaBase: 435,
-    manaScale: 37,
+    manaScale: 49,
     armorBase: 35,
-    armorScale: 3,
+    armorScale: 3.9,
     magresBase: 30,
-    magresScale: 1,
+    magresScale: 0.9,
     moveSpeed: 345,
     attackBase: 58,
-    attackScale: 2,
+    attackScale: 2.7,
     apBase: 0,
     asBase: 0.625,
     asBaseBonus: 0.625*0.2,
-    asScale: 0.625*0.022
+    asScale: 0.625*0.022,
+    id:'morgana'
   },
 
   {
@@ -1278,20 +1333,21 @@ const champions = [
     rolePrim: roles.support,
     roleSecond: false,
     healthBase: 570,
-    healthScale: 71,
+    healthScale: 95,
     manaBase: 390,
-    manaScale: 37,
+    manaScale: 49,
     armorBase: 35,
-    armorScale: 4,
+    armorScale: 4.71,
     magresBase: 30,
-    magresScale: 1,
+    magresScale: 0.86,
     moveSpeed: 345,
     attackBase: 52,
-    attackScale: 3,
+    attackScale: 3.64,
     apBase: 0,
     asBase: 0.625,
     asBaseBonus: 0.625*0.2,
-    asScale: 0.625*0
+    asScale: 0.625*0,
+    id:'nami'
   },
 
   {
@@ -1301,20 +1357,21 @@ const champions = [
     rolePrim: roles.baron,
     roleSecond: false,
     healthBase: 610,
-    healthScale: 86,
+    healthScale: 115,
     manaBase: 390,
-    manaScale: 37,
+    manaScale: 49,
     armorBase: 40,
-    armorScale: 4,
+    armorScale: 4.36,
     magresBase: 38,
-    magresScale: 2,
+    magresScale: 1.64,
     moveSpeed: 355,
     attackBase: 66,
-    attackScale: 4,
+    attackScale: 4.57,
     apBase: 0,
     asBase: 0.667,
     asBaseBonus: 0.667*0.2,
-    asScale: 0.667*0.022
+    asScale: 0.667*0.022,
+    id:'nasus'
   },
 
   {
@@ -1324,20 +1381,21 @@ const champions = [
     rolePrim: roles.support,
     roleSecond: roles.jungle,
     healthBase: 650,
-    healthScale: 86,
+    healthScale: 115,
     manaBase: 390,
-    manaScale: 43,
+    manaScale: 57,
     armorBase: 40,
-    armorScale: 4,
+    armorScale: 4.36,
     magresBase: 38,
-    magresScale: 2,
+    magresScale: 1.64,
     moveSpeed: 340,
     attackBase: 58,
-    attackScale: 4,
+    attackScale: 4.57,
     apBase: 0,
     asBase: 0.664,
     asBaseBonus: 0.664*0.1,
-    asScale: 0.664*0.012
+    asScale: 0.664*0.012,
+    id:'nautilus'
   },
 
   {
@@ -1347,11 +1405,11 @@ const champions = [
     rolePrim: roles.baron,
     roleSecond: false,
     healthBase: 570,
-    healthScale: 83,
+    healthScale: 112,
     manaBase: 340,
-    manaScale: 37,
+    manaScale: 50,
     armorBase: 37,
-    armorScale: 4,
+    armorScale: 4.5,
     magresBase: 32,
     magresScale: 2,
     moveSpeed: 350,
@@ -1360,7 +1418,8 @@ const champions = [
     apBase: 0,
     asBase: 0.669,
     asBaseBonus: 0.669*0.33,
-    asScale: 0.669*0.032
+    asScale: 0.669*0.032,
+    id:'nilah'
   },
 
   {
@@ -1383,7 +1442,8 @@ const champions = [
     apBase: 0,
     asBase: 0.667,
     asBaseBonus: 0.667*0.2,
-    asScale: 0.667*0.022
+    asScale: 0.667*0.022,
+    id:'nunu'
   },
 
   {
@@ -1406,7 +1466,8 @@ const champions = [
     apBase: 0,
     asBase: 0.664,
     asBaseBonus: 0.664*0.1,
-    asScale: 0.664*0.022
+    asScale: 0.664*0.022,
+    id:'olaf'
   },
 
   {
@@ -1429,7 +1490,8 @@ const champions = [
     apBase: 0,
     asBase: 0.625,
     asBaseBonus: 0.625*0.2,
-    asScale: 0.625*0
+    asScale: 0.625*0,
+    id:'orianna'
   },
 
   {
@@ -1452,7 +1514,8 @@ const champions = [
     apBase: 0,
     asBase: 0.664,
     asBaseBonus: 0.664*0.1,
-    asScale: 0.664*0.012
+    asScale: 0.664*0.012,
+    id:'ornn'
   },
 
   {
@@ -1475,7 +1538,8 @@ const champions = [
     apBase: 0,
     asBase: 0.667,
     asBaseBonus: 0.667*0.2,
-    asScale: 0.667*0.022
+    asScale: 0.667*0.022,
+    id:'pantheon'
   },
 
   {
@@ -1498,7 +1562,8 @@ const champions = [
     apBase: 0,
     asBase: 0.667,
     asBaseBonus: 0.667*0.2,
-    asScale: 0.667*0.017
+    asScale: 0.667*0.017,
+    id:'pyke'
   },
 
   {
@@ -1521,7 +1586,8 @@ const champions = [
     apBase: 0,
     asBase: 0.625,
     asBaseBonus: 0.625*0.2,
-    asScale: 0.625*0.022
+    asScale: 0.625*0.022,
+    id:'rakan'
   },
 
   {
@@ -1544,7 +1610,8 @@ const champions = [
     apBase: 0,
     asBase: 0.667,
     asBaseBonus: 0.667*0.2,
-    asScale: 0.667*0.022
+    asScale: 0.667*0.022,
+    id:'rammus'
   },
 
   {
@@ -1567,7 +1634,8 @@ const champions = [
     apBase: 0,
     asBase: 0.667,
     asBaseBonus: 0.667*0.2,
-    asScale: 0.667*0.022
+    asScale: 0.667*0.022,
+    id:'renekton'
   },
 
   {
@@ -1590,7 +1658,8 @@ const champions = [
     apBase: 0,
     asBase: 0.667,
     asBaseBonus: 0.667*0.23,
-    asScale: 0.667*0.022
+    asScale: 0.667*0.022,
+    id:'rengar'
   },
 
   {
@@ -1613,7 +1682,8 @@ const champions = [
     apBase: 0,
     asBase: 0.667,
     asBaseBonus: 0.667*0.2,
-    asScale: 0.667*0.022
+    asScale: 0.667*0.022,
+    id:'riven'
   },
 
   {
@@ -1623,20 +1693,21 @@ const champions = [
     rolePrim: roles.duo,
     roleSecond: false,
     healthBase: 610,
-    healthScale: 86,
+    healthScale: 115,
     manaBase: 345,
-    manaScale: 37,
+    manaScale: 49,
     armorBase: 35,
-    armorScale: 3,
+    armorScale: 3.93,
     magresBase: 30,
-    magresScale: 1,
+    magresScale: 0.86,
     moveSpeed: 330,
     attackBase: 64,
     attackScale: 4,
     apBase: 0,
     asBase: 0.623,
     asBaseBonus: 0.623*0.3,
-    asScale: 0.623*0.032
+    asScale: 0.623*0.032,
+    id:'samira'
   },
 
   {
@@ -1659,7 +1730,8 @@ const champions = [
     apBase: 0,
     asBase: 0.620,
     asBaseBonus: 0.620*0,
-    asScale: 0.620*0.017
+    asScale: 0.620*0.017,
+    id:'senna'
   },
 
   {
@@ -1682,7 +1754,8 @@ const champions = [
     apBase: 0,
     asBase: 0.625,
     asBaseBonus: 0.625*0.2,
-    asScale: 0.625*0
+    asScale: 0.625*0,
+    id:'seraphine'
   },
 
   {
@@ -1705,7 +1778,8 @@ const champions = [
     apBase: 0,
     asBase: 0.664,
     asBaseBonus: 0.664*0.13,
-    asScale: 0.664*0.012
+    asScale: 0.664*0.012,
+    id:'sett'
   },
 
   {
@@ -1728,7 +1802,8 @@ const champions = [
     apBase: 0,
     asBase: 0.667,
     asBaseBonus: 0.667*0.2,
-    asScale: 0.667*0.022
+    asScale: 0.667*0.022,
+    id:'shen'
   },
 
   {
@@ -1751,7 +1826,8 @@ const champions = [
     apBase: 0,
     asBase: 0.667,
     asBaseBonus: 0.667*0.23,
-    asScale: 0.667*0.022
+    asScale: 0.667*0.022,
+    id:'shyvana'
   },
 
   {
@@ -1774,7 +1850,8 @@ const champions = [
     apBase: 0,
     asBase: 0.667,
     asBaseBonus: 0.667*0.2,
-    asScale: 0.667*0.022
+    asScale: 0.667*0.022,
+    id:'singed'
   },
 
   {
@@ -1797,7 +1874,8 @@ const champions = [
     apBase: 0,
     asBase: 0.667,
     asBaseBonus: 0.667*0.2,
-    asScale: 0.667*0.012
+    asScale: 0.667*0.012,
+    id:'sion'
   },
 
   {
@@ -1820,7 +1898,8 @@ const champions = [
     apBase: 0,
     asBase: 0.625,
     asBaseBonus: 0.625*0.2,
-    asScale: 0.625*0
+    asScale: 0.625*0,
+    id:'sona'
   },
 
   {
@@ -1843,7 +1922,8 @@ const champions = [
     apBase: 0,
     asBase: 0.625,
     asBaseBonus: 0.625*0.2,
-    asScale: 0.625*0
+    asScale: 0.625*0,
+    id:'soraka'
   },
 
   {
@@ -1866,7 +1946,8 @@ const champions = [
     apBase: 0,
     asBase: 0.625,
     asBaseBonus: 0.625*0.2,
-    asScale: 0.625*0.022
+    asScale: 0.625*0.022,
+    id:'swain'
   },
 
   {
@@ -1889,7 +1970,8 @@ const champions = [
     apBase: 0,
     asBase: 0.625,
     asBaseBonus: 0.625*0.2,
-    asScale: 0.625*0.022
+    asScale: 0.625*0.022,
+    id:'teemo'
   },
 
   {
@@ -1912,7 +1994,8 @@ const champions = [
     apBase: 0,
     asBase: 0.625,
     asBaseBonus: 0.625*0.2,
-    asScale: 0.625*0.022
+    asScale: 0.625*0.022,
+    id:'thresh'
   },
 
   {
@@ -1935,7 +2018,8 @@ const champions = [
     apBase: 0,
     asBase: 0.624,
     asBaseBonus: 0.624*0.33,
-    asScale: 0.624*0.032
+    asScale: 0.624*0.032,
+    id:'tristana'
   },
 
   {
@@ -1958,7 +2042,8 @@ const champions = [
     apBase: 0,
     asBase: 0.667,
     asBaseBonus: 0.667*0.23,
-    asScale: 0.667*0.022
+    asScale: 0.667*0.022,
+    id:'tryndamere'
   },
 
   {
@@ -1981,7 +2066,8 @@ const champions = [
     apBase: 0,
     asBase: 0.626,
     asBaseBonus: 0.626*0.23,
-    asScale: 0.626*0.022
+    asScale: 0.626*0.022,
+    id:'twistedfate'
   },
 
   {
@@ -2004,7 +2090,8 @@ const champions = [
     apBase: 0,
     asBase: 0.624,
     asBaseBonus: 0.624*0.33,
-    asScale: 0.624*0.032
+    asScale: 0.624*0.032,
+    id:'twitch'
   },
 
   {
@@ -2027,7 +2114,8 @@ const champions = [
     apBase: 0,
     asBase: 0.625,
     asBaseBonus: 0.625*0.2,
-    asScale: 0.625*0.022
+    asScale: 0.625*0.022,
+    id:'urgot'
   },
 
   {
@@ -2050,7 +2138,8 @@ const champions = [
     apBase: 0,
     asBase: 0.623,
     asBaseBonus: 0.623*0.3,
-    asScale: 0.623*0.032
+    asScale: 0.623*0.032,
+    id:'varus'
   },
 
   {
@@ -2073,7 +2162,8 @@ const champions = [
     apBase: 0,
     asBase: 0.624,
     asBaseBonus: 0.624*0.33,
-    asScale: 0.624*0.022
+    asScale: 0.624*0.022,
+    id:'vayne'
   },
 
   {
@@ -2096,7 +2186,8 @@ const champions = [
     apBase: 0,
     asBase: 0.625,
     asBaseBonus: 0.625*0.2,
-    asScale: 0.625*0
+    asScale: 0.625*0,
+    id:'veigar'
   },
 
   {
@@ -2119,7 +2210,8 @@ const champions = [
     apBase: 0,
     asBase: 0.625,
     asBaseBonus: 0.625*0.2,
-    asScale: 0.625*0
+    asScale: 0.625*0,
+    id:'vex'
   },
 
   {
@@ -2142,7 +2234,8 @@ const champions = [
     apBase: 0,
     asBase: 0.667,
     asBaseBonus: 0.667*0.2,
-    asScale: 0.667*0.022
+    asScale: 0.667*0.022,
+    id:'vi'
   },
 
   {
@@ -2165,7 +2258,8 @@ const champions = [
     apBase: 0,
     asBase: 0.625,
     asBaseBonus: 0.625*0.2,
-    asScale: 0.625*0.022
+    asScale: 0.625*0.022,
+    id:'vladimir'
   },
 
   {
@@ -2188,7 +2282,8 @@ const champions = [
     apBase: 0,
     asBase: 0.664,
     asBaseBonus: 0.664*0.1,
-    asScale: 0.664*0.002
+    asScale: 0.664*0.002,
+    id:'volibear'
   },
 
   {
@@ -2211,7 +2306,8 @@ const champions = [
     apBase: 0,
     asBase: 0.667,
     asBaseBonus: 0.667*0.22,
-    asScale: 0.667*0.022
+    asScale: 0.667*0.022,
+    id:'warwick'
   },
 
   {
@@ -2234,7 +2330,8 @@ const champions = [
     apBase: 0,
     asBase: 0.667,
     asBaseBonus: 0.667*0.2,
-    asScale: 0.667*0.022
+    asScale: 0.667*0.022,
+    id:'wukong'
   },
 
   {
@@ -2257,7 +2354,8 @@ const champions = [
     apBase: 0,
     asBase: 0.624,
     asBaseBonus: 0.624*0.33,
-    asScale: 0.624*0.032
+    asScale: 0.624*0.032,
+    id:'xayah'
   },
 
   {
@@ -2280,7 +2378,8 @@ const champions = [
     apBase: 0,
     asBase: 0.667,
     asBaseBonus: 0.667*0.22,
-    asScale: 0.667*0.022
+    asScale: 0.667*0.022,
+    id:'xinzhao'
   },
 
   {
@@ -2303,7 +2402,8 @@ const champions = [
     apBase: 0,
     asBase: 0.669,
     asBaseBonus: 0.669*0.33,
-    asScale: 0.669*0.032,    
+    asScale: 0.669*0.032,
+    id:'yasuo'   
   },
 
   {
@@ -2326,7 +2426,8 @@ const champions = [
     apBase: 0,
     asBase: 0.667,
     asBaseBonus: 0.667*0.23,
-    asScale: 0.667*0.032,    
+    asScale: 0.667*0.032,
+    id:'yone' 
   },
 
   {
@@ -2349,7 +2450,8 @@ const champions = [
     apBase: 0,
     asBase: 0.667,
     asBaseBonus: 0.667*0.2,
-    asScale: 0.667*0.007
+    asScale: 0.667*0.007,
+    id:'yuumi'
   },
 
   {
@@ -2372,7 +2474,8 @@ const champions = [
     apBase: 0,
     asBase: 0.667,
     asBaseBonus: 0.667*0.2,
-    asScale: 0.667*0.022
+    asScale: 0.667*0.022,
+    id:'zed'
   },
 
   {
@@ -2395,7 +2498,8 @@ const champions = [
     apBase: 0,
     asBase: 0.624,
     asBaseBonus: 0.624*0.33,
-    asScale: 0.624*0.027
+    asScale: 0.624*0.027,
+    id:'zeri'
   },
 
   {
@@ -2418,7 +2522,8 @@ const champions = [
     apBase: 0,
     asBase: 0.625,
     asBaseBonus: 0.625*0.2,
-    asScale: 0.625*0
+    asScale: 0.625*0,
+    id:'ziggs'
   },
 
   {
@@ -2441,7 +2546,8 @@ const champions = [
     apBase: 0,
     asBase: 0.625,
     asBaseBonus: 0.625*0.2,
-    asScale: 0.625*0.022
+    asScale: 0.625*0.022,
+    id:'zoe'
   },
 ]
 

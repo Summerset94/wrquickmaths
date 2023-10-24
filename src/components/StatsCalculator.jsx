@@ -34,13 +34,35 @@ export default function StatsCalculator(props) {
 
   }, [champ, currentLevel])
 
+ // THIS FORMULA is for how much statistics grow through level
+//  const g = stat.scale *  (0.67294 + 0.03846 * currentLevel)
+
+//  stat = base + ((stat.scale * (currentLevel - 1) * (0.67294 + 0.03846 * (currentLevel - 1)))
+0.03571
+
+const statGrowth = function(mod) {  
+  if(currentLevel == 1) {
+    return 0
+  } else if (currentLevel == 2) {
+    return (mod * 0.75)
+  } else {
+      let totalMod = 0;
+
+      for (let level = 2; level <= currentLevel; level++) {
+        totalMod += mod * (0.75 + ((0.5/14) * (level - 2)))
+      }
+
+      return totalMod;
+  }  
+}
+
   const baseMemo = useMemo(() => {
     return {
-      health: champ.healthBase + (champ.healthScale * (currentLevel - 1)),
-      mana: champ.manaBase ? champ.manaBase + (champ.manaScale * (currentLevel - 1)) : 0,
-      armor: champ.armorBase + (champ.armorScale * (currentLevel - 1)),
-      magres: champ.magresBase + (champ.magresScale * (currentLevel - 1)),
-      attack: champ.attackBase + (champ.attackScale * (currentLevel - 1)),
+      health: Math.ceil(champ.healthBase + statGrowth(champ.healthScale)),
+      mana: champ.manaBase ? Math.ceil(champ.manaBase + statGrowth(champ.manaScale)) : 0,
+      armor: Math.ceil(champ.armorBase + statGrowth(champ.armorScale)),
+      magres: Math.ceil(champ.magresBase + statGrowth(champ.magresScale)),
+      attack: Math.ceil(champ.attackBase + statGrowth(champ.attackScale)),
       ap: 0,
       as: champ.asBase +  champ.asBaseBonus + (champ.asScale * (currentLevel - 1)),
       asBase: champ.asBase,
@@ -105,6 +127,8 @@ export default function StatsCalculator(props) {
     let attackMod;
     let asMod;
     let critChanceMod;
+    let moveSpeedMod;
+    let armPenMod;
 
   //Health
     switch (champ.name) {
@@ -127,6 +151,9 @@ export default function StatsCalculator(props) {
   // Jhin is Wrong: there's no source for his passive AD/Critchance to AD conversion numbers
       case 'Jhin':
         attackMod = Math.ceil((baseMemo.attack + bonusMemo.attack) * 5 * currentLevel / 100);
+        break;
+      case 'Hecarim':
+        attackMod = Math.round(bonusMemo.moveSpeed * 12 / 100);
         break;
       default:
         attackMod = 0;
@@ -157,13 +184,36 @@ export default function StatsCalculator(props) {
     default:
       critChanceMod = bonusMemo.critChance;
       break;
-  }  
+  }
+  
+  //Movement Speed
+  switch (champ.name) {
+    case 'Janna':
+      moveSpeedMod = (baseMemo.moveSpeed + bonusMemo.moveSpeed) * 5 / 100;
+      break;
+    default:
+      moveSpeedMod = 0;
+      break;
+  }
+
+  //Armor Penetration
+  switch (champ.name) {
+    case 'Nilah':
+      armPenMod = (bonusMemo.critChance * 35 / 100);
+      break;
+    default:
+      armPenMod = 0;
+      break;
+
+  }
   
     return {
       health: healthMod,
       attack: attackMod,
       as: asMod,
-      critChance: critChanceMod
+      critChance: critChanceMod,
+      moveSpeed: moveSpeedMod,
+      armPen : armPenMod,
     };
   }, [champ, baseMemo, bonusMemo, currentLevel]);
   
@@ -189,9 +239,9 @@ export default function StatsCalculator(props) {
       flatArmPen: bonusMemo.flatArmPen,
       flatMagPen: bonusMemo.flatMagPen,
       // Bug: percent mitigation don't re-render dynamically
-      armPen: bonusMemo.armPen,
+      armPen: bonusMemo.armPen + totalModifier.armPen,
       magPen: bonusMemo.magPen,
-      moveSpeed: baseMemo.moveSpeed + bonusMemo.moveSpeed,
+      moveSpeed: baseMemo.moveSpeed + bonusMemo.moveSpeed + totalModifier.moveSpeed,
       critChance: totalModifier.critChance,
       critMultiplier: champ.name != 'Ashe' ? baseMemo.critMultiplier + bonusMemo.critMultiplier : 1,
       critDamage: ((baseMemo.attack + bonusMemo.attack))*(champ.name != 'Ashe' ? baseMemo.critMultiplier + bonusMemo.critMultiplier : 1),

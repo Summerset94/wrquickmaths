@@ -547,7 +547,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
 
           <p><b>Magic Fang:</b> Gain <span className="stat--ad">30 Attack Damage</span> or <span className='stat--ap'>60 Ability Power</span> <abbr title="Based of what BONUS stat you have more. Calculated whenever you select this item from the list"><b>(Adaptive)</b></abbr>.</p>
 
-          <p><b>Gnaw:</b> When basic attack hits enemy champions, it will cause <abbr title="15 + 25% BONUS attack + 25% bonus ap"><span className='stat--ap'>{15 + (bonus.attack * 0.25) + (bonus.ap * 0.25)} bonus Magic damage</span></abbr></p>
+          <p><b>Gnaw:</b> When basic attack hits enemy champions, it will cause <abbr title="15 + 25% BONUS attack + 25% bonus ap; pre- and (psot-) mitigation damage shown"><span className='stat--ap'>{15 + (bonus.attack * 0.25) + (bonus.ap * 0.25)} ({Math.round((15 + (bonus.attack * 0.25) + (bonus.ap * 0.25))*(1 - modifierMres))}) bonus Magic damage</span></abbr></p>
         </div>
     },
 
@@ -3088,7 +3088,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
         ap: 0,
         as: 0,
         moveSpeed: 45,
-        flatArmPen: 10,
+        flatArmPen: 8,
         flatMagPen: 0,
         armPen: 0,
         magPen: 0,
