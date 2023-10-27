@@ -44,12 +44,12 @@ const statGrowth = function(mod) {
   if(currentLevel == 1) {
     return 0
   } else if (currentLevel == 2) {
-    return (mod * 0.75)
+    return (mod * 75 / 100)
   } else {
       let totalMod = 0;
 
       for (let level = 2; level <= currentLevel; level++) {
-        totalMod += mod * (0.75 + ((0.5/14) * (level - 2)))
+        totalMod += mod * ((75 / 100) + (((50 / 100)/14) * (level - 2)))
       }
 
       return totalMod;
@@ -93,33 +93,7 @@ const statGrowth = function(mod) {
     bootsPassive: false
   });
 
-  // State and functions for changing stats depending on bonus from items passive effects
-
-  const [fonStacked, setFonStacked] = useState(false);
-  const bonusEffectsMemo = useMemo(() =>{
-    return {
-      rabadon: Math.floor((bonusMemo.ap) * 40 / 100),
-      twinguardAR: Math.floor((baseMemo.armor + bonusMemo.armor) * 30 / 100),
-      twinguardMR: Math.floor((baseMemo.magres + bonusMemo.magres) * 30 / 100),
-      fonEffect: fonStacked,
-    }
-  }, [bonusMemo])
-
-  const [rabadonApplied, setRabadonApplied] = useState(false);
-  const [twinguardApplied, setTwinguardapplied] = useState(false);
   
-
-  const toggleTwinguard = () => {
-    setTwinguardapplied(oldState => !oldState)
-  };
-
-  const toggleRabadon = () => { 
-    setRabadonApplied(oldState => !oldState)
-  };
-
-  const toggleFON = () => {
-    setFonStacked(oldState => !oldState)
-  }
 
 // This Memo because some champs are unique so I have to dance around their stats interactions
   const totalModifier = useMemo(() => {
@@ -129,12 +103,63 @@ const statGrowth = function(mod) {
     let critChanceMod;
     let moveSpeedMod;
     let armPenMod;
+    let armorMod;
+    let magresMod;
+    let critMultiplierMod
+
+  //Armor
+  switch (champ.name) {
+    case 'Ornn':
+      if (currentLevel <= 4) {
+        armorMod = (bonusMemo.armor * 7 /100)
+      } else if (currentLevel >4 && currentLevel <= 8) {
+        armorMod = (bonusMemo.armor * 12 /100)
+      } else if (currentLevel >8 && currentLevel <= 12) {
+        armorMod = (bonusMemo.armor * 17 /100)
+      } else {
+        armorMod = (bonusMemo.armor * 22 /100)
+      };
+      break;
+    default:
+      armorMod = 0;
+      break;
+  }
+
+  //Magic Resistance
+  switch (champ.name) {
+    case 'Ornn':
+      if (currentLevel <= 4) {
+        magresMod = (bonusMemo.magres * 7 /100)
+      } else if (currentLevel >4 && currentLevel <= 8) {
+        magresMod = (bonusMemo.magres * 12 /100)
+      } else if (currentLevel >8 && currentLevel <= 12) {
+        magresMod = (bonusMemo.magres * 17 /100)
+      } else {
+        magresMod = (bonusMemo.magres * 22 /100)
+      };
+      break;
+    default:
+      magresMod = 0;
+      break;
+  }
 
   //Health
     switch (champ.name) {
       case 'Pyke':
         healthMod = baseMemo.health;
         break;
+
+        case 'Ornn':
+          if (currentLevel <= 4) {
+            healthMod = (bonusMemo.health * 7 /100)
+          } else if (currentLevel >4 && currentLevel <= 8) {
+            healthMod = (bonusMemo.health * 12 /100)
+          } else if (currentLevel >8 && currentLevel <= 12) {
+            healthMod = (bonusMemo.health * 17 /100)
+          } else {
+            healthMod = (bonusMemo.health * 22 /100)
+          };
+          break;
       default:
         healthMod = baseMemo.health + bonusMemo.health;
         break;
@@ -168,6 +193,9 @@ const statGrowth = function(mod) {
       case 'Jhin':
         asMod = baseMemo.as;
         break;
+      case 'Senna' :
+        asMod = baseMemo.as + (bonusMemo.as * 40 / 100);
+        break;
       default:
         asMod = baseMemo.as + bonusMemo.as;
         break;
@@ -183,6 +211,22 @@ const statGrowth = function(mod) {
       break;
     default:
       critChanceMod = bonusMemo.critChance;
+      break;
+  }
+
+  //Crit Multiplier
+  switch (champ.name) {
+    case 'Ashe':
+      critMultiplierMod = 1;
+      break;
+    case 'Senna':
+      critMultiplierMod = ((baseMemo.critMultiplier + bonusMemo.critMultiplier)*85/100)
+      break;
+    case 'Jhin':
+      critMultiplierMod = (150 / 100) + bonusMemo.critMultiplier;
+      break; 
+    default: 
+      baseMemo.critMultiplier + bonusMemo.critMultiplier;
       break;
   }
   
@@ -201,6 +245,17 @@ const statGrowth = function(mod) {
     case 'Nilah':
       armPenMod = (bonusMemo.critChance * 35 / 100);
       break;
+    case 'Pantheon':
+      if (currentLevel < 5) {
+        armPenMod = 0
+      } else if (currentLevel >= 5 && currentLevel < 9) {
+        armPenMod = 10/100
+      } else if (currentLevel >= 9 && currentLevel < 13) {
+        armPenMod = 20/100
+      } else {
+        armPenMod = 30/100
+      }
+      break;
     default:
       armPenMod = 0;
       break;
@@ -214,15 +269,48 @@ const statGrowth = function(mod) {
       critChance: critChanceMod,
       moveSpeed: moveSpeedMod,
       armPen : armPenMod,
+      armor: armorMod,
+      magres: magresMod,
+      critMultiplier: critMultiplierMod,
     };
   }, [champ, baseMemo, bonusMemo, currentLevel]);
+
+  
+
+  // State and functions for changing stats depending on bonus from items passive effects
+
+  const [fonStacked, setFonStacked] = useState(false);
+  const bonusEffectsMemo = useMemo(() =>{
+    return {
+      rabadon: Math.floor((bonusMemo.ap) * (20 + (25/14 * (currentLevel - 1))) / 100),
+      twinguardAR: Math.floor((baseMemo.armor + bonusMemo.armor + totalModifier.armor) * 30 / 100),
+      twinguardMR: Math.floor((baseMemo.magres + bonusMemo.magres + totalModifier.magres) * 30 / 100),
+      fonEffect: fonStacked,
+    }
+  }, [bonusMemo])
+
+  const [rabadonApplied, setRabadonApplied] = useState(false);
+  const [twinguardApplied, setTwinguardapplied] = useState(false);
+  
+
+  const toggleTwinguard = () => {
+    setTwinguardapplied(oldState => !oldState)
+  };
+
+  const toggleRabadon = () => { 
+    setRabadonApplied(oldState => !oldState)
+  };
+
+  const toggleFON = () => {
+    setFonStacked(oldState => !oldState)
+  }
   
   const totalMemo = useMemo(() => {
     return {
       health: totalModifier.health,
       mana: champ.manaBase ? baseMemo.mana + bonusMemo.mana : 0,
-      armor: baseMemo.armor + bonusMemo.armor + (twinguardApplied ? bonusEffectsMemo.twinguardAR : 0),
-      magres: baseMemo.magres + bonusMemo.magres + (twinguardApplied ? bonusEffectsMemo.twinguardMR : 0),
+      armor: baseMemo.armor + bonusMemo.armor + totalModifier.armor + (twinguardApplied ? bonusEffectsMemo.twinguardAR : 0),
+      magres: baseMemo.magres + bonusMemo.magres + totalModifier.magres + (twinguardApplied ? bonusEffectsMemo.twinguardMR : 0),
       attack: baseMemo.attack + bonusMemo.attack + totalModifier.attack,
       
       ap: bonusMemo.ap + (rabadonApplied ? bonusEffectsMemo.rabadon : 0),
@@ -243,7 +331,7 @@ const statGrowth = function(mod) {
       magPen: bonusMemo.magPen,
       moveSpeed: baseMemo.moveSpeed + bonusMemo.moveSpeed + totalModifier.moveSpeed,
       critChance: totalModifier.critChance,
-      critMultiplier: champ.name != 'Ashe' ? baseMemo.critMultiplier + bonusMemo.critMultiplier : 1,
+      critMultiplier: totalModifier.critMultiplier,
       critDamage: ((baseMemo.attack + bonusMemo.attack))*(champ.name != 'Ashe' ? baseMemo.critMultiplier + bonusMemo.critMultiplier : 1),
       armorReduction: bonusMemo.armorReduction,
       magResReduction: bonusMemo.magResReduction,
@@ -427,11 +515,11 @@ const statGrowth = function(mod) {
           </tr>
           <tr>
             <td colSpan={2}>Percentage Armor</td>
-            <td colSpan={2} className="stat--ad">{totalMemo.armPen * 100}%</td>
+            <td colSpan={2} className="stat--ad">{(totalMemo.armPen * 100).toFixed(0)}%</td>
           </tr>
           <tr>
             <td colSpan={2}>Percentage Magic</td>
-            <td colSpan={2} className="stat--ap">{totalMemo.magPen * 100}%</td>
+            <td colSpan={2} className="stat--ap">{(totalMemo.magPen * 100).toFixed(0)}%</td>
           </tr>
 
           <tr>

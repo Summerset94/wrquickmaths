@@ -145,12 +145,12 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
         <h3 className='stat--critChance'>+ {Number(0.25*100)}% Critical Rate</h3>
   
         <p><b>Bloody: </b> <b className='stat--vamp'>+12% (<abbr title="Damage against 0 armor target / post mitigated for current target">{Math.round((total.attack * 0.12))} / {Math.round((total.attack * 0.12)* (1 - modifier))}</abbr>)  Physical Vamp</b></p>
-        <p><b>Bloodsworn: </b> <span className='stat--vamp'>Physical Vamp</span> overheals you, generating a shield that absorbs <abbr title='40 + (20 * level)' className='stat--hp'>{(40 + 20 * (currentLevel - 1))}</abbr> damage. This shield decays out of combat over 10 seconds</p>
+        <p><b>Bloodsworn: </b> Gain <abbr title="11-25 based on level" className="stat--ad">{10 + currentLevel} Attack Damage</abbr> and <abbr title="15%" className="stat--as">{(base.asBase*15/100).toFixed(3)} Attack Speed</abbr> when your health is above <span className="stat--hp"> 50%</span>.</p>
       </div>
     },
-  
+
     {
-      name: 'Statikk Shiv',      
+      name: 'Magnetic Blaster',
 
       health: 0,
       mana: 0,
@@ -158,34 +158,40 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
       magres: 0,
       attack: 0,
       ap: 0,
-      as: (base.asBase*0.35),
-      moveSpeed: (0.05 * base.moveSpeed),
+      as: (base.asBase * 0.35),
+      moveSpeed: (base.moveSpeed * 5 / 100),
       flatArmPen: 0,
       flatMagPen: 0,
       armPen: 0,
       magPen: 0,
-      critChance: 0.25,
+      critChance: (25/100),
       critMultiplier: 0,
+      ah: 0,
       armorReduction: 0,
-       
-      description: <div className='itemDescription'>
-         <img src="../images/items/Statikk_Shiv.png" alt="itemIcon" className="itemIcon" />
-        <h3 className='stat--as'>+{Number(base.asBase * 0.35).toFixed(3)} Attack Speed</h3>
-        <h3 className='stat--critChance'>+ 25% Critical Rate</h3>
-  
-        <p>
-          <b>Electric: </b> <b className='stat--moveSpeed'>+{(base.moveSpeed * 0.05).toFixed(2)} Movement Speed </b>
-        </p>
-          
-        <p>
-          <b>Energized: </b>Moving and attacking will generate an <b>Energized Attack </b>
-        </p>
-  
-        <p>
-          <b>Shiv Lightning:</b> Energized Attack gain <abbr title="50 + 5 per level"><b className='stat--ap'>{(50 + 5 * (currentLevel - 1))} Magic Damage</b></abbr>, that bounces to <b>5</b> nearby enemies. This effect's damage can <b className='stat--critChance'>crit</b> and applies this effect of <b classname='stat--ap'>Energized Attacks</b> to all enemies hit.
-        </p> 
-      </div>
+      bootsPassive: false,
+
+      description: 
+        <div className='itemDescription'>
+          <img src="../images/items/Magnetic_Blaster.png" alt="itemIcon" className="itemIcon" />
+
+          <h3 className="stat--critChance">+25% Critical Rate</h3>
+          <h3 className="stat--as">+35% ({(base.asBase * 0.35).toFixed(3)}) Attack Speed</h3>
+
+          <p>
+            <b>Fervor:</b> <span className="stat--moveSpeed">+ 5% Movement speed</span>
+          </p>
+
+          <p>
+            <b>Energized:</b> Generates energized attack from movement and basic attacks
+          </p>
+
+          <p>
+            <b>Power Blitz: </b>Energized attacks generate 25% faster, gain 125 attack range (50 range for melee attacks), and deal <abbr title="50-120 based on level" className="stat--ap">{(50 + (5 * (currentLevel-1)))} bonus magic damage</abbr>. Damage bounces to 5 nearby enemies and can <span className="stat--critChance">critically strike</span>. 
+          </p>
+        </div>
+
     },
+
   
     {
       name: 'Blade of the Ruined King',
@@ -226,43 +232,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
   
       </div>
     },
-  
-    {
-      name: 'Rapid Firecannon',
-      
-      health: 0,
-      mana: 0,
-      armor: 0,
-      magres: 0,
-      attack: 0,
-      ap: 0,
-      as: (base.asBase * 0.35),
-      moveSpeed: (0.05 * base.moveSpeed),
-      flatArmPen: 0,
-      flatMagPen: 0,
-      armPen: 0,
-      magPen: 0,
-      critChance: 0.25,
-      critMultiplier: 0,
-      armorReduction: 0,
-
-     
-      description:
-        <div className='itemDescription'>
-           <img src="../images/items/Rapid_Firecannon.png" alt="itemIcon" className="itemIcon" />
-          <h3 className='stat--as'>+35% ({(base.asBase * 0.35).toFixed(3)}) Attack Speed</h3>
-          <h3 className='stat--critChance'>+{0.25*100}% Critical Rate</h3>
-  
-          <p>
-            <b>Hunter's Swiftness:</b> <span className='stat--moveSpeed'>+{(0.05 * base.moveSpeed)} Move Speed.</span>
-          </p>
-  
-          <p>
-            <b>Energized:</b> moving and attacking will generate an <span className='stat--ad'>Energized Attack</span>. Energized Attacks generate 25% faster. gain <abbr title="50 + 5 per Level"> <span className='stat--ap'>{(50 + 5 * (currentLevel - 1))} bonus magic damage</span></abbr>  and gain 125 attack range. Melee attacks gets 50 bonus range.
-          </p>
-        </div>
-    },
-  
+    
     {
       name: 'Runaan\'s Hurricane',
       
@@ -270,24 +240,30 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
       mana: 0,
       armor: 0,
       magres: 0,
-      attack: 0,
-      ap: 0,
+      attack: (bonus.attack > bonus.ap || bonus.ap == 0 ? 30 : 0),
+      ap: (bonus.ap > bonus.attack ? 60 : 0 ),
       as: (base.asBase * 0.45),
       moveSpeed: 0,
       flatArmPen: 0,
       flatMagPen: 0,
       armPen: 0,
       magPen: 0,
-      critChance: 0.25,
+      critChance: 0,
       critMultiplier: 0,
       armorReduction: 0,
       
       description:
         <div className='itemDescription'>
            <img src="../images/items/Runaan's_Hurricane.png" alt="itemIcon" className="itemIcon" />
-          <h3 className='stat--as'>+45% ({(base.asBase * 0.45).toFixed(3)}) Attack Speed</h3>
-          <h3 className='stat--critChance'>+ {0.25*100}% Critical Rate</h3>
+          <h3 className='stat--as'>+45% ({(base.asBase * 0.45).toFixed(3)}) Attack Speed</h3>          
   
+          <p>
+            <b>Wind's Favor:</b> Gain <span className="stat--ad">30 Attack Damage</span> or <span className="stat--ap">60 Ability Power</span> (Adaptive).
+          </p>
+
+          <p>
+            <b>Wind Blade</b> Attacks deal <span className="stat--ad">15 bonus physical damage</span>  on-hit against targets.
+          </p>
           <p>Attacks strike 2 additional nearby enemies. Each attack  dealing <abbr title="55% Attack Damage" className='stat--ad'>{Math.round(total.attack*0.55)} damage</abbr>. These attacks CAN critically hit and trigger on-hit effects.</p>        
         </div>
     },
@@ -426,7 +402,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
       mana: 0,
       armor: 0,
       magres: 0,
-      attack: 45,
+      attack: 30,
       ap: 0,
       as: 0,
       moveSpeed: 0,
@@ -434,17 +410,18 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
       flatMagPen: 0,
       armPen: ((15 + Number(currentLevel))/100),
       magPen: 0,
-      critChance: 0,
+      critChance: (25/100),
       critMultiplier: 0,
       armorReduction: 0,
 
       description: 
         <div className='itemDescription'>
            <img src="../images/items/Mortal.png" alt="itemIcon" className="itemIcon" />
-          <h3 className='stat--ad'>+{45} Attack Damage</h3>
+          <h3 className='stat--ad'>+{30} Attack Damage</h3>
+          <h3 className="stat--critChance">+25% Critical Chance</h3>
           <h3>Last Whisper: <abbr title="15 + your current level">+{(15 + Number(currentLevel))}%</abbr> Armor Penetration</h3>
 
-          <p><b>Sepsis:</b> Dealing <span className='stat--ad'>Physical Damage</span> to enemy champions apply 40% <abbr title="Reduces healing and regeneration">Grievous wounds</abbr> to target for 3 seconds. 60% for targets under <span className='stat--hp'>50% Health</span> </p>      
+          <p><b>Sepsis:</b> Dealing <span className='stat--ad'>Physical Damage</span> to enemy champions apply 40% <abbr title="Reduces healing and regeneration" className="stat--vamp">Grievous wounds</abbr> to target for 3 seconds.</p>      
         </div>
     },
 
@@ -584,6 +561,41 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
     },
 
     {
+      name: 'Chempunk Chainsword',
+
+      health: 200,
+      mana: 0,
+      armor: 0,
+      magres: 0,
+      attack: 40,
+      ap: 0,
+      as: 0,
+      moveSpeed: 0,
+      flatArmPen: 0,
+      flatMagPen: 0,
+      armPen: 0,
+      magPen: 0,
+      critChance: 0,
+      critMultiplier: 0,
+      ah: 10,
+      armorReduction: 0,
+      bootsPassive: false,
+
+      description: 
+        <div className='itemDescription'>
+          <img src="../images/items/Chempunk_Chainsword.png" alt="itemIcon" className="itemIcon" />
+          <h3 className="stat--hp">+200 Max Health</h3>
+          <h3 className="stat--ad">+40 Attack Damage</h3>
+          <h3>+10 Ability Haste</h3>
+
+          <p>
+            <b>Punishment: </b>Dealing physical damage to enemy champions applies <span className="stat--critChance">50% Grievous Wounds</span>.
+          </p>
+        </div>
+
+    },
+
+    {
       name: 'Trinity Force',
 
       health: 250,
@@ -624,7 +636,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
       mana: 0,
       armor: 0,
       magres: 45,
-      attack: 45,
+      attack: 55,
       ap: 0,
       as: 0,
       moveSpeed: 0,
@@ -640,12 +652,13 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
       description:
       <div className='itemDescription'>
          <img src="../images/items/MOM.png" alt="itemIcon" className="itemIcon" />
-        <h3 className="stat--ad">+{45} Attack Damage</h3>
+        <h3 className="stat--ad">+{55} Attack Damage</h3>
         <h3 className="stat--magres">+{45} Magic Resistance</h3>
         <h3>+10 Ability Haste</h3>
 
-        <p><b>Lifeline:</b> Damage that puts you under <abbr title="35% max hp"><span className="stat--hp">{Math.round(total.health * 0.35)} Health</span></abbr> grants a Shield that absorbs <abbr title="no modifier"><span className='stat--hp'>350</span></abbr><span className="stat--magres"> Magic Damage</span> for 5 Seconds (90s Cooldown)</p>
-        <p><b>Lifegrip:</b> Triggering Lifeline grants you <span className='stat--ad'>30 Attack Damage</span> and <span className="stat--vamp">10 % Omnivamp (Total/Current {Math.round((total.attack * 0.1))} / {Math.round((total.attack * 0.1)* (1 - modifier))}; <abbr title="For now it does not calculate your ability damage. placeholder with formula same for AA, just for AP"><span className="stat--ap">{Math.round((total.ap * 0.1))} / {Math.round((total.ap * 0.1)* (1 - modifierMres))}</span></abbr> )</span> until out of combat</p>
+        <p>
+         <b>Demonbane:</b> <span className="stat--critChance">20% of the damage dealt</span>  is converted into a magic shield that absorbs up to <abbr title="60-400 based on level" className="stat--magres">{Math.round(60 + (340/14*(currentLevel-1)))} magic damage</abbr>. The shield decays by 5% per second.
+        </p>
 
       </div>
     },
@@ -677,7 +690,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
           <h3 className="stat--armor">+{40} Armor</h3>
           <h3>+{15} Ability Haste</h3>
 
-          <p><b>Cauterize:</b> <span className='stat--ad'>35% Physical Damage </span> received <span className="stat--ad">(15% for ranged champions)</span> is dealt to you over 3 seconds as <b>True Damage</b> instead</p>
+          <p><b>Cauterize:</b> <span className='stat--ad'>35% Physical Damage </span> received from champions <span className="stat--ad">(15% for ranged champions)</span> is dealt to you over 3 seconds as <b>True Damage</b> instead</p>
           <p><b>Dance:</b> Champion's takedowns cleanse Cauterize's remaining damage and heal you for <abbr title="12% of Max health"><span className="stat--hp">{Math.round(total.health * 0.12)}</span></abbr> over 2 seconds</p>
         </div>
     },
@@ -966,7 +979,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
     {
       name: 'Hullbreaker',
 
-      health: 300,
+      health: 325,
       mana: 0,
       armor: 0,
       magres: 0,
@@ -986,7 +999,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
       description: 
         <div className='itemDescription'>
           <img src="../images/items/Hullbreaker.png" alt="itemIcon" className="itemIcon" />
-          <h3 className='stat--hp'>+{300} Max Health</h3>
+          <h3 className='stat--hp'>+{325} Max Health</h3>
           <h3 className='stat--ad'>+{55} Attack Damage</h3>
 
           <p><b>Boarding Party:</b> When no allied champions are within 1200 units you get:</p>
@@ -1004,7 +1017,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
     {
       name: 'Hullbreaker (Stacked Melee)',
 
-      health: 300,
+      health: 325,
       mana: 0,
       armor: (Math.round(4 + 46 / 14 * (currentLevel - 1))),
       magres: (Math.round(4 + 16 / 14 * (currentLevel - 1))),
@@ -1024,7 +1037,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
       description: 
         <div className='itemDescription'>
           <img src="../images/items/Hullbreaker.png" alt="itemIcon" className="itemIcon" />
-          <h3 className='stat--hp'>+{300} Max Health</h3>
+          <h3 className='stat--hp'>+{325} Max Health</h3>
           <h3 className='stat--ad'>+{55} Attack Damage</h3>
 
           <p><b>Boarding Party:</b> When no allied champions are within 1200 units you get:</p>
@@ -1042,7 +1055,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
     {
       name: 'Hullbreaker (Stacked Ranged)',
 
-      health: 300,
+      health: 325,
       mana: 0,
       armor: Math.round(2 + 23 / 14 * (currentLevel - 1)),
       magres: Math.round(2 + 8 / 14 * (currentLevel - 1)),
@@ -1062,7 +1075,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
       description: 
         <div className='itemDescription'>
           <img src="../images/items/Hullbreaker.png" alt="itemIcon" className="itemIcon" />
-          <h3 className='stat--hp'>+{300} Max Health</h3>
+          <h3 className='stat--hp'>+{325} Max Health</h3>
           <h3 className='stat--ad'>+{55} Attack Damage</h3>
 
           <p><b>Boarding Party:</b> When no allied champions are within 1200 units you get:</p>
@@ -1137,42 +1150,12 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
           <h3 >+{10} Ability Haste</h3>
           <h3>+{15} Armor Penetration</h3>
 
-          <p><b>Shield Reaver:</b> Dealing Damage to an enemy champion reduce any shield they gain for 50% (30% if Ranged attack). When damaging enemies not affected by Shield Reaver, reduce all shields on them by 50% (35% for Ranged champions). Shiled reduction not applicable to magic-only shields</p>
+          <p><b>Shield Reaver:</b> Dealing damage to an enemy champion reduces any shields they gain for 3s. Melee champions apply (10% of bonus Attack Damage + 40)% shield reduction, capped at 60%; while ranged champions apply (10% of bonus Attack Damage + 25)% shield reduction, capped at 45%. When you damage an enemy who is unaffected by Shield Reaver, all shields on them are reduced by the same values.</p>
         </div>
 
     },
 
-    {
-      name: 'Lord Dominik\'s Regards',
-
-      health: 0,
-      mana: 0,
-      armor: 0,
-      magres: 0,
-      attack: 35,
-      ap: 0,
-      as: 0,
-      moveSpeed: 0,
-      flatArmPen: 0,
-      flatMagPen: 0,
-      armPen: ((15 + Number(currentLevel))/100),
-      magPen: 0,
-      critChance: 0.25,
-      critMultiplier: 0,
-      ah: 0,
-      armorReduction: 0,
-
-      description: 
-        <div className='itemDescription'>
-          <img src="../images/items/LDR.webp" alt="itemIcon" className="itemIcon" />
-          <h3 className='stat--ad'>+{35} Attack Damage</h3>
-          <h3 className='stat--critChance'>+{25}% Critical Rate</h3>
-          <h3>Last Whisper: <abbr title="15 + your current level">+{(15 + Number(currentLevel))}%</abbr> Armor Penetration</h3>
-
-          <p><b>Rapid Shot:</b> If not engaged in champion combat, your next attack on a chmpion gains 80% ({(base.asBase * 0.8).toFixed(3)}) Attack Speed.</p>
-        </div>
-    },
-
+    
     {
       name: 'Immmortal Shieldbow',
 
@@ -1254,7 +1237,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
       flatArmPen: 0,
       flatMagPen: 0,
       armPen: 0,
-      magPen: 0,
+      magPen: 7/100,
       critChance: 0,
       critMultiplier: 0,
       ah: 20,
@@ -1266,8 +1249,48 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
           <h3 className='stat--ap'>+{85} Ability Power</h3>
           <h3 className='stat--mana'>+{300} Max mana</h3>
           <h3>+{20} Ability Haste</h3>
+          <h3 className="stat--magres">+7% Magic Penetration</h3>
           
           <p><b>Discordic Echo:</b> Moving and casting abilities gain stacks of <b>Discord</b>. At <b>100</b> stacks your next active ability or Empowered attack will deal <abbr title="110 + 10% ap. Numbers are pre/post-mitigation"><span className="stat--ap">{Math.round(110 + total.ap * 0.1)} / {Math.round((110 + total.ap * 0.1)*(1 - modifierMres))} bonus magic damage</span></abbr> to your target and up to 3 mearby enemies</p>
+        </div>
+
+    },
+
+    {
+      name: 'Crown Of The Shattered Queen',
+
+      health: 150,
+      mana: 200,
+      armor: 0,
+      magres: 0,
+      attack: 0,
+      ap: 90,
+      as: 0,
+      moveSpeed: 0,
+      flatArmPen: 0,
+      flatMagPen: 0,
+      armPen: 0,
+      magPen: (7/100),
+      critChance: 0,
+      critMultiplier: 0,
+      ah: 10,
+      armorReduction: 0,
+      bootsPassive: false,
+
+      description: 
+        <div className='itemDescription'>
+          <img src="../images/items/Crown_Queen.png" alt="itemIcon" className="itemIcon" />
+          <h3 className="stat--hp">+150 Max Health</h3>
+          <h3 className="stat--ap">+70 Ability Power</h3>
+          <h3 className="stat--mana">+200 Max Mana</h3>
+          <h3>+10 Ability Haste</h3>
+          <h3 className="stat--magres">+7% Magic penetration</h3>
+
+        <p><b>Safeguard: </b>Grant a spell shield that blocks the next enemy ability. When the shield is broken, reduce incoming damage by <span>70% for 1.5s</span> (40s cooldown).</p>
+
+        <p>
+          <b>Poise:</b> Provide <abbr title="included in calculations" className="stat--ap">20 Ability Power</abbr>  while safeguarded. If you deal magic damage to enemy champions while using an active ability, it will reduce Safeguard's cooldown.
+        </p>
         </div>
 
     },
@@ -1286,7 +1309,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
       flatArmPen: 0,
       flatMagPen: 0,
       armPen: 0,
-      magPen: 0,
+      magPen: 7/100,
       critChance: 0,
       critMultiplier: 0,
       ah: 20,
@@ -1297,40 +1320,13 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
           <img src="../images/items/Morellonomicon.png" alt="itemIcon" className="itemIcon" />
           <h3 className="stat--ap">+{75} Ability Power</h3>
           <h3>+{20} Ability Haste</h3>
+          <h3 className="stat--magres">+7% Magic Penetration</h3>
 
-          <p><b>Affliction:</b> Dealing <span className="stat--ap">Magic Damage</span> applies <span className="stat--magres">40% Grievous Wounds</span> to enemy (Reduces the effectiveness of healing and Regeneration effect). Effect increased to <span className="stat--magres">60%</span> for targets under <span className="stat--hp">50% Max Health</span></p>
+          <p><b>Affliction:</b> Dealing <span className="stat--ap">Magic Damage</span> applies <span className="stat--vamp">50% Grievous Wounds</span> to enemy (Reduces the effectiveness of healing and Regeneration effect).</p>
         </div>
 
     },
 
-    {
-      name: 'Void Staff',
-
-      health: 0,
-      mana: 0,
-      armor: 0,
-      magres: 0,
-      attack: 0,
-      ap: 70,
-      as: 0,
-      moveSpeed: 0,
-      flatArmPen: 0,
-      flatMagPen: 0,
-      armPen: 0,
-      magPen: (45 / 100),
-      critChance: 0,
-      critMultiplier: 0,
-      ah: 0,
-      armorReduction: 0,
-
-      description: 
-        <div className='itemDescription'>
-          <img src="../images/items/VoidStaff.png" alt="itemIcon" className="itemIcon" />
-          <h3 className='stat--ap'>+{70} Ability Power</h3>
-          <h3>Dissolve: <span className="stat--magres">+{45}% Magic Penetration</span></h3>
-        </div>
-
-    },
 
     {
       name: 'Rabadon\'s Deathcap',
@@ -1340,13 +1336,13 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
       armor: 0,
       magres: 0,
       attack: 0,
-      ap: 110,
+      ap: 100,
       as: 0,
       moveSpeed: 0,
       flatArmPen: 0,
       flatMagPen: 0,
       armPen: 0,
-      magPen: 0,
+      magPen: 7/100,
       critChance: 0,
       critMultiplier: 0,
       ah: 0,
@@ -1355,8 +1351,8 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
       description: 
         <div className='itemDescription'>
           <img src="../images/items/Rabadon.png" alt="itemIcon" className="itemIcon" />
-          <h3 className='stat--ap'>+{110} Ability Power</h3>
-          <p><b>Overkill:</b> Increases <span className="stat--ap">Ability Power</span> by <abbr title="40%">{bonusEffects.rabadon}</abbr></p>
+          <h3 className='stat--ap'>+{100} Ability Power</h3>
+          <p><b>Overkill:</b> Increases <span className="stat--ap">Ability Power</span> by <abbr title="20-45% based on level">{bonusEffects.rabadon}</abbr></p>
           <button onClick={switchHat}>Enable/Disable bonus AP</button>
           <p><sub>* please, disable bonus AP before changing items - it does not auto updates for now</sub></p>
           
@@ -1398,7 +1394,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
     {
       name: 'Liandry\'s Torment',
 
-      health: 200,
+      health: 250,
       mana: 0,
       armor: 0,
       magres: 0,
@@ -1409,7 +1405,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
       flatArmPen: 0,
       flatMagPen: 0,
       armPen: 0,
-      magPen: 0,
+      magPen: 7/100,
       critChance: 0,
       critMultiplier: 0,
       ah: 0,
@@ -1418,8 +1414,9 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
       description: 
         <div className='itemDescription'>
           <img src="../images/items/Liandry.png" alt="itemIcon" className="itemIcon" />
-          <h3 className="stat--hp">+{200} Max Health</h3>
+          <h3 className="stat--hp">+{250} Max Health</h3>
           <h3 className="stat--ap">+{75} Ability Power</h3>
+          <h3 className="stat--magres">+7% Magic Penetration</h3>
 
           <p><b>Torment:</b> Damaging Abilities or empowered attacks deal <abbr title="(0.5% + 0.005% AP) of enemy Max HP. Shows pre/post-mitigated damage"><span className="stat--ap">{Math.round((5/100 + 5/1000)*target.health)} / {Math.round((5/100 + 5/1000)*target.health * (1 - modifierMres))} bonus magic damage</span></abbr> each second over 3 seconds</p>
         </div>
@@ -1440,7 +1437,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
       flatArmPen: 0,
       flatMagPen: 0,
       armPen: 0,
-      magPen: 0,
+      magPen: 7/100,
       critChance: 0,
       critMultiplier: 0,
       ah: 0,
@@ -1451,7 +1448,8 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
           <img src="../images/items/ROA.png" alt="itemIcon" className="itemIcon" />
           <h3 className="stat--health">+{250} Max Health</h3>
           <h3 className="stat--ap">+{60} Ability Power</h3>
-          <h3 className="stat--mana">+{300} Max mana</h3>        
+          <h3 className="stat--mana">+{300} Max mana</h3>
+          <h3 className="stat--magres">+7% Magic Penetration</h3>       
 
           <p><b>Eternity:</b> restore <span className="stat--mana">Mana</span> equal to 15% damage taken from champions. Regen <span className="stat--hp">Health</span> equal to 20% of mana spent Capped at 25 health per cast.</p>
           <p><b>Veteran:</b> Each stack provides <span className="stat--hp">20 Health (up to 200)</span>, <span className="stat--mana">10 Mana (up to 100)</span> and <span className="stat--ap">6 Ability Power (up to 60)</span>. Gain 1 stack each 45 seconds. 10 stacks maximum</p>
@@ -1473,7 +1471,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
       flatArmPen: 0,
       flatMagPen: 0,
       armPen: 0,
-      magPen: 0,
+      magPen: 7/100,
       critChance: 0,
       critMultiplier: 0,
       ah: 0,
@@ -1484,7 +1482,8 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
           <img src="../images/items/ROA.png" alt="itemIcon" className="itemIcon" />
           <h3 className="stat--health">+{450} Max Health</h3>
           <h3 className="stat--ap">+{120} Ability Power</h3>
-          <h3 className="stat--mana">+{400} Max mana</h3>        
+          <h3 className="stat--mana">+{400} Max mana</h3>  
+          <h3 className="stat--magres">+7% Magic Penetration</h3>      
 
           <p><b>Eternity:</b> restore <span className="stat--mana">Mana</span> equal to 15% damage taken from champions. Regen <span className="stat--hp">Health</span> equal to 20% of mana spent Capped at 25 health per cast.</p>
           <p><b>Veteran:</b> Each stack provides <span className="stat--hp">20 Health (up to 200)</span>, <span className="stat--mana">10 Mana (up to 100)</span> and <span className="stat--ap">6 Ability Power (up to 60)</span>. Gain 1 stack each 45 seconds. 10 stacks maximum</p>
@@ -1506,7 +1505,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
       flatArmPen: 0,
       flatMagPen: 0,
       armPen: 0,
-      magPen: 0,
+      magPen: 7/100,
       critChance: 0,
       critMultiplier: 0,
       ah: 10,
@@ -1517,6 +1516,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
           <img src="../images/items/LichBane.png" alt="itemIcon" className="itemIcon" />
           <h3 className="stat--ap">+{80} Ability Power</h3>
           <h3>+{10} Ability Haste</h3>
+          <h3 className="stat--magres">+7% Magic Penetration</h3>
           <h3>Bane: +5% ({Math.round(base.moveSpeed * 5 / 100)}) Move Speed</h3>
 
           <p><b>Spellblade</b>Using an ability causes next attack used within 10 seconds to deal <span className='stat--ap'><abbr title="75% BASE AD + 50% AP, numbers are pre-post mitigation damage ">{Math.round((base.attack * 75 / 100) + (total.ap * 50 / 100))} / {Math.round(((base.attack * 75 / 100) + (total.ap * 50 / 100) * (1 - modifierMres)))}</abbr> bonus magic damage</span>. Damage is reduced against structures</p>
@@ -1538,7 +1538,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
       flatArmPen: 0,
       flatMagPen: 0,
       armPen: 0,
-      magPen: 0,
+      magPen: 7/100,
       critChance: 0,
       critMultiplier: 0,
       ah: 20,
@@ -1550,6 +1550,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
           <h3 className="stat--ap">+{35} Ability Power</h3>
           <h3 className="stat--mana">+{500} Max Mana</h3>
           <h3>+{20} Ability Haste</h3>
+          <h3 className="stat--magres">+7% Magic Penetration</h3>
           
           <p><b>Awe:</b> Grants <span className="stat--ap"><abbr title="1% of max mana">{Math.round(total.mana / 100)} Ability Power</abbr></span> and refunds <span className="stat--mana">25%</span>of all Mana spent</p>
           <p><b>Mana Charge:</b> Increases max Mana by <span className="stat--mana">15</span> every time mana is spent up to <span className="stat--mana">700</span> bonus Mana. Triggers up to 3 times every 12 seconds. At max stacks transforms into Seraphs Embrace</p>
@@ -1571,7 +1572,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
       flatArmPen: 0,
       flatMagPen: 0,
       armPen: 0,
-      magPen: 0,
+      magPen: 7/100,
       critChance: 0,
       critMultiplier: 0,
       ah: 20,
@@ -1583,6 +1584,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
           <h3 className="stat--ap">+{35} Ability Power</h3>
           <h3 className='stat--mana'>+{1200} Max Mana</h3>
           <h3>+{20} Ability Haste</h3>
+          <h3 className="stat--magres">+7% Magic Penetration</h3>
 
           <p><b>Awe:</b> Grants <abbr title="3% of Max Mana"><span className="stat--ap">{Math.round(total.mana * 3 / 100)} Ability Power</span></abbr> and refunds <span className="stat--mana">25%</span>of all Mana spent</p>
           <p><b>Lifeline:</b> Damage that puts you under <abbr title="35% Health"><span className="stat--hp">{Math.round(total.health * 35 / 100)} Health</span></abbr> consumes <span className="stat--mana">15% current Mana</span> to grant a shield equal to <abbr title="unfortunately, calculating actual value impossible atm. It's 15% of Current mana + flat 100 points"><span className="stat--hp">100</span></abbr> for 2 seconds (90 seconds cooldown)</p>
@@ -1669,7 +1671,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
       flatArmPen: 0,
       flatMagPen: 15,
       armPen: 0,
-      magPen: 0,
+      magPen: 7/100,
       critChance: 0,
       critMultiplier: 0,
       ah: 20,
@@ -1681,9 +1683,127 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
           <h3 className="stat--hp">+{150} Max Health</h3>
           <h3 className="stat--ap">+{65} Ability Power</h3>
           <h3>+{20} Ability Haste</h3>
+          <h3 className="stat--magres">+7% Magic Penetration</h3>
 
           <p><b>Soul Hunt:</b> <span className="stat--ap">+15 Magic Penetration</span></p>
           <p><b>Soulfire:</b> Takedowns on enemy champions within of 3 seconds of dealing damage to them reduce the remaining cooldowns of your abilities by 25%</p>
+        </div>
+
+    },
+
+    {
+      name: 'Mejai\'s Soulstealer',
+
+      health: 100,
+      mana: 0,
+      armor: 0,
+      magres: 0,
+      attack: 0,
+      ap: 30,
+      as: 0,
+      moveSpeed: 0,
+      flatArmPen: 0,
+      flatMagPen: 0,
+      armPen: 0,
+      magPen: (7/100),
+      critChance: 0,
+      critMultiplier: 0,
+      ah: 0,
+      armorReduction: 0,
+      bootsPassive: false,
+
+      description: 
+        <div className='itemDescription'>
+          <img src="../images/items/Mejais_Soulstealer.png" alt="itemIcon" className="itemIcon" />
+
+          <h3 className="stat--hp">+100 Max Health</h3>
+          <h3 className="stat--ap">+30 Ability Power</h3>
+          <h3 className="stat--magres">+7% Magic Penetration</h3>
+
+          <p>
+            <b>Glory: </b>Gain Glory stacks when engaging in taking down enemy champions, up to a maximum of 30 stacks. Lose 10 stacks on death. Melee champions gain 3 stacks for each champion kill and 2 stacks for each assist. Ranged champions gain 4 stacks for each champion kill and 2 stacks for each assist.
+          </p>
+
+          <p>
+            <b>Fear: </b> Gain <span className="stat--ap">5 Ability Power</span> for each stack of Glory, and <span className="stat--moveSpeed">10% bonus movement speed</span> once you reach at least 10 stacks of Glory.
+          </p>
+        </div>
+
+    },
+
+    {
+      name: 'Mejai\'s Soulstealer (Stacked)',
+
+      health: 100,
+      mana: 0,
+      armor: 0,
+      magres: 0,
+      attack: 0,
+      ap: 180,
+      as: 0,
+      moveSpeed: (base.moveSpeed * 10 / 100),
+      flatArmPen: 0,
+      flatMagPen: 0,
+      armPen: 0,
+      magPen: (7/100),
+      critChance: 0,
+      critMultiplier: 0,
+      ah: 0,
+      armorReduction: 0,
+      bootsPassive: false,
+
+      description: 
+        <div className='itemDescription'>
+          <img src="../images/items/Mejais_Soulstealer.png" alt="itemIcon" className="itemIcon" />
+
+          <h3 className="stat--hp">+100 Max Health</h3>
+          <h3 className="stat--ap">+180 Ability Power</h3>
+          <h3 className="stat--magres">+7% Magic Penetration</h3>
+
+          <p>
+            <b>Glory: </b>Gain Glory stacks when engaging in taking down enemy champions, up to a maximum of 30 stacks. Lose 10 stacks on death. Melee champions gain 3 stacks for each champion kill and 2 stacks for each assist. Ranged champions gain 4 stacks for each champion kill and 2 stacks for each assist.
+          </p>
+
+          <p>
+            <b>Fear: </b> Gain <span className="stat--ap">5 Ability Power</span> for each stack of Glory, and <span className="stat--moveSpeed">10% bonus movement speed</span> once you reach at least 10 stacks of Glory.
+          </p>
+        </div>
+
+    },
+
+    {
+      name: 'Oceanid\'s Trident',
+
+      health: 200,
+      mana: 0,
+      armor: 0,
+      magres: 0,
+      attack: 0,
+      ap: 80,
+      as: 0,
+      moveSpeed: 0,
+      flatArmPen: 0,
+      flatMagPen: 0,
+      armPen: 0,
+      magPen: (7/100),
+      critChance: 0,
+      critMultiplier: 0,
+      ah: 10,
+      armorReduction: 0,
+      bootsPassive: false,
+
+      description: 
+        <div className='itemDescription'>
+          <img src="../images/items/Oceanids_Trident.png" alt="itemIcon" className="itemIcon" />
+
+          <h3 className="stat--hp">+200 Max Health</h3>
+          <h3 className="stat--ap">+80 Ability Power</h3>
+          <h3>+10 Ability Haste</h3>
+          <h3 className="stat--magres">+7% Magic Penetration</h3>
+
+          <p>
+            <b>Lethal Weapon: </b> Dealing ability damage to an enemy champion reduces any shields they gain for 3s (Area of effect abilities apply 5% of bonus Ability Power + 25% shield reduction, capped at 45%; while single target abilities apply 5% of bonus Ability Power + 40% shield reduction, capped at 60%). When you damage an enemy who is unaffected by Lethal Weapon, all shields on them are reduced by the same values.
+          </p>
         </div>
 
     },
@@ -1702,7 +1822,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
       flatArmPen: 0,
       flatMagPen: 15,
       armPen: 0,
-      magPen: 0,
+      magPen: 7/100,
       critChance: 0,
       critMultiplier: 0,
       ah: 0,
@@ -1712,6 +1832,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
         <div className='itemDescription'>
           <img src="../images/items/Infinity_Orb.png" alt="itemIcon" className="itemIcon" />
           <h3 className="stat--ap">+85 Ability Power</h3>
+          <h3 className="stat--magres">+7% Magic Penetration</h3>
 
           <p><b>Destiny:</b> +5% ({Math.round(base.moveSpeed * 5 / 100)}) Movement Speed</p>
           <p><b>Balance:</b> <span className="stat--ap">+{15} Magic Penetration</span></p>
@@ -1755,7 +1876,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
     {
       name: 'Crystaline Reflector',
 
-      health: 0,
+      health: 150,
       mana: 0,
       armor: 45,
       magres: 0,
@@ -1769,53 +1890,25 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
       magPen: 0,
       critChance: 0,
       critMultiplier: 0,
-      ah: 15,
+      ah: 0,
       armorReduction: 0,
 
       description: 
         <div className='itemDescription'>
           <img src="../images/items/Crystalline_Reflector.png" alt="itemIcon" className="itemIcon" />
-          <h3 className="stat--armor">+{45} Armor</h3>
+          <h3 className="stat--hp">+150 Max Health</h3>
+          <h3 className="stat--armor">+{35} Armor</h3>
           <h3 className="stat--ap">+{60} Ability Power</h3>
-          <h3>+15 Ability Haste </h3>
+          
 
-          <p><b>Mirrored Force:</b> Ability casts grant a mirror shard (up to 3) that each block <abbr title="10 + 5% AP, numbers are pre/post mitigation"><span className="stat--ad">{Math.round(10 + (total.ap * 5 / 100))} / {Math.round((10 + (total.ap * 5 / 100)) * (1 - modifierAtt))}</span></abbr> form an enemy champion and deal <abbr title="20 + 10% AP; numbers are pre/post mitigation"><span className="stat--ap">{Math.round(20 + (total.ap/10))} / {Math.round((20 + (total.ap/10)) * (1 - modifier))} Magic Damage</span></abbr> to them.</p>
+          <p>
+            <b>Mirrored Force:</b>  Gain the mirror shard for 3s each time while casting champion abilities, the duration time of the fragment can not be stacked. During the fragment`s existence, it blocks <abbr title="8-15 based on level" className="stat--ad">{Math.round(8 + 0.5*(currentLevel - 1))} physical damage</abbr>  from the enemy champion, and deals <abbr title="10 + 3% Ability Power + 1% bonus health" className="stat--ap"> {Math.round(10 + (total.ap * 3 / 100)+ (bonus.health /100))} magic damage</abbr>.
+          </p>
         </div>
 
     },
 
-    {
-      name: 'Banshee\'s Veil',
-
-      health: 0,
-      mana: 0,
-      armor: 0,
-      magres: 40,
-      attack: 0,
-      ap: 75,
-      as: 0,
-      moveSpeed: 0,
-      flatArmPen: 0,
-      flatMagPen: 0,
-      armPen: 0,
-      magPen: 0,
-      critChance: 0,
-      critMultiplier: 0,
-      ah: 15,
-      armorReduction: 0,
-
-      description: 
-        <div className='itemDescription'>
-          <img src="../images/items/Banshee's_Veil.png" alt="itemIcon" className="itemIcon" />
-          <h3 className="stat--ap">+{75} Ability Power</h3>
-          <h3 className="stat--magres">+{40} Magic Resistance</h3>
-          <h3>+{15} Ability Haste</h3>
-
-          <p><b>Annul:</b> Grants a spell shield that blocks the next hostile ability (35 seconds cooldown)</p>
-        </div>
-
-    },
-
+    
     {
       name: 'Imerial Mandate',
 
@@ -1862,7 +1955,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
       flatArmPen: 0,
       flatMagPen: 0,
       armPen: 0,
-      magPen: 0,
+      magPen: 7/100,
       critChance: 0,
       critMultiplier: 0,
       ah: 30,
@@ -1873,6 +1966,8 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
           <img src="../images/items/Cosmic_Drive.webp" alt="itemIcon" className="itemIcon" />
           <h3 className="stat--ap">+75 Ability Power</h3>
           <h3>+30 Ability Haste</h3>
+          <h3 className="stat--magres">+7% Magic Penetration</h3>
+                    
           <h3>Hyperdrive: +5% ({Math.round(base.moveSpeed * 5 / 100)}) Movement speed</h3>
 
           <p><b>Spellweaving: </b>Active abilities and empowered attacks grant <abbr title="30 + 70% Ability Haste"><b>{Math.round(30 + (attacker.ah * 70 /100))} Movement Speed</b></abbr> after dealing damage to enemy champion. This movement speed decays over 2 seconds. Each source has 1s cooldown for triggering the effect. Only <b>Ability Haste</b> from items contributes to Spellweaving's movement speed</p>
@@ -1894,7 +1989,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
       flatArmPen: 0,
       flatMagPen: 0,
       armPen: 0,
-      magPen: 0,
+      magPen: 7/100,
       critChance: 0,
       critMultiplier: 0,
       ah: 15,
@@ -1907,6 +2002,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
           <h3 className="stat--ap">+80 Ability Power</h3>
           <h3>+15 Ability Haste</h3>
           <h3 className="stat--vamp">+12% Omnivamp</h3>
+          <h3 className="stat--magres">+7% Magic Penetration</h3>
 
           <p><b>Void Corruption:</b> When in combat with champions gain 1 stack of <b>Corruption</b> every 1 seconds. Every stacks increases the damage you deal by 3% up to 3 stacks. At 3 stacks additional damage becomes <b>true damage</b>.</p>
         </div>
@@ -1927,7 +2023,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
       flatArmPen: 0,
       flatMagPen: 0,
       armPen: 0,
-      magPen: 0,
+      magPen: 7/100,
       critChance: 0,
       critMultiplier: 0,
       ah: 15,
@@ -1939,6 +2035,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
           <h3 className="stat--hp">+150 Max Health</h3>
           <h3 className="stat--ap">+80 Ability Power</h3>
           <h3>+15 Ability Haste</h3>
+          <h3 className="stat--magres">+7% Magic Penetration</h3>
           
           <p><b>Hypershot:</b> Apply 1 mark when you damage enemy champion with non-targeted ability from 500 units away; apply 2 marks for immobolizing. MArked enemies are revealed. At 3 stacks detonate them  to deal <abbr title="90 +25% AP; numbers are pre/post-mitigation"><span className="stat--ap">{Math.round(90 + (total.ap * 25 / 100))} / {Math.round((90 + (total.ap * 25 / 100)) * (1 - modifierMres))} Magic damage</span></abbr> to the target.</p>
         </div>
@@ -2071,8 +2168,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
           <h3 className="stat--armor">+75 Armor</h3>
 
           <p><b>Thorns: </b>When struck by attack deal <abbr title="20 + 6% bonus armor + 1% bonus HP; numbers are pre/post-mitigation" class='stat--vamp'>{Math.round((20 + (bonus.armor * 6 / 100) + (bonus.health /100)))}
-          / {Math.round((20 + (bonus.armor * 6 / 100) + (bonus.health /100)) * (1 - modifierMres))} Magic Damage</abbr> to the attacker and apply 40% <b>Grievous Wounds</b>. 60% for target under 50% health / immobilized.</p>
-          <p><b>Grievous Wounds</b> reduces the effectiveness of healing and regeneration effects.</p>
+          / {Math.round((20 + (bonus.armor * 6 / 100) + (bonus.health /100)) * (1 - modifierMres))} Magic Damage</abbr> to the attacker and apply <span className="stat--vamp">50% Grievous Wounds</span>.</p>
         </div>
 
     },

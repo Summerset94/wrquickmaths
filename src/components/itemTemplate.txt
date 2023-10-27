@@ -56,3 +56,16 @@
       </p>
     </div>
 }
+
+//Heal/shield
+
+<h5 className="stat--hp">
+            Healing Shield:
+          </h5>
+
+          <p className="stat--hp">
+                {Math.round(((abase1)+(atk.ap * amod / 100)))} / 
+            {' '}{Math.round(((abase2)+(atk.ap * amod / 100)))} / 
+            {' '}{Math.round(((abase3)+(atk.ap * amod / 100)))} / 
+            {' '}{Math.round(((abase4)+(atk.ap * amod / 100)))}
+          </p>

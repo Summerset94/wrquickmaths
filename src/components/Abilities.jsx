@@ -87,7 +87,7 @@ const mod = useMemo(() => {
   }
 },
 [atk, def]);
-
+'s'
 
 const AbilitiesGrid = React.lazy(() => import(`./abilities/${champ.id}.jsx`));
 
