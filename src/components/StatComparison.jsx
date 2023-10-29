@@ -7,8 +7,7 @@ export default function StatComparison({atkname, defname}) {
 
   const atk = totalStats[0];
   const def = totalStats[1];
-
-  
+ 
 
   const formula = useMemo(() => {
 
@@ -102,7 +101,7 @@ export default function StatComparison({atkname, defname}) {
 
 
   },
-  [atk, def]);
+  [atk, def, ]);
     return (      
       <div className='comparisonTile'>
         <table>

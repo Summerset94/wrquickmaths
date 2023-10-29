@@ -1,4 +1,21 @@
-export default function darius({currentLevel, mod, bonus, atk, def, champ}) {
+import { useState, useEffect } from "react";
+
+export default function darius({currentLevel, mod, bonus, atk, def, champ, updateAbilitiesBonus}) {
+
+  const [abilLevel, setAbilLevel] = useState(0);
+
+  useEffect(() => {
+    const object = {
+      dariusE: abilLevel
+    };
+    updateAbilitiesBonus(object)
+  }, [abilLevel]);  
+
+  const changeNumber = () => {
+    setAbilLevel(oldNum => oldNum < 4 ? oldNum + 1 : 0);
+  }
+
+
   const abilities = [
     {
       description:
@@ -168,6 +185,11 @@ export default function darius({currentLevel, mod, bonus, atk, def, champ}) {
           <p>
             <b>PASSIVE:</b>  Gains <span className="stat--ad">15% / 22% / 29% / 36% Armor Penetration.</span> <br />
             <b>ACTIVE:</b> Pulls in enemies in front of him, slowing them by <span className="stat--moveSpeed">40%</span> for 1.5 seconds.
+          </p>
+
+          <p>
+            Toggle armor Pen active bonus:
+            <button onClick={changeNumber}>Change ability level</button> Current ability level: <b className="stat--armor">{abilLevel}</b> 
           </p>
         </div>
     },

@@ -347,3 +347,9 @@ button:active {
 .bugsTile > p, .bugsTile > ol {
   font-size: smaller;
 }
+
+a {
+  font-size: 1.6rem;
+  color: rgb(230, 214, 129);
+  font-weight: 800;
+}

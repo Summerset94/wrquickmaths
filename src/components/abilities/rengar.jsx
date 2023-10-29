@@ -1,4 +1,20 @@
-export default function rengar({currentLevel, mod, bonus, atk, def, champ}) {
+import { useState, useEffect } from "react";
+
+export default function rengar({currentLevel, mod, bonus, atk, def, champ, updateAbilitiesBonus}) {
+
+  const [abilLevel, setAbilLevel] = useState(0);
+
+  useEffect(() => {
+    const object = {
+      rengarP: abilLevel
+    };
+    updateAbilitiesBonus(object)
+  }, [abilLevel]);  
+
+  const changeNumber = () => {
+    setAbilLevel(oldNum => oldNum < 5 ? oldNum + 1 : 0);
+  }
+
   const abilities = [
 
     {
@@ -7,6 +23,13 @@ export default function rengar({currentLevel, mod, bonus, atk, def, champ}) {
           <h4>
           <span className="marker--ability">P</span> UNSEEN PREDATOR
           </h4>
+
+          <p>
+            Toggle <b>Bonetooth Necklace</b> bonus:
+            <br />
+
+            <button onClick={changeNumber}>Change stacks number</button> Current stacks: <b className="stat--armor">{abilLevel}</b> 
+          </p>
     
           <p>
           If Rengar is in brush or camouflaged, he will leap to the target within his next attack. If Rengar has no Ferocity he gains 1 Ferocity.

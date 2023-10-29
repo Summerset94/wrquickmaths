@@ -2503,10 +2503,10 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
           <h3>+5% ({Math.round(base.moveSpeed * 5 / 100)}) Movement Speed</h3>
 
           {/* Bug: numbers don't update dynamically */}
-          {/* <button onClick={switchFON}>Max stacks on / off</button>
+          <button onClick={switchFON}>Max stacks on / off</button>
           <p>
             <sub>*switch stacks off before changing to other item. Stacks don't remove by themselves.</sub>
-          </p> */}
+          </p>
 
           <p>
             <b>Absorb:</b> Taking ability damage from enemy champions grants 1 stack of Steadfast for 7 seconds, max 6 stacks. Dealing damage to enemy champions refresh effect duration. at maximum stacks gain 10% ({Math.round(base.moveSpeed /10)}) Movement Speed and reduce all incoming magic damage by 25%.

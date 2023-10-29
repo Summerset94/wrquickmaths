@@ -1,7 +1,7 @@
 import { useStats } from "./StatsContext";
 import React, { useMemo, useState } from "react";
 
-export default function Abilities({champ, currentLevel, index, bonus}) {
+export default function Abilities({champ, currentLevel, index, bonus, updateAbilitiesBonus}) {
 
   const { totalStats } = useStats();
 
@@ -104,6 +104,7 @@ const AbilitiesGrid = React.lazy(() => import(`./abilities/${champ.id}.jsx`));
         atk={atk}
         def={def}
         champ={champ}
+        updateAbilitiesBonus={updateAbilitiesBonus}
       />
       </React.Suspense>
     </div>}    

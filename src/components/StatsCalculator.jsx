@@ -21,7 +21,7 @@ export default function StatsCalculator(props) {
         critMultiplier = 1.65;
         break;
       case 'Senna':
-        critMultiplier = 1.55;
+        critMultiplier = 1.5;
         break;
       default:
         critMultiplier = 1.75;
@@ -91,14 +91,27 @@ const statGrowth = function(mod) {
     magResReduction: 0,
     ah: 0,
     bootsPassive: false
+  }, []);
+'s'
+  const [abilitiesBonus, setAbilitiesBonus] = useState({
+    singedR: 0,
+    jaxR: 0,
+    dariusE: 0,
+    sionW: 0,
+    sennaP: 0,
+    rengarP: 0,
   });
 
-  
+  const updateAbilitiesBonus = function(updatedValues) {
+    setAbilitiesBonus((prevStats) => ({...prevStats, ...updatedValues}))
+  };
+ 
 
 // This Memo because some champs are unique so I have to dance around their stats interactions
   const totalModifier = useMemo(() => {
     let healthMod;
     let attackMod;
+    let apMod;
     let asMod;
     let critChanceMod;
     let moveSpeedMod;
@@ -120,6 +133,28 @@ const statGrowth = function(mod) {
         armorMod = (bonusMemo.armor * 22 /100)
       };
       break;
+    case 'Singed':
+      if (abilitiesBonus.singedR == 0) {
+        armorMod = 0
+      } else if (abilitiesBonus.singedR == 1) {
+        armorMod = 30
+      } else if (abilitiesBonus.singedR == 2) {
+        armorMod = 50
+      } else if (abilitiesBonus.singedR == 3) {
+        armorMod = 80
+      }
+      break;
+    case 'Jax':
+      if (abilitiesBonus.jaxR == 0) {
+        armorMod = 0
+      } else if (abilitiesBonus.jaxR == 1) {
+        armorMod = (30 + bonusMemo.attack * 50 /100)
+      } else if (abilitiesBonus.jaxR == 2) {
+        armorMod = (50 + bonusMemo.attack * 50 /100)
+      } else if (abilitiesBonus.jaxR == 3) {
+        armorMod = (70 + bonusMemo.attack * 50 /100)
+      }
+      break; 
     default:
       armorMod = 0;
       break;
@@ -138,6 +173,28 @@ const statGrowth = function(mod) {
         magresMod = (bonusMemo.magres * 22 /100)
       };
       break;
+      case 'Singed':
+      if (abilitiesBonus.singedR == 0) {
+        magresMod = 0
+      } else if (abilitiesBonus.singedR == 1) {
+        magresMod = 30
+      } else if (abilitiesBonus.singedR == 2) {
+        magresMod = 50
+      } else if (abilitiesBonus.singedR == 3) {
+        magresMod = 80
+      }
+      break;
+      case 'Jax':
+      if (abilitiesBonus.jaxR == 0) {
+        magresMod = 0
+      } else if (abilitiesBonus.jaxR == 1) {
+        magresMod = (30 + bonusMemo.ap * 20 /100)
+      } else if (abilitiesBonus.jaxR == 2) {
+        magresMod = (50 + bonusMemo.ap * 20 /100)
+      } else if (abilitiesBonus.jaxR == 3) {
+        magresMod = (70 + bonusMemo.ap * 20 /100)
+      }
+      break; 
     default:
       magresMod = 0;
       break;
@@ -148,18 +205,20 @@ const statGrowth = function(mod) {
       case 'Pyke':
         healthMod = baseMemo.health;
         break;
-
-        case 'Ornn':
-          if (currentLevel <= 4) {
-            healthMod = (bonusMemo.health * 7 /100)
-          } else if (currentLevel >4 && currentLevel <= 8) {
-            healthMod = (bonusMemo.health * 12 /100)
-          } else if (currentLevel >8 && currentLevel <= 12) {
-            healthMod = (bonusMemo.health * 17 /100)
-          } else {
-            healthMod = (bonusMemo.health * 22 /100)
-          };
-          break;
+      case 'Ornn':
+        if (currentLevel <= 4) {
+          healthMod = (bonusMemo.health * 7 /100)
+        } else if (currentLevel >4 && currentLevel <= 8) {
+          healthMod = (bonusMemo.health * 12 /100)
+        } else if (currentLevel >8 && currentLevel <= 12) {
+          healthMod = (bonusMemo.health * 17 /100)
+        } else {
+          healthMod = (bonusMemo.health * 22 /100)
+        };
+        break;
+      case 'Sion':
+        healthMod = baseMemo.health + bonusMemo.health +  abilitiesBonus.sionW;
+        break;
       default:
         healthMod = baseMemo.health + bonusMemo.health;
         break;
@@ -173,15 +232,51 @@ const statGrowth = function(mod) {
       case 'Zeri':
         attackMod = baseMemo.as + bonusMemo.as >= 1.5 ? Math.floor((baseMemo.as + bonusMemo.as - 1.5) * (50 / champ.asBase)) : 0;
         break;
-  // Jhin is Wrong: there's no source for his passive AD/Critchance to AD conversion numbers
       case 'Jhin':
-        attackMod = Math.ceil((baseMemo.attack + bonusMemo.attack) * 5 * currentLevel / 100);
+        attackMod = Math.round((baseMemo.attack + bonusMemo.attack)*((5+55/14*(currentLevel-1))/100 + (bonusMemo.as*(14 + (17/14*(currentLevel - 1))))/(champ.asBase*100) + (bonusMemo.critChance*(23 + (26/14*(currentLevel - 1))))/100));
         break;
       case 'Hecarim':
         attackMod = Math.round(bonusMemo.moveSpeed * 12 / 100);
         break;
+      case 'Senna':
+        attackMod = abilitiesBonus.sennaP;
+        break;
+
+      case 'Rengar':
+        if (abilitiesBonus.rengarP == 0) {
+          attackMod = 0
+        } else if (abilitiesBonus.rengarP == 1) {
+          attackMod = ((baseMemo.attack + bonusMemo.attack) * 1/100)
+        } else if (abilitiesBonus.rengarP == 2) {
+          attackMod = ((baseMemo.attack + bonusMemo.attack) * 4/100)
+        } else if (abilitiesBonus.rengarP == 3) {
+          attackMod = ((baseMemo.attack + bonusMemo.attack) * 9/100)
+        } else if (abilitiesBonus.rengarP == 4) {
+          attackMod = ((baseMemo.attack + bonusMemo.attack) * 16/100)
+        } else if (abilitiesBonus.rengarP == 5) {
+          attackMod = ((baseMemo.attack + bonusMemo.attack) * 25/100)
+        };
+        break;
       default:
         attackMod = 0;
+        break;
+    }
+
+  // Ability Power
+    switch (champ.name) {
+      case 'Singed':
+        if (abilitiesBonus.singedR == 0) {
+          apMod = 0
+        } else if (abilitiesBonus.singedR == 1) {
+          apMod = 30
+        } else if (abilitiesBonus.singedR == 2) {
+          apMod = 50
+        } else if (abilitiesBonus.singedR == 3) {
+          apMod = 80
+        }
+        break;
+      default:
+        apMod = 0
         break;
     }
 
@@ -194,7 +289,7 @@ const statGrowth = function(mod) {
         asMod = baseMemo.as;
         break;
       case 'Senna' :
-        asMod = baseMemo.as + (bonusMemo.as * 40 / 100);
+        asMod = baseMemo.as + (bonusMemo.as / 5);
         break;
       default:
         asMod = baseMemo.as + bonusMemo.as;
@@ -209,6 +304,10 @@ const statGrowth = function(mod) {
     case 'Yasuo':
       critChanceMod = Math.max(bonusMemo.critChance * 2 || 1);
       break;
+
+    case 'Senna':
+      critChanceMod = (bonusMemo.critChance + (0.15 * Math.floor (abilitiesBonus.sennaP/20)));
+      break;
     default:
       critChanceMod = bonusMemo.critChance;
       break;
@@ -220,13 +319,13 @@ const statGrowth = function(mod) {
       critMultiplierMod = 1;
       break;
     case 'Senna':
-      critMultiplierMod = ((baseMemo.critMultiplier + bonusMemo.critMultiplier)*85/100)
+      critMultiplierMod = ((baseMemo.critMultiplier + bonusMemo.critMultiplier))
       break;
     case 'Jhin':
       critMultiplierMod = (150 / 100) + bonusMemo.critMultiplier;
       break; 
     default: 
-      baseMemo.critMultiplier + bonusMemo.critMultiplier;
+    critMultiplierMod = baseMemo.critMultiplier + bonusMemo.critMultiplier;
       break;
   }
   
@@ -234,6 +333,17 @@ const statGrowth = function(mod) {
   switch (champ.name) {
     case 'Janna':
       moveSpeedMod = (baseMemo.moveSpeed + bonusMemo.moveSpeed) * 5 / 100;
+      break;
+    case 'Singed':
+      if (abilitiesBonus.singedR === 0) {
+        moveSpeedMod = 0
+      } else if (abilitiesBonus.singedR === 1) {
+        moveSpeedMod = 30
+      } else if (abilitiesBonus.singedR === 2) {
+        moveSpeedMod = 50
+      } else if (abilitiesBonus.singedR === 3) {
+        moveSpeedMod = 80
+      }
       break;
     default:
       moveSpeedMod = 0;
@@ -256,6 +366,19 @@ const statGrowth = function(mod) {
         armPenMod = 30/100
       }
       break;
+    case 'Darius':
+      if (abilitiesBonus.dariusE == 0) {
+        armPenMod = 0
+      } else if (abilitiesBonus.dariusE == 1) {
+        armPenMod = 15/100
+      } else if (abilitiesBonus.dariusE == 2) {
+        armPenMod = 22/100
+      } else if (abilitiesBonus.dariusE == 3) {
+        armPenMod = 29/100
+      } else if (abilitiesBonus.dariusE == 4) {
+        armPenMod = 36/100
+      }
+      break;
     default:
       armPenMod = 0;
       break;
@@ -265,6 +388,7 @@ const statGrowth = function(mod) {
     return {
       health: healthMod,
       attack: attackMod,
+      ap: apMod,
       as: asMod,
       critChance: critChanceMod,
       moveSpeed: moveSpeedMod,
@@ -273,19 +397,24 @@ const statGrowth = function(mod) {
       magres: magresMod,
       critMultiplier: critMultiplierMod,
     };
-  }, [champ, baseMemo, bonusMemo, currentLevel]);
+  }, [champ, baseMemo, bonusMemo, currentLevel, abilitiesBonus]);
 
   
 
   // State and functions for changing stats depending on bonus from items passive effects
 
   const [fonStacked, setFonStacked] = useState(false);
+  
+  const toggleFON = () => {
+    setFonStacked(oldState => !oldState)
+  };
+  
   const bonusEffectsMemo = useMemo(() =>{
     return {
       rabadon: Math.floor((bonusMemo.ap) * (20 + (25/14 * (currentLevel - 1))) / 100),
       twinguardAR: Math.floor((baseMemo.armor + bonusMemo.armor + totalModifier.armor) * 30 / 100),
       twinguardMR: Math.floor((baseMemo.magres + bonusMemo.magres + totalModifier.magres) * 30 / 100),
-      fonEffect: fonStacked,
+      
     }
   }, [bonusMemo])
 
@@ -301,9 +430,7 @@ const statGrowth = function(mod) {
     setRabadonApplied(oldState => !oldState)
   };
 
-  const toggleFON = () => {
-    setFonStacked(oldState => !oldState)
-  }
+  
   
   const totalMemo = useMemo(() => {
     return {
@@ -313,7 +440,7 @@ const statGrowth = function(mod) {
       magres: baseMemo.magres + bonusMemo.magres + totalModifier.magres + (twinguardApplied ? bonusEffectsMemo.twinguardMR : 0),
       attack: baseMemo.attack + bonusMemo.attack + totalModifier.attack,
       
-      ap: bonusMemo.ap + (rabadonApplied ? bonusEffectsMemo.rabadon : 0),
+      ap: (bonusMemo.ap + totalModifier.ap) + (rabadonApplied ? bonusEffectsMemo.rabadon : 0),
       
       as: totalModifier.as,
 
@@ -338,9 +465,9 @@ const statGrowth = function(mod) {
       cdr: (1-(1/(1+bonusMemo.ah/100))),
       ah: bonusMemo.ah,
       bootsPassive: bonusMemo.bootsPassive,
-      fonEffect: bonusEffectsMemo.fonEffect
+      fonEffect: fonStacked
     };
-  }, [baseMemo, bonusMemo, fonStacked, rabadonApplied, twinguardApplied, currentLevel]);
+  }, [baseMemo, bonusMemo, rabadonApplied, twinguardApplied, currentLevel, fonStacked, abilitiesBonus]);
 
 
   function levelSlider(n) {
@@ -363,7 +490,7 @@ const statGrowth = function(mod) {
       newTotalStats[index] = totalMemo;
       return newTotalStats;
     });
-  }, [bonusMemo, totalMemo, currentLevel, fonStacked, rabadonApplied, twinguardApplied, fonStacked]);  
+  }, [bonusMemo, totalMemo, currentLevel, rabadonApplied, twinguardApplied, fonStacked]);  
 
   return (
     <>
@@ -379,7 +506,7 @@ const statGrowth = function(mod) {
       />
       <p>Select level: {currentLevel}</p>
 
-      <button onClick={() => setContentVisible(!contentVisible)}>
+            <button onClick={() => setContentVisible(!contentVisible)}>
       Show / hide stats
       </button>
 
@@ -533,10 +660,11 @@ const statGrowth = function(mod) {
     </div>
 
     <Abilities 
+      updateAbilitiesBonus={updateAbilitiesBonus}
       champ={champ}
       currentLevel={currentLevel}
       index={index}
-      bonus={bonusMemo}
+      bonus={bonusMemo}            
       />
       
     <Inventory 

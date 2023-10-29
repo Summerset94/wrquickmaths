@@ -1,4 +1,4 @@
-export default function blank({currentLevel, mod, bonus, atk, def, champ}) {
+export default function blank({currentLevel, mod, bonus, atk, def, champ, updateAbilitiesBonus}) {
   const abilities = [
 
     {

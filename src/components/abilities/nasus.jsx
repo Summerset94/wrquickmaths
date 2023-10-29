@@ -1,4 +1,23 @@
+import { useState, useEffect } from "react";
+
 export default function nasus({currentLevel, mod, bonus, atk, def, champ}) {
+
+  const [stacks, setStacks] = useState(0);
+
+  const [newStackValue, setNewStackValue] = useState('');
+
+  const handleInputChange = (event) => {
+    setNewStackValue(event.target.value);
+  }
+
+  const updateStacks = () => {
+    const newNum = parseInt(newStackValue);
+    if (!isNaN(newNum)) {
+      setStacks(newNum);
+    }
+  }
+
+
   const abilities = [
     {
       description:
@@ -10,6 +29,18 @@ export default function nasus({currentLevel, mod, bonus, atk, def, champ}) {
           <p>
           Gains <abbr title="at level 1 / 5 / 9" className="stat--vamp">12 / 18 / 24% Physical Vamp</abbr>
           </p>
+
+          
+            <label>
+              Set your <abbr title="1 stack = 4 damage"> <b>Siphoning Strike</b> <span className="stat--armor"> Stacks:</span></abbr>
+              {' '}<input
+                type="number"
+                value={newStackValue}
+                onChange={handleInputChange}
+              />
+            </label>            
+            <p><button onClick={updateStacks}>Update Stacks</button> Current bonus: <span className="stat--ad">{4 * stacks} damage</span> </p>
+          
         </div>
     },
 
@@ -37,17 +68,17 @@ export default function nasus({currentLevel, mod, bonus, atk, def, champ}) {
           </h5>
 
           <p className="stat--ad">Pre-mitigation: 
-            {' '}{Math.round(((30)))} / 
-            {' '}{Math.round(((55)))} / 
-            {' '}{Math.round(((80)))} / 
-            {' '}{Math.round(((105)))}
+            {' '}{Math.round(((30)+(stacks*4)))} / 
+            {' '}{Math.round(((55)+(stacks*4)))} / 
+            {' '}{Math.round(((80)+(stacks*4)))} / 
+            {' '}{Math.round(((105)+(stacks*4)))}
           </p>
 
           <p className="stat--ad">Post-mitigation: 
-            {' '}{Math.round(((30)) * (1 - mod.defPhysRed))} / 
-            {' '}{Math.round(((55))* (1 - mod.defPhysRed))} / 
-            {' '}{Math.round(((80))* (1 - mod.defPhysRed))} / 
-            {' '}{Math.round(((105))* (1 - mod.defPhysRed))}          
+            {' '}{Math.round(((30)+(stacks*4)) * (1 - mod.defPhysRed))} / 
+            {' '}{Math.round(((55)+(stacks*4))* (1 - mod.defPhysRed))} / 
+            {' '}{Math.round(((80)+(stacks*4))* (1 - mod.defPhysRed))} / 
+            {' '}{Math.round(((105)+(stacks*4))* (1 - mod.defPhysRed))}          
           </p>
     
           <p>

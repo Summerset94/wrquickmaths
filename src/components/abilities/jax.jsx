@@ -1,4 +1,20 @@
-export default function jax({currentLevel, mod, bonus, atk, def, champ}) {
+import { useState, useEffect } from "react";
+
+export default function jax({currentLevel, mod, bonus, atk, def, champ, updateAbilitiesBonus}) {
+
+  const [ultLevel, setUltLevel] = useState(0);
+
+  useEffect(() => {
+    const object = {
+      jaxR: ultLevel
+    };
+    updateAbilitiesBonus(object)
+  }, [ultLevel]);  
+
+  const changeNumber = () => {
+    setUltLevel(oldNum => oldNum < 3 ? oldNum + 1 : 0);    
+  }
+
   const abilities = [
     {
       description:
@@ -223,6 +239,11 @@ export default function jax({currentLevel, mod, bonus, atk, def, champ}) {
 
           <p>
             <b>ACTIVE:</b> Jax stops holding back, gaining <span className="stat--armor">30 / 50 / 70 <span className="stat--ad">(+50% bonus AD)</span> Armor</span>  and <span className="stat--magres">30 / 50 / 70 <span className="stat--ap">(+20% AP)</span>  Magic Resist</span>  for 8 seconds.
+          </p>
+
+          <p>
+            Toggle ultimate's active bonus:
+            <button onClick={changeNumber}>Change ult level</button> Current ult level: <b className="stat--armor">{ultLevel}</b> 
           </p>
           
         </div>
