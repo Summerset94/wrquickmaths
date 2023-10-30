@@ -100,6 +100,8 @@ const statGrowth = function(mod) {
     sionW: 0,
     sennaP: 0,
     rengarP: 0,
+    swainP: 0,
+    threshP: 0,
   });
 
   const updateAbilitiesBonus = function(updatedValues) {
@@ -155,6 +157,10 @@ const statGrowth = function(mod) {
         armorMod = (70 + bonusMemo.attack * 50 /100)
       }
       break; 
+
+    case 'Thresh':
+      armorMod = abilitiesBonus.threshP * 2;
+      break;
     default:
       armorMod = 0;
       break;
@@ -219,6 +225,10 @@ const statGrowth = function(mod) {
       case 'Sion':
         healthMod = baseMemo.health + bonusMemo.health +  abilitiesBonus.sionW;
         break;
+
+      case 'Swain':
+        healthMod = baseMemo.health + bonusMemo.health +  (abilitiesBonus.swainP * 12);
+        break;
       default:
         healthMod = baseMemo.health + bonusMemo.health;
         break;
@@ -274,6 +284,10 @@ const statGrowth = function(mod) {
         } else if (abilitiesBonus.singedR == 3) {
           apMod = 80
         }
+        break;
+
+      case 'Thresh':
+        apMod = abilitiesBonus.threshP * 2;
         break;
       default:
         apMod = 0

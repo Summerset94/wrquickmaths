@@ -36,6 +36,7 @@ export default function blank({currentLevel, mod, bonus, atk, def, champ, update
             {' '}{q} 
           </h5>
     
+          <br />
           <p>
             
           </p>
@@ -64,6 +65,7 @@ export default function blank({currentLevel, mod, bonus, atk, def, champ, update
             {' '}{q} 
           </h5>
     
+          <br />
           <p>
             
           </p>
@@ -91,6 +93,7 @@ export default function blank({currentLevel, mod, bonus, atk, def, champ, update
             {' '}{q} 
           </h5>
     
+          <br />
           <p>
             
           </p>
@@ -117,6 +120,7 @@ export default function blank({currentLevel, mod, bonus, atk, def, champ, update
             {' '}{q}
           </h5>
     
+          <br />
           <p>
             
           </p>
