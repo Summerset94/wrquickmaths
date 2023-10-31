@@ -5,7 +5,7 @@ import MainInfo from './components/MainInfo';
 import './styles/StatColors.css'
 import { StatsProvider } from './components/StatsContext';
 import Header from './components/Header';
-import ChangeLog from './components/Changelog';
+import ChangeLog from './components/ChangeLog';
 
 
 function App() {
@@ -73,12 +73,8 @@ function App() {
 
           <br />
           <p>
-            For any questions contact me in Discord @summerset94
+            For any questions contact me in Discord @summerset94 or <a href="https://twitter.com/wrquickmaths" target='_blank'>twitter</a> 
           </p>
-
-          <br />
-
-          <p className='stat--magres'>Also. Reddit mods can suck on my balls.</p>
           </div>
         </div>
 

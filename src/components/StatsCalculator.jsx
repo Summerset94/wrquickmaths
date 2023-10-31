@@ -102,6 +102,8 @@ const statGrowth = function(mod) {
     rengarP: 0,
     swainP: 0,
     threshP: 0,
+    twistedFateE: 0,
+    veigarP: 0,
   });
 
   const updateAbilitiesBonus = function(updatedValues) {
@@ -229,9 +231,17 @@ const statGrowth = function(mod) {
       case 'Swain':
         healthMod = baseMemo.health + bonusMemo.health +  (abilitiesBonus.swainP * 12);
         break;
+      
+      case 'Vladimir':
+        healthMod = baseMemo.health + bonusMemo.health + Math.round(bonusMemo.ap * 120 / 100);
+        break;
+
+
       default:
         healthMod = baseMemo.health + bonusMemo.health;
         break;
+
+      
     }  
     
   // Attack
@@ -289,6 +299,15 @@ const statGrowth = function(mod) {
       case 'Thresh':
         apMod = abilitiesBonus.threshP * 2;
         break;
+
+      case 'Veigar':
+        apMod = abilitiesBonus.veigarP;
+        break;
+
+      case 'Vladimir':
+        apMod = Math.round(bonusMemo.health * 4.5 / 100);
+        break;
+
       default:
         apMod = 0
         break;
@@ -305,6 +324,21 @@ const statGrowth = function(mod) {
       case 'Senna' :
         asMod = baseMemo.as + (bonusMemo.as / 5);
         break;
+
+      case 'Twisted Fate':
+        if (abilitiesBonus.twistedFateE == 0) {
+          asMod = baseMemo.as + bonusMemo.as;
+        } else if (abilitiesBonus.twistedFateE == 1) {
+          asMod = baseMemo.as + bonusMemo.as + (champ.asBase * 15 / 100);
+        } else if (abilitiesBonus.twistedFateE == 2) {
+          asMod = baseMemo.as + bonusMemo.as + (champ.asBase * 20 / 100);
+        } else if (abilitiesBonus.twistedFateE == 3) {
+          asMod = baseMemo.as + bonusMemo.as + (champ.asBase * 25 / 100);
+        } else if (abilitiesBonus.twistedFateE == 4) {
+          asMod = baseMemo.as + bonusMemo.as + (champ.asBase * 30 / 100);
+        };
+        break;
+
       default:
         asMod = baseMemo.as + bonusMemo.as;
         break;

@@ -19,8 +19,9 @@ export default function ChangeLog() {
 
           <p>latest updates:</p>
           <ul>
-            <li>30.10 added Sona, Soraka, Swain (+ stacks), Teemo, Thresh (+stacks), Tristana, Tryndamere</li>
-            <li>29.10: added Senna, Seraphine, Shen, Shyvana, Singed, Sion;</li>
+            <li>31.10 added: Twisted Fate, Twitch, Urgot, Varus, Vayne, Veigar, Vex, Vi, Vladimir, Volibear;</li>
+            <li>30.10 added: Sona, Soraka, Swain (+ stacks), Teemo, Thresh (+stacks), Tristana, Tryndamere;</li>
+            <li>29.10: added: Senna, Seraphine, Shen, Shyvana, Singed, Sion;</li>
             <li>Force of Nature damage reduction now works;</li>
             <li>Darius, Jax, Singed, Sion, Singed, Rengar, Nasus: abilities with stacks / added bonuses now can be properly used.</li>
           </ul></>)}
