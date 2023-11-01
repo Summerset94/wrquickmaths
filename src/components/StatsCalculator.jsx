@@ -277,6 +277,12 @@ const statGrowth = function(mod) {
           attackMod = ((baseMemo.attack + bonusMemo.attack) * 25/100)
         };
         break;
+
+      case 'Yasuo':
+      case 'Yone':
+        attackMod = Math.round(((bonusMemo.critChance * 2) - 1) * 40)
+        break;
+        
       default:
         attackMod = 0;
         break;
