@@ -19,6 +19,7 @@ export default function ChangeLog() {
 
           <p>latest updates:</p>
           <ul>
+            <li>03.11 Fiddlesticks hotfix</li>
             <li>01.11 All champs done.</li>
             <li>31.10 added: Twisted Fate, Twitch, Urgot, Varus, Vayne, Veigar, Vex, Vi, Vladimir, Volibear;</li>
             <li>30.10 added: Sona, Soraka, Swain (+ stacks), Teemo, Thresh (+stacks), Tristana, Tryndamere;</li>

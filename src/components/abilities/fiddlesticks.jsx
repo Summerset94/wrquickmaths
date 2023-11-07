@@ -38,11 +38,11 @@ export default function fiddlesticks({currentLevel, mod, bonus, atk, def, champ}
           </h5>
     
           <p>
-            <b>Passive:</b> While out of combat and stationary, or not visible to the enemy team, Fiddlesticks' next damaging ability additionally fears targets hit for <b>1.2 / 1.4 / 1.6 / 1.8 seconds</b>.
+            <b>Passive:</b> While out of combat and stationary, or not visible to the enemy team, Fiddlesticks' next damaging ability additionally fears targets hit for <b>11 / 1.2 / 1.4 / 1.6 seconds</b>.
           </p>
 
           <p>
-            <b>Active:</b> Summons crows that attack enemies along the path, dealing magic damage equal to <span className="stat--ap">7% / 8% / 9% / 12%</span> of the targets' <span className="stat--hp">current Health.</span> If the targets were recently feared, damage dealt is doubled. Deals a minimum of <span className="stat--ap">45 / 70 / 95 / 120 damage</span>  to enemy champions and a maximum of 400 damage to monsters.
+            <b>Active:</b> Summons crows that attack enemies along the path, dealing magic damage equal to <span className="stat--ap">4% / 5% / 6% / 7% (+0.015 AP)</span> of the targets' <span className="stat--hp">current Health.</span> If the targets were recently feared, damage dealt is doubled. Deals a minimum of <span className="stat--ap">45 / 70 / 95 / 120 damage</span>  to enemy champions and a maximum of 400 damage to monsters.
           </p>
         </div>
     },
@@ -71,22 +71,22 @@ export default function fiddlesticks({currentLevel, mod, bonus, atk, def, champ}
           </h5>
 
           <p className="stat--ap">Pre-mitigation: 
-            {' '}{Math.round(((60)+(atk.ap * 30 / 100)))} / 
-            {' '}{Math.round(((100)+(atk.ap * 30 / 100)))} / 
-            {' '}{Math.round(((140)+(atk.ap * 30 / 100)))} / 
-            {' '}{Math.round(((180)+(atk.ap * 30 / 100)))}
+            {' '}{Math.round(((50)+(atk.ap * 25 / 100)))} / 
+            {' '}{Math.round(((80)+(atk.ap * 25 / 100)))} / 
+            {' '}{Math.round(((110)+(atk.ap * 25 / 100)))} / 
+            {' '}{Math.round(((140)+(atk.ap * 25 / 100)))}
           </p>
 
           <p className="stat--ap">Post-mitigation: 
-            {' '}{Math.round(((60)+(atk.ap * 30 / 100)) * (1 - mod.defMagRed))} / 
-            {' '}{Math.round(((100)+(atk.ap * 30 / 100))* (1 - mod.defMagRed))} / 
-            {' '}{Math.round(((140)+(atk.ap * 30 / 100))* (1 - mod.defMagRed))} / 
-            {' '}{Math.round(((180)+(atk.ap * 30 / 100))* (1 - mod.defMagRed))}          
+            {' '}{Math.round(((50)+(atk.ap * 25 / 100)) * (1 - mod.defMagRed))} / 
+            {' '}{Math.round(((80)+(atk.ap * 25 / 100))* (1 - mod.defMagRed))} / 
+            {' '}{Math.round(((110)+(atk.ap * 25 / 100))* (1 - mod.defMagRed))} / 
+            {' '}{Math.round(((140)+(atk.ap * 25 / 100))* (1 - mod.defMagRed))}          
           </p>
     
           <p>
-          Siphons the souls of nearby enemies, dealing <span className="stat--ap"> 60 / 100 / 140 / 180
-          (+ 30% AP) magic damage</span> every second for 2 seconds. The last strike deals damage equal to the target's missing Health. Heals itself by draining Health from enemies.
+          Siphons the souls of nearby enemies, dealing <span className="stat--ap"> 50 / 80 / 110 / 140
+          (+ 25% AP) magic damage</span> every second for 2 seconds. The last strike deals damage equal to the target's missing Health. Heals itself by draining Health from enemies.
           </p>
           <p>
             Health recoverable by dealing damage:
@@ -166,19 +166,19 @@ export default function fiddlesticks({currentLevel, mod, bonus, atk, def, champ}
           </h5>
 
           <p className="stat--ap">Pre-mitigation: 
-            {' '}{Math.round(((32.5)+(atk.ap * 11 / 100)))} / 
-            {' '}{Math.round(((52.5)+(atk.ap * 11 / 100)))} / 
-            {' '}{Math.round(((72.5)+(atk.ap * 11 / 100)))}
+            {' '}{Math.round(((25)+(atk.ap * 10 / 100)))} / 
+            {' '}{Math.round(((42.5)+(atk.ap * 10 / 100)))} / 
+            {' '}{Math.round(((60)+(atk.ap * 10 / 100)))}
           </p>
 
           <p className="stat--ap">Post-mitigation: 
-            {' '}{Math.round(((32.5)+(atk.ap * 11 / 100)) * (1 - mod.defMagRed))} / 
-            {' '}{Math.round(((52.5)+(atk.ap * 11 / 100))* (1 - mod.defMagRed))} / 
-            {' '}{Math.round(((72.5)+(atk.ap * 11 / 100))* (1 - mod.defMagRed))}
+            {' '}{Math.round(((25)+(atk.ap * 10 / 100)) * (1 - mod.defMagRed))} / 
+            {' '}{Math.round(((42.5)+(atk.ap * 10 / 100))* (1 - mod.defMagRed))} / 
+            {' '}{Math.round(((60)+(atk.ap * 10 / 100))* (1 - mod.defMagRed))}
           </p>
     
           <p>
-          Channels for 1.5 seconds, then blinks to the target location and summons Crowstorm, dealing <span className="stat--ap">32.5 / 52.5 / 72.5 (+11% AP) magic damage</span> every 0.25 seconds to nearby enemies for 5 seconds.
+          Channels for 1.5 seconds, then blinks to the target location and summons Crowstorm, dealing <span className="stat--ap">25 / 42.5 / 60 (+10% AP) magic damage</span> every 0.25 seconds to nearby enemies for 5 seconds.
           </p>
         </div>
     }

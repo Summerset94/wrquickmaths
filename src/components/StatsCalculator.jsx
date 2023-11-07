@@ -489,7 +489,7 @@ const statGrowth = function(mod) {
   const totalMemo = useMemo(() => {
     return {
       health: totalModifier.health,
-      mana: champ.manaBase ? baseMemo.mana + bonusMemo.mana : 0,
+      mana: champ.manaBase ? baseMemo.mana + bonusMemo.mana : bonusMemo.mana,
       armor: baseMemo.armor + bonusMemo.armor + totalModifier.armor + (twinguardApplied ? bonusEffectsMemo.twinguardAR : 0),
       magres: baseMemo.magres + bonusMemo.magres + totalModifier.magres + (twinguardApplied ? bonusEffectsMemo.twinguardMR : 0),
       attack: baseMemo.attack + bonusMemo.attack + totalModifier.attack,
