@@ -206,9 +206,9 @@ export default function vi({currentLevel, mod, bonus, atk, def, champ, updateAbi
     
           <h5>
           Cooldown: 
-            {' '}{(80*mod.atkcdr).toFixed(1)} / 
-            {' '}{(65*mod.atkcdr).toFixed(1)} / 
-            {' '}{(60*mod.atkcdr).toFixed(1)}
+            {' '}{(70*mod.atkcdr).toFixed(1)} / 
+            {' '}{(60*mod.atkcdr).toFixed(1)} / 
+            {' '}{(50*mod.atkcdr).toFixed(1)}
           </h5>
             <h5 className="stat--mana">
           Cost: 

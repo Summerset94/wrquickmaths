@@ -90,21 +90,21 @@ export default function shyvana({currentLevel, mod, bonus, atk, def, champ}) {
           </h5>
 
           <p className="stat--ap">Pre-mitigation: 
-            {' '}{Math.round(((30)+(bonus.attack * 25 / 100)))} / 
-            {' '}{Math.round(((45)+(bonus.attack * 25 / 100)))} / 
-            {' '}{Math.round(((60)+(bonus.attack * 25 / 100)))} / 
-            {' '}{Math.round(((75)+(bonus.attack * 25 / 100)))}
+            {' '}{Math.round(((35)+(bonus.attack * 30 / 100)))} / 
+            {' '}{Math.round(((50)+(bonus.attack * 30 / 100)))} / 
+            {' '}{Math.round(((65)+(bonus.attack * 30 / 100)))} / 
+            {' '}{Math.round(((80)+(bonus.attack * 30 / 100)))}
           </p>
 
           <p className="stat--ap">Post-mitigation: 
-            {' '}{Math.round(((30)+(bonus.attack * 25 / 100)) * (1 - mod.defMagRed))} / 
-            {' '}{Math.round(((45)+(bonus.attack * 25 / 100))* (1 - mod.defMagRed))} / 
-            {' '}{Math.round(((60)+(bonus.attack * 25 / 100))* (1 - mod.defMagRed))} / 
-            {' '}{Math.round(((75)+(bonus.attack * 25 / 100))* (1 - mod.defMagRed))}          
+            {' '}{Math.round(((35)+(bonus.attack * 30 / 100)) * (1 - mod.defMagRed))} / 
+            {' '}{Math.round(((50)+(bonus.attack * 30 / 100))* (1 - mod.defMagRed))} / 
+            {' '}{Math.round(((65)+(bonus.attack * 30 / 100))* (1 - mod.defMagRed))} / 
+            {' '}{Math.round(((80)+(bonus.attack * 30 / 100))* (1 - mod.defMagRed))}          
           </p>
     
           <p>
-            Deals <span className="stat--ap">30 / 45 / 60 / 75 (<span className="stat--ad">+25% bonus AD</span>) magic damage</span>  per second to nearby enemies and hastes Shyvana <span className="stat--moveSpeed">by 30 / 35 / 40 / 45%, decaying over 3 seconds</span>. Attacking extends the duration of Burnout by 4 seconds.
+            Deals <span className="stat--ap">35 / 50 / 65 / 80 (<span className="stat--ad">+30% bonus AD</span>) magic damage</span>  per second to nearby enemies and hastes Shyvana <span className="stat--moveSpeed">by 30 / 35 / 40 / 45%, decaying over 3 seconds</span>. Attacking extends the duration of Burnout by 4 seconds.
           </p>
 
           <p>
@@ -169,7 +169,7 @@ export default function shyvana({currentLevel, mod, bonus, atk, def, champ}) {
       description:
         <div className="abilityDescription">
           <h4>
-          <span className="marker--ability">ULT</span> 
+          <span className="marker--ability">ULT</span> DRAGON'S DESCENT
           </h4>
     
           <h5>
@@ -202,7 +202,7 @@ export default function shyvana({currentLevel, mod, bonus, atk, def, champ}) {
           </p>
 
           <p>
-            <b>Active:</b> Transform into a Dragon, gaining <span className="stat--hp"> 150 / 250 / 350 Health</span> and flying to a target location. Enemies along Shyvana's path take <span className="stat--ap">150 / 250 / 350 (+80% AP) magic damage</span> and are knocked towards her landing point.
+            <b>Active:</b> Transform into a Dragon, gaining <span className="stat--hp"> 230 / 315 / 400 Health</span> and flying to a target location. Enemies along Shyvana's path take <span className="stat--ap">150 / 250 / 350 (+80% AP) magic damage</span> and are knocked towards her landing point.
           </p>
 
           <p>

@@ -210,7 +210,9 @@ export default function renekton({currentLevel, mod, bonus, atk, def, champ}) {
     
           <h5>
           Cooldown: 
-            {' '}{(75*mod.atkcdr).toFixed(1)}
+            {' '}{(75*mod.atkcdr).toFixed(1)} /
+            {' '}{(70*mod.atkcdr).toFixed(1)} / 
+            {' '}{(65*mod.atkcdr).toFixed(1)}
           </h5>
 
           <h5 className="stat--ap">
@@ -218,19 +220,19 @@ export default function renekton({currentLevel, mod, bonus, atk, def, champ}) {
           </h5>
 
           <p className="stat--ap">Pre-mitigation: 
-            {' '}{Math.round(((50)+(atk.ap * 20 / 100)))} / 
-            {' '}{Math.round(((100)+(atk.ap * 20 / 100)))} / 
+            {' '}{Math.round(((70)+(atk.ap * 20 / 100)))} / 
+            {' '}{Math.round(((110)+(atk.ap * 20 / 100)))} / 
             {' '}{Math.round(((150)+(atk.ap * 20 / 100)))}
           </p>
 
           <p className="stat--ap">Post-mitigation: 
-            {' '}{Math.round(((50)+(atk.ap * 20 / 100)) * (1 - mod.defMagRed))} / 
-            {' '}{Math.round(((100)+(atk.ap * 20 / 100))* (1 - mod.defMagRed))} / 
+            {' '}{Math.round(((70)+(atk.ap * 20 / 100)) * (1 - mod.defMagRed))} / 
+            {' '}{Math.round(((110)+(atk.ap * 20 / 100))* (1 - mod.defMagRed))} / 
             {' '}{Math.round(((150)+(atk.ap * 20 / 100))* (1 - mod.defMagRed))}
           </p>
     
           <p>
-            Gain <span className="stat--vamp">20 Fury</span> and <span className="stat--hp">250 / 500 / 750 Health</span> for 12 seconds. Every second after casting, gain <span className="stat--vamp">5 Fury</span> and deal <span className="stat--ap">50 / 100 / 150 (+20% AP) magic damage</span> to nearby enemies.
+            Gain <span className="stat--vamp">20 Fury</span> and <span className="stat--hp">300 / 525 / 750 Health</span> for 12 seconds. Every second after casting, gain <span className="stat--vamp">5 Fury</span> and deal <span className="stat--ap">70 / 110 / 150 (+20% AP) magic damage</span> to nearby enemies.
           </p>
         </div>
     }

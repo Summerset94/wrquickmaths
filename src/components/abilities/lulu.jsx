@@ -117,9 +117,9 @@ export default function lulu({currentLevel, mod, bonus, atk, def, champ}) {
           </h5>
 
           <p className="stat--hp"> 
-            {Math.round(((75)+(atk.ap * 60 / 100)))} / 
-            {' '}{Math.round(((110)+(atk.ap * 60 / 100)))} / 
-            {' '}{Math.round(((145)+(atk.ap * 60 / 100)))} / 
+            {Math.round(((60)+(atk.ap * 60 / 100)))} / 
+            {' '}{Math.round(((100)+(atk.ap * 60 / 100)))} / 
+            {' '}{Math.round(((140)+(atk.ap * 60 / 100)))} / 
             {' '}{Math.round(((180)+(atk.ap * 60 / 100)))}
           </p>
 
@@ -146,7 +146,7 @@ export default function lulu({currentLevel, mod, bonus, atk, def, champ}) {
           </p>
 
           <p>
-            <b>On Allies:</b> Grants a shield that absorbs <span className="stat--hp">75 / 110 / 145 / 180 (<span className="stat--ap">+60% AP</span>) damage</span> for 2.5 seconds.
+            <b>On Allies:</b> Grants a shield that absorbs <span className="stat--hp">60 / 100 / 140 / 180 (<span className="stat--ap">+60% AP</span>) damage</span> for 2.5 seconds.
           </p>
 
           <p>

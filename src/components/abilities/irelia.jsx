@@ -10,11 +10,11 @@ export default function irelia({currentLevel, mod, bonus, atk, def, champ}) {
           <h5 className="stat--as">Bonus attack speed:</h5>
           <p className="stat--as">Stack: {(champ.asBase * ((2 + currentLevel)/100)).toFixed(3)}; Full stacks:  {(champ.asBase * ((2 + currentLevel)/100) * 4).toFixed(3)}</p>
           <h5 className="stat--ap">Max stacks bonus damage:</h5>
-          <p className="stat--ap"><abbr title="pre-/ post-mitigation">{Math.round(((25 + 5 * currentLevel)+(bonus.attack * 25 / 100)))} / {Math.round(((25 + 5 * currentLevel)+(bonus.attack * 25 / 100)) * (1 - mod.defMagRed))}</abbr></p>
+          <p className="stat--ap"><abbr title="pre-/ post-mitigation">{Math.round(((30 + 90/14*(currentLevel-1))+(bonus.attack * 30 / 100)))} / {Math.round(((30 + 90/14*(currentLevel-1))+(bonus.attack * 30 / 100)) * (1 - mod.defMagRed))}</abbr></p>
 
           <p>
           Hitting enemies with abilities grant <span className="stat--as">3% - 17% bonus Attack Speed</span> for 6 seconds, stacking up to 4 times. <br />
-          At max stacks attacks deal an additional <span className="stat--ap">30 - 100 <span className="stat--ad">(+25% bonus AD)</span> magic damage</span> on hit. <br />
+          At max stacks attacks deal an additional <span className="stat--ap">30 - 120 <span className="stat--ad">(+30% bonus AD)</span> magic damage</span> on hit. <br />
           Attacking enemy champions refreshes the duration. <br />
           An ability grants multiple stacks upon hitting multiple champions.
           </p>
@@ -135,10 +135,10 @@ export default function irelia({currentLevel, mod, bonus, atk, def, champ}) {
     
           <h5>
           Cooldown: 
-            {' '}{(13*mod.atkcdr).toFixed(1)} / 
             {' '}{(12*mod.atkcdr).toFixed(1)} / 
             {' '}{(11*mod.atkcdr).toFixed(1)} / 
-            {' '}{(10*mod.atkcdr).toFixed(1)} 
+            {' '}{(10*mod.atkcdr).toFixed(1)} / 
+            {' '}{(9*mod.atkcdr).toFixed(1)} 
           </h5>
             <h5 className="stat--mana">
           Cost: 

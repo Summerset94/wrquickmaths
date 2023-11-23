@@ -42,19 +42,19 @@ export default function yuumi({currentLevel, mod, bonus, atk, def, champ, update
           </h5>
 
           <p className="stat--ap">Pre-mitigation: 
-            {' '}{Math.round(((60)+(atk.ap * 25 / 100)))} / 
-            {' '}{Math.round(((100)+(atk.ap * 25 / 100)))} / 
-            {' '}{Math.round(((140)+(atk.ap * 25 / 100)))} / 
-            {' '}{Math.round(((180)+(atk.ap * 25 / 100)))} /
-            {' '}{Math.round(((220)+(atk.ap * 25 / 100)))}
+            {' '}{Math.round(((60)+(atk.ap * 20 / 100)))} / 
+            {' '}{Math.round(((100)+(atk.ap * 20 / 100)))} / 
+            {' '}{Math.round(((140)+(atk.ap * 20 / 100)))} / 
+            {' '}{Math.round(((180)+(atk.ap * 20 / 100)))} /
+            {' '}{Math.round(((220)+(atk.ap * 20 / 100)))}
           </p>
 
           <p className="stat--ap">Post-mitigation: 
-            {' '}{Math.round(((60)+(atk.ap * 25 / 100)) * (1 - mod.defMagRed))} / 
-            {' '}{Math.round(((100)+(atk.ap * 25 / 100))* (1 - mod.defMagRed))} / 
-            {' '}{Math.round(((140)+(atk.ap * 25 / 100))* (1 - mod.defMagRed))} / 
-            {' '}{Math.round(((180)+(atk.ap * 25 / 100))* (1 - mod.defMagRed))} /
-            {' '}{Math.round(((220)+(atk.ap * 25 / 100))* (1 - mod.defMagRed))}          
+            {' '}{Math.round(((60)+(atk.ap * 20 / 100)) * (1 - mod.defMagRed))} / 
+            {' '}{Math.round(((100)+(atk.ap * 20 / 100))* (1 - mod.defMagRed))} / 
+            {' '}{Math.round(((140)+(atk.ap * 20 / 100))* (1 - mod.defMagRed))} / 
+            {' '}{Math.round(((180)+(atk.ap * 20 / 100))* (1 - mod.defMagRed))} /
+            {' '}{Math.round(((220)+(atk.ap * 20 / 100))* (1 - mod.defMagRed))}          
           </p>
 
           <h5 className="stat--magres">
@@ -62,28 +62,28 @@ export default function yuumi({currentLevel, mod, bonus, atk, def, champ, update
           </h5>
 
           <p className="stat--ap">Pre-mitigation: 
-            {' '}{Math.round(((70)+(atk.ap * 35 / 100)))} / 
-            {' '}{Math.round(((120)+(atk.ap * 35 / 100)))} / 
-            {' '}{Math.round(((170)+(atk.ap * 35 / 100)))} / 
-            {' '}{Math.round(((220)+(atk.ap * 35 / 100)))} /
-            {' '}{Math.round(((270)+(atk.ap * 35 / 100)))}
+            {' '}{Math.round(((70)+(atk.ap * 30 / 100)))} / 
+            {' '}{Math.round(((120)+(atk.ap * 30 / 100)))} / 
+            {' '}{Math.round(((170)+(atk.ap * 30 / 100)))} / 
+            {' '}{Math.round(((220)+(atk.ap * 30 / 100)))} /
+            {' '}{Math.round(((270)+(atk.ap * 30 / 100)))}
           </p>
 
           <p className="stat--ap">Post-mitigation: 
-            {' '}{Math.round(((70)+(atk.ap * 35 / 100)) * (1 - mod.defMagRed))} / 
-            {' '}{Math.round(((120)+(atk.ap * 35 / 100))* (1 - mod.defMagRed))} / 
-            {' '}{Math.round(((170)+(atk.ap * 35 / 100))* (1 - mod.defMagRed))} / 
-            {' '}{Math.round(((220)+(atk.ap * 35 / 100))* (1 - mod.defMagRed))} /
-            {' '}{Math.round(((270)+(atk.ap * 35 / 100))* (1 - mod.defMagRed))}         
+            {' '}{Math.round(((70)+(atk.ap * 30 / 100)) * (1 - mod.defMagRed))} / 
+            {' '}{Math.round(((120)+(atk.ap * 30 / 100))* (1 - mod.defMagRed))} / 
+            {' '}{Math.round(((170)+(atk.ap * 30 / 100))* (1 - mod.defMagRed))} / 
+            {' '}{Math.round(((220)+(atk.ap * 30 / 100))* (1 - mod.defMagRed))} /
+            {' '}{Math.round(((270)+(atk.ap * 30 / 100))* (1 - mod.defMagRed))}         
           </p>
     
           <br />
           <p>
-           Steers an errant missile, dealing <span className="stat--ap">60 / 100 / 140 / 180 / 220 (+25% AP) magic damage</span> to the first enemy hit.
+           Steers an errant missile, dealing <span className="stat--ap">60 / 100 / 140 / 180 / 220 (+20% AP) magic damage</span> to the first enemy hit.
           </p>
 
           <p>
-            f Yuumi is Attached, the missile will be enhanced if travels for 0,75s before impacting, dealing <span className="stat--ap">70 / 120 / 170 / 220 / 270  (+35% AP)</span> <span className="stat--hp">plus 2 / 3 / 4 / 5 / 6% current Health</span> magic damage instead and slows champions by 20% for 1 second.            
+            f Yuumi is Attached, the missile will be enhanced if travels for 0,75s before impacting, dealing <span className="stat--ap">70 / 120 / 170 / 220 / 270  (+30% AP)</span> <span className="stat--hp">plus 2 / 3 / 4 / 5 / 6% current Health</span> magic damage instead and slows champions by 20% for 1 second.            
           </p>
         </div>
     },
@@ -188,20 +188,20 @@ export default function yuumi({currentLevel, mod, bonus, atk, def, champ, update
           </h5>
 
           <p className="stat--ap">Pre-mitigation: 
-            {' '}{Math.round(((80)+(atk.ap * 20 / 100)))} / 
-            {' '}{Math.round(((100)+(atk.ap * 20 / 100)))} / 
-            {' '}{Math.round(((120)+(atk.ap * 20 / 100)))}
+            {' '}{Math.round(((80)+(atk.ap * 15 / 100)))} / 
+            {' '}{Math.round(((100)+(atk.ap * 15 / 100)))} / 
+            {' '}{Math.round(((120)+(atk.ap * 15 / 100)))}
           </p>
 
           <p className="stat--ap">Post-mitigation: 
-            {' '}{Math.round(((80)+(atk.ap * 20 / 100)) * (1 - mod.defMagRed))} / 
-            {' '}{Math.round(((100)+(atk.ap * 20 / 100))* (1 - mod.defMagRed))} / 
-            {' '}{Math.round(((120)+(atk.ap * 20 / 100))* (1 - mod.defMagRed))}  
+            {' '}{Math.round(((80)+(atk.ap * 15 / 100)) * (1 - mod.defMagRed))} / 
+            {' '}{Math.round(((100)+(atk.ap * 15 / 100))* (1 - mod.defMagRed))} / 
+            {' '}{Math.round(((120)+(atk.ap * 15 / 100))* (1 - mod.defMagRed))}  
           </p>
     
           <br />
           <p>
-            Channels for 3.5 seconds, launching 7 waves dealing <span className="stat--ap">80 / 100 / 120 (+20% AP) magic damage</span> Waves after the first deal 50% magic damage. Champions hit by 3 waves are rooted for 1.75 seconds.
+            Channels for 3.5 seconds, launching 7 waves dealing <span className="stat--ap">80 / 100 / 120 (+15% AP) magic damage</span> Waves after the first deal 50% magic damage. Champions hit by 3 waves are rooted for 1.75 seconds.
           </p>
 
           <p>

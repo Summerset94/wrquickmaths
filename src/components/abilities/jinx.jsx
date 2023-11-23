@@ -8,7 +8,7 @@ export default function blank({currentLevel, mod, bonus, atk, def, champ}) {
           </h4> 
           
           <p>
-          Scoring a takedown on a champion or structure that Jinx has damaged within the last 3 seconds grants her <span className="stat--moveSpeed">150% decaying Movement Speed</span>  and <span className="stat--as">15% ({(atk.as * 15 / 100).toFixed(3)}) Total Attack Speed</span> for 6 seconds.
+          Scoring a takedown on a champion or structure that Jinx has damaged within the last 3 seconds grants her <span className="stat--moveSpeed">140% decaying Movement Speed</span>  and <span className="stat--as">12% ({(atk.as * 12 / 100).toFixed(3)}) Total Attack Speed</span> for 6 seconds.
 
         While Excited, Jinx can exceed the Attack Speed cap.
           </p>
@@ -42,12 +42,12 @@ export default function blank({currentLevel, mod, bonus, atk, def, champ}) {
           </p>
 
           <p>
-            <b>Fishbones, the Rocket Launcher:</b> Attacks cost Mana but gain <b>80 / 95 / 1105 / 125 range</b>
-            and explode to deal <span className="stat--critChance">110% damage</span> to the target and enemies around it.
+            <b>Fishbones, the Rocket Launcher:</b> Attacks cost Mana but gain <b>80 / 95 / 105 / 125 range</b>
+            and explode to deal <span className="stat--critChance">107% damage</span> to the target and enemies around it.
           </p>
 
           <p>
-            <b>Pow-Pow, the Minigun:</b>  Attacks grants bonus <span className="stat--as">Attack Speed</span>  for 2.5 seconds. This effect stacks up to 3 times for a total bonus of <span className="stat--as">30% ({(champ.asBase * 30 / 100).toFixed(3)}) / 60% ({(champ.asBase * 60 / 100).toFixed(3)}) / 90% ({(champ.asBase * 90 / 100).toFixed(3)}) / 120% ({(champ.asBase * 120 / 100).toFixed(3)})</span>.
+            <b>Pow-Pow, the Minigun:</b>  Attacks grants bonus <span className="stat--as">Attack Speed</span>  for 2.5 seconds. This effect stacks up to 3 times for a total bonus of <span className="stat--as">35% ({(champ.asBase * 35 / 100).toFixed(3)}) / 60% ({(champ.asBase * 60 / 100).toFixed(3)}) / 85% ({(champ.asBase * 85 / 100).toFixed(3)}) / 110% ({(champ.asBase * 110 / 100).toFixed(3)})</span>.
           </p>
         </div>
     },

@@ -4,7 +4,7 @@ export default function aatrox({currentLevel, mod, bonus, atk, def}) {
       description: <div className="abilityDescription">
       <h4><span className="marker--ability">P</span> DEATHBRINGER STANCE</h4>
       <p>
-        Enhances his next attack every <abbr title="24 seconds">{(24*mod.atkcdr).toFixed(1)} seconds</abbr> to deal bonus <abbr title="6%-12% based on level, pre/post-mitigation stats" className="stat--ad">{(Math.round(def.health * (6 + (0.5 * currentLevel -1)) / 100))} / {(Math.round((def.health * (6 + (0.5 * currentLevel -1)) / 100) * (1 - mod.defPhysRed)))} physical damage</abbr>  and <span className="stat--hp">heals</span>  himself for the same amount. <br />
+        Enhances his next attack every <abbr title="24 seconds">{(24*mod.atkcdr).toFixed(1)} seconds</abbr> to deal bonus <abbr title="5%-15% based on level, pre/post-mitigation stats" className="stat--ad">{(Math.round(def.health * (5 + (10/14 * currentLevel -1)) / 100))} / {(Math.round((def.health * (5 + (10/14 * currentLevel -1)) / 100) * (1 - mod.defPhysRed)))} physical damage</abbr>  and <span className="stat--hp">heals</span>  himself for the same amount. <br />
         Stance's cooldown is reduced by 3 seconds when Aatrox hits a Champion or large monster with an attack or ability. <br />
         Max <b>50</b> damage against monsters. <br />
       </p>
@@ -25,22 +25,22 @@ export default function aatrox({currentLevel, mod, bonus, atk, def}) {
           <h5 className="stat--ad">Damage:</h5>
           <p className="stat--ad">
             Pre-mitigation: 
-            {' '}{Math.round(((15)+(atk.attack * 65 / 100)))} / 
-            {' '}{Math.round(((40)+(atk.attack * 70 / 100)))} / 
-            {' '}{Math.round(((65)+(atk.attack * 75 / 100)))} / 
-            {' '}{Math.round(((90)+(atk.attack * 80 / 100)))}
+            {' '}{Math.round(((15)+(atk.attack * 70 / 100)))} / 
+            {' '}{Math.round(((45)+(atk.attack * 75 / 100)))} / 
+            {' '}{Math.round(((75)+(atk.attack * 80 / 100)))} / 
+            {' '}{Math.round(((105)+(atk.attack * 85 / 100)))}
           </p>
           
           <p className="stat--ad">
             Post-mitigation: 
-            {' '}{Math.round(((15)+(atk.attack * 65 / 100)) * (1 - mod.defPhysRed))} / 
-            {' '}{Math.round(((40)+(atk.attack * 70 / 100))* (1 - mod.defPhysRed))} / 
-            {' '}{Math.round(((65)+(atk.attack * 75 / 100))* (1 - mod.defPhysRed))} / 
-            {' '}{Math.round(((90)+(atk.attack * 80 / 100))* (1 - mod.defPhysRed))}
+            {' '}{Math.round(((15)+(atk.attack * 70 / 100)) * (1 - mod.defPhysRed))} / 
+            {' '}{Math.round(((45)+(atk.attack * 75 / 100))* (1 - mod.defPhysRed))} / 
+            {' '}{Math.round(((75)+(atk.attack * 80 / 100))* (1 - mod.defPhysRed))} / 
+            {' '}{Math.round(((105)+(atk.attack * 85 / 100))* (1 - mod.defPhysRed))}
           </p>
 
           <p>
-            Swings his giant blade, dealing <span className="stat--ad">15 / 40 / 65 / 90 (+65% / 70% / 75% / 80% AD) physical damage</span>. This ability can be cast 2 more times, with each cast dealing 25% more damage. <br />
+            Swings his giant blade, dealing <span className="stat--ad">15 / 45 / 75 / 105 (+70% / 75% / 80% / 85% AD) physical damage</span>. This ability can be cast 2 more times, with each cast dealing 25% more damage. <br />
             Deals 65% damage to minions.
           </p>
         </div>

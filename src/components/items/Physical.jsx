@@ -39,14 +39,14 @@ const physical = [
   {
     name: 'Bloodthirster',
     icon: '../images/items/Bloodthirster.png',
-    attack: 55,
+    attack: 50,
     critChance: 0.25,
     description: <div className='itemDescription'>
-      <h3 className='stat--ad'>+ {55} Attack Damage</h3>
+      <h3 className='stat--ad'>+ {50} Attack Damage</h3>
       <h3 className='stat--critChance'>+ {Number(0.25*100)}% Critical Rate</h3>
 
       <p><b>Bloody: </b> <b className='stat--vamp'>+{Math.floor(total.attack * 12 / 100)}  Physical Vamp</b></p>
-      <p><b>Bloodsworn: </b> <b className='stat--vamp'>Physical Vamp</b> overheals you, generating a shield that absorbs <b className='stat--hp'>{(40 + 20 * (currentLevel - 1))}</b> (40 + 20/level) damage. This shield decays out of combat over 10 seconds</p>
+      <p><b>Bloodsworn: </b> Gain <abbr title="11 + 1 per level" className='stat--ad'>{10 + Number(currentLevel)} Attack Damage</abbr> and <span className='stat--as'>10% ({(base.asBase * 10 / 100).toFixed(3)}) attack speed</span>  when your health is above 50%.</p>
     </div>
   },
 

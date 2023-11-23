@@ -8,12 +8,12 @@ export default function fiora({currentLevel, mod, bonus, atk, def, champ}) {
           </h4>
 
           <h5 className="stat--vamp">Damage:</h5>
-          <p className="stat--ad">{Math.round(def.health * ((3 + (bonus.attack * 0.055))/100))}</p>
+          <p className="stat--ad">{Math.round(def.health * ((3.5 + (bonus.attack * 0.055))/100))}</p>
 
     
           <p>
             Revelas Vitals on nearby enemy champions. <br />
-            Striking a Vital deals <span className="stat--vamp">3% <span className="stat--ad">(+0.055% bonus AD)</span>  of the target's max Health as true damage</span>, heals Fiora for <abbr title="45-115 based on level" className="stat--hp">{40 + (5*currentLevel)} health</abbr>, and grants her <abbr title="Based on ULT ability's rank" className="stat--moveSpeed"></abbr> Movement Speed (based on Grand Challenge's rank), decaying over 1.75 seconds. <br />
+            Striking a Vital deals <span className="stat--vamp">3.5% <span className="stat--ad">(+0.055% bonus AD)</span>  of the target's max Health as true damage</span>, heals Fiora for <abbr title="45-115 based on level" className="stat--hp">{40 + (5*currentLevel)} health</abbr>, and grants her <abbr title="Based on ULT ability's rank" className="stat--moveSpeed"></abbr> Movement Speed (based on Grand Challenge's rank), decaying over 1.75 seconds. <br />
             New Vitals are revealed after striking one, or after 15 seconds.
           </p>
         </div>
@@ -189,7 +189,7 @@ export default function fiora({currentLevel, mod, bonus, atk, def, champ}) {
           </p>
 
           <h5 className="stat--vamp">4 Vitals proc damage:</h5>
-          <p className="stat--ad">{Math.round(def.health * 12 / 100)}</p>
+          <p className="stat--ad">{Math.round(def.health * 14 / 100)}</p>
 
 
     
@@ -198,7 +198,7 @@ export default function fiora({currentLevel, mod, bonus, atk, def, champ}) {
           <br />
           Striking all 4 Vitals in 8 seconds -or if the target dies after at least one  hit- heals Fiora and nearby allies for <span className="stat--hp">80 / 110 / 140 <span className="stat--ad">(+60% bonus AD)</span> each second</span> . The heal persists for 2 to 5 seconds, scaling with the number of Vitals Hit.
           <br />
-          Strikig all 4 Vitals deals <span className="stat--vamp">12% max health true damage</span>.
+          Strikig all 4 Vitals deals <span className="stat--vamp">14% max health true damage</span>.
           </p>
         </div>
     }

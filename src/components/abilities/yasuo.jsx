@@ -98,10 +98,7 @@ export default function yasuo({currentLevel, mod, bonus, atk, def, champ, update
     
           <h5>
           Cooldown: 
-            {' '}{(21*mod.atkcdr).toFixed(1)} / 
-            {' '}{(20*mod.atkcdr).toFixed(1)} / 
-            {' '}{(19*mod.atkcdr).toFixed(1)} / 
-            {' '}{(18*mod.atkcdr).toFixed(1)} 
+            {' '}{(18*mod.atkcdr).toFixed(1)}
           </h5>
     
           <br />

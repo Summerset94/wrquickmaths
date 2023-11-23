@@ -228,9 +228,9 @@ export default function pantheon({currentLevel, mod, bonus, atk, def, champ}) {
     
           <h5>
           Cooldown: 
-            {' '}{(95*mod.atkcdr).toFixed(1)} / 
-            {' '}{(85*mod.atkcdr).toFixed(1)} / 
-            {' '}{(75*mod.atkcdr).toFixed(1)}
+            {' '}{(90*mod.atkcdr).toFixed(1)} / 
+            {' '}{(80*mod.atkcdr).toFixed(1)} / 
+            {' '}{(70*mod.atkcdr).toFixed(1)}
           </h5>
             <h5 className="stat--mana">
           Cost: 

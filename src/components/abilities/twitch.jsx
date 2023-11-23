@@ -9,7 +9,7 @@ export default function twitch({currentLevel, mod, bonus, atk, def, champ, updat
           </h4>
     
           <p>
-            Attacks infect enemies with venom, dealing <abbr className="stat--vamp" title='1-5 (+1 every 3 levels) + 3.5% AP'>{Math.round(1+(1 * Math.floor((currentLevel-1) / 3))+(atk.ap*3.5/100))} true damage</abbr> over 5 seconds and stacking up to 5 times (<span className="stat--vamp">{Math.round((1+(1 * Math.floor((currentLevel-1) / 3))+(atk.ap*3.5/100))*5)} damage</span>).
+            Attacks infect enemies with venom, dealing <abbr className="stat--vamp" title='1-5 (+1 every 3 levels) + 2.5% AP'>{Math.round(1+(1 * Math.floor((currentLevel-1) / 3))+(atk.ap*2.5/100))} true damage</abbr> over 5 seconds and stacking up to 5 times (<span className="stat--vamp">{Math.round((1+(1 * Math.floor((currentLevel-1) / 3))+(atk.ap*2.5/100))*5)} damage</span>).
           </p>
 
           <p>
@@ -98,22 +98,22 @@ export default function twitch({currentLevel, mod, bonus, atk, def, champ, updat
           </h5>
 
           <p className="stat--ad">Pre-mitigation: 
-            {' '}{Math.round(((20)+(bonus.attack * 37 / 100)+(atk.ap * 30 / 100)))} / 
-            {' '}{Math.round(((25)+(bonus.attack * 37 / 100)+(atk.ap * 30 / 100)))} / 
-            {' '}{Math.round(((30)+(bonus.attack * 37 / 100)+(atk.ap * 30 / 100)))} / 
-            {' '}{Math.round(((35)+(bonus.attack * 37 / 100)+(atk.ap * 30 / 100)))}
+            {' '}{Math.round(((20)+(bonus.attack * 33 / 100)+(atk.ap * 20 / 100)))} / 
+            {' '}{Math.round(((25)+(bonus.attack * 33 / 100)+(atk.ap * 20 / 100)))} / 
+            {' '}{Math.round(((30)+(bonus.attack * 33 / 100)+(atk.ap * 20 / 100)))} / 
+            {' '}{Math.round(((35)+(bonus.attack * 33 / 100)+(atk.ap * 20 / 100)))}
           </p>
 
           <p className="stat--ad">Post-mitigation: 
-            {' '}{Math.round(((20)+(bonus.attack * 37 / 100)+(atk.ap * 30 / 100)) * (1 - mod.defPhysRed))} / 
-            {' '}{Math.round(((25)+(bonus.attack * 37 / 100)+(atk.ap * 30 / 100))* (1 - mod.defPhysRed))} / 
-            {' '}{Math.round(((30)+(bonus.attack * 37 / 100)+(atk.ap * 30 / 100))* (1 - mod.defPhysRed))} / 
-            {' '}{Math.round(((35)+(bonus.attack * 37 / 100)+(atk.ap * 30 / 100))* (1 - mod.defPhysRed))}          
+            {' '}{Math.round(((20)+(bonus.attack * 33 / 100)+(atk.ap * 20 / 100)) * (1 - mod.defPhysRed))} / 
+            {' '}{Math.round(((25)+(bonus.attack * 33 / 100)+(atk.ap * 20 / 100))* (1 - mod.defPhysRed))} / 
+            {' '}{Math.round(((30)+(bonus.attack * 33 / 100)+(atk.ap * 20 / 100))* (1 - mod.defPhysRed))} / 
+            {' '}{Math.round(((35)+(bonus.attack * 33 / 100)+(atk.ap * 20 / 100))* (1 - mod.defPhysRed))}          
           </p>
     
           <br />
           <p>
-            Deals <span className="stat--ad">30 / 40 / 50 / 60 physical damage</span> to all enemies affected by DEADLY VENOM, each stack deals <span className="stat--ad">20 / 25 / 30 / 35 (+37% bonus AD) (<span className="stat--ap">+30% AP</span>) damage</span> to enemies.
+            Deals <span className="stat--ad">30 / 40 / 50 / 60 physical damage</span> to all enemies affected by DEADLY VENOM, each stack deals <span className="stat--ad">20 / 25 / 30 / 35 (+33% bonus AD) (<span className="stat--ap">+20% AP</span>) damage</span> to enemies.
           </p>
 
           <p>

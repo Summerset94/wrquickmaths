@@ -41,26 +41,26 @@ export default function hecarim({currentLevel, mod, bonus, atk, def, champ}) {
           </h5>
 
           <p className="stat--ad">Pre-mitigation: 
-            {' '}{Math.round(((10)+(atk.attack * 110 / 100)))} / 
-            {' '}{Math.round(((20)+(atk.attack * 110 / 100)))} / 
-            {' '}{Math.round(((30)+(atk.attack * 110 / 100)))} / 
-            {' '}{Math.round(((40)+(atk.attack * 110 / 100)))}
+            {' '}{Math.round(((5)+(atk.attack * 110 / 100)))} / 
+            {' '}{Math.round(((15)+(atk.attack * 110 / 100)))} / 
+            {' '}{Math.round(((25)+(atk.attack * 110 / 100)))} / 
+            {' '}{Math.round(((35)+(atk.attack * 110 / 100)))}
           </p>
 
           <p className="stat--ad">Post-mitigation: 
-            {' '}{Math.round(((10)+(atk.attack * 110 / 100)) * (1 - mod.defPhysRed))} / 
-            {' '}{Math.round(((20)+(atk.attack * 110 / 100))* (1 - mod.defPhysRed))} / 
-            {' '}{Math.round(((30)+(atk.attack * 110 / 100))* (1 - mod.defPhysRed))} / 
-            {' '}{Math.round(((40)+(atk.attack * 110 / 100))* (1 - mod.defPhysRed))}          
+            {' '}{Math.round(((5)+(atk.attack * 110 / 100)) * (1 - mod.defPhysRed))} / 
+            {' '}{Math.round(((15)+(atk.attack * 110 / 100))* (1 - mod.defPhysRed))} / 
+            {' '}{Math.round(((25)+(atk.attack * 110 / 100))* (1 - mod.defPhysRed))} / 
+            {' '}{Math.round(((35)+(atk.attack * 110 / 100))* (1 - mod.defPhysRed))}          
           </p>
     
           <p>
            <b>TAP:</b> Hecarim charges his halberd for up to <b>0.75 seconds</b>, increasing the area Hecarim will deal damage to.
            <br />
-           <b>CAST:</b> Hecarim swings his haleberd, dealing up to <span className="stat--ad">10 / 20 / 30 / 40 (+110% AD) physical damage </span>based on charge time. <br />
+           <b>CAST:</b> Hecarim swings his haleberd, dealing up to <span className="stat--ad">5 / 15 / 25 / 35 (+110% AD) physical damage </span>based on charge time. <br />
 
            If Hecarim hits an enemy champion or a large monster with a full charge, he <span className="stat--critChance">critically strikes them for 120% damage</span>  and gains a <span className="stat--moveSpeed">40% Movement Speed</span> bonus that decays over 3 seconds. <br />
-           This also empowers Hecarim's next Rampage within the next 8 seconds to deal <span className="stat--ad">135% damage</span>.
+           This also empowers Hecarim's next Rampage within the next 8 seconds to deal <span className="stat--ad">125% damage</span>.
           </p>
         </div>
     },

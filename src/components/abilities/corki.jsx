@@ -199,14 +199,14 @@ export default function corki({currentLevel, mod, bonus, atk, def, champ}) {
 
           <p className="stat--ad">Pre-mitigation: 
             {' '}{Math.round(((80)+(atk.ap * 20 / 100)+(atk.attack * 25 / 100)))} / 
-            {' '}{Math.round(((115)+(atk.ap * 20 / 100)+(atk.attack * 45 / 100)))} / 
-            {' '}{Math.round(((150)+(atk.ap * 20 / 100)+(atk.attack * 65 / 100)))}
+            {' '}{Math.round(((115)+(atk.ap * 20 / 100)+(atk.attack * 50 / 100)))} / 
+            {' '}{Math.round(((150)+(atk.ap * 20 / 100)+(atk.attack * 75 / 100)))}
           </p>
 
           <p className="stat--ad">Post-mitigation: 
             {' '}{Math.round(((80)+(atk.ap * 20 / 100)+(atk.attack * 25 / 100)) * (1 - mod.defMagRed))} / 
-            {' '}{Math.round(((115)+(atk.ap * 20 / 100)+(atk.attack * 45 / 100))* (1 - mod.defMagRed))} / 
-            {' '}{Math.round(((150)+(atk.ap * 20 / 100)+(atk.attack * 65 / 100))* (1 - mod.defMagRed))}       
+            {' '}{Math.round(((115)+(atk.ap * 20 / 100)+(atk.attack * 50 / 100))* (1 - mod.defMagRed))} / 
+            {' '}{Math.round(((150)+(atk.ap * 20 / 100)+(atk.attack * 75 / 100))* (1 - mod.defMagRed))}       
           </p>
 
           <h5 className="stat--vamp">
@@ -215,19 +215,19 @@ export default function corki({currentLevel, mod, bonus, atk, def, champ}) {
 
           <p className="stat--ad">Pre-mitigation: 
             {' '}{Math.round(((160)+(atk.ap * 40 / 100)+(atk.attack * 50 / 100)))} / 
-            {' '}{Math.round(((230)+(atk.ap * 40 / 100)+(atk.attack * 90 / 100)))} / 
-            {' '}{Math.round(((300)+(atk.ap * 40 / 100)+(atk.attack * 130 / 100)))}
+            {' '}{Math.round(((230)+(atk.ap * 40 / 100)+(atk.attack * 100 / 100)))} / 
+            {' '}{Math.round(((300)+(atk.ap * 40 / 100)+(atk.attack * 150 / 100)))}
           </p>
 
           <p className="stat--ad">Post-mitigation: 
             {' '}{Math.round(((160)+(atk.ap * 40 / 100)+(atk.attack * 50 / 100)) * (1 - mod.defMagRed))} / 
-            {' '}{Math.round(((230)+(atk.ap * 40 / 100)+(atk.attack * 90 / 100))* (1 - mod.defMagRed))} / 
-            {' '}{Math.round(((300)+(atk.ap * 40 / 100)+(atk.attack * 130 / 100))* (1 - mod.defMagRed))} 
+            {' '}{Math.round(((230)+(atk.ap * 40 / 100)+(atk.attack * 100 / 100))* (1 - mod.defMagRed))} / 
+            {' '}{Math.round(((300)+(atk.ap * 40 / 100)+(atk.attack * 150 / 100))* (1 - mod.defMagRed))} 
           </p>
     
           <p>
-            Fires a missile, dealing <span className="stat--ap">80 / 115 / 150 (<span className="stat--ad">+25% / 45% / 65% AD</span>  +20% AP) magic damage</span>. 2 seconds cooldown between casts. <br />
-            <b>Big One:</b> Every third missile fired deals <span className="stat--ap">160 / 230 / 300 (<span className="stat--ad">+50% / 90% / 130% AD</span> +40% AP) magic damage</span> and has increased range and blast radius.
+            Fires a missile, dealing <span className="stat--ap">80 / 115 / 150 (<span className="stat--ad">+25% / 50% / 75% AD</span>  +20% AP) magic damage</span>. 2 seconds cooldown between casts. <br />
+            <b>Big One:</b> Every third missile fired deals <span className="stat--ap">160 / 230 / 300 (<span className="stat--ad">+50% / 100% / 150% AD</span> +40% AP) magic damage</span> and has increased range and blast radius.
           </p>
         </div>
     }

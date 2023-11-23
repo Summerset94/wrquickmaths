@@ -22,10 +22,10 @@ export default function karma({currentLevel, mod, bonus, atk, def, champ}) {
     
           <h5>
           Cooldown: 
-            {' '}{(10*mod.atkcdr).toFixed(1)} / 
             {' '}{(9*mod.atkcdr).toFixed(1)} / 
             {' '}{(8*mod.atkcdr).toFixed(1)} / 
-            {' '}{(7*mod.atkcdr).toFixed(1)} 
+            {' '}{(7*mod.atkcdr).toFixed(1)} / 
+            {' '}{(6*mod.atkcdr).toFixed(1)} 
           </h5>
             <h5 className="stat--mana">
           Cost: 
@@ -228,15 +228,15 @@ export default function karma({currentLevel, mod, bonus, atk, def, champ}) {
           </h5>
 
           <p className="stat--ap">Pre-mitigation: 
-            {' '}{Math.round(((150)+(atk.ap * 60 / 100)))} / 
-            {' '}{Math.round(((250)+(atk.ap * 60 / 100)))} / 
-            {' '}{Math.round(((350)+(atk.ap * 60 / 100)))}
+            {' '}{Math.round(((170)+(atk.ap * 80 / 100)))} / 
+            {' '}{Math.round(((280)+(atk.ap * 80 / 100)))} / 
+            {' '}{Math.round(((390)+(atk.ap * 80 / 100)))}
           </p>
 
           <p className="stat--ap">Post-mitigation: 
-            {' '}{Math.round(((150)+(atk.ap * 60 / 100)) * (1 - mod.defMagRed))} / 
-            {' '}{Math.round(((250)+(atk.ap * 60 / 100))* (1 - mod.defMagRed))} / 
-            {' '}{Math.round(((350)+(atk.ap * 60 / 100))* (1 - mod.defMagRed))}
+            {' '}{Math.round(((170)+(atk.ap * 80 / 100)) * (1 - mod.defMagRed))} / 
+            {' '}{Math.round(((280)+(atk.ap * 80 / 100))* (1 - mod.defMagRed))} / 
+            {' '}{Math.round(((390)+(atk.ap * 80 / 100))* (1 - mod.defMagRed))}
           </p>
     
           <p>
@@ -244,7 +244,7 @@ export default function karma({currentLevel, mod, bonus, atk, def, champ}) {
           </p>
 
           <p>
-          Forms a ring of spirit energy at the taget location. After 1 second, it detonates, dealing <span className="stat--ap">150 / 250 / 350 (+60% AP) magic damage</span>  to all enemies inside the circle and slowing them by 35% for 1 second.
+          Forms a ring of spirit energy at the taget location. After 1 second, it detonates, dealing <span className="stat--ap">170 / 280 / 390 (+80% AP) magic damage</span>  to all enemies inside the circle and slowing them by 35% for 1 second.
           </p>
 
           <p>

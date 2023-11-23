@@ -86,10 +86,10 @@ export default function janna({currentLevel, mod, bonus, atk, def, champ}) {
 
           <h5 className="stat--moveSpeed">Movement speed bonus:</h5>
           <p className="stat--moveSpeed"> 
-          {Math.round((champ.moveSpeed + bonus.moveSpeed)*15/100)} /
+          {Math.round((champ.moveSpeed + bonus.moveSpeed)*10/100)} /
+          {' '}{Math.round((champ.moveSpeed + bonus.moveSpeed)*15/100)} /
           {' '}{Math.round((champ.moveSpeed + bonus.moveSpeed)*20/100)} /
-          {' '}{Math.round((champ.moveSpeed + bonus.moveSpeed)*25/100)} /
-          {' '}{Math.round((champ.moveSpeed + bonus.moveSpeed)*30/100)}
+          {' '}{Math.round((champ.moveSpeed + bonus.moveSpeed)*25/100)}
           </p>
 
           <h5 className="stat--ap">
@@ -97,21 +97,21 @@ export default function janna({currentLevel, mod, bonus, atk, def, champ}) {
           </h5>
 
           <p className="stat--ap">Pre-mitigation: 
-            {' '}{Math.round(((50)+(atk.ap * 50 / 100)+(champ.moveSpeed * 0.05 + bonus.moveSpeed + ((champ.moveSpeed + bonus.moveSpeed) * 15/100))*20/100))} / 
-            {' '}{Math.round(((90)+(atk.ap * 50 / 100)+(champ.moveSpeed * 0.05 + bonus.moveSpeed + ((champ.moveSpeed + bonus.moveSpeed) * 20/100))*20/100))} / 
-            {' '}{Math.round(((130)+(atk.ap * 50 / 100)+(champ.moveSpeed * 0.05 + bonus.moveSpeed + ((champ.moveSpeed + bonus.moveSpeed) * 25/100))*20/100))} / 
-            {' '}{Math.round(((170)+(atk.ap * 50 / 100)+(champ.moveSpeed * 0.05 + bonus.moveSpeed + ((champ.moveSpeed + bonus.moveSpeed) * 30/100))*20/100))}
+            {' '}{Math.round(((50)+(atk.ap * 50 / 100)+(champ.moveSpeed * 0.05 + bonus.moveSpeed + ((champ.moveSpeed + bonus.moveSpeed) * 10/100))*20/100))} / 
+            {' '}{Math.round(((90)+(atk.ap * 50 / 100)+(champ.moveSpeed * 0.05 + bonus.moveSpeed + ((champ.moveSpeed + bonus.moveSpeed) * 15/100))*20/100))} / 
+            {' '}{Math.round(((130)+(atk.ap * 50 / 100)+(champ.moveSpeed * 0.05 + bonus.moveSpeed + ((champ.moveSpeed + bonus.moveSpeed) * 20/100))*20/100))} / 
+            {' '}{Math.round(((170)+(atk.ap * 50 / 100)+(champ.moveSpeed * 0.05 + bonus.moveSpeed + ((champ.moveSpeed + bonus.moveSpeed) * 25/100))*20/100))}
           </p>
 
           <p className="stat--ap">Post-mitigation: 
-            {' '}{Math.round(((50)+(atk.ap * 50 / 100)+(champ.moveSpeed * 0.05 + bonus.moveSpeed + ((champ.moveSpeed + bonus.moveSpeed) * 15/100))*20/100) * (1 - mod.defMagRed))} / 
-            {' '}{Math.round(((90)+(atk.ap * 50 / 100)+(champ.moveSpeed * 0.05 + bonus.moveSpeed + ((champ.moveSpeed + bonus.moveSpeed) * 20/100))*20/100)* (1 - mod.defMagRed))} / 
-            {' '}{Math.round(((130)+(atk.ap * 50 / 100)+(champ.moveSpeed * 0.05 + bonus.moveSpeed + ((champ.moveSpeed + bonus.moveSpeed) * 25/100))*20/100)* (1 - mod.defMagRed))} / 
-            {' '}{Math.round(((170)+(atk.ap * 50 / 100)+(champ.moveSpeed * 0.05 + bonus.moveSpeed + ((champ.moveSpeed + bonus.moveSpeed) * 30/100))*20/100)* (1 - mod.defMagRed))}          
+            {' '}{Math.round(((50)+(atk.ap * 50 / 100)+(champ.moveSpeed * 0.05 + bonus.moveSpeed + ((champ.moveSpeed + bonus.moveSpeed) * 10/100))*20/100) * (1 - mod.defMagRed))} / 
+            {' '}{Math.round(((90)+(atk.ap * 50 / 100)+(champ.moveSpeed * 0.05 + bonus.moveSpeed + ((champ.moveSpeed + bonus.moveSpeed) * 15/100))*20/100)* (1 - mod.defMagRed))} / 
+            {' '}{Math.round(((130)+(atk.ap * 50 / 100)+(champ.moveSpeed * 0.05 + bonus.moveSpeed + ((champ.moveSpeed + bonus.moveSpeed) * 20/100))*20/100)* (1 - mod.defMagRed))} / 
+            {' '}{Math.round(((170)+(atk.ap * 50 / 100)+(champ.moveSpeed * 0.05 + bonus.moveSpeed + ((champ.moveSpeed + bonus.moveSpeed) * 25/100))*20/100)* (1 - mod.defMagRed))}          
           </p>
     
           <p>
-           Gains <span className="stat--moveSpeed">15% / 20% / 25% / 30% Movement Speed</span> for 2 seconds. <br />
+           Gains <span className="stat--moveSpeed">10% / 15% / 20% / 25% Movement Speed</span> for 2 seconds. <br />
            The wind spirit automatically searches for the nearest 3 campions within range, granting <span className="stat--moveSpeed">Movement Speed</span> bonuses to allies and dealing <span className="stat--ap">50 / 90 / 130 / 170 (50% AP + <span className="stat--moveSpeed">20% bonus MS</span>) magic damage</span> to enemies.
           </p>
         </div>
@@ -141,10 +141,10 @@ export default function janna({currentLevel, mod, bonus, atk, def, champ}) {
 
           <h5 className="stat--hp">Shield strength:</h5>
           <p className="stat--hp">
-          {Math.round((65) + (atk.ap * 60 / 100))} /
-          {' '}{Math.round((90) + (atk.ap * 60 / 100))} /
-          {' '}{Math.round((115) + (atk.ap * 60 / 100))} /
-          {' '}{Math.round((140) + (atk.ap * 60 / 100))}
+          {Math.round((65) + (atk.ap * 45 / 100))} /
+          {' '}{Math.round((90) + (atk.ap * 45 / 100))} /
+          {' '}{Math.round((115) + (atk.ap * 45 / 100))} /
+          {' '}{Math.round((140) + (atk.ap * 45 / 100))}
           </p>
 
           <h5 className="stat--ad">Bonus Attack Damage:</h5>
@@ -156,7 +156,7 @@ export default function janna({currentLevel, mod, bonus, atk, def, champ}) {
           </p>
     
           <p>
-          Blesses herself and the allied champion with the lowers Hp with a shield that absorbs <span className="stat--hp">65 / 90 / 115 / 140 <span className="stat--ap">(+60% AP)</span> damage</span>. <br />
+          Blesses herself and the allied champion with the lowers Hp with a shield that absorbs <span className="stat--hp">65 / 90 / 115 / 140 <span className="stat--ap">(+45% AP)</span> damage</span>. <br />
           Shield grants <span className="stat--ad">10 / 20 / 30 / 40 <span className="stat--ap">(+10% AP)</span> Attack Damage</span> while it holds. Lasts for 3 seconds. <br />
           If there is a turret within range, applies a shield to the turret as well.
           </p>

@@ -53,40 +53,40 @@ export default function ekko({currentLevel, mod, bonus, atk, def, champ}) {
             Damage initial:
           </h5>
 
-          <p className="stat--ad">Pre-mitigation: 
-            {' '}{Math.round(((60)+(atk.ap * 30 / 100)))} / 
-            {' '}{Math.round(((80)+(atk.ap * 30 / 100)))} / 
-            {' '}{Math.round(((100)+(atk.ap * 30 / 100)))} / 
-            {' '}{Math.round(((120)+(atk.ap * 30 / 100)))}
+          <p className="stat--ap">Pre-mitigation: 
+            {' '}{Math.round(((70)+(atk.ap * 30 / 100)))} / 
+            {' '}{Math.round(((90)+(atk.ap * 30 / 100)))} / 
+            {' '}{Math.round(((110)+(atk.ap * 30 / 100)))} / 
+            {' '}{Math.round(((130)+(atk.ap * 30 / 100)))}
           </p>
 
-          <p className="stat--ad">Post-mitigation: 
-            {' '}{Math.round(((60)+(atk.ap * 30 / 100)) * (1 - mod.defMagRed))} / 
-            {' '}{Math.round(((80)+(atk.ap * 30 / 100))* (1 - mod.defMagRed))} / 
-            {' '}{Math.round(((100)+(atk.ap * 30 / 100))* (1 - mod.defMagRed))} / 
-            {' '}{Math.round(((120)+(atk.ap * 30 / 100))* (1 - mod.defMagRed))}          
+          <p className="stat--ap">Post-mitigation: 
+            {' '}{Math.round(((70)+(atk.ap * 30 / 100)) * (1 - mod.defMagRed))} / 
+            {' '}{Math.round(((90)+(atk.ap * 30 / 100))* (1 - mod.defMagRed))} / 
+            {' '}{Math.round(((110)+(atk.ap * 30 / 100))* (1 - mod.defMagRed))} / 
+            {' '}{Math.round(((130)+(atk.ap * 30 / 100))* (1 - mod.defMagRed))}          
           </p>
 
           <h5 className="stat--ap">
             Damage secondary:
           </h5>
 
-          <p className="stat--ad">Pre-mitigation: 
-            {' '}{Math.round(((40)+(atk.ap * 60 / 100)))} / 
-            {' '}{Math.round(((75)+(atk.ap * 60 / 100)))} / 
-            {' '}{Math.round(((110)+(atk.ap * 60 / 100)))} / 
-            {' '}{Math.round(((145)+(atk.ap * 60 / 100)))}
+          <p className="stat--ap">Pre-mitigation: 
+            {' '}{Math.round(((50)+(atk.ap * 60 / 100)))} / 
+            {' '}{Math.round(((80)+(atk.ap * 60 / 100)))} / 
+            {' '}{Math.round(((120)+(atk.ap * 60 / 100)))} / 
+            {' '}{Math.round(((155)+(atk.ap * 60 / 100)))}
           </p>
 
-          <p className="stat--ad">Post-mitigation: 
-            {' '}{Math.round(((40)+(atk.ap * 60 / 100)) * (1 - mod.defMagRed))} / 
-            {' '}{Math.round(((75)+(atk.ap * 60 / 100))* (1 - mod.defMagRed))} / 
-            {' '}{Math.round(((110)+(atk.ap * 60 / 100))* (1 - mod.defMagRed))} / 
-            {' '}{Math.round(((145)+(atk.ap * 60 / 100))* (1 - mod.defMagRed))}          
+          <p className="stat--ap">Post-mitigation: 
+            {' '}{Math.round(((50)+(atk.ap * 60 / 100)) * (1 - mod.defMagRed))} / 
+            {' '}{Math.round(((80)+(atk.ap * 60 / 100))* (1 - mod.defMagRed))} / 
+            {' '}{Math.round(((120)+(atk.ap * 60 / 100))* (1 - mod.defMagRed))} / 
+            {' '}{Math.round(((155)+(atk.ap * 60 / 100))* (1 - mod.defMagRed))}          
           </p>
     
           <p>
-          Throw a temporal device, dealing <span className="stat--ap">60 / 80 / 100 / 120 (+30% AP) magic damage</span>. On hitting a champion or the distance limit, it expands into a field that slows by <span className="stat--moveSpeed">30% / 40% / 50% / 60%</span>. The device then returns to Ekko, dealing <span className="stat--ap">40 / 75 / 110 / 145 (+60% AP) magic damage</span>.
+          Throw a temporal device, dealing <span className="stat--ap">70 / 90 / 110 / 130 (+30% AP) magic damage</span>. On hitting a champion or the distance limit, it expands into a field that slows by <span className="stat--moveSpeed">30% / 40% / 50% / 60%</span>. The device then returns to Ekko, dealing <span className="stat--ap">50 / 85 / 120 / 155 (+60% AP) magic damage</span>.
           </p>
         </div>
     },
@@ -186,8 +186,8 @@ export default function ekko({currentLevel, mod, bonus, atk, def, champ}) {
     
           <h5>
           Cooldown: 
-            {' '}{(80*mod.atkcdr).toFixed(1)} / 
-            {' '}{(60*mod.atkcdr).toFixed(1)} / 
+            {' '}{(70*mod.atkcdr).toFixed(1)} / 
+            {' '}{(55*mod.atkcdr).toFixed(1)} / 
             {' '}{(40*mod.atkcdr).toFixed(1)}
           </h5>
             <h5 className="stat--mana">

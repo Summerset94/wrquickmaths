@@ -30,10 +30,10 @@ export default function nunu({currentLevel, mod, bonus, atk, def, champ}) {
     
           <h5>
           Cooldown: 
-            {' '}{(11*mod.atkcdr).toFixed(1)} / 
             {' '}{(10*mod.atkcdr).toFixed(1)} / 
             {' '}{(9*mod.atkcdr).toFixed(1)} / 
-            {' '}{(8*mod.atkcdr).toFixed(1)} 
+            {' '}{(8*mod.atkcdr).toFixed(1)} / 
+            {' '}{(7*mod.atkcdr).toFixed(1)} 
           </h5>
             <h5 className="stat--mana">
           Cost: 
@@ -45,10 +45,10 @@ export default function nunu({currentLevel, mod, bonus, atk, def, champ}) {
           </h5>
 
           <p className="stat--hp">
-                {Math.round(((60)+(atk.ap * 70 / 100)+(bonus.health * 8 / 100)))} / 
-            {' '}{Math.round(((95)+(atk.ap * 70 / 100)+(bonus.health * 8 / 100)))} / 
-            {' '}{Math.round(((130)+(atk.ap * 70 / 100)+(bonus.health * 8 / 100)))} / 
-            {' '}{Math.round(((165)+(atk.ap * 70 / 100)+(bonus.health * 8 / 100)))}
+                {Math.round(((80)+(atk.ap * 70 / 100)+(bonus.health * 9 / 100)))} / 
+            {' '}{Math.round(((115)+(atk.ap * 70 / 100)+(bonus.health * 9 / 100)))} / 
+            {' '}{Math.round(((150)+(atk.ap * 70 / 100)+(bonus.health * 9 / 100)))} / 
+            {' '}{Math.round(((185)+(atk.ap * 70 / 100)+(bonus.health * 9 / 100)))}
           </p>
 
           <h5 className="stat--ap">
@@ -70,7 +70,7 @@ export default function nunu({currentLevel, mod, bonus, atk, def, champ}) {
           </p>
     
           <p>
-          Takes a bite out of the enemy, dealing <span className="stat--ap">55 / 110 / 165 / 220 (+65% AP) (<span className="stat--hp">+5% bonus Health</span>) magic damage</span> and healing for <span className="stat--hp">60 / 95 / 130 / 165 (<span className="stat--ap">+70% AP</span>) (+8% bonus Health)</span>. The healing is increased by 50% when Nunu and Willump are below 50% Maximum Health.
+          Takes a bite out of the enemy, dealing <span className="stat--ap">55 / 110 / 165 / 220 (+65% AP) (<span className="stat--hp">+5% bonus Health</span>) magic damage</span> and healing for <span className="stat--hp">80 / 115 / 150 / 185 (<span className="stat--ap">+70% AP</span>) (+9% bonus Health)</span>. The healing is increased by 50% when Nunu and Willump are below 50% Maximum Health.
           </p>
 
           <p>
@@ -222,15 +222,15 @@ export default function nunu({currentLevel, mod, bonus, atk, def, champ}) {
           </h5>
 
           <p className="stat--ap">Pre-mitigation: 
-            {' '}{Math.round(((130)+(atk.ap * 50 / 100)))} - {Math.round(((715)+(atk.ap * 275 / 100)))} / 
-            {' '}{Math.round(((190)+(atk.ap * 50 / 100)))} - {Math.round(((1045)+(atk.ap * 275 / 100)))} / 
-            {' '}{Math.round(((250)+(atk.ap * 50 / 100)))} - {Math.round(((1375)+(atk.ap * 275 / 100)))}
+            {' '}{Math.round(((180)+(atk.ap * 50 / 100)))} - {Math.round(((915)+(atk.ap * 275 / 100)))} / 
+            {' '}{Math.round(((240)+(atk.ap * 50 / 100)))} - {Math.round(((1245)+(atk.ap * 275 / 100)))} / 
+            {' '}{Math.round(((300)+(atk.ap * 50 / 100)))} - {Math.round(((1575)+(atk.ap * 275 / 100)))}
           </p>
 
           <p className="stat--ap">Post-mitigation: 
-            {' '}{Math.round(((130)+(atk.ap * 50 / 100)) * (1 - mod.defMagRed))} - {Math.round(((715)+(atk.ap * 275 / 100)) * (1 - mod.defMagRed))} / 
-            {' '}{Math.round(((190)+(atk.ap * 50 / 100))* (1 - mod.defMagRed))} - {Math.round(((1045)+(atk.ap * 275 / 100))* (1 - mod.defMagRed))} / 
-            {' '}{Math.round(((250)+(atk.ap * 50 / 100))* (1 - mod.defMagRed))} - {Math.round(((1375)+(atk.ap * 275 / 100))* (1 - mod.defMagRed))}
+            {' '}{Math.round(((180)+(atk.ap * 50 / 100)) * (1 - mod.defMagRed))} - {Math.round(((915)+(atk.ap * 275 / 100)) * (1 - mod.defMagRed))} / 
+            {' '}{Math.round(((240)+(atk.ap * 50 / 100))* (1 - mod.defMagRed))} - {Math.round(((1245)+(atk.ap * 275 / 100))* (1 - mod.defMagRed))} / 
+            {' '}{Math.round(((300)+(atk.ap * 50 / 100))* (1 - mod.defMagRed))} - {Math.round(((1575)+(atk.ap * 275 / 100))* (1 - mod.defMagRed))}
           </p>
     
           <p>
@@ -238,7 +238,7 @@ export default function nunu({currentLevel, mod, bonus, atk, def, champ}) {
           </p>
 
           <p>
-          Nearby enemies are slowed by <span className="stat--moveSpeed">50%, increasing to 95%</span>  over the duration. When the channel ends, nearby enemies take <span className="stat--ap">130 / 190 / 250 (+50% AP) </span> to <span className="stat--ap">715 / 1045 / 1375 (+275% AP) magic damage</span>, increased with channel duration.
+          Nearby enemies are slowed by <span className="stat--moveSpeed">50%, increasing to 95%</span>  over the duration. When the channel ends, nearby enemies take <span className="stat--ap">180 / 240 / 300 (+50% AP) </span> to <span className="stat--ap">915 / 1245 / 1575 (+275% AP) magic damage</span>, increased with channel duration.
           </p>
         </div>
     }

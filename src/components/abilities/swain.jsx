@@ -43,7 +43,7 @@ export default function swain({currentLevel, mod, bonus, atk, def, champ, update
                 onChange={handleInputChange}
               />
             </label>            
-            <p><button onClick={updateStacks}>Update Stacks</button> Current bonus: <span className="stat--hp">{stacks * 12} Health</span> </p>
+            <p><button onClick={updateStacks}>Update Stacks</button> Current bonus: <span className="stat--hp">{stacks * 16} Health</span> </p>
           </div>
     
           <p>
@@ -51,7 +51,7 @@ export default function swain({currentLevel, mod, bonus, atk, def, champ, update
           </p>
 
           <p>
-            Soul Fragments heal for <abbr title="3/4/5/6% HP at level 1/5/9/13" className="stat--hp">{Math.round(atk.health * (3 + Math.floor((currentLevel-1 / 4)))/100)} health</abbr>  and provide <span className="stat--hp">12 Maximum Health</span> 
+            Soul Fragments heal for <abbr title="3/4/5/6% HP at level 1/5/9/13" className="stat--hp">{Math.round(atk.health * (3 + Math.floor((currentLevel-1 / 4)))/100)} health</abbr>  and provide <span className="stat--hp">16 Maximum Health</span> 
           </p>
         </div>
     },
@@ -220,15 +220,15 @@ export default function swain({currentLevel, mod, bonus, atk, def, champ, update
           </h5>
 
           <p className="stat--ap">Pre-mitigation: 
-            {' '}{Math.round(((20)+(atk.ap * 10 / 100)))} / 
-            {' '}{Math.round(((40)+(atk.ap * 10 / 100)))} / 
-            {' '}{Math.round(((60)+(atk.ap * 10 / 100)))}
+            {' '}{Math.round(((15)+(atk.ap * 15 / 100)))} / 
+            {' '}{Math.round(((35)+(atk.ap * 15 / 100)))} / 
+            {' '}{Math.round(((55)+(atk.ap * 15 / 100)))}
           </p>
 
           <p className="stat--ap">Post-mitigation: 
-            {' '}{Math.round(((20)+(atk.ap * 10 / 100)) * (1 - mod.defMagRed))} / 
-            {' '}{Math.round(((40)+(atk.ap * 10 / 100))* (1 - mod.defMagRed))} / 
-            {' '}{Math.round(((60)+(atk.ap * 10 / 100))* (1 - mod.defMagRed))}
+            {' '}{Math.round(((15)+(atk.ap * 15 / 100)) * (1 - mod.defMagRed))} / 
+            {' '}{Math.round(((35)+(atk.ap * 15 / 100))* (1 - mod.defMagRed))} / 
+            {' '}{Math.round(((55)+(atk.ap * 15 / 100))* (1 - mod.defMagRed))}
           </p>
 
           <h5 className="stat--hp">
@@ -236,16 +236,16 @@ export default function swain({currentLevel, mod, bonus, atk, def, champ, update
           </h5>
 
           <p className="stat--hp">
-                {Math.round(((15)+(atk.ap * 12 / 100)))} / 
-            {' '}{Math.round(((25)+(atk.ap * 12 / 100)))} / 
-            {' '}{Math.round(((35)+(atk.ap * 12 / 100)))}
+                {Math.round(((15)+(atk.ap * 15 / 100)))} / 
+            {' '}{Math.round(((25)+(atk.ap * 15 / 100)))} / 
+            {' '}{Math.round(((35)+(atk.ap * 15 / 100)))}
           </p>
 
           <br />
 
     
           <p>
-           Swain frees the demon, dealing <span className="stat--ap">20 / 40 / 60 (+10% AP) magic damage</span> per second to enemies within his range and restoring <span className="stat--hp">15 / 25 / 35 (<span className="stat--ap">+12% AP</span>) health</span> to himself.
+           Swain frees the demon, dealing <span className="stat--ap">15 / 35 / 55 (+15% AP) magic damage</span> per second to enemies within his range and restoring <span className="stat--hp">15 / 25 / 35 (<span className="stat--ap">+15% AP</span>) health</span> to himself.
           </p>
 
           <p>

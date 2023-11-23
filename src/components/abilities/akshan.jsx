@@ -16,7 +16,7 @@ export default function akshan({currentLevel, mod, bonus, atk, def}) {
           
           <p>
             Every three hits from attacks and abilities deal bonus <abbr title="25-180 based on level" className="stat--ap">{Math.round(25 + (155/14+(currentLevel - 1)))} Magic Damage</abbr> and gain a shield that absorbs <abbr title="40-300 based on level +40 bonus AD" className="stat--hp">{Math.round(40+(260/14*(currentLevel - 1))+ (bonus.attack * 40 / 100))} Damage</abbr> for 2 seconds. <br />
-            After launching a basic attack. Akshan will fire a second shot that deals <abbr title="50% AD" className="stat--ad">{Math.round(atk.attack/2)} Physical Damage</abbr>. He can cancel this shot to gain <abbr title="40-120 based an level">{Math.round(40 + (80/14*(currentLevel - 1)))}</abbr> decaying over 1 second.
+            After launching a basic attack. Akshan will fire a second shot that deals <abbr title="50% AD" className="stat--ad">{Math.round(atk.attack/2)} Physical Damage</abbr>. He can cancel this shot to gain <abbr title="40-120 based an level" className="stat--moveSpeed">{Math.round(40 + (80/14*(currentLevel - 1)))} Movement Speed</abbr> decaying over 1 second.
           </p>
         </div>
     },
@@ -62,7 +62,7 @@ export default function akshan({currentLevel, mod, bonus, atk, def}) {
         </p>
 
           <p>
-            Akshan throws a boomerang that deals <span className="stat--ad">5 / 3 / 55 / 80 (+80% AD) Physical Damage</span> to enemies it passes through and revealing them, granting sight of the area along its path, as well as extending its range every time it hits an enemy. If the boomerang hits an enemy champion, Akshan gains bonus <abbr title="40%">{Math.round(atk.moveSpeed * 40 / 100)} Movement Speed</abbr> decaying over time. Upon reaching maximum range, the boomerang returns to Akshan, applying the same effects to enemies hit along the way. Avengerang's damage is reduced against non-champions.
+            Akshan throws a boomerang that deals <span className="stat--ad">5 / 3 / 55 / 80 (+80% AD) Physical Damage</span> to enemies it passes through and revealing them, granting sight of the area along its path, as well as extending its range every time it hits an enemy. If the boomerang hits an enemy champion, Akshan gains bonus <abbr title="40%" className="stat--moveSpeed">{Math.round(atk.moveSpeed * 40 / 100)} Movement Speed</abbr> decaying over time. Upon reaching maximum range, the boomerang returns to Akshan, applying the same effects to enemies hit along the way. Avengerang's damage is reduced against non-champions.
           </p>
         </div>
     },
@@ -90,7 +90,7 @@ export default function akshan({currentLevel, mod, bonus, atk, def}) {
           </h5>
 
           <p>
-            Enemies that kill allied champions become Scoundrels for a duration. When Akshan takes down a Scoundrel, he gains bonus gold and revives the allies slain. Active: Become camouflaged for a few seconds and gain bonus <abbr title="80% / 90% / 100% / 110%"> {Math.round(atk.moveSpeed * 80 / 100)} / {Math.round(atk.moveSpeed * 90 / 100)} / {Math.round(atk.moveSpeed * 100 / 100)} / {Math.round(atk.moveSpeed * 110 / 100)} Movement Speed</abbr> towards Scoundrels. Always camouflaged when Akshan is near terrain or in brushes. Gain <span className="stat--mana">2% missing mana regen</span> per second when chasing Scoundrels.
+            Enemies that kill allied champions become Scoundrels for a duration. When Akshan takes down a Scoundrel, he gains bonus gold and revives the allies slain. Active: Become camouflaged for a few seconds and gain bonus <abbr title="80% / 90% / 100% / 110%" className="stat--moveSpeed"> {Math.round(atk.moveSpeed * 80 / 100)} / {Math.round(atk.moveSpeed * 90 / 100)} / {Math.round(atk.moveSpeed * 100 / 100)} / {Math.round(atk.moveSpeed * 110 / 100)} Movement Speed</abbr> towards Scoundrels. Always camouflaged when Akshan is near terrain or in brushes. Gain <span className="stat--mana">2% missing mana regen</span> per second when chasing Scoundrels.
           </p>
         </div>
     },

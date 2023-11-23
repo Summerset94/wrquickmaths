@@ -152,21 +152,21 @@ export default function brand({currentLevel, mod, bonus, atk, def}) {
           </h5>
 
           <p className="stat--ad">Pre-mitigation: 
-            {' '}{Math.round(((60)+(atk.ap * 40 / 100)))} / 
-            {' '}{Math.round(((90)+(atk.ap * 40 / 100)))} / 
-            {' '}{Math.round(((120)+(atk.ap * 40 / 100)))} / 
-            {' '}{Math.round(((150)+(atk.ap * 40 / 100)))}
+            {' '}{Math.round(((60)+(atk.ap * 50 / 100)))} / 
+            {' '}{Math.round(((90)+(atk.ap * 50 / 100)))} / 
+            {' '}{Math.round(((120)+(atk.ap * 50 / 100)))} / 
+            {' '}{Math.round(((150)+(atk.ap * 50 / 100)))}
           </p>
 
           <p className="stat--ad">Post-mitigation: 
-            {' '}{Math.round(((60)+(atk.ap * 40 / 100)) * (1 - mod.defMagRed))} / 
-            {' '}{Math.round(((90)+(atk.ap * 40 / 100))* (1 - mod.defMagRed))} / 
-            {' '}{Math.round(((120)+(atk.ap * 40 / 100))* (1 - mod.defMagRed))} / 
-            {' '}{Math.round(((150)+(atk.ap * 40 / 100))* (1 - mod.defMagRed))}          
+            {' '}{Math.round(((60)+(atk.ap * 50 / 100)) * (1 - mod.defMagRed))} / 
+            {' '}{Math.round(((90)+(atk.ap * 50 / 100))* (1 - mod.defMagRed))} / 
+            {' '}{Math.round(((120)+(atk.ap * 50 / 100))* (1 - mod.defMagRed))} / 
+            {' '}{Math.round(((150)+(atk.ap * 50 / 100))* (1 - mod.defMagRed))}          
           </p>
     
           <p>
-            Set the target aflame and spread conflagration to all enemies near initial target, dealing <span className="stat--ap">60 / 90 / 120 / 150 (+40%AP) magic damage</span>. When initial target is <b>ablaze</b>, Conflagration's spread radius doubles.
+            Set the target aflame and spread conflagration to all enemies near initial target, dealing <span className="stat--ap">60 / 90 / 120 / 150 (+50%AP) magic damage</span>. When initial target is <b>ablaze</b>, Conflagration's spread radius doubles.
           </p>
         </div>
     },
@@ -196,19 +196,19 @@ export default function brand({currentLevel, mod, bonus, atk, def}) {
           </h5>
 
           <p className="stat--ad">Pre-mitigation: 
-            {' '}{Math.round(((100)+(atk.ap * 25 / 100)))} / 
-            {' '}{Math.round(((200)+(atk.ap * 25 / 100)))} / 
-            {' '}{Math.round(((300)+(atk.ap * 25 / 100)))}
+            {' '}{Math.round(((100)+(atk.ap * 30 / 100)))} / 
+            {' '}{Math.round(((200)+(atk.ap * 30 / 100)))} / 
+            {' '}{Math.round(((300)+(atk.ap * 30 / 100)))}
           </p>
 
           <p className="stat--ad">Post-mitigation: 
-            {' '}{Math.round(((100)+(atk.ap * 25 / 100)) * (1 - mod.defMagRed))} / 
-            {' '}{Math.round(((200)+(atk.ap * 25 / 100))* (1 - mod.defMagRed))} / 
-            {' '}{Math.round(((300)+(atk.ap * 25 / 100))* (1 - mod.defMagRed))}
+            {' '}{Math.round(((100)+(atk.ap * 30 / 100)) * (1 - mod.defMagRed))} / 
+            {' '}{Math.round(((200)+(atk.ap * 30 / 100))* (1 - mod.defMagRed))} / 
+            {' '}{Math.round(((300)+(atk.ap * 30 / 100))* (1 - mod.defMagRed))}
           </p>
     
           <p>
-            Throw a fireball that bounces up to 5 times between enemies or Brand, each bounce dealing <span className="stat--ap">100 / 200 / 300 (+25% AP) magic damage</span> <br />
+            Throw a fireball that bounces up to 5 times between enemies or Brand, each bounce dealing <span className="stat--ap">100 / 200 / 300 (+30% AP) magic damage</span> <br />
 
             Puroclasm brielfy slows by <span className="stat--moveSpeed">30% / 40% / 50%</span> targets that are <b>ablaze</b>. Bounces attempt to max stacks on champions.
           </p>

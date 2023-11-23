@@ -13,7 +13,7 @@ export default function riven({currentLevel, mod, bonus, atk, def, champ}) {
           </p>
 
           <p>
-           Attacks expend charges to deal <abbr title="22% + 2% per level (22-50%)" className="stat--ad">{Math.round(atk.attack * (20 + 2*currentLevel)/100)} bonus physical damage</abbr> 
+           Attacks expend charges to deal <abbr title="30% + 2% per level" className="stat--ad">{Math.round(atk.attack * (28 + 2*currentLevel)/100)} bonus physical damage</abbr> 
           </p>
 
           <p>
@@ -71,9 +71,9 @@ export default function riven({currentLevel, mod, bonus, atk, def, champ}) {
     
           <h5>
           Cooldown: 
-            {' '}{(10*mod.atkcdr).toFixed(1)} / 
-            {' '}{(9*mod.atkcdr).toFixed(1)} / 
+            {' '}{(8.5*mod.atkcdr).toFixed(1)} / 
             {' '}{(8*mod.atkcdr).toFixed(1)} / 
+            {' '}{(7.5*mod.atkcdr).toFixed(1)} / 
             {' '}{(7*mod.atkcdr).toFixed(1)} 
           </h5>
 

@@ -29,13 +29,13 @@ export default function darius({currentLevel, mod, bonus, atk, def, champ, updat
           </h5>
 
           <p className="stat--ad">Pre-mitigation: 
-            {' '}Stack: {Math.round((((15 + 1.5 * (currentLevel- 1)))+(bonus.attack * 30 / 100)))} / 
-            {' '}Full: {Math.round((((15 + 1.5 * (currentLevel- 1)))+(bonus.attack * 30 / 100))*5)}
+            {' '}Stack: {Math.round((((15 + 2 * (currentLevel- 1)))+(bonus.attack * 40 / 100)))} / 
+            {' '}Full: {Math.round((((15 + 2 * (currentLevel- 1)))+(bonus.attack * 40 / 100))*5)}
           </p>
 
           <p className="stat--ad">Post-mitigation: 
-            {' '}Stack: {Math.round((((15 + 1.5 * (currentLevel- 1)))+(bonus.attack * 30 / 100)) * (1 - mod.defPhysRed))} / 
-            {' '}Full: {Math.round((((15 + 1.5 * (currentLevel- 1)))+(bonus.attack * 30 / 100))* (1 - mod.defPhysRed)*5)}
+            {' '}Stack: {Math.round((((15 + 2 * (currentLevel- 1)))+(bonus.attack * 40 / 100)) * (1 - mod.defPhysRed))} / 
+            {' '}Full: {Math.round((((15 + 2 * (currentLevel- 1)))+(bonus.attack * 40 / 100))* (1 - mod.defPhysRed)*5)}
           </p>
 
           <h5 className="stat--ad">Bonus AD at full stacks: {Math.round(22+ (204 / 14 * (currentLevel -1)))}</h5>
@@ -109,7 +109,7 @@ export default function darius({currentLevel, mod, bonus, atk, def, champ, updat
     
           <p>
           Swings his axe after a delay, dealing <span className="stat--ad">14 / 28 / 42 / 56 (+35% / 40% / 45% / 50% AD) physical damage</span>. <br />
-          Hitting enemies with the blade of the axe deals <span className="stat--ad">40 / 80 / 120 / 160 (+100% / 115% / 130% / 145% AD)</span>, heals Darius for <span className="stat--hp">12% of his missing Health</span>  for each champion or large monster hit <span className="stat--hp">(max 36%)</span> and applies <b>Hemorrhage</b>.
+          Hitting enemies with the blade of the axe deals <span className="stat--ad">40 / 80 / 120 / 160 (+100% / 115% / 130% / 145% AD)</span>, heals Darius for <span className="stat--hp">15% of his missing Health</span>  for each champion or large monster hit <span className="stat--hp">(max 45%)</span> and applies <b>Hemorrhage</b>.
           </p>
         </div>
     },

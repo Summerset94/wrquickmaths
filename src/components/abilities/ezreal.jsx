@@ -9,12 +9,12 @@ export default function ezreal({currentLevel, mod, bonus, atk, def, champ}) {
 
           <h5 className="stat--as">Bonus attack speed</h5>
           <p className="stat--as">1 Stack/Maxed: 
-          {' '}{(champ.asBase * 10 / 100).toFixed(3)} / 
-          {' '}{(champ.asBase * 40 / 100).toFixed(3)}
+          {' '}{(champ.asBase * 13 / 100).toFixed(3)} / 
+          {' '}{(champ.asBase * 13 * 4 / 100).toFixed(3)}
           </p>
     
           <p>
-          Gains <span className="stat--as">10% Attack Speed</span>  for 8 seconds when hitting abilities, stacking up to 4 times.
+          Gains <span className="stat--as">13% Attack Speed</span>  for 8 seconds when hitting abilities, stacking up to 4 times.
           </p>
         </div>
     },
@@ -28,9 +28,9 @@ export default function ezreal({currentLevel, mod, bonus, atk, def, champ}) {
     
           <h5>
           Cooldown: 
-            {' '}{(5*mod.atkcdr).toFixed(1)} / 
             {' '}{(4.5*mod.atkcdr).toFixed(1)} / 
-            {' '}{(3.8*mod.atkcdr).toFixed(1)} / 
+            {' '}{(4*mod.atkcdr).toFixed(1)} / 
+            {' '}{(3.5*mod.atkcdr).toFixed(1)} / 
             {' '}{(3*mod.atkcdr).toFixed(1)} 
           </h5>
             <h5 className="stat--mana">

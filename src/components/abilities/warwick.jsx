@@ -46,10 +46,10 @@ export default function blank({currentLevel, mod, bonus, atk, def, champ, update
           </p>
 
           <p className="stat--ap">Current target: 
-            {' '}{Math.round(((atk.attack * 120/100)+(atk.ap * 100 / 100)+(def.health * 6 / 100)) * (1 - mod.defMagRed))} / 
-            {' '}{Math.round(((atk.attack * 120/100)+(atk.ap * 100 / 100)+(def.health * 7 / 100))* (1 - mod.defMagRed))} / 
+            {' '}{Math.round(((atk.attack * 120/100)+(atk.ap * 100 / 100)+(def.health * 7 / 100)) * (1 - mod.defMagRed))} / 
             {' '}{Math.round(((atk.attack * 120/100)+(atk.ap * 100 / 100)+(def.health * 8 / 100))* (1 - mod.defMagRed))} / 
-            {' '}{Math.round(((atk.attack * 120/100)+(atk.ap * 100 / 100)+(def.health * 9 / 100))* (1 - mod.defMagRed))}          
+            {' '}{Math.round(((atk.attack * 120/100)+(atk.ap * 100 / 100)+(def.health * 9 / 100))* (1 - mod.defMagRed))} / 
+            {' '}{Math.round(((atk.attack * 120/100)+(atk.ap * 100 / 100)+(def.health * 10 / 100))* (1 - mod.defMagRed))}          
           </p>
 
           <h5 className="stat--hp">
@@ -57,15 +57,15 @@ export default function blank({currentLevel, mod, bonus, atk, def, champ, update
           </h5>
 
           <p className="stat--hp">
-          {' '}{Math.round(((bonus.attack * 120)+(atk.ap * 100 / 100)+(def.health * 6 / 100)) * (1 - mod.defMagRed) *37.5/100)} / 
-            {' '}{Math.round(((bonus.attack * 120)+(atk.ap * 100 / 100)+(def.health * 7 / 100))* (1 - mod.defMagRed) *50/100)} / 
-            {' '}{Math.round(((bonus.attack * 120)+(atk.ap * 100 / 100)+(def.health * 8 / 100))* (1 - mod.defMagRed) *62.5/100)} / 
-            {' '}{Math.round(((bonus.attack * 120)+(atk.ap * 100 / 100)+(def.health * 9 / 100))* (1 - mod.defMagRed) *75/100)}          
+          {' '}{Math.round(((bonus.attack * 120)+(atk.ap * 100 / 100)+(def.health * 7 / 100)) * (1 - mod.defMagRed) *37.5/100)} / 
+            {' '}{Math.round(((bonus.attack * 120)+(atk.ap * 100 / 100)+(def.health * 8 / 100))* (1 - mod.defMagRed) *50/100)} / 
+            {' '}{Math.round(((bonus.attack * 120)+(atk.ap * 100 / 100)+(def.health * 9 / 100))* (1 - mod.defMagRed) *62.5/100)} / 
+            {' '}{Math.round(((bonus.attack * 120)+(atk.ap * 100 / 100)+(def.health * 10 / 100))* (1 - mod.defMagRed) *75/100)}          
           </p>
     
           <br />
           <p>
-            Lunges forward and bites the target enemy, dealing <span className="stat--ap">(<span className="stat--ad">120% AD</span>) (<span className="stat--ap">+100% AP</span>) (<span className="stat--hp">+6 / 7 / 8 / 9% of target's Max Health</span>) magic damage</span> and <span className="stat--hp">healing for 37.5 / 50 / 62.5 / 75%</span> of damage dealt.
+            Lunges forward and bites the target enemy, dealing <span className="stat--ap">(<span className="stat--ad">120% AD</span>) (<span className="stat--ap">+100% AP</span>) (<span className="stat--hp">+7 / 8 / 9 / 10% of target's Max Health</span>) magic damage</span> and <span className="stat--hp">healing for 37.5 / 50 / 62.5 / 75%</span> of damage dealt.
           </p>
 
           <p>
@@ -152,9 +152,9 @@ export default function blank({currentLevel, mod, bonus, atk, def, champ, update
     
           <h5>
           Cooldown: 
-            {' '}{(75*mod.atkcdr).toFixed(1)} / 
-            {' '}{(65*mod.atkcdr).toFixed(1)} / 
-            {' '}{(55*mod.atkcdr).toFixed(1)}
+            {' '}{(70*mod.atkcdr).toFixed(1)} / 
+            {' '}{(60*mod.atkcdr).toFixed(1)} / 
+            {' '}{(50*mod.atkcdr).toFixed(1)}
           </h5>
             <h5 className="stat--mana">
           Cost: 
