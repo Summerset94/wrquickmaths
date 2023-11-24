@@ -1902,6 +1902,30 @@ const champions = [
     id:'sion'
   },
 
+  {    
+    name: 'Sivir',
+    title: 'The Battle Mistress',
+    icon: '../images/portraits/SivirSquare.webp',
+    rolePrim: roles.duo,
+    roleSecond: false,
+    healthBase: 570,
+    healthScale: 112,
+    manaBase: 340,
+    manaScale: 60,
+    armorBase: 34,
+    armorScale: 4,
+    magresBase: 28,
+    magresScale: 1,
+    moveSpeed: 340,
+    attackBase: 58,
+    attackScale: 3,
+    apBase: 0,
+    asBase: 0.623,
+    asBaseBonus: 0.623*0.3,
+    asScale: 0.623*0.032,
+    id:'sivir'    
+  },
+
   {
     name: 'Sona',
     title: 'The Maven of the Strings',

@@ -1,4 +1,185 @@
+import {useMemo} from 'react';
+import {pre, post, cd} from '../Abilitycalc'
+
 export default function akali({currentLevel, mod, bonus, atk, def}) {
+
+  const numMemo = useMemo(() => {
+    const physDef = (1 - mod.defPhysRed);
+    const magDef = (1 - mod.defMagRed);
+    const cdr = mod.atkcdr
+
+    const P = {
+      base: 20,
+      growth: Number(8 * currentLevel),
+      mod: (atk.attack * 60 / 100)+(atk.ap * 50 / 100)
+    };
+
+    const Q = {
+      cdbase: 2,
+      cdgrowth: 0,
+
+      base: 35,
+      growth: 35,
+      mod: (atk.ap * 60 / 100)+(atk.attack*65/100)
+    };
+
+    const W = {
+      cdbase: 18,
+      cdgrowth: 0
+    };
+
+    const E = {
+      cdbase: 15,
+      cdgrowth: 0,
+
+      init: {
+        base: 30,
+        growth: 30,
+        mod: (atk.ap * 30 / 100)+(atk.attack*25/100)
+      },
+
+      recast: {
+        base: 70,
+        growth: 50,
+        mod: (atk.ap * 80 / 100)+(atk.attack*50/100)
+      }
+    };
+
+    const R = {
+      cdbase: 85,
+      cdgrowth: 20,
+
+      init: {
+        base: 80,
+        growth: 120,
+        mod: (atk.ap * 30 / 100)+(bonus.attack*50/100)
+      },
+
+      recast: {
+        base: 70,
+        growth: 70,
+        mod: (atk.ap * 30 / 100)
+      }
+    }
+
+    return {
+      P: {
+        pre: pre(P, 2),
+        post: post(P, 2, magDef)
+      },
+
+      Q: {
+        cd: {
+          1: cd(Q, 1, cdr),
+          2: cd(Q, 2, cdr),
+          3: cd(Q, 3, cdr),
+          4: cd(Q, 4, cdr)
+        },
+
+        pre: {
+          1: pre(Q, 1),
+          2: pre(Q, 2),
+          3: pre(Q, 3),
+          4: pre(Q, 4)
+        },
+
+        post: {
+          1: post(Q, 1, magDef),
+          2: post(Q, 2, magDef),
+          3: post(Q, 3, magDef),
+          4: post(Q, 4, magDef),
+        }
+      },
+
+      W: {
+        cd: {
+          1: cd(W, 1, cdr),
+          2: cd(W, 2, cdr),
+          3: cd(W, 3, cdr),
+          4: cd(W, 4, cdr)
+        }
+      },
+
+      E: {
+        cd: {
+          1: cd(E, 1, cdr),
+          2: cd(E, 2, cdr),
+          3: cd(E, 3, cdr),
+          4: cd(E, 4, cdr)
+        },
+
+        init: {
+          pre: {
+            1: pre(E.init, 1),
+            2: pre(E.init, 2),
+            3: pre(E.init, 3),
+            4: pre(E.init, 4),
+          },
+          post: {
+            1: post(E.init, 1, magDef),
+            2: post(E.init, 2, magDef),
+            3: post(E.init, 3, magDef),
+            4: post(E.init, 4, magDef),
+          }
+        },
+
+        recast: {
+          pre: {
+            1: pre(E.recast, 1),
+            2: pre(E.recast, 2),
+            3: pre(E.recast, 3),
+            4: pre(E.recast, 4),
+          },
+          post: {
+            1: post(E.recast, 1, magDef),
+            2: post(E.recast, 2, magDef),
+            3: post(E.recast, 3, magDef),
+            4: post(E.recast, 4, magDef),
+          }
+        }
+      },
+
+      R: {
+        cd: {
+          1: cd(R, 1, cdr),
+          2: cd(R, 2, cdr),
+          3: cd(R, 3, cdr)
+        },
+
+        init: {
+          pre: {
+            1: pre(R.init, 1),
+            2: pre(R.init, 2),
+            3: pre(R.init, 3)
+          },
+          post: {
+            1: post(R.init, 1, magDef),
+            2: post(R.init, 2, magDef),
+            3: post(R.init, 3, magDef)
+          }
+        },
+
+        recast: {
+          pre: {
+            1: pre(R.recast, 1),
+            2: pre(R.recast, 2),
+            3: pre(R.recast, 3)
+          },
+          post: {
+            1: post(R.recast, 1, magDef),
+            2: post(R.recast, 2, magDef),
+            3: post(R.recast, 3, magDef)
+          }
+        }
+      }
+      
+
+
+    }
+    
+  }, [currentLevel, mod, bonus, atk, def])
+
+
   const abilities = [
     {
       description:
@@ -13,15 +194,15 @@ export default function akali({currentLevel, mod, bonus, atk, def}) {
           </h5>
 
           <p className="stat--ap">Pre-mitigation: 
-            {' '}{Math.round(((20 + 8 * currentLevel)+(atk.attack * 60 / 100)+(atk.ap * 50 / 100)))}
+            {' '}{numMemo.P.pre}
           </p>
 
           <p className="stat--ap">Post-mitigation: 
-            {' '}{Math.round(((20 + 8 * currentLevel)+(atk.attack * 60 / 100)+(atk.ap * 50 / 100)) * (1 - mod.defMagRed))}
+            {' '}{numMemo.P.post}
           </p>
 
           <p>
-          Dealing spell damage to a champion creates a ring of energy around them for 4 seconds. Exiting that ring empowers Akali's next autoattack to have 100 bonus range and deal <abbr title="20 + 8 * level">28-140</abbr> (<span className="stat--ad">+60% AD</span>,  <span className="stat--ap">+50% AP</span>) <span className="stat--ap"> magic damage</span>. Gain <abbr title="level 1-30 % / 5-40% / 11-50% / 15-60% source for levels: I'VE MADE IT THE F UP!" className="stat--moveSpeed">{Math.round(atk.moveSpeed * 30 / 100)} / {Math.round(atk.moveSpeed * 40 / 100)} / {Math.round(atk.moveSpeed * 50 / 100)} / {Math.round(atk.moveSpeed * 60 / 100)} Movement Speed</abbr>  while moving toward the ring, crossing the ring Akali gains <abbr title="level 1-30 % / 5-40% / 11-50% / 15-60% source for levels: I'VE MADE IT THE F UP!" className="stat--moveSpeed">{Math.round(atk.moveSpeed * 30 / 100)} / {Math.round(atk.moveSpeed * 40 / 100)} / {Math.round(atk.moveSpeed * 50 / 100)} / {Math.round(atk.moveSpeed * 60 / 100)} Movement Speed</abbr> while moving toward enemy champions for 2 seconds.
+          Dealing spell damage to a champion creates a ring of energy around them for 4 seconds. Exiting that ring empowers Akali's next autoattack to have 100 bonus range and deal <abbr title="20 + 8 per level" className='stat--ap'>28-140</abbr> (<span className="stat--ad">+60% AD</span>,  <span className="stat--ap">+50% AP</span>) <span className="stat--ap"> magic damage</span>. Gain <abbr title="level 1-30 % / 5-40% / 11-50% / 15-60% source for levels: I'VE MADE IT THE F UP!" className="stat--moveSpeed">{Math.round(atk.moveSpeed * 30 / 100)} / {Math.round(atk.moveSpeed * 40 / 100)} / {Math.round(atk.moveSpeed * 50 / 100)} / {Math.round(atk.moveSpeed * 60 / 100)} Movement Speed</abbr>  while moving toward the ring, crossing the ring Akali gains <abbr title="level 1-30 % / 5-40% / 11-50% / 15-60% source for levels: I'VE MADE IT THE F UP!" className="stat--moveSpeed">{Math.round(atk.moveSpeed * 30 / 100)} / {Math.round(atk.moveSpeed * 40 / 100)} / {Math.round(atk.moveSpeed * 50 / 100)} / {Math.round(atk.moveSpeed * 60 / 100)} Movement Speed</abbr> while moving toward enemy champions for 2 seconds.
           </p>
         </div>
     },
@@ -35,10 +216,10 @@ export default function akali({currentLevel, mod, bonus, atk, def}) {
 
           <h5>
           Cooldown: 
-            {' '}{(2*mod.atkcdr).toFixed(1)} / 
-            {' '}{(2*mod.atkcdr).toFixed(1)} / 
-            {' '}{(2*mod.atkcdr).toFixed(1)} / 
-            {' '}{(2*mod.atkcdr).toFixed(1)} 
+            {' '}{numMemo.Q.cd[1]} / 
+            {' '}{numMemo.Q.cd[2]} / 
+            {' '}{numMemo.Q.cd[3]} / 
+            {' '}{numMemo.Q.cd[4]} 
           </h5>
            <h5 className="stat--armor">
           Cost: 
@@ -53,17 +234,17 @@ export default function akali({currentLevel, mod, bonus, atk, def}) {
           </h5>
 
           <p className="stat--ap">Pre-mitigation: 
-            {' '}{Math.round(((35)+(atk.ap * 60 / 100)+(atk.attack*65/100)))} / 
-            {' '}{Math.round(((70)+(atk.ap * 60 / 100)+(atk.attack*65/100)))} / 
-            {' '}{Math.round(((105)+(atk.ap * 60 / 100)+(atk.attack*65/100)))} / 
-            {' '}{Math.round(((140)+(atk.ap * 60 / 100)+(atk.attack*65/100)))}
+            {' '}{numMemo.Q.pre[1]} / 
+            {' '}{numMemo.Q.pre[2]} / 
+            {' '}{numMemo.Q.pre[3]} / 
+            {' '}{numMemo.Q.pre[4]}
           </p>
 
           <p className="stat--ap">Post-mitigation: 
-            {' '}{Math.round(((35)+(atk.ap * 60 / 100)+(atk.attack*65/100)) * (1 - mod.defMagRed))} / 
-            {' '}{Math.round(((70)+(atk.ap * 60 / 100)+(atk.attack*65/100))* (1 - mod.defMagRed))} / 
-            {' '}{Math.round(((105)+(atk.ap * 60 / 100)+(atk.attack*65/100))* (1 - mod.defMagRed))} / 
-            {' '}{Math.round(((140)+(atk.ap * 60 / 100)+(atk.attack*65/100))* (1 - mod.defMagRed))}          
+            {' '}{numMemo.Q.post[1]} / 
+            {' '}{numMemo.Q.post[2]} / 
+            {' '}{numMemo.Q.post[3]} / 
+            {' '}{numMemo.Q.post[4]}  
           </p>
 
           <p>
@@ -81,17 +262,17 @@ export default function akali({currentLevel, mod, bonus, atk, def}) {
 
           <h5>
           Cooldown: 
-            {' '}{(18*mod.atkcdr).toFixed(1)} / 
-            {' '}{(18*mod.atkcdr).toFixed(1)} / 
-            {' '}{(18*mod.atkcdr).toFixed(1)} / 
-            {' '}{(18*mod.atkcdr).toFixed(1)} 
+          {' '}{numMemo.W.cd[1]} / 
+            {' '}{numMemo.W.cd[2]} / 
+            {' '}{numMemo.W.cd[3]} / 
+            {' '}{numMemo.W.cd[4]} 
           </h5>
           <h5>
           Duration: 
-            {' '}{5.5}S / 
-            {' '}{6}S / 
-            {' '}{6.5}S / 
-            {' '}{7}S 
+            {' '}{5.5} S / 
+            {' '}{6} S / 
+            {' '}{6.5} S / 
+            {' '}{7} S 
           </h5>
           <h5>
           Bonus Movement Speed: 
@@ -118,10 +299,10 @@ export default function akali({currentLevel, mod, bonus, atk, def}) {
 
           <h5>
           Cooldown: 
-            {' '}{(15*mod.atkcdr).toFixed(1)} / 
-            {' '}{(15*mod.atkcdr).toFixed(1)} / 
-            {' '}{(15*mod.atkcdr).toFixed(1)} / 
-            {' '}{(15*mod.atkcdr).toFixed(1)} 
+            {' '}{numMemo.E.cd[1]} / 
+            {' '}{numMemo.E.cd[2]} / 
+            {' '}{numMemo.E.cd[3]} / 
+            {' '}{numMemo.E.cd[4]} 
           </h5>
            <h5 className="stat--armor">
           Cost: 
@@ -132,30 +313,30 @@ export default function akali({currentLevel, mod, bonus, atk, def}) {
           </h5>
 
           <h5 className="stat--ap">Damage:</h5>
-          <p className="stat--ad">Pre-mitigation: <br />
+          <p className="stat--ap">Pre-mitigation: <br />
             Initial:
-            {' '}{Math.round(((30)+(atk.ap * 30 / 100)+(atk.attack*25/100)))} / 
-            {' '}{Math.round(((60)+(atk.ap * 30 / 100)+(atk.attack*25/100)))} / 
-            {' '}{Math.round(((90)+(atk.ap * 30 / 100)+(atk.attack*25/100)))} / 
-            {' '}{Math.round(((120)+(atk.ap * 30 / 100)+(atk.attack*25/100)))} <br />
+            {' '}{numMemo.E.init.pre[1]} / 
+            {' '}{numMemo.E.init.pre[2]} / 
+            {' '}{numMemo.E.init.pre[3]} / 
+            {' '}{numMemo.E.init.pre[4]} <br />
             Recast:
-            {' '}{Math.round(((70)+(atk.ap * 80 / 100)+(atk.attack*50/100)))} / 
-            {' '}{Math.round(((120)+(atk.ap * 80 / 100)+(atk.attack*50/100)))} / 
-            {' '}{Math.round(((170)+(atk.ap * 80 / 100)+(atk.attack*50/100)))} / 
-            {' '}{Math.round(((220)+(atk.ap * 80 / 100)+(atk.attack*50/100)))}
+            {' '}{numMemo.E.recast.pre[1]} / 
+            {' '}{numMemo.E.recast.pre[2]} / 
+            {' '}{numMemo.E.recast.pre[3]} / 
+            {' '}{numMemo.E.recast.pre[4]}
           </p>
 
-          <p className="stat--ad">Post-mitigation: <br />
+          <p className="stat--ap">Post-mitigation: <br />
           Initial:
-            {' '}{Math.round(((30)+(atk.ap * 30 / 100)+(atk.attack*25/100)) * (1 - mod.defMagRed))} / 
-            {' '}{Math.round(((60)+(atk.ap * 30 / 100)+(atk.attack*25/100))* (1 - mod.defMagRed))} / 
-            {' '}{Math.round(((90)+(atk.ap * 30 / 100)+(atk.attack*25/100))* (1 - mod.defMagRed))} / 
-            {' '}{Math.round(((120)+(atk.ap * 30 / 100)+(atk.attack*25/100))* (1 - mod.defMagRed))} <br />
-          Recast:
-          {' '}{Math.round(((70)+(atk.ap * 80 / 100)+(atk.attack*50/100)) * (1 - mod.defMagRed))} / 
-            {' '}{Math.round(((120)+(atk.ap * 80 / 100)+(atk.attack*50/100))* (1 - mod.defMagRed))} / 
-            {' '}{Math.round(((170)+(atk.ap * 80 / 100)+(atk.attack*50/100))* (1 - mod.defMagRed))} / 
-            {' '}{Math.round(((220)+(atk.ap * 80 / 100)+(atk.attack*50/100))* (1 - mod.defMagRed))}
+            {' '}{numMemo.E.init.post[1]} / 
+            {' '}{numMemo.E.init.post[2]} / 
+            {' '}{numMemo.E.init.post[3]} / 
+            {' '}{numMemo.E.init.post[4]} <br />
+            Recast:
+            {' '}{numMemo.E.recast.post[1]} / 
+            {' '}{numMemo.E.recast.post[2]} / 
+            {' '}{numMemo.E.recast.post[3]} / 
+            {' '}{numMemo.E.recast.post[4]}
           </p>
 
           <p>
@@ -173,32 +354,32 @@ export default function akali({currentLevel, mod, bonus, atk, def}) {
 
           <h5>
           Cooldown: 
-            {' '}{(85*mod.atkcdr).toFixed(1)} / 
-            {' '}{(65*mod.atkcdr).toFixed(1)} / 
-            {' '}{(45*mod.atkcdr).toFixed(1)}
+            {' '}{numMemo.R.cd[1]} / 
+            {' '}{numMemo.R.cd[2]} / 
+            {' '}{numMemo.R.cd[3]}
           </h5>
 
           <h5 className="stat--ap">Damage:</h5>
           <p className="stat--ad">Pre-mitigation: <br />
             Initial:
-            {' '}{Math.round(((80)+(atk.ap * 30 / 100)+(bonus.attack*50/100)))} / 
-            {' '}{Math.round(((200)+(atk.ap * 30 / 100)+(bonus.attack*50/100)))} / 
-            {' '}{Math.round(((320)+(atk.ap * 30 / 100)+(bonus.attack*50/100)))}<br />
+            {' '}{numMemo.R.init.pre[1]} / 
+            {' '}{numMemo.R.init.pre[2]} / 
+            {' '}{numMemo.R.init.pre[3]}<br />
             Recast (minimum damage):
-            {' '}{Math.round(((70)+(atk.ap * 30 / 100)))} / 
-            {' '}{Math.round(((140)+(atk.ap * 30 / 100)))} / 
-            {' '}{Math.round(((210)+(atk.ap * 30 / 100)))}
+            {' '}{numMemo.R.recast.pre[1]} / 
+            {' '}{numMemo.R.recast.pre[2]} / 
+            {' '}{numMemo.R.recast.pre[3]}
           </p>
 
           <p className="stat--ad">Post-mitigation: <br />
           Initial:
-            {' '}{Math.round(((80)+(atk.ap * 30 / 100)+(bonus.attack*50/100)) * (1 - mod.defMagRed))} / 
-            {' '}{Math.round(((200)+(atk.ap * 30 / 100)+(bonus.attack*50/100))* (1 - mod.defMagRed))} / 
-            {' '}{Math.round(((320)+(atk.ap * 30 / 100)+(bonus.attack*50/100))* (1 - mod.defMagRed))}<br />
+            {' '}{numMemo.R.init.post[1]} / 
+            {' '}{numMemo.R.init.post[2]} / 
+            {' '}{numMemo.R.init.post[3]}<br />
           Recast (minimum damage):
-          {' '}{Math.round(((70)+(atk.ap * 30 / 100)) * (1 - mod.defMagRed))} / 
-            {' '}{Math.round(((140)+(atk.ap * 30 / 100))* (1 - mod.defMagRed))} / 
-            {' '}{Math.round(((210)+(atk.ap * 30 / 100))* (1 - mod.defMagRed))}
+          {' '}{numMemo.R.recast.post[1]} / 
+            {' '}{numMemo.R.recast.post[2]} / 
+            {' '}{numMemo.R.recast.post[3]}
           </p>
            
 

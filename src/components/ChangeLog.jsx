@@ -19,6 +19,7 @@ export default function ChangeLog() {
 
           <p>latest updates:</p>
           <ul>
+            <li>24.11 Sivir added (new method for calculations in the background, should'nt be any difference on the output)</li>
             <li>23.11 updated for 4.4b (no Sivir)</li>
             <li>10.11 Updated for patch 4.4a</li>
             <li>03.11 Fiddlesticks hotfix</li>
