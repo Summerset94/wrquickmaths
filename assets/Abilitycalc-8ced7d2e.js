@@ -1,0 +1,1 @@
+const s=function({base:n=0,growth:t=0,mod:o=0,growthmod:r=0},c=1){return Math.round(n+t*(c-1)+o+r*(c-1))},a=function({base:n=0,growth:t=0,mod:o=0,growthmod:r=0},c=1,u=1){return Math.round((n+t*(c-1)+o+r*(c-1))*u)},d=function({cdbase:n,cdgrowth:t},o=1,r){return((n-t*(o-1))*r).toFixed(1)};export{a,d as c,s as p};
