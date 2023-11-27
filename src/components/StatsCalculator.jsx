@@ -49,7 +49,7 @@ const statGrowth = function(mod) {
       let totalMod = 0;
 
       for (let level = 2; level <= currentLevel; level++) {
-        totalMod += mod * ((75 / 100) + (((50 / 100)/14) * (level - 2)))
+        totalMod += mod * ((75 / 100) + (((50 / 100)/13) * (level - 2)))
       }
 
       return totalMod;
@@ -525,6 +525,7 @@ const statGrowth = function(mod) {
 
 
   function levelSlider(n) {
+    n.preventDefault();
     const newLevel = n.target.value;
     setCurrentLevel(newLevel);
   }
