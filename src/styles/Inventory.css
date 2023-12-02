@@ -1,0 +1,81 @@
+.inventory-grid, .inventory-itemSection {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.inventory-itemSection {
+  height: 400px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  border: 2px solid gray;
+  margin: 5px;
+  border-radius: 5px;  
+}
+
+.inventory-gridSection {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.inventory-button {
+  margin: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 2px solid gray;
+  border-radius: 8px;
+  background-color: rgb(29, 24, 24);
+  padding: 3px;
+  width: 120px;
+  height: 120px;
+
+}
+
+.inventory-button > p {
+  font-size: 14px;
+}
+
+.inventory-itemIcon {
+  height: 45px;
+  width: 45px;
+  border-radius: 5px;
+  padding: 3px;
+}
+
+.inventory-equipped {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.inventroy-equippedTile{
+  display: flex;
+  flex-direction: column;
+  height: 300px;
+  width:300px;
+  align-items: center;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  border: 2px solid gray;
+  margin: 5px;
+  border-radius: 5px;
+}
+
+.inventoryStore {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.inventroy-equippedTile {
+  color: white;
+  background-color: rgb(26, 24, 24);
+  padding: 8px;
+}
