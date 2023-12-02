@@ -9,9 +9,10 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
 
   // All this cringe to calculate target maxHP damage for Divine
   const { totalStats } = useStats();
+  
+  const attacker = totalStats[index === 1 ? 0 : 1];
+  const target = totalStats[index === 1 ? 1 : 0];
 
-  const attacker = totalStats[index]
-  const target = totalStats[(index == 1 ? 0 : 1)];
   const postMitigationArmor = (target, attacker) => {
     let mitigatedArmor = 0
     if (attacker.armorReduction && (target.armor * (1 - attacker.armorReduction) <= 0)) {
@@ -3268,21 +3269,13 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
       newItems[5] = boots[value]; // Assuming the boots slot is at index 5
       return newItems;
     });
-  };
-
-  const [showInventory, setShowInventory] = useState(true);
-
-  const toggleInventory = () => {
-    setShowInventory(prevShowInventory => !prevShowInventory);
-  };
-
-  
+  }; 
 
 
   return (
     <div className='inventoryTile'> 
-      <button onClick={toggleInventory}>Show / hide inventory</button>
-      { showInventory && (<div className='inventoryGrid'>    
+
+<div className='inventoryGrid'>    
         {selectedItems.map((selectedIndex, index) => (
           <div className='inventorySlot' key={index}>
             <div>
@@ -3322,7 +3315,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
             </div>
           }
         </div>
-      </div>)}
+      </div>
     </div>
   );
   }

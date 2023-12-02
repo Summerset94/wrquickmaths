@@ -1,40 +1,61 @@
 import './App.css';
 import { useState } from 'react';
-import ChampionList from './components/ChampionList';
-import MainInfo from './components/MainInfo';
-import './styles/StatColors.css'
+import AttackerTile from './components/AttackerTile';
+import DefenderTile from './components/DefenderTile';
+import ChangeLog from './components/ChangeLog';
 import { StatsProvider } from './components/StatsContext';
 import Header from './components/Header';
-import ChangeLog from './components/ChangeLog';
-
+import StatComparison from './components/StatComparison';
+import MainInfo from './components/MainInfo';
 
 function App() {
-  const [attackChamp, setAttackChamp] = useState(false);
-  const [defenceChamp, setDefenceChamp] = useState(false);
-  const [confirmation, setConfirmation] = useState(false);
-  
-  function champSelected() {
-    return attackChamp && defenceChamp ? true : false
-  };
+  const [activePageIndex, setActivePageIndex] = useState(0);
 
+  const pages = [
+    { component: <MainInfo/>, label: 'Home' },
+    { component: <AttackerTile index={1} />, label: 'Champion 1' },
+    { component: <DefenderTile index={2} />, label: 'Champion 2' },
+    { component: <StatComparison />, label: 'Stats comparison'}  
+   
+  ];
 
-  function handleConfirm() {
-    setConfirmation(!confirmation)
-  }
-
-  function handleAttackClick(champion) {
-    setAttackChamp(champion);
-  }
-
-  function handleDefenceClick(champion) {
-    setDefenceChamp(champion);
-  }
-  
   return (
     <>
-      <Header />
+      <StatsProvider>
+        <Header />
 
-       {champSelected && confirmation ? (        
+        <nav>
+          {pages.map((page, index) => (
+            <button key={index} onClick={() => setActivePageIndex(index)}>
+              {page.label}
+            </button>
+          ))}
+        </nav>
+
+        <div className="page-container">
+          {pages.map((page, index) => (
+            <div
+              key={index}
+              className={`page ${activePageIndex === index ? 'active' : 'hidden'}`}
+            >
+              {page.component}
+            </div>
+          ))}
+        </div>
+      </StatsProvider>
+    </>
+  );
+}
+
+export default App;
+
+
+
+
+
+
+
+{/* {champSelected && confirmation ? (        
         <div className='mainTile'>
           <StatsProvider>
           <MainInfo 
@@ -79,9 +100,4 @@ function App() {
         </div>
 
         
-      )}
-    </>
-  )
-}
-
-export default App
+      )} */}

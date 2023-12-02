@@ -37,6 +37,14 @@ export default function drmundo({currentLevel, mod, bonus, atk, def, champ}) {
             {' '}{50} / 
             {' '}{50} 
           </h5>
+
+          <h5 className="stat--ap">Damage target at 100% hp</h5>
+          <p className="stat--ap">
+            {' '}{Math.max(Math.round((def.health * 20/100)* (1 - mod.defMagRed)), 90)} /
+            {' '}{Math.max(Math.round((def.health * 23/100)* (1 - mod.defMagRed)), 160)} /
+            {' '}{Math.max(Math.round((def.health * 26/100)* (1 - mod.defMagRed)), 230)} /
+            {' '}{Math.max(Math.round((def.health * 29/100)* (1 - mod.defMagRed)), 300)}
+          </p>
     
           <p>
             Throw bonesaw, dealing magic damage equal to <span className="stat--ap">20% / 23% / 26% / 29% of the target's current Health ( min: 90 / 160 / 230 / 300)</span>  and slowing them by <span className="stat--moveSpeed">40%</span>  for 2 seconds. <br />

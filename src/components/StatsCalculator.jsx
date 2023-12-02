@@ -4,8 +4,8 @@ import Inventory from "./Inventory";
 import Abilities from "./Abilities";
 
 
-export default function StatsCalculator(props) {
-  const champ = props.champion  
+export default function StatsCalculator({champ, index}) {
+  
 
   const [contentVisible, setContentVisible] = useState(true);
   const [currentLevel, setCurrentLevel] = useState(1);
@@ -537,7 +537,7 @@ const statGrowth = function(mod) {
   // here we be tryin' pass the memo up
 
   const { totalStats, setTotalStats } = useStats();
-  const index = props.index;
+  
 
   useEffect(() => {
     setTotalStats(prevTotalStats => {
@@ -566,6 +566,7 @@ const statGrowth = function(mod) {
       </button>
 
       {contentVisible && (<div className={`dynamicStats ${contentVisible ? 'visible' : 'hidden'}`}>
+      
       <table className='statsTable'>
         <thead>
           <tr>

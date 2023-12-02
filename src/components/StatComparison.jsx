@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { useStats } from './StatsContext';
 
-export default function StatComparison({atkname, defname}) {
+export default function StatComparison() {
 
   const { totalStats } = useStats();
 
@@ -103,7 +103,7 @@ export default function StatComparison({atkname, defname}) {
   },
   [atk, def, ]);
     return (      
-      <div className='comparisonTile'>
+      <div className='champTile'>
         <table>
           <thead>
             <th colSpan={4}>
@@ -112,8 +112,8 @@ export default function StatComparison({atkname, defname}) {
           </thead>
           <tbody>
           <tr>
-              <td colSpan={2}>{atkname} Stats</td>
-              <td colSpan={2}>{defname} Stats</td>
+              <td colSpan={2}>Champ 1 Stats</td>
+              <td colSpan={2}>Champ 2 Stats</td>
             </tr>
 
           <tr>

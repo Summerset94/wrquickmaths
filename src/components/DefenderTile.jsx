@@ -1,10 +1,10 @@
 import { useEffect, useState, useMemo } from "react";
 import champions from './Champions.jsx'
-import Abilities from "./Abilities";
-import Inventory from "./Inventory";
-import { useStats } from './StatsContext';
+import Abilities from "./Abilities.jsx";
+import Inventory from "./Inventory.jsx";
+import { useStats } from './StatsContext.jsx';
 
-export default function AttackerTile(props) {
+export default function DefenderTile(props) {
   // const champion = props.champ
   const index = props.index
 
@@ -589,7 +589,7 @@ const statGrowth = function(mod) {
   useEffect(() => {
     setTotalStats(prevTotalStats => {
       const newTotalStats = [...prevTotalStats];
-      newTotalStats[0] = totalMemo;
+      newTotalStats[1] = totalMemo;
       return newTotalStats;
     });
   }, [bonusMemo, totalMemo, currentLevel, rabadonApplied, twinguardApplied, fonStacked]);
@@ -620,8 +620,6 @@ const statGrowth = function(mod) {
     
    
   ];
-
- 
 
 
   return (
@@ -883,7 +881,7 @@ const statGrowth = function(mod) {
           </tr>
           <tr>
             <td colSpan={2}>Percentage Armor</td>
-            <td colSpan={2} className="stat--ad">{((totalMemo.armPen) * 100).toFixed(0)}%</td>
+            <td colSpan={2} className="stat--ad">{(totalMemo.armPen * 100).toFixed(0)}%</td>
           </tr>
           <tr>
             <td colSpan={2}>Percentage Magic</td>
@@ -920,9 +918,10 @@ const statGrowth = function(mod) {
             </div>
           ))}
         </div>
-      
-    
-      </div>     
+
+       </div>
+       
+            
       
     </div>
     )
