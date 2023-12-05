@@ -1,10 +1,10 @@
 import { useEffect, useState, useMemo } from "react";
 import champions from './Champions.jsx'
-import Abilities from "./Abilities.jsx";
-import Inventory from "./Inventory.jsx";
-import { useStats } from './StatsContext.jsx';
+import Abilities from "./Abilities";
+import Inventory from "./Inventory";
+import { useStats } from './StatsContext';
 
-export default function DefenderTile(props) {
+export default function AttackerTile(props) {
   // const champion = props.champ
   const index = props.index
 
@@ -102,7 +102,7 @@ const statGrowth = function(mod) {
   }  
 }
 
-  const baseMemo = useMemo(() => {
+  const baseStats = useMemo(() => {
     return {
       health: Math.ceil(champ.healthBase + statGrowth(champ.healthScale)),
       mana: champ.manaBase ? Math.ceil(champ.manaBase + statGrowth(champ.manaScale)) : 0,
@@ -118,7 +118,7 @@ const statGrowth = function(mod) {
   }, [currentLevel, champ]);
 
 
-  const [bonusMemo, setBonusMemo] = useState({
+  const [itemBonus, setItemBonus] = useState({
     health: 0,
     mana: 0,
     armor: 0,
@@ -158,7 +158,7 @@ const statGrowth = function(mod) {
  
 
 // This Memo because some champs are unique so I have to dance around their stats interactions
-  const totalModifier = useMemo(() => {
+  const championModifier = useMemo(() => {
     let healthMod;
     let attackMod;
     let apMod;
@@ -174,13 +174,13 @@ const statGrowth = function(mod) {
   switch (champ.name) {
     case 'Ornn':
       if (currentLevel <= 4) {
-        armorMod = (bonusMemo.armor * 7 /100)
+        armorMod = (itemBonus.armor * 7 /100)
       } else if (currentLevel >4 && currentLevel <= 8) {
-        armorMod = (bonusMemo.armor * 12 /100)
+        armorMod = (itemBonus.armor * 12 /100)
       } else if (currentLevel >8 && currentLevel <= 12) {
-        armorMod = (bonusMemo.armor * 17 /100)
+        armorMod = (itemBonus.armor * 17 /100)
       } else {
-        armorMod = (bonusMemo.armor * 22 /100)
+        armorMod = (itemBonus.armor * 22 /100)
       };
       break;
     case 'Singed':
@@ -198,11 +198,11 @@ const statGrowth = function(mod) {
       if (abilitiesBonus.jaxR == 0) {
         armorMod = 0
       } else if (abilitiesBonus.jaxR == 1) {
-        armorMod = (30 + bonusMemo.attack * 50 /100)
+        armorMod = (30 + itemBonus.attack * 50 /100)
       } else if (abilitiesBonus.jaxR == 2) {
-        armorMod = (50 + bonusMemo.attack * 50 /100)
+        armorMod = (50 + itemBonus.attack * 50 /100)
       } else if (abilitiesBonus.jaxR == 3) {
-        armorMod = (70 + bonusMemo.attack * 50 /100)
+        armorMod = (70 + itemBonus.attack * 50 /100)
       }
       break; 
 
@@ -218,13 +218,13 @@ const statGrowth = function(mod) {
   switch (champ.name) {
     case 'Ornn':
       if (currentLevel <= 4) {
-        magresMod = (bonusMemo.magres * 7 /100)
+        magresMod = (itemBonus.magres * 7 /100)
       } else if (currentLevel >4 && currentLevel <= 8) {
-        magresMod = (bonusMemo.magres * 12 /100)
+        magresMod = (itemBonus.magres * 12 /100)
       } else if (currentLevel >8 && currentLevel <= 12) {
-        magresMod = (bonusMemo.magres * 17 /100)
+        magresMod = (itemBonus.magres * 17 /100)
       } else {
-        magresMod = (bonusMemo.magres * 22 /100)
+        magresMod = (itemBonus.magres * 22 /100)
       };
       break;
       case 'Singed':
@@ -242,11 +242,11 @@ const statGrowth = function(mod) {
       if (abilitiesBonus.jaxR == 0) {
         magresMod = 0
       } else if (abilitiesBonus.jaxR == 1) {
-        magresMod = (30 + bonusMemo.ap * 20 /100)
+        magresMod = (30 + itemBonus.ap * 20 /100)
       } else if (abilitiesBonus.jaxR == 2) {
-        magresMod = (50 + bonusMemo.ap * 20 /100)
+        magresMod = (50 + itemBonus.ap * 20 /100)
       } else if (abilitiesBonus.jaxR == 3) {
-        magresMod = (70 + bonusMemo.ap * 20 /100)
+        magresMod = (70 + itemBonus.ap * 20 /100)
       }
       break; 
     default:
@@ -257,34 +257,34 @@ const statGrowth = function(mod) {
   //Health
     switch (champ.name) {
       case 'Pyke':
-        healthMod = baseMemo.health;
+        healthMod = baseStats.health;
         break;
       case 'Ornn':
         if (currentLevel <= 4) {
-          healthMod = (bonusMemo.health * 7 /100)
+          healthMod = (itemBonus.health * 7 /100)
         } else if (currentLevel >4 && currentLevel <= 8) {
-          healthMod = (bonusMemo.health * 12 /100)
+          healthMod = (itemBonus.health * 12 /100)
         } else if (currentLevel >8 && currentLevel <= 12) {
-          healthMod = (bonusMemo.health * 17 /100)
+          healthMod = (itemBonus.health * 17 /100)
         } else {
-          healthMod = (bonusMemo.health * 22 /100)
+          healthMod = (itemBonus.health * 22 /100)
         };
         break;
       case 'Sion':
-        healthMod = baseMemo.health + bonusMemo.health +  abilitiesBonus.sionW;
+        healthMod = baseStats.health + itemBonus.health +  abilitiesBonus.sionW;
         break;
 
       case 'Swain':
-        healthMod = baseMemo.health + bonusMemo.health +  (abilitiesBonus.swainP * 16);
+        healthMod = baseStats.health + itemBonus.health +  (abilitiesBonus.swainP * 16);
         break;
       
       case 'Vladimir':
-        healthMod = baseMemo.health + bonusMemo.health + Math.round(bonusMemo.ap * 120 / 100);
+        healthMod = baseStats.health + itemBonus.health + Math.round(itemBonus.ap * 120 / 100);
         break;
 
 
       default:
-        healthMod = baseMemo.health + bonusMemo.health;
+        healthMod = baseStats.health + itemBonus.health;
         break;
 
       
@@ -293,16 +293,16 @@ const statGrowth = function(mod) {
   // Attack
     switch (champ.name) {
       case 'Pyke':
-        attackMod = Math.ceil(bonusMemo.health / 14);
+        attackMod = Math.ceil(itemBonus.health / 14);
         break;
       case 'Zeri':
-        attackMod = baseMemo.as + bonusMemo.as >= 1.5 ? Math.floor((baseMemo.as + bonusMemo.as - 1.5) * (50 / champ.asBase)) : 0;
+        attackMod = baseStats.as + itemBonus.as >= 1.5 ? Math.floor((baseStats.as + itemBonus.as - 1.5) * (50 / champ.asBase)) : 0;
         break;
       case 'Jhin':
-        attackMod = Math.round((baseMemo.attack + bonusMemo.attack)*((5+55/14*(currentLevel-1))/100 + (bonusMemo.as*(14 + (17/14*(currentLevel - 1))))/(champ.asBase*100) + (bonusMemo.critChance*(23 + (26/14*(currentLevel - 1))))/100));
+        attackMod = Math.round((baseStats.attack + itemBonus.attack)*((5+55/14*(currentLevel-1))/100 + (itemBonus.as*(14 + (17/14*(currentLevel - 1))))/(champ.asBase*100) + (itemBonus.critChance*(23 + (26/14*(currentLevel - 1))))/100));
         break;
       case 'Hecarim':
-        attackMod = Math.round(bonusMemo.moveSpeed * 12 / 100);
+        attackMod = Math.round(itemBonus.moveSpeed * 12 / 100);
         break;
       case 'Senna':
         attackMod = abilitiesBonus.sennaP;
@@ -312,21 +312,21 @@ const statGrowth = function(mod) {
         if (abilitiesBonus.rengarP == 0) {
           attackMod = 0
         } else if (abilitiesBonus.rengarP == 1) {
-          attackMod = ((baseMemo.attack + bonusMemo.attack) * 1/100)
+          attackMod = ((baseStats.attack + itemBonus.attack) * 1/100)
         } else if (abilitiesBonus.rengarP == 2) {
-          attackMod = ((baseMemo.attack + bonusMemo.attack) * 4/100)
+          attackMod = ((baseStats.attack + itemBonus.attack) * 4/100)
         } else if (abilitiesBonus.rengarP == 3) {
-          attackMod = ((baseMemo.attack + bonusMemo.attack) * 9/100)
+          attackMod = ((baseStats.attack + itemBonus.attack) * 9/100)
         } else if (abilitiesBonus.rengarP == 4) {
-          attackMod = ((baseMemo.attack + bonusMemo.attack) * 16/100)
+          attackMod = ((baseStats.attack + itemBonus.attack) * 16/100)
         } else if (abilitiesBonus.rengarP == 5) {
-          attackMod = ((baseMemo.attack + bonusMemo.attack) * 25/100)
+          attackMod = ((baseStats.attack + itemBonus.attack) * 25/100)
         };
         break;
 
       case 'Yasuo':
       case 'Yone':
-        attackMod = Math.round(((bonusMemo.critChance * 2) - 1) * 40)
+        attackMod = Math.round(((itemBonus.critChance * 2) - 1) * 40)
         break;
         
       default:
@@ -357,7 +357,7 @@ const statGrowth = function(mod) {
         break;
 
       case 'Vladimir':
-        apMod = Math.round(bonusMemo.health * 4.5 / 100);
+        apMod = Math.round(itemBonus.health * 4.5 / 100);
         break;
 
       default:
@@ -368,48 +368,48 @@ const statGrowth = function(mod) {
   // Attack Speed
     switch (champ.name) {
       case 'Zeri':
-        asMod = (baseMemo.as + bonusMemo.as) < 1.5 ? (baseMemo.as + bonusMemo.as) : 1.5;
+        asMod = (baseStats.as + itemBonus.as) < 1.5 ? (baseStats.as + itemBonus.as) : 1.5;
         break;
       case 'Jhin':
-        asMod = baseMemo.as;
+        asMod = baseStats.as;
         break;
       case 'Senna' :
-        asMod = baseMemo.as + (bonusMemo.as / 5);
+        asMod = baseStats.as + (itemBonus.as / 5);
         break;
 
       case 'Twisted Fate':
         if (abilitiesBonus.twistedFateE == 0) {
-          asMod = baseMemo.as + bonusMemo.as;
+          asMod = baseStats.as + itemBonus.as;
         } else if (abilitiesBonus.twistedFateE == 1) {
-          asMod = baseMemo.as + bonusMemo.as + (champ.asBase * 15 / 100);
+          asMod = baseStats.as + itemBonus.as + (champ.asBase * 15 / 100);
         } else if (abilitiesBonus.twistedFateE == 2) {
-          asMod = baseMemo.as + bonusMemo.as + (champ.asBase * 20 / 100);
+          asMod = baseStats.as + itemBonus.as + (champ.asBase * 20 / 100);
         } else if (abilitiesBonus.twistedFateE == 3) {
-          asMod = baseMemo.as + bonusMemo.as + (champ.asBase * 25 / 100);
+          asMod = baseStats.as + itemBonus.as + (champ.asBase * 25 / 100);
         } else if (abilitiesBonus.twistedFateE == 4) {
-          asMod = baseMemo.as + bonusMemo.as + (champ.asBase * 30 / 100);
+          asMod = baseStats.as + itemBonus.as + (champ.asBase * 30 / 100);
         };
         break;
 
       default:
-        asMod = baseMemo.as + bonusMemo.as;
+        asMod = baseStats.as + itemBonus.as;
         break;
     }
 
   //Crit Chance
   switch (champ.name) {
     case 'Yone':
-      critChanceMod = Math.max(bonusMemo.critChance * 2 || 1);
+      critChanceMod = Math.max(itemBonus.critChance * 2 || 1);
       break;
     case 'Yasuo':
-      critChanceMod = Math.max(bonusMemo.critChance * 2 || 1);
+      critChanceMod = Math.max(itemBonus.critChance * 2 || 1);
       break;
 
     case 'Senna':
-      critChanceMod = (bonusMemo.critChance + (0.15 * Math.floor (abilitiesBonus.sennaP/20)));
+      critChanceMod = (itemBonus.critChance + (0.15 * Math.floor (abilitiesBonus.sennaP/20)));
       break;
     default:
-      critChanceMod = bonusMemo.critChance;
+      critChanceMod = itemBonus.critChance;
       break;
   }
 
@@ -419,20 +419,20 @@ const statGrowth = function(mod) {
       critMultiplierMod = 1;
       break;
     case 'Senna':
-      critMultiplierMod = ((baseMemo.critMultiplier + bonusMemo.critMultiplier))
+      critMultiplierMod = ((baseStats.critMultiplier + itemBonus.critMultiplier))
       break;
     case 'Jhin':
-      critMultiplierMod = (150 / 100) + bonusMemo.critMultiplier;
+      critMultiplierMod = (150 / 100) + itemBonus.critMultiplier;
       break; 
     default: 
-    critMultiplierMod = baseMemo.critMultiplier + bonusMemo.critMultiplier;
+    critMultiplierMod = baseStats.critMultiplier + itemBonus.critMultiplier;
       break;
   }
   
   //Movement Speed
   switch (champ.name) {
     case 'Janna':
-      moveSpeedMod = (baseMemo.moveSpeed + bonusMemo.moveSpeed) * 5 / 100;
+      moveSpeedMod = (baseStats.moveSpeed + itemBonus.moveSpeed) * 5 / 100;
       break;
     case 'Singed':
       if (abilitiesBonus.singedR === 0) {
@@ -453,7 +453,7 @@ const statGrowth = function(mod) {
   //Armor Penetration
   switch (champ.name) {
     case 'Nilah':
-      armPenMod = (bonusMemo.critChance * 35 / 100);
+      armPenMod = (itemBonus.critChance * 35 / 100);
       break;
     case 'Pantheon':
       if (currentLevel < 5) {
@@ -497,7 +497,48 @@ const statGrowth = function(mod) {
       magres: magresMod,
       critMultiplier: critMultiplierMod,
     };
-  }, [champ, baseMemo, bonusMemo, currentLevel, abilitiesBonus]);
+  }, [champ, baseStats, itemBonus, currentLevel, abilitiesBonus]);
+
+  const [itemEffects, setItemEffects] = useState({
+    rabadon: false,
+    twinguard: false,    
+    steraks: false,
+    seraphs: false,
+    fimbulwinter: false,
+    muramana: false,
+    lastWhisper: false,
+
+    forceOfNature: false,
+    bootsPassive: false,
+  });
+
+  const itemEffectsMemo = useMemo(() =>{
+    
+    const steraks = itemEffects.steraks ? baseStats.attack / 2 : 0;
+    const rabadon = itemEffects.rabadon ? ((itemBonus.ap + championModifier.ap) * (20 + (25/14 * (currentLevel - 1))) / 100) : 0;
+    const twinguardAR = itemEffects.twinguard ? ((baseStats.armor + itemBonus.armor + championModifier.armor) * 30 / 100) : 0;
+    const twinguardMR = itemEffects.twinguard ? ((baseStats.magres + itemBonus.magres + championModifier.magres) * 30 / 100) : 0;
+    const seraphs = itemEffects.seraphs ? ((baseStats.mana? baseStats.mana + itemBonus.mana : itemBonus.mana) * 3/100) : 0;
+    const muramana = itemEffects.muramana ? ((baseStats.mana? baseStats.mana + itemBonus.mana : itemBonus.mana) * 1.5/100) : 0;
+    const fimbulwinter = itemEffects.fimbulwinter ? ((baseStats.mana? baseStats.mana + itemBonus.mana : itemBonus.mana) * 8/100) : 0;
+    const lastWhisper = itemEffects.lastWhisper ? ((15 + Number(currentLevel))/100) : 0;
+    const forceOfNature = itemEffects.forceOfNature;
+    const bootsPassive = itemEffects.bootsPassive;
+
+
+    
+    return {
+      attack: steraks + muramana,
+      ap: rabadon + seraphs,
+      armor: twinguardAR,
+      magres: twinguardMR,
+      health: fimbulwinter,
+      armPen: lastWhisper,
+      forceOfNature: forceOfNature,
+      bootsPassive: bootsPassive
+
+    }
+  }, [itemEffects, baseStats, itemBonus, championModifier])
 
   
 
@@ -511,12 +552,12 @@ const statGrowth = function(mod) {
   
   const bonusEffectsMemo = useMemo(() =>{
     return {
-      rabadon: Math.floor((bonusMemo.ap) * (20 + (25/14 * (currentLevel - 1))) / 100),
-      twinguardAR: Math.floor((baseMemo.armor + bonusMemo.armor + totalModifier.armor) * 30 / 100),
-      twinguardMR: Math.floor((baseMemo.magres + bonusMemo.magres + totalModifier.magres) * 30 / 100),
+      rabadon: Math.floor((itemBonus.ap) * (20 + (25/14 * (currentLevel - 1))) / 100),
+      twinguardAR: Math.floor((baseStats.armor + itemBonus.armor + championModifier.armor) * 30 / 100),
+      twinguardMR: Math.floor((baseStats.magres + itemBonus.magres + championModifier.magres) * 30 / 100),
       
     }
-  }, [bonusMemo])
+  }, [itemBonus])
 
   const [rabadonApplied, setRabadonApplied] = useState(false);
   const [twinguardApplied, setTwinguardapplied] = useState(false);
@@ -533,42 +574,73 @@ const statGrowth = function(mod) {
   
   
   const totalMemo = useMemo(() => {
+    const combiner = {
+      health: champ.name !== 'Pyke' ? championModifier.health + itemEffectsMemo.health: baseStats.health,
+      mana: champ.manaBase ? baseStats.mana + itemBonus.mana : itemBonus.mana,
+      armor: baseStats.armor + itemBonus.armor + championModifier.armor + itemEffectsMemo.armor,
+      magres: baseStats.magres + itemBonus.magres + championModifier.magres + itemEffectsMemo.magres,
+      attack: baseStats.attack + itemBonus.attack + championModifier.attack + itemEffectsMemo.attack,
+      ap: itemBonus.ap + championModifier.ap + itemEffectsMemo.ap,
+
+      as: championModifier.as,
+
+      armPen: itemEffectsMemo.armPen + championModifier.armPen,
+      magPen: itemBonus.magPen,
+      flatArmPen: itemBonus.flatArmPen,
+      flatMagPen: itemBonus.flatMagPen,
+      armorReduction: itemBonus.armorReduction,
+      magResReduction: itemBonus.magResReduction,
+
+
+      moveSpeed: baseStats.moveSpeed + itemBonus.moveSpeed + championModifier.moveSpeed,
+      ah: itemBonus.ah,
+
+      critChance: championModifier.critChance,
+      critMultiplier: championModifier.critMultiplier,
+      critDamage: ((baseStats.attack + itemBonus.attack))*(champ.name != 'Ashe' ? baseStats.critMultiplier + itemBonus.critMultiplier : 1),
+
+      forceOfNature: itemEffectsMemo.forceOfNature,
+      bootsPassive: itemEffectsMemo.bootsPassive
+    }
+
     return {
-      name: champion.name,
-      health: totalModifier.health,
-      mana: champ.manaBase ? baseMemo.mana + bonusMemo.mana : bonusMemo.mana,
-      armor: baseMemo.armor + bonusMemo.armor + totalModifier.armor + (twinguardApplied ? bonusEffectsMemo.twinguardAR : 0),
-      magres: baseMemo.magres + bonusMemo.magres + totalModifier.magres + (twinguardApplied ? bonusEffectsMemo.twinguardMR : 0),
-      attack: baseMemo.attack + bonusMemo.attack + totalModifier.attack,
-      
-      ap: (bonusMemo.ap + totalModifier.ap) + (rabadonApplied ? bonusEffectsMemo.rabadon : 0),
-      
-      as: totalModifier.as,
+      health: combiner.health,
+      mana: combiner.mana,
 
-      dps: (baseMemo.attack + bonusMemo.attack + totalModifier.attack) * (baseMemo.as + bonusMemo.as),
+      armor: combiner.armor,
+      magres: combiner.magres,
 
+      attack: combiner.attack,      
+      ap: combiner.ap,
       
-      dmgReductArm: ((1 - (100/(100 + (baseMemo.armor + bonusMemo.armor +  (twinguardApplied ? bonusEffectsMemo.twinguardAR : 0)))))*100),
-      dmgReductMag: ((1 - (100/(100 + (baseMemo.magres + bonusMemo.magres + (twinguardApplied ? bonusEffectsMemo.twinguardMR : 0)))))*100),
-      effectiveHealthArm: ((baseMemo.health + bonusMemo.health)/(100/(100 + (baseMemo.armor + bonusMemo.armor + (twinguardApplied ? bonusEffectsMemo.twinguardAR : 0))))),
-      effectiveHealthMag: ((baseMemo.health + bonusMemo.health)/(100/(100 + (baseMemo.magres + bonusMemo.magres + (twinguardApplied ? bonusEffectsMemo.twinguardMR : 0))))),
-      flatArmPen: bonusMemo.flatArmPen,
-      flatMagPen: bonusMemo.flatMagPen,
-      // Bug: percent mitigation don't re-render dynamically
-      armPen: bonusMemo.armPen + totalModifier.armPen,
-      magPen: bonusMemo.magPen,
-      moveSpeed: baseMemo.moveSpeed + bonusMemo.moveSpeed + totalModifier.moveSpeed,
-      critChance: totalModifier.critChance,
-      critMultiplier: totalModifier.critMultiplier,
-      critDamage: ((baseMemo.attack + bonusMemo.attack))*(champ.name != 'Ashe' ? baseMemo.critMultiplier + bonusMemo.critMultiplier : 1),
-      armorReduction: bonusMemo.armorReduction,
-      magResReduction: bonusMemo.magResReduction,
-      cdr: (1-(1/(1+bonusMemo.ah/100))),
-      ah: bonusMemo.ah,
-      bootsPassive: bonusMemo.bootsPassive,
-      fonEffect: fonStacked
+      as: combiner.as,
+      dps: (combiner.attack) * (combiner.as),
+      
+      dmgReductArm: ((1 - (100/(100 + combiner.armor)))*100),
+      dmgReductMag: ((1 - (100/(100 + combiner.magres)))*100),
+      effectiveHealthArm: ((combiner.health)/(100/(100 + (combiner.armor)))),
+      effectiveHealthMag: ((combiner.health)/(100/(100 + (combiner.magres)))),
+
+      flatArmPen: combiner.flatArmPen,
+      flatMagPen: combiner.flatMagPen,
+      armPen: combiner.armPen,
+      magPen: combiner.magPen,
+      armorReduction: combiner.armorReduction,
+      magResReduction: combiner.magResReduction,
+      
+
+      moveSpeed: combiner.moveSpeed,
+      critChance: combiner.critChance,
+      critMultiplier: combiner.critMultiplier,
+      critDamage: combiner.critDamage,
+      
+      ah: combiner.ah,
+      cdr: (1-(1/(1+combiner.ah/100))),
+      
+      forceOfNature: combiner.forceOfNature,
+      bootsPassive: combiner.bootsPassive
     };
-  }, [baseMemo, bonusMemo, rabadonApplied, twinguardApplied, currentLevel, fonStacked, abilitiesBonus]);
+  }, [baseStats, itemBonus, championModifier, currentLevel, itemEffectsMemo]);
 
 
   function levelSlider(n) {
@@ -577,8 +649,12 @@ const statGrowth = function(mod) {
     setCurrentLevel(newLevel);
   }
 
-  function updateBonusMemo(updatedValues) {
-    setBonusMemo((prevStats) => ({...prevStats, ...updatedValues}))
+  function updateitemBonus(updatedValues) {
+    setItemBonus((prevStats) => ({...prevStats, ...updatedValues}))
+  };
+
+  function updateItemEffects(updatedValues) {
+    setItemEffects((prevStats) => ({ ...prevStats, ...updatedValues }));
   };
 
   // here we be tryin' pass the memo up
@@ -592,34 +668,34 @@ const statGrowth = function(mod) {
       newTotalStats[1] = totalMemo;
       return newTotalStats;
     });
-  }, [bonusMemo, totalMemo, currentLevel, rabadonApplied, twinguardApplied, fonStacked]);
+  }, [itemBonus, totalMemo, currentLevel, rabadonApplied, twinguardApplied, fonStacked]);
 
   const [activePageIndex, setActivePageIndex] = useState(0);
   const pages = [
     { component: <Inventory 
-      base={baseMemo}
-      bonus={bonusMemo}
+      base={baseStats}
+      bonus={itemBonus}
       total={totalMemo}
       bonusEffects={bonusEffectsMemo}
-      handleBonusChange={updateBonusMemo}
-      currentLevel={currentLevel}
-      switchHat={toggleRabadon}
-      switchTwinguard={toggleTwinguard}
-      switchFON={toggleFON}
+      handleBonusChange={updateitemBonus}
+      currentLevel={currentLevel}      
       index={index}
       champ={champ}
-
+      itemEffects={itemEffects}
+      updateItemEffects={updateItemEffects}
     />, label: 'Inventory' },
     { component: <Abilities 
       updateAbilitiesBonus={updateAbilitiesBonus}
       champ={champ}
       currentLevel={currentLevel}
       index={index}
-      bonus={bonusMemo}            
+      bonus={itemBonus}            
       />, label: 'Abilities' },
     
    
   ];
+
+ 
 
 
   return (
@@ -733,7 +809,7 @@ const statGrowth = function(mod) {
           </tr>
 
           <tr>
-            <td colSpan={3}><sup>**</sup>AS bonus</td>
+            <td colSpan={3}><abbr title="Basically your attack speed consists of BASIC value, plus percentage of BASIC value as bonus at level 1 plus % growth on that is derived as % of BASE as. Most of AS bonuses are based on your BASE AS"><sup>**</sup></abbr>AS bonus</td>
           </tr>
 
           <tr>
@@ -769,57 +845,57 @@ const statGrowth = function(mod) {
           
           <tr>
             <td>Health</td>
-            <td className='stat--hp'>{baseMemo.health}</td>
-            <td className='stat--hp'>{bonusMemo.health}</td>
+            <td className='stat--hp'>{baseStats.health}</td>
+            <td className='stat--hp'>{itemBonus.health}</td>
             <td className='stat--hp'>{totalMemo.health}</td>
           </tr>
 
           <tr>
             <td>Mana</td>
-            <td className='stat--mana'>{baseMemo.mana}</td>
-            <td className='stat--mana'>{bonusMemo.mana}</td>
+            <td className='stat--mana'>{baseStats.mana}</td>
+            <td className='stat--mana'>{itemBonus.mana}</td>
             <td className='stat--mana'>{totalMemo.mana}</td>
           </tr>
 
           <tr>
             <td>Armor</td>
-            <td className='stat--armor'>{baseMemo.armor}</td>
-            <td className='stat--armor'>{bonusMemo.armor}</td>
+            <td className='stat--armor'>{baseStats.armor}</td>
+            <td className='stat--armor'>{itemBonus.armor}</td>
             <td className='stat--armor'>{totalMemo.armor}</td>
           </tr>
 
           <tr>
             <td>Magic Resistance</td>
-            <td className='stat--magres'>{baseMemo.magres}</td>
-            <td className='stat--magres'>{bonusMemo.magres}</td>
+            <td className='stat--magres'>{baseStats.magres}</td>
+            <td className='stat--magres'>{itemBonus.magres}</td>
             <td className='stat--magres'>{totalMemo.magres}</td>
           </tr>
 
           <tr>
             <td>Attack</td>
-            <td className='stat--ad'>{baseMemo.attack}</td>
-            <td className='stat--ad'>{bonusMemo.attack}</td>
+            <td className='stat--ad'>{baseStats.attack}</td>
+            <td className='stat--ad'>{itemBonus.attack}</td>
             <td className='stat--ad'>{totalMemo.attack}</td>
           </tr>
 
           <tr>
             <td>Ability Power</td>
-            <td className='stat--ap'>{baseMemo.ap}</td>
-            <td className='stat--ap'>{bonusMemo.ap}</td>
+            <td className='stat--ap'>{baseStats.ap}</td>
+            <td className='stat--ap'>{itemBonus.ap}</td>
             <td className='stat--ap'>{totalMemo.ap}</td>
           </tr>
 
           <tr>
             <td>Attack speed</td>
-            <td className='stat--as'>{baseMemo.as.toFixed(2)}</td>
-            <td className='stat--as'>{bonusMemo.as.toFixed(2)}</td>
+            <td className='stat--as'>{baseStats.as.toFixed(2)}</td>
+            <td className='stat--as'>{itemBonus.as.toFixed(2)}</td>
             <td className='stat--as'>{totalMemo.as.toFixed(2)}</td>
           </tr>
 
           <tr>
             <td>Movespeed</td>
-            <td className='stat--moveSpeed'>{Math.ceil(baseMemo.moveSpeed)}</td>
-            <td className='stat--moveSpeed'>{Math.ceil(bonusMemo.moveSpeed)}</td>
+            <td className='stat--moveSpeed'>{Math.ceil(baseStats.moveSpeed)}</td>
+            <td className='stat--moveSpeed'>{Math.ceil(itemBonus.moveSpeed)}</td>
             <td className='stat--moveSpeed'>{Math.ceil(totalMemo.moveSpeed)}</td>
           </tr>
 
@@ -881,7 +957,7 @@ const statGrowth = function(mod) {
           </tr>
           <tr>
             <td colSpan={2}>Percentage Armor</td>
-            <td colSpan={2} className="stat--ad">{(totalMemo.armPen * 100).toFixed(0)}%</td>
+            <td colSpan={2} className="stat--ad">{((totalMemo.armPen) * 100).toFixed(0)}%</td>
           </tr>
           <tr>
             <td colSpan={2}>Percentage Magic</td>
@@ -918,10 +994,9 @@ const statGrowth = function(mod) {
             </div>
           ))}
         </div>
-
-       </div>
-       
-            
+      
+    
+      </div>     
       
     </div>
     )

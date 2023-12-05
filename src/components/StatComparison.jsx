@@ -7,6 +7,7 @@ export default function StatComparison() {
 
   const atk = totalStats[0];
   const def = totalStats[1];
+
  
 
   const formula = useMemo(() => {
@@ -56,7 +57,7 @@ export default function StatComparison() {
     };
 
     const magicalDamageReduction = (postMitigationMres, champ) => {
-      return Math.round((1 - (100/(100 + (postMitigationMres))))*100*((1 + (champ.bootsPassive === 'Mercury' ? 0.12 : 0) + (champ.fonEffect ? 0.25 : 0))));
+      return Math.round((1 - (100/(100 + (postMitigationMres))))*100*((1 + (champ.bootsPassive === 'Mercury' ? 0.12 : 0) + (champ.forceOfNature ? 0.25 : 0))));
     };
 
     const physicalReductionAttacker = physicalDamageReduction(postMitigationArmorAttacker, atk);
@@ -106,9 +107,11 @@ export default function StatComparison() {
       <div className='champTile'>
         <table>
           <thead>
-            <th colSpan={4}>
-              Stats comparison table
-            </th>
+            <tr>
+              <td colSpan={4}>
+                Stats comparison table
+              </td>              
+            </tr>
           </thead>
           <tbody>
           <tr>

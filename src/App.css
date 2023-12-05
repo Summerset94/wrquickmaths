@@ -270,6 +270,14 @@ button:active {
   
 }
 
+.itemDescription {
+  padding: 4px;
+  border: 2px solid rgb(87, 87, 41);
+  border-radius: 5px;
+  box-shadow: var(--basic-shadow);
+  background-color: rgb(26, 25, 25);
+}
+
 .itemDescription > h3 {
   padding: 2px;
   font-size: 16px;
