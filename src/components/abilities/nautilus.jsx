@@ -73,7 +73,7 @@ export default function nautilus({currentLevel, mod, bonus, atk, def, champ}) {
     
           <h5>
           Cooldown: 
-            {' '}{(12*mod.atkcdr).toFixed(1)}
+            {' '}{(11*mod.atkcdr).toFixed(1)}
           </h5>
             <h5 className="stat--mana">
           Cost: 
@@ -85,10 +85,10 @@ export default function nautilus({currentLevel, mod, bonus, atk, def, champ}) {
           </h5>
 
           <p className="stat--hp">
-                  {Math.round(((55)+(atk.health * 10 / 100)))} / 
-            {' '}{Math.round(((65)+(atk.health * 11 / 100)))} / 
-            {' '}{Math.round(((75)+(atk.health * 12 / 100)))} / 
-            {' '}{Math.round(((85)+(atk.health * 13 / 100)))}
+                  {Math.round(((55)+(atk.health * 11 / 100)))} / 
+            {' '}{Math.round(((65)+(atk.health * 12 / 100)))} / 
+            {' '}{Math.round(((75)+(atk.health * 13 / 100)))} / 
+            {' '}{Math.round(((85)+(atk.health * 14 / 100)))}
           </p>
 
           <h5 className="stat--ap">

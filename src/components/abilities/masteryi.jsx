@@ -141,10 +141,10 @@ export default function masteryi({currentLevel, mod, bonus, atk, def, champ}) {
           </h5>
 
           <p className="stat--critChance">
-            {Math.round(((30)+(bonus.attack * 25 / 100)))} / 
-            {' '}{Math.round(((40)+(bonus.attack * 25 / 100)))} / 
-            {' '}{Math.round(((50)+(bonus.attack * 25 / 100)))} / 
-            {' '}{Math.round(((60)+(bonus.attack * 25 / 100)))}
+            {Math.round(((35)+(bonus.attack * 30 / 100)))} / 
+            {' '}{Math.round(((45)+(bonus.attack * 30 / 100)))} / 
+            {' '}{Math.round(((55)+(bonus.attack * 30 / 100)))} / 
+            {' '}{Math.round(((65)+(bonus.attack * 30 / 100)))}
           </p>
 
 
@@ -153,7 +153,7 @@ export default function masteryi({currentLevel, mod, bonus, atk, def, champ}) {
            <b>PASSIVE:</b> gains <abbr title="8% AD" className="stat--ad">{Math.round((atk.attack)*8/100)} physical damage</abbr> while Wuju style is off cooldown
           </p>
           <p>
-            <b>ACTIVE:</b> Attacks deal <span className="stat--critChance">30 / 40 / 50 / 60 (<span className="stat--ad">+25% bonus AD</span>) bonus true damage</span> for 5 seconds.
+            <b>ACTIVE:</b> Attacks deal <span className="stat--critChance">35 / 45 / 55 / 65 (<span className="stat--ad">+30% bonus AD</span>) bonus true damage</span> for 5 seconds.
           </p>
 
           <p>

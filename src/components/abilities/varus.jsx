@@ -38,25 +38,25 @@ export default function varus({currentLevel, mod, bonus, atk, def, champ, update
           </h5>
 
           <p className="stat--ad">Pre-mitigation: 
-            {' '}{Math.round(((10)+(atk.attack * 110 / 100)))} -
-            {' '}{Math.round(((15)+(atk.attack * 165 / 100)))} / 
-            {' '}{Math.round(((60)+(atk.attack * 110 / 100)))} -
-            {' '}{Math.round(((90)+(atk.attack * 165 / 100)))} / 
-            {' '}{Math.round(((110)+(atk.attack * 110 / 100)))} -
-            {' '}{Math.round(((165)+(atk.attack * 165 / 100)))} / 
-            {' '}{Math.round(((160)+(atk.attack * 110 / 100)))} -
-            {' '}{Math.round(((240)+(atk.attack * 165 / 100)))}
+            {' '}{Math.round(((20)+(atk.attack * 115 / 100)))} -
+            {' '}{Math.round(((30)+(atk.attack * 172.5 / 100)))} / 
+            {' '}{Math.round(((70)+(atk.attack * 115 / 100)))} -
+            {' '}{Math.round(((105)+(atk.attack * 172.5 / 100)))} / 
+            {' '}{Math.round(((120)+(atk.attack * 115 / 100)))} -
+            {' '}{Math.round(((180)+(atk.attack * 172.5 / 100)))} / 
+            {' '}{Math.round(((170)+(atk.attack * 115 / 100)))} -
+            {' '}{Math.round(((255)+(atk.attack * 172.5 / 100)))}
           </p>
 
           <p className="stat--ad">Post-mitigation: 
-            {' '}{Math.round(((10)+(atk.attack * 110 / 100)) * (1 - mod.defPhysRed))} -
-            {' '}{Math.round(((15)+(atk.attack * 165 / 100)) * (1 - mod.defPhysRed))} /  
-            {' '}{Math.round(((60)+(atk.attack * 110 / 100))* (1 - mod.defPhysRed))} - 
-            {' '}{Math.round(((90)+(atk.attack * 165 / 100)) * (1 - mod.defPhysRed))} /  
-            {' '}{Math.round(((110)+(atk.attack * 110 / 100))* (1 - mod.defPhysRed))} - 
-            {' '}{Math.round(((165)+(atk.attack * 165 / 100)) * (1 - mod.defPhysRed))} /  
-            {' '}{Math.round(((160)+(atk.attack * 110 / 100))* (1 - mod.defPhysRed))}  - 
-            {' '}{Math.round(((240)+(atk.attack * 165 / 100)) * (1 - mod.defPhysRed))}   
+            {' '}{Math.round(((20)+(atk.attack * 115 / 100)) * (1 - mod.defPhysRed))} -
+            {' '}{Math.round(((30)+(atk.attack * 172.5 / 100)) * (1 - mod.defPhysRed))} /  
+            {' '}{Math.round(((70)+(atk.attack * 115 / 100))* (1 - mod.defPhysRed))} - 
+            {' '}{Math.round(((105)+(atk.attack * 172.5 / 100)) * (1 - mod.defPhysRed))} /  
+            {' '}{Math.round(((120)+(atk.attack * 115 / 100))* (1 - mod.defPhysRed))} - 
+            {' '}{Math.round(((180)+(atk.attack * 172.5 / 100)) * (1 - mod.defPhysRed))} /  
+            {' '}{Math.round(((170)+(atk.attack * 115 / 100))* (1 - mod.defPhysRed))}  - 
+            {' '}{Math.round(((255)+(atk.attack * 172.5 / 100)) * (1 - mod.defPhysRed))}   
           </p>
     
           <br />
@@ -65,7 +65,7 @@ export default function varus({currentLevel, mod, bonus, atk, def, champ, update
           </p>
 
           <p>
-            <b>Release:</b> Fires the arrow, dealing <span className="stat--ad">10 / 60 / 110 / 160 (+110% AD) to 15 / 90 / 165 / 240 (+165% AD) physical damage</span> based on draw time, reduced by 15% per enemy hit (minimum 33%).
+            <b>Release:</b> Fires the arrow, dealing <span className="stat--ad">20 / 70 / 120 / 170 (+115% AD) to 30 / 105 / 180 / 255 (+172.5% AD) physical damage</span> based on draw time, reduced by 15% per enemy hit (minimum 33%).
           </p>
 
           <p>
@@ -116,15 +116,15 @@ export default function varus({currentLevel, mod, bonus, atk, def, champ, update
           </h5>
 
           <p className="stat--ap">Post-mitigation: 
-            {' '}{Math.round((def.health * (4 + (atk.ap * 0.01 / 100))/100) * (1 - mod.defMagRed))} / 
-            {' '}{Math.round((def.health * (4.5 + (atk.ap * 0.01 / 100))/100)* (1 - mod.defMagRed))} / 
-            {' '}{Math.round((def.health * (5 + (atk.ap * 0.01 / 100))/100)* (1 - mod.defMagRed))} / 
-            {' '}{Math.round((def.health * (5.5 + (atk.ap * 0.01 / 100))/100)* (1 - mod.defMagRed))}          
+            {' '}{Math.round((def.health * (5 + (atk.ap * 0.01 / 100))/100) * (1 - mod.defMagRed))} / 
+            {' '}{Math.round((def.health * (5.5 + (atk.ap * 0.01 / 100))/100)* (1 - mod.defMagRed))} / 
+            {' '}{Math.round((def.health * (6 + (atk.ap * 0.01 / 100))/100)* (1 - mod.defMagRed))} / 
+            {' '}{Math.round((def.health * (6.5 + (atk.ap * 0.01 / 100))/100)* (1 - mod.defMagRed))}          
           </p>
     
           <br />
           <p>
-            <b>Passive:</b>  Attacks deal <span className="stat--ap">12 / 16 / 20 / 24 (+20% AP) bonus magic damage</span> and apply <b className="stat--armor">Blight</b> for 6 seconds (stacks 3 times). Varus's other abilities detonate Blight, dealing <span className="stat--ap">magic damage</span> equal to <span className="stat--hp">4 / 4.5 / 5 / 5.5% (<span className="stat--ap">+0.01% AP</span>) of tharget's Max Health</span> per stack.
+            <b>Passive:</b>  Attacks deal <span className="stat--ap">12 / 16 / 20 / 24 (+20% AP) bonus magic damage</span> and apply <b className="stat--armor">Blight</b> for 6 seconds (stacks 3 times). Varus's other abilities detonate Blight, dealing <span className="stat--ap">magic damage</span> equal to <span className="stat--hp">5 / 5.5 / 6 / 6.5% (<span className="stat--ap">+0.01% AP</span>) of tharget's Max Health</span> per stack.
           </p>
 
           <p>

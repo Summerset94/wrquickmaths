@@ -26,7 +26,7 @@ export default function sivir({currentLevel, mod, bonus, atk, def, champ, update
       cdbase: 12,
       cdgrowth: 0,
 
-      mod: (atk.attack * 24/100),
+      mod: (atk.attack * 22/100),
       growthmod:(atk.attack * 2 / 100),
     };
 
@@ -250,7 +250,7 @@ export default function sivir({currentLevel, mod, bonus, atk, def, champ, update
     
           <br />
           <p>
-            Gains <span className='stat--as'>25% / 30% / 35% /40% Attack Speed</span> for 4 seconds. Sivir's attacks bounce to nearby enemies dealing <span className='stat--ad'>24% (+2% per ability level) AD physical damage</span>.
+            Gains <span className='stat--as'>25% / 30% / 35% /40% Attack Speed</span> for 4 seconds. Sivir's attacks bounce to nearby enemies dealing <span className='stat--ad'>22% (+2% per ability level) AD physical damage</span>.
           </p>
           <p>
             If the first attack <span className='stat--critChance'>crits</span>, so does all the bounces from this attack.
@@ -318,7 +318,7 @@ export default function sivir({currentLevel, mod, bonus, atk, def, champ, update
     
           <br />
           <p>
-            Grants <span className='stat--moveSpeed'>20% Movement Speed</span> to nearby allied champions for <b>10 / 11 / 12</b> seconds. During this time all basic abilities cooldowns are reduced by <b>30% / 35% / 40%</b>.
+            Grants <span className='stat--moveSpeed'>15% Movement Speed</span> to nearby allied champions for <b>10 / 11 / 12</b> seconds. During this time all basic abilities cooldowns are reduced by <b>25% / 25% / 30%</b>.
           </p>
           <p>
             Gains 1 stack of <span className='stat--armor'>Morale</span> for every autoattack or ability landed on enemy champions. Gains 2 stacks of <span className='stat--armor'>Morale</span> on champion takedowns.

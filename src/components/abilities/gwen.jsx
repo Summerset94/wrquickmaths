@@ -49,17 +49,17 @@ export default function gwen({currentLevel, mod, bonus, atk, def, champ}) {
           </h5>
 
           <p className="stat--ap">Pre-mitigation: 
-            {' '}{Math.round(((12)+(atk.ap * 5 / 100)))} / 
-            {' '}{Math.round(((16)+(atk.ap * 5 / 100)))} / 
-            {' '}{Math.round(((20)+(atk.ap * 5 / 100)))} / 
-            {' '}{Math.round(((24)+(atk.ap * 5 / 100)))}
+            {' '}{Math.round(((14)+(atk.ap * 6 / 100)))} / 
+            {' '}{Math.round(((18)+(atk.ap * 6 / 100)))} / 
+            {' '}{Math.round(((22)+(atk.ap * 6 / 100)))} / 
+            {' '}{Math.round(((26)+(atk.ap * 6 / 100)))}
           </p>
 
           <p className="stat--ap">Post-mitigation: 
-            {' '}{Math.round(((12)+(atk.ap * 5 / 100)) * (1 - mod.defMagRed))} / 
-            {' '}{Math.round(((16)+(atk.ap * 5 / 100))* (1 - mod.defMagRed))} / 
-            {' '}{Math.round(((20)+(atk.ap * 5 / 100))* (1 - mod.defMagRed))} / 
-            {' '}{Math.round(((24)+(atk.ap * 5 / 100))* (1 - mod.defMagRed))}          
+            {' '}{Math.round(((14)+(atk.ap * 6 / 100)) * (1 - mod.defMagRed))} / 
+            {' '}{Math.round(((18)+(atk.ap * 6 / 100))* (1 - mod.defMagRed))} / 
+            {' '}{Math.round(((22)+(atk.ap * 6 / 100))* (1 - mod.defMagRed))} / 
+            {' '}{Math.round(((26)+(atk.ap * 6 / 100))* (1 - mod.defMagRed))}          
           </p>
 
           <h5 className="stat--ap">
@@ -67,22 +67,22 @@ export default function gwen({currentLevel, mod, bonus, atk, def, champ}) {
           </h5>
 
           <p className="stat--ap">Pre-mitigation: 
-            {' '}{Math.round(((60)+(atk.ap * 25 / 100)))} / 
-            {' '}{Math.round(((80)+(atk.ap * 25 / 100)))} / 
-            {' '}{Math.round(((100)+(atk.ap * 25 / 100)))} / 
-            {' '}{Math.round(((120)+(atk.ap * 25 / 100)))}
+            {' '}{Math.round(((60)+(atk.ap * 30 / 100)))} / 
+            {' '}{Math.round(((80)+(atk.ap * 30 / 100)))} / 
+            {' '}{Math.round(((100)+(atk.ap * 30 / 100)))} / 
+            {' '}{Math.round(((120)+(atk.ap * 30 / 100)))}
           </p>
 
           <p className="stat--ap">Post-mitigation: 
-            {' '}{Math.round(((60)+(atk.ap * 25 / 100)) * (1 - mod.defMagRed))} / 
-            {' '}{Math.round(((80)+(atk.ap * 25 / 100))* (1 - mod.defMagRed))} / 
-            {' '}{Math.round(((100)+(atk.ap * 25 / 100))* (1 - mod.defMagRed))} / 
-            {' '}{Math.round(((120)+(atk.ap * 25 / 100))* (1 - mod.defMagRed))}          
+            {' '}{Math.round(((60)+(atk.ap * 30 / 100)) * (1 - mod.defMagRed))} / 
+            {' '}{Math.round(((80)+(atk.ap * 30 / 100))* (1 - mod.defMagRed))} / 
+            {' '}{Math.round(((100)+(atk.ap * 30 / 100))* (1 - mod.defMagRed))} / 
+            {' '}{Math.round(((120)+(atk.ap * 30 / 100))* (1 - mod.defMagRed))}          
           </p>
     
           <p>
            <b>PASSIVE:</b>  Gains 1 stack per attack hit (up to 4), lasts 6 seconds. <br />
-           <b>ACTIVE:</b> Snips her scissors twice, snipping an extra time for each stack consumed. Each snip deals <span className="stat--ap">12 / 16 / 20 / 24 (+5% AP) magic damage</span>  with the final snip dealing <span className="stat--ap">60 / 80 / 100 / 120 (+25% AP) magic damage</span> instead. <br />
+           <b>ACTIVE:</b> Snips her scissors twice, snipping an extra time for each stack consumed. Each snip deals <span className="stat--ap">14 / 18 / 22 / 26 (+5% AP) magic damage</span>  with the final snip dealing <span className="stat--ap">70 / 90 / 110 / 130 (+30% AP) magic damage</span> instead. <br />
            The center of each strike deals <span className="stat--vamp"> true damage</span> instead and applies <b>Thousand Cuts</b>.
           </p>
         </div>

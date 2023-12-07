@@ -86,17 +86,17 @@ export default function xinzhao({currentLevel, mod, bonus, atk, def, champ, upda
           </h5>
 
           <p className="stat--ad">Pre-mitigation: 
-            {' '}{Math.round(((50)+(atk.attack * 40 / 100)))} / 
-            {' '}{Math.round(((60)+(atk.attack * 40 / 100)))} / 
-            {' '}{Math.round(((70)+(atk.attack * 40 / 100)))} / 
-            {' '}{Math.round(((80)+(atk.attack * 40 / 100)))}
+            {' '}{Math.round(((50)+(atk.attack * 50 / 100)))} / 
+            {' '}{Math.round(((60)+(atk.attack * 50 / 100)))} / 
+            {' '}{Math.round(((70)+(atk.attack * 50 / 100)))} / 
+            {' '}{Math.round(((80)+(atk.attack * 50 / 100)))}
           </p>
 
           <p className="stat--ad">Post-mitigation: 
-            {' '}{Math.round(((50)+(atk.attack * 40 / 100)) * (1 - mod.defPhysRed))} / 
-            {' '}{Math.round(((60)+(atk.attack * 40 / 100))* (1 - mod.defPhysRed))} / 
-            {' '}{Math.round(((70)+(atk.attack * 40 / 100))* (1 - mod.defPhysRed))} / 
-            {' '}{Math.round(((80)+(atk.attack * 40 / 100))* (1 - mod.defPhysRed))}          
+            {' '}{Math.round(((50)+(atk.attack * 50 / 100)) * (1 - mod.defPhysRed))} / 
+            {' '}{Math.round(((60)+(atk.attack * 50 / 100))* (1 - mod.defPhysRed))} / 
+            {' '}{Math.round(((70)+(atk.attack * 50 / 100))* (1 - mod.defPhysRed))} / 
+            {' '}{Math.round(((80)+(atk.attack * 50 / 100))* (1 - mod.defPhysRed))}          
           </p>
 
           <h5 className="stat--ad">
@@ -104,22 +104,22 @@ export default function xinzhao({currentLevel, mod, bonus, atk, def, champ, upda
           </h5>
 
           <p className="stat--ad">Pre-mitigation: 
-            {' '}{Math.round(((40)+(atk.attack * 70 / 100)))} / 
-            {' '}{Math.round(((85)+(atk.attack * 70 / 100)))} / 
-            {' '}{Math.round(((130)+(atk.attack * 70 / 100)))} / 
-            {' '}{Math.round(((175)+(atk.attack * 70 / 100)))}
+            {' '}{Math.round(((40)+(atk.attack * 80 / 100)))} / 
+            {' '}{Math.round(((85)+(atk.attack * 80 / 100)))} / 
+            {' '}{Math.round(((130)+(atk.attack * 80 / 100)))} / 
+            {' '}{Math.round(((175)+(atk.attack * 80 / 100)))}
           </p>
 
           <p className="stat--ad">Post-mitigation: 
-            {' '}{Math.round(((40)+(atk.attack * 70 / 100)) * (1 - mod.defPhysRed))} / 
-            {' '}{Math.round(((85)+(atk.attack * 70 / 100))* (1 - mod.defPhysRed))} / 
-            {' '}{Math.round(((130)+(atk.attack * 70 / 100))* (1 - mod.defPhysRed))} / 
-            {' '}{Math.round(((175)+(atk.attack * 70 / 100))* (1 - mod.defPhysRed))}          
+            {' '}{Math.round(((40)+(atk.attack * 80 / 100)) * (1 - mod.defPhysRed))} / 
+            {' '}{Math.round(((85)+(atk.attack * 80 / 100))* (1 - mod.defPhysRed))} / 
+            {' '}{Math.round(((130)+(atk.attack * 80 / 100))* (1 - mod.defPhysRed))} / 
+            {' '}{Math.round(((175)+(atk.attack * 80 / 100))* (1 - mod.defPhysRed))}          
           </p>
     
           <br />
           <p>
-            Slashes his spear, dealing <span className="stat--ad">50 / 60 / 70 / 80 (+40% AD) physical damage</span> and slowing by 50% for 1.5 seconds. Xin Zhao then thrusts his spear, dealing  <span className="stat--ad">40 / 85 / 130 / 175 (+70% AD) physical damage</span> and slowing by 50% for 1.5 seconds.
+            Slashes his spear, dealing <span className="stat--ad">50 / 60 / 70 / 80 (+50% AD) physical damage</span> and slowing by 50% for 1.5 seconds. Xin Zhao then thrusts his spear, dealing  <span className="stat--ad">40 / 85 / 130 / 175 (+80% AD) physical damage</span> and slowing by 50% for 1.5 seconds.
           </p>
 
           <p>
@@ -168,7 +168,7 @@ export default function xinzhao({currentLevel, mod, bonus, atk, def, champ, upda
     
           <br />
           <p>
-            Dashes to an enemy, dealing <span className="stat--">50 / 85 / 120 / 155 (+80% AP) magic damage</span> to all nearby enemies and slowing them by 30% for 0.5 second. Xin Zhao gains <abbr title="40 / 45 / 50 / 55%" className="stat--as">{(champ.asBase * 40 / 100).toFixed(3)} / {(champ.asBase * 45 / 100).toFixed(3)} / {(champ.asBase * 50 / 100).toFixed(3)} / {(champ.asBase * 55 / 100).toFixed(3)} Attack Speed</abbr> for 5 seconds.
+            Dashes to an enemy, dealing <span className="stat--">50 / 85 / 120 / 155 (+80% AP) magic damage</span> to all nearby enemies and slowing them by 30% for 0.5 second. Xin Zhao gains <abbr title="40 / 47.5 / 55 / 62.5%" className="stat--as">{(champ.asBase * 40 / 100).toFixed(3)} / {(champ.asBase * 47.5 / 100).toFixed(3)} / {(champ.asBase * 55 / 100).toFixed(3)} / {(champ.asBase * 65.5 / 100).toFixed(3)} Attack Speed</abbr> for 5 seconds.
           </p>
 
           <p>

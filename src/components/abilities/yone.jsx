@@ -88,6 +88,10 @@ export default function yone({currentLevel, mod, bonus, atk, def, champ, updateA
           <p>
             Grants a stack of Gathering Storm if the thrust damages an enemy. At 2 stacks, Mortal Steel dashes Yone forward and launches a whirlwind that knocks enemies Airborne.
           </p>
+
+          <p>
+            Deals 80% damage to monsters.
+          </p>
         </div>
     },
 
@@ -108,9 +112,9 @@ export default function yone({currentLevel, mod, bonus, atk, def, champ, updateA
           </h5>
 
           <p className="stat--hp">
-            Base: {Math.round(((30)+(bonus.attack * 70 / 100)))} / 
-            {' '}1 Champion hit: {Math.round(((30)+(bonus.attack * 70 / 100))*2)} / 
-            {' '}2+ Champions hit: {Math.round(((30)+(bonus.attack * 70 / 100))*2.4)}
+            Base: {Math.round(((50)+(bonus.attack * 85 / 100)))} / 
+            {' '}1 Champion hit: {Math.round(((50)+(bonus.attack * 85 / 100))*2)} / 
+            {' '}2+ Champions hit: {Math.round(((50)+(bonus.attack * 85 / 100))*2.4)}
           </p>
 
           <h5 className="stat--ad">
@@ -118,19 +122,19 @@ export default function yone({currentLevel, mod, bonus, atk, def, champ, updateA
           </h5>
 
           <p className="stat--ad">Current target: 
-            {' '}{Math.round((((10)+(def.health * 12 / 100)) * (1 - mod.defPhysRed))/2 + (((10)+(def.health * 12 / 100)) * (1 - mod.defMagRed))/2)} / 
-            {' '}{Math.round((((20)+(def.health * 13 / 100))* (1 - mod.defPhysRed))/2 + (((20)+(def.health * 13 / 100))* (1 - mod.defMagRed))/2)} / 
-            {' '}{Math.round((((30)+(def.health * 14 / 100))* (1 - mod.defPhysRed))/2 + (((30)+(def.health * 14 / 100))* (1 - mod.defMagRed))/2)} / 
-            {' '}{Math.round((((40)+(def.health * 15 / 100))* (1 - mod.defPhysRed))/2 + (((40)+(def.health * 15 / 100))* (1 - mod.defMagRed))/2)}          
+            {' '}{Math.round((((25)+(def.health * 12 / 100)) * (1 - mod.defPhysRed))/2 + (((25)+(def.health * 12 / 100)) * (1 - mod.defMagRed))/2)} / 
+            {' '}{Math.round((((35)+(def.health * 13 / 100))* (1 - mod.defPhysRed))/2 + (((35)+(def.health * 13 / 100))* (1 - mod.defMagRed))/2)} / 
+            {' '}{Math.round((((45)+(def.health * 14 / 100))* (1 - mod.defPhysRed))/2 + (((45)+(def.health * 14 / 100))* (1 - mod.defMagRed))/2)} / 
+            {' '}{Math.round((((55)+(def.health * 15 / 100))* (1 - mod.defPhysRed))/2 + (((55)+(def.health * 15 / 100))* (1 - mod.defMagRed))/2)}          
           </p>
     
           <br />
           <p>
-            Cleaves in a cone, dealing <span className="stat--armor">10 / 20 / 30 / 40</span> plus <span className="stat--hp">12 / 13 / 14 / 15% of the target's maximum Health</span> as equal parts <span className="stat--ad">physical</span> and <span className="stat--ap"> magic damage</span>.
+            Cleaves in a cone, dealing <span className="stat--armor">25 / 35 / 45 / 55</span> plus <span className="stat--hp">12 / 13 / 14 / 15% of the target's maximum Health</span> as equal parts <span className="stat--ad">physical</span> and <span className="stat--ap"> magic damage</span>.
           </p>
 
           <p>
-            Gains a shield that <span className="stat--">absorbs 30 (<span className="stat--ad">+70% bonus AD</span>) damage</span> for 1.5 seconds if Spirit Cleave hits an enemy, increased by 100% on hitting a champion and 40% on subsequent champion hits.
+            Gains a shield that <span className="stat--">absorbs 50 (<span className="stat--ad">+85% bonus AD</span>) damage</span> for 1.5 seconds if Spirit Cleave hits an enemy, increased by 100% on hitting a champion and 40% on subsequent champion hits.
           </p>
 
           <p>

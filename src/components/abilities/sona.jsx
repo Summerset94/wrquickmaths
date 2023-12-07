@@ -1,4 +1,5 @@
 export default function sona({currentLevel, mod, bonus, atk, def, champ, updateAbilitiesBonus}) {
+  const passiveCD = 0.02 * currentLevel;
   const abilities = [
 
     {
@@ -9,24 +10,12 @@ export default function sona({currentLevel, mod, bonus, atk, def, champ, updateA
           </h4>
     
           <p>
-            After casting three basic abilities, her next attack is enhanced to deal an additional <abbr title="20 + 10 per Level + 15% AP" className="stat--ap">{Math.round(10 + 10*currentLevel + (atk.ap * 15 / 100))} magic damage</abbr> with a bonus effect based on the last ability cast.
+            After casting three basic abilities, her next attack is enhanced to deal an additional <abbr title="20 + 10 per Level + 15% AP" className="stat--ap">{Math.round(10 + 10*currentLevel + (atk.ap * 15 / 100))} magic damage</abbr>, stunning the target for 0.5s. Casting basic abilities creates a non-stacking buff aura for 3s.
           </p>
 
           <p>
-            <b>Hymn of Valor-Staccato:</b> Instead deals <abbr title="28 + 14 per Level + 21% AP" className="stat--ap">{Math.round(14 + 14*currentLevel + (atk.ap * 21 / 100))} magic damage</abbr>.
-          </p>
-
-          <p>
-            <b>Aria of Perseverance-Diminuendo:</b> Reduces damage dealt by the target by <abbr title="25% + 4%AP" className="stat--ad">{Math.round(25 + (atk.ap*4/100))}%</abbr> for 3 seconds.
-          </p>
-
-          <p>
-            <b>Song of Celerity-Tempo:</b> Slows by <abbr title="40%  + 4% AP" className="stat--moveSpeed">{Math.round(40 + (atk.ap*4/100))}%</abbr> for 2 seconds.
-          </p>
-
-          <p>
-           Basic abilities grant a non-stacking aura for 3 seconds.
-          </p>
+            Basic abilities cooldown are reduced by <b>level x 2</b>
+          </p>          
         </div>
     },
 
@@ -39,14 +28,14 @@ export default function sona({currentLevel, mod, bonus, atk, def, champ, updateA
     
           <h5>
           Cooldown: 
-            {' '}{(8*mod.atkcdr).toFixed(1)}
+            {' '}{(8*((mod.atkcdr - passiveCD))).toFixed(1)}
           </h5>
             <h5 className="stat--mana">
           Cost: 
-            {' '}{55} / 
             {' '}{60} / 
             {' '}{65} / 
-            {' '}{70} 
+            {' '}{70} / 
+            {' '}{75} 
           </h5>
 
           <h5 className="stat--ap">
@@ -54,17 +43,17 @@ export default function sona({currentLevel, mod, bonus, atk, def, champ, updateA
           </h5>
 
           <p className="stat--ap">Pre-mitigation: 
-            {' '}{Math.round(((40)+(atk.ap * 20 / 100)))} / 
-            {' '}{Math.round(((75)+(atk.ap * 20 / 100)))} / 
-            {' '}{Math.round(((110)+(atk.ap * 20 / 100)))} / 
-            {' '}{Math.round(((145)+(atk.ap * 20 / 100)))}
+            {' '}{Math.round(((50)+(atk.ap * 40 / 100)))} / 
+            {' '}{Math.round(((90)+(atk.ap * 40 / 100)))} / 
+            {' '}{Math.round(((130)+(atk.ap * 40 / 100)))} / 
+            {' '}{Math.round(((170)+(atk.ap * 40 / 100)))}
           </p>
 
           <p className="stat--ap">Post-mitigation: 
-            {' '}{Math.round(((40)+(atk.ap * 20 / 100)) * (1 - mod.defMagRed))} / 
-            {' '}{Math.round(((75)+(atk.ap * 20 / 100))* (1 - mod.defMagRed))} / 
-            {' '}{Math.round(((110)+(atk.ap * 20 / 100))* (1 - mod.defMagRed))} / 
-            {' '}{Math.round(((145)+(atk.ap * 20 / 100))* (1 - mod.defMagRed))}          
+            {' '}{Math.round(((50)+(atk.ap * 40 / 100)) * (1 - mod.defMagRed))} / 
+            {' '}{Math.round(((90)+(atk.ap * 40 / 100))* (1 - mod.defMagRed))} / 
+            {' '}{Math.round(((130)+(atk.ap * 40 / 100))* (1 - mod.defMagRed))} / 
+            {' '}{Math.round(((170)+(atk.ap * 40 / 100))* (1 - mod.defMagRed))}          
           </p>
 
           <h5 className="stat--magres">
@@ -72,19 +61,19 @@ export default function sona({currentLevel, mod, bonus, atk, def, champ, updateA
           </h5>
 
           <p className="stat--ap">
-                {Math.round(((10)+(atk.ap * 20 / 100)))} / 
-            {' '}{Math.round(((15)+(atk.ap * 20 / 100)))} / 
-            {' '}{Math.round(((20)+(atk.ap * 20 / 100)))} / 
-            {' '}{Math.round(((25)+(atk.ap * 20 / 100)))}
+                {Math.round(((8)+(atk.ap * 20 / 100)))} / 
+            {' '}{Math.round(((13)+(atk.ap * 20 / 100)))} / 
+            {' '}{Math.round(((18)+(atk.ap * 20 / 100)))} / 
+            {' '}{Math.round(((23)+(atk.ap * 20 / 100)))}
           </p>
     
           <br />
           <p>
-            Deals <span className="stat--ap">40 / 75 / 110 / 145 (+40% AP) magic damage</span> to two nearest enemies.
+            Deals <span className="stat--ap">50 / 90 / 130 / 170 (+40% AP) magic damage</span> to two nearest enemies.
           </p>
           
           <p>
-            <b>Aura:</b> Enhances allied champions' next attack to deal an additional <span className="stat--ap">10 / 15 / 20 / 25 (+20% AP) magic damage</span> 
+            <b>Aura:</b> Enhances allied champions' next attack to deal an additional <span className="stat--ap">8 / 13 / 18 / 23 (+20% AP) magic damage</span> 
           </p>
         </div>
     },
@@ -98,7 +87,7 @@ export default function sona({currentLevel, mod, bonus, atk, def, champ, updateA
     
           <h5>
           Cooldown: 
-            {' '}{(10*mod.atkcdr).toFixed(1)}
+            {' '}{(10*((mod.atkcdr - passiveCD))).toFixed(1)}
           </h5>
             <h5 className="stat--mana">
           Cost: 
@@ -113,10 +102,10 @@ export default function sona({currentLevel, mod, bonus, atk, def, champ, updateA
           </h5>
 
           <p className="stat--hp">
-                {Math.round(((30)+(atk.ap * 25 / 100)))} / 
-            {' '}{Math.round(((45)+(atk.ap * 25 / 100)))} / 
-            {' '}{Math.round(((60)+(atk.ap * 25 / 100)))} / 
-            {' '}{Math.round(((75)+(atk.ap * 25 / 100)))}
+                {Math.round(((20)+(atk.ap * 20 / 100)))} / 
+            {' '}{Math.round(((35)+(atk.ap * 20 / 100)))} / 
+            {' '}{Math.round(((50)+(atk.ap * 20 / 100)))} / 
+            {' '}{Math.round(((65)+(atk.ap * 20 / 100)))}
           </p>
 
           <h5 className="stat--armor">
@@ -124,19 +113,19 @@ export default function sona({currentLevel, mod, bonus, atk, def, champ, updateA
           </h5>
 
           <p className="stat--hp">
-                {Math.round(((25)+(atk.ap * 30 / 100)))} / 
-            {' '}{Math.round(((55)+(atk.ap * 30 / 100)))} / 
-            {' '}{Math.round(((85)+(atk.ap * 30 / 100)))} / 
-            {' '}{Math.round(((115)+(atk.ap * 30 / 100)))}
+                {Math.round(((25)+(atk.ap * 20 / 100)))} / 
+            {' '}{Math.round(((55)+(atk.ap * 20 / 100)))} / 
+            {' '}{Math.round(((85)+(atk.ap * 20 / 100)))} / 
+            {' '}{Math.round(((115)+(atk.ap * 20 / 100)))}
           </p>
     
           <br />
           <p>
-          Heals herself and another allied champion for <span className="stat--hp">30 / 45 / 60 / 78 (<span className="stat--ap">+25% AP</span>) health</span>.
+          Heals herself and another allied champion for <span className="stat--hp">20 / 35 / 50 / 65 (<span className="stat--ap">+20% AP</span>) health</span>.
           </p>
           
           <p>
-            <b>Aura:</b> Grants allied champions a shield that absorbs <span className="stat--hp">25 / 55 / 85 / 115 (<span className="stat--ap">+30% AP</span>) damage</span> for 3 seconds.
+            <b>Aura:</b> Grants allied champions a shield that absorbs <span className="stat--hp">25 / 55 / 85 / 115 (<span className="stat--ap">+20% AP</span>) damage</span> for 3 seconds.
           </p>
         </div>
     },
@@ -149,7 +138,7 @@ export default function sona({currentLevel, mod, bonus, atk, def, champ, updateA
     
           <h5>
           Cooldown: 
-            {' '}{(14*mod.atkcdr).toFixed(1)}
+            {' '}{(14*(mod.atkcdr - passiveCD)).toFixed(1)}
           </h5>
             <h5 className="stat--mana">
           Cost: 
@@ -191,25 +180,23 @@ export default function sona({currentLevel, mod, bonus, atk, def, champ, updateA
           </h5>
 
           <p className="stat--ap">Pre-mitigation: 
-            {' '}{Math.round(((150)+(atk.ap * 50 / 100)))} / 
-            {' '}{Math.round(((250)+(atk.ap * 50 / 100)))} / 
-            {' '}{Math.round(((350)+(atk.ap * 50 / 100)))}
+            {' '}{Math.round(((40)+(atk.ap * 15 / 100)))} / 
+            {' '}{Math.round(((80)+(atk.ap * 15 / 100)))} / 
+            {' '}{Math.round(((120)+(atk.ap * 15 / 100)))}
           </p>
 
           <p className="stat--ap">Post-mitigation: 
-            {' '}{Math.round(((150)+(atk.ap * 50 / 100)) * (1 - mod.defMagRed))} / 
-            {' '}{Math.round(((250)+(atk.ap * 50 / 100))* (1 - mod.defMagRed))} / 
-            {' '}{Math.round(((350)+(atk.ap * 50 / 100))* (1 - mod.defMagRed))}
+            {' '}{Math.round(((40)+(atk.ap * 15 / 100)) * (1 - mod.defMagRed))} / 
+            {' '}{Math.round(((80)+(atk.ap * 15 / 100))* (1 - mod.defMagRed))} / 
+            {' '}{Math.round(((120)+(atk.ap * 15 / 100))* (1 - mod.defMagRed))}
           </p>
-
-          <br />
-    
+         
           <p>
-           <b>Passive:</b> Reduces the base cooldown of Sona's basic abilities by 10 / 20 / 30%.
+            The aura will be reinforced for 20s after casting the ability, providing a higher buff effect than usual.
           </p>
 
           <p>
-            <b>Active:</b> Plays an irresistible chord, dealing <span className="stat--ap">150 / 250 / 350 (+50% AP) magic damage</span> and stunning for 1 seconds.
+            <b>ACTIVE: </b> Plays a chord that emits a soundwave every 0.75s as it travels to the target location. The soundwave deals <span className="stat--ap">40 / 80 / 120 (+15% AP) magic damage</span> and stuns enemies hit for the first time for 1s. Enemies caught inside the chord are also slowed.
           </p>
         </div>
     }

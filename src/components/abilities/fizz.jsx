@@ -15,7 +15,7 @@ export default function fizz({currentLevel, mod, bonus, atk, def, champ}) {
     
           <p>
           Attacks deal an additional <abbr title="20 + 2 * Level" className="stat--ap">22-50 (+40% AP) magic damage</abbr> over 3 seconds. <br />
-          Deals 105% damage to monsters.
+          Deals 90% damage to monsters.
           </p>
         </div>
     },
