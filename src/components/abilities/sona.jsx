@@ -1,5 +1,5 @@
 export default function sona({currentLevel, mod, bonus, atk, def, champ, updateAbilitiesBonus}) {
-  const passiveCD = 0.02 * currentLevel;
+  const passiveCD = Number((2 + 18/14* currentLevel)/100);
   const abilities = [
 
     {
@@ -14,7 +14,7 @@ export default function sona({currentLevel, mod, bonus, atk, def, champ, updateA
           </p>
 
           <p>
-            Basic abilities cooldown are reduced by <b>level x 2</b>
+            Basic abilities cooldown are reduced by <b>2-20%</b>
           </p>          
         </div>
     },
@@ -102,10 +102,10 @@ export default function sona({currentLevel, mod, bonus, atk, def, champ, updateA
           </h5>
 
           <p className="stat--hp">
-                {Math.round(((20)+(atk.ap * 20 / 100)))} / 
-            {' '}{Math.round(((35)+(atk.ap * 20 / 100)))} / 
-            {' '}{Math.round(((50)+(atk.ap * 20 / 100)))} / 
-            {' '}{Math.round(((65)+(atk.ap * 20 / 100)))}
+                {Math.round(((25)+(atk.ap * 20 / 100)))} / 
+            {' '}{Math.round(((40)+(atk.ap * 20 / 100)))} / 
+            {' '}{Math.round(((55)+(atk.ap * 20 / 100)))} / 
+            {' '}{Math.round(((70)+(atk.ap * 20 / 100)))}
           </p>
 
           <h5 className="stat--armor">
@@ -113,19 +113,19 @@ export default function sona({currentLevel, mod, bonus, atk, def, champ, updateA
           </h5>
 
           <p className="stat--hp">
-                {Math.round(((25)+(atk.ap * 20 / 100)))} / 
-            {' '}{Math.round(((55)+(atk.ap * 20 / 100)))} / 
-            {' '}{Math.round(((85)+(atk.ap * 20 / 100)))} / 
-            {' '}{Math.round(((115)+(atk.ap * 20 / 100)))}
+                {Math.round(((25)+(atk.ap * 18 / 100)))} / 
+            {' '}{Math.round(((50)+(atk.ap * 18 / 100)))} / 
+            {' '}{Math.round(((75)+(atk.ap * 18 / 100)))} / 
+            {' '}{Math.round(((100)+(atk.ap * 18 / 100)))}
           </p>
     
           <br />
           <p>
-          Heals herself and another allied champion for <span className="stat--hp">20 / 35 / 50 / 65 (<span className="stat--ap">+20% AP</span>) health</span>.
+          Heals herself and another allied champion for <span className="stat--hp">25 / 40 / 55 / 70 (<span className="stat--ap">+20% AP</span>) health</span>.
           </p>
           
           <p>
-            <b>Aura:</b> Grants allied champions a shield that absorbs <span className="stat--hp">25 / 55 / 85 / 115 (<span className="stat--ap">+20% AP</span>) damage</span> for 3 seconds.
+            <b>Aura:</b> Grants allied champions a shield that absorbs <span className="stat--hp">25 / 50 / 75 / 100 (<span className="stat--ap">+18% AP</span>) damage</span> for 3 seconds.
           </p>
         </div>
     },
@@ -180,15 +180,15 @@ export default function sona({currentLevel, mod, bonus, atk, def, champ, updateA
           </h5>
 
           <p className="stat--ap">Pre-mitigation: 
-            {' '}{Math.round(((40)+(atk.ap * 15 / 100)))} / 
-            {' '}{Math.round(((80)+(atk.ap * 15 / 100)))} / 
-            {' '}{Math.round(((120)+(atk.ap * 15 / 100)))}
+            {' '}{Math.round(((35)+(atk.ap * 15 / 100)))} / 
+            {' '}{Math.round(((60)+(atk.ap * 15 / 100)))} / 
+            {' '}{Math.round(((85)+(atk.ap * 15 / 100)))}
           </p>
 
           <p className="stat--ap">Post-mitigation: 
-            {' '}{Math.round(((40)+(atk.ap * 15 / 100)) * (1 - mod.defMagRed))} / 
-            {' '}{Math.round(((80)+(atk.ap * 15 / 100))* (1 - mod.defMagRed))} / 
-            {' '}{Math.round(((120)+(atk.ap * 15 / 100))* (1 - mod.defMagRed))}
+            {' '}{Math.round(((35)+(atk.ap * 15 / 100)) * (1 - mod.defMagRed))} / 
+            {' '}{Math.round(((60)+(atk.ap * 15 / 100))* (1 - mod.defMagRed))} / 
+            {' '}{Math.round(((85)+(atk.ap * 15 / 100))* (1 - mod.defMagRed))}
           </p>
          
           <p>
@@ -196,7 +196,7 @@ export default function sona({currentLevel, mod, bonus, atk, def, champ, updateA
           </p>
 
           <p>
-            <b>ACTIVE: </b> Plays a chord that emits a soundwave every 0.75s as it travels to the target location. The soundwave deals <span className="stat--ap">40 / 80 / 120 (+15% AP) magic damage</span> and stuns enemies hit for the first time for 1s. Enemies caught inside the chord are also slowed.
+            <b>ACTIVE: </b> Plays a chord that emits a soundwave every 0.75s as it travels to the target location. The soundwave deals <span className="stat--ap">35 / 60 / 85 (+15% AP) magic damage</span> and stuns enemies hit for the first time for 1s. Enemies caught inside the chord are also slowed for <span className="stat--moveSpeed">25% / 30% / 35%</span>.
           </p>
         </div>
     }

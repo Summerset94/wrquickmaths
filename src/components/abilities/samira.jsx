@@ -55,21 +55,21 @@ export default function samira({currentLevel, mod, bonus, atk, def, champ}) {
           </h5>
 
           <p className="stat--ad">Pre-mitigation: 
-            {' '}{Math.round(((15)+(atk.attack * 90 / 100)))} / 
-            {' '}{Math.round(((20)+(atk.attack * 105 / 100)))} / 
-            {' '}{Math.round(((25)+(atk.attack * 120 / 100)))} / 
-            {' '}{Math.round(((30)+(atk.attack * 135 / 100)))}
+            {' '}{Math.round(((20)+(atk.attack * 95 / 100)))} / 
+            {' '}{Math.round(((25)+(atk.attack * 110 / 100)))} / 
+            {' '}{Math.round(((30)+(atk.attack * 125 / 100)))} / 
+            {' '}{Math.round(((35)+(atk.attack * 140 / 100)))}
           </p>
 
           <p className="stat--ad">Post-mitigation: 
-            {' '}{Math.round(((15)+(atk.attack * 90 / 100)) * (1 - mod.defPhysRed))} / 
-            {' '}{Math.round(((20)+(atk.attack * 105 / 100))* (1 - mod.defPhysRed))} / 
-            {' '}{Math.round(((25)+(atk.attack * 120 / 100))* (1 - mod.defPhysRed))} / 
-            {' '}{Math.round(((30)+(atk.attack * 135 / 100))* (1 - mod.defPhysRed))}          
+            {' '}{Math.round(((20)+(atk.attack * 95 / 100)) * (1 - mod.defPhysRed))} / 
+            {' '}{Math.round(((25)+(atk.attack * 110 / 100))* (1 - mod.defPhysRed))} / 
+            {' '}{Math.round(((30)+(atk.attack * 125 / 100))* (1 - mod.defPhysRed))} / 
+            {' '}{Math.round(((35)+(atk.attack * 140 / 100))* (1 - mod.defPhysRed))}          
           </p>
     
           <p>
-           Samira fires a shot, dealing <span className="stat--ad">15 / 20 / 25 / 30 (+90 / 105 / 120 / 135% AD) physical damage</span> to the fist enemy hit.
+           Samira fires a shot, dealing <span className="stat--ad">20 / 25 / 30 / 35 (+95 / 110 / 125 / 140% AD) physical damage</span> to the fist enemy hit.
           </p>
 
           <p>

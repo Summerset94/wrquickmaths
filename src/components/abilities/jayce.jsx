@@ -42,19 +42,19 @@ export default function jayce({currentLevel, mod, bonus, atk, def, champ}) {
           </h5>
 
           <p className="stat--ad">Pre-mitigation: 
-            {' '}{Math.round(((60)+(bonus.attack * 130 / 100)))} / 
-            {' '}{Math.round(((110)+(bonus.attack * 130 / 100)))} / 
-            {' '}{Math.round(((160)+(bonus.attack * 130 / 100)))} / 
-            {' '}{Math.round(((210)+(bonus.attack * 130 / 100)))} /
-            {' '}{Math.round(((260)+(bonus.attack * 130 / 100)))}
+            {' '}{Math.round(((70)+(bonus.attack * 140 / 100)))} / 
+            {' '}{Math.round(((120)+(bonus.attack * 140 / 100)))} / 
+            {' '}{Math.round(((170)+(bonus.attack * 140 / 100)))} / 
+            {' '}{Math.round(((220)+(bonus.attack * 140 / 100)))} /
+            {' '}{Math.round(((270)+(bonus.attack * 140 / 100)))}
           </p>
 
           <p className="stat--ad">Post-mitigation: 
-            {' '}{Math.round(((60)+(bonus.attack * 130 / 100)) * (1 - mod.defPhysRed))} / 
-            {' '}{Math.round(((110)+(bonus.attack * 130 / 100))* (1 - mod.defPhysRed))} / 
-            {' '}{Math.round(((160)+(bonus.attack * 130 / 100))* (1 - mod.defPhysRed))} / 
-            {' '}{Math.round(((210)+(bonus.attack * 130 / 100))* (1 - mod.defPhysRed))} /
-            {' '}{Math.round(((260)+(bonus.attack * 130 / 100))* (1 - mod.defPhysRed))}         
+            {' '}{Math.round(((70)+(bonus.attack * 140 / 100)) * (1 - mod.defPhysRed))} / 
+            {' '}{Math.round(((120)+(bonus.attack * 140 / 100))* (1 - mod.defPhysRed))} / 
+            {' '}{Math.round(((170)+(bonus.attack * 140 / 100))* (1 - mod.defPhysRed))} / 
+            {' '}{Math.round(((220)+(bonus.attack * 140 / 100))* (1 - mod.defPhysRed))} /
+            {' '}{Math.round(((270)+(bonus.attack * 140 / 100))* (1 - mod.defPhysRed))}         
           </p>
 
           <h5 className="stat--magres">
@@ -62,24 +62,24 @@ export default function jayce({currentLevel, mod, bonus, atk, def, champ}) {
           </h5>
 
           <p className="stat--ad">Pre-mitigation: 
-            {' '}{Math.round(((70)+(bonus.attack * 130 / 100)))} <span className="stat--critChance">({Math.round(((70)+(bonus.attack * 130 / 100)) *1.4)})</span> / 
-            {' '}{Math.round(((140)+(bonus.attack * 130 / 100)))} <span className="stat--critChance">({Math.round((((140)+(bonus.attack * 130 / 100))) *1.4)})</span> / 
-            {' '}{Math.round(((210)+(bonus.attack * 130 / 100)))} <span className="stat--critChance">({Math.round(((210)+(bonus.attack * 130 / 100)) *1.4)})</span> / 
-            {' '}{Math.round(((280)+(bonus.attack * 130 / 100)))} <span className="stat--critChance">({Math.round(((280)+(bonus.attack * 130 / 100)) *1.4)})</span> / 
-            {' '}{Math.round(((350)+(bonus.attack * 130 / 100)))} <span className="stat--critChance">({Math.round(((350)+(bonus.attack * 130 / 100)) *1.4)})</span>
+            {' '}{Math.round(((70)+(bonus.attack * 140 / 100)))} <span className="stat--critChance">({Math.round(((70)+(bonus.attack * 140 / 100)) *1.4)})</span> / 
+            {' '}{Math.round(((140)+(bonus.attack * 140 / 100)))} <span className="stat--critChance">({Math.round((((140)+(bonus.attack * 140 / 100))) *1.4)})</span> / 
+            {' '}{Math.round(((210)+(bonus.attack * 140 / 100)))} <span className="stat--critChance">({Math.round(((210)+(bonus.attack * 140 / 100)) *1.4)})</span> / 
+            {' '}{Math.round(((280)+(bonus.attack * 140 / 100)))} <span className="stat--critChance">({Math.round(((280)+(bonus.attack * 140 / 100)) *1.4)})</span> / 
+            {' '}{Math.round(((350)+(bonus.attack * 140 / 100)))} <span className="stat--critChance">({Math.round(((350)+(bonus.attack * 140 / 100)) *1.4)})</span>
           </p>
 
           <p className="stat--ad">Post-mitigation: 
-            {' '}{Math.round(((70)+(bonus.attack * 130 / 100)) * (1 - mod.defPhysRed))} <span className="stat--critChance">({Math.round((((70)+(bonus.attack * 130 / 100)) * (1 - mod.defPhysRed)) *1.4)})</span> / 
-            {' '}{Math.round(((140)+(bonus.attack * 130 / 100))* (1 - mod.defPhysRed))} <span className="stat--critChance">({Math.round((((140)+(bonus.attack * 130 / 100))* (1 - mod.defPhysRed)) *1.4)})</span> / 
-            {' '}{Math.round(((210)+(bonus.attack * 130 / 100))* (1 - mod.defPhysRed))} <span className="stat--critChance">({Math.round((((210)+(bonus.attack * 130 / 100))* (1 - mod.defPhysRed)) *1.4)})</span> / 
-            {' '}{Math.round(((280)+(bonus.attack * 130 / 100))* (1 - mod.defPhysRed))} <span className="stat--critChance">({Math.round((((280)+(bonus.attack * 130 / 100))* (1 - mod.defPhysRed)) *1.4)})</span> / 
-            {' '}{Math.round(((350)+(bonus.attack * 130 / 100))* (1 - mod.defPhysRed))} <span className="stat--critChance">({Math.round((((350)+(bonus.attack * 130 / 100))* (1 - mod.defPhysRed)) *1.4)})</span>          
+            {' '}{Math.round(((70)+(bonus.attack * 140 / 100)) * (1 - mod.defPhysRed))} <span className="stat--critChance">({Math.round((((70)+(bonus.attack * 140 / 100)) * (1 - mod.defPhysRed)) *1.4)})</span> / 
+            {' '}{Math.round(((140)+(bonus.attack * 140 / 100))* (1 - mod.defPhysRed))} <span className="stat--critChance">({Math.round((((140)+(bonus.attack * 140 / 100))* (1 - mod.defPhysRed)) *1.4)})</span> / 
+            {' '}{Math.round(((210)+(bonus.attack * 140 / 100))* (1 - mod.defPhysRed))} <span className="stat--critChance">({Math.round((((210)+(bonus.attack * 140 / 100))* (1 - mod.defPhysRed)) *1.4)})</span> / 
+            {' '}{Math.round(((280)+(bonus.attack * 140 / 100))* (1 - mod.defPhysRed))} <span className="stat--critChance">({Math.round((((280)+(bonus.attack * 140 / 100))* (1 - mod.defPhysRed)) *1.4)})</span> / 
+            {' '}{Math.round(((350)+(bonus.attack * 140 / 100))* (1 - mod.defPhysRed))} <span className="stat--critChance">({Math.round((((350)+(bonus.attack * 140 / 100))* (1 - mod.defPhysRed)) *1.4)})</span>          
           </p>   
           <p>
-            <b className="stat--armor">Melee:</b> Leaps to an enemy dealing <span className="stat--ad">60 / 110 / 160 / 210 / 260 (+130% bonus AD) physical damage</span> and slowing nearby enemies by <span className="stat--moveSpeed">35% / 40% / 45% / 50% / 55%</span> for 2 seconds. <br />
+            <b className="stat--armor">Melee:</b> Leaps to an enemy dealing <span className="stat--ad">60 / 110 / 160 / 210 / 260 (+140% bonus AD) physical damage</span> and slowing nearby enemies by <span className="stat--moveSpeed">35% / 40% / 45% / 50% / 55%</span> for 2 seconds. <br />
             <hr />
-            <b className="stat--magres">Ranged:</b> Fires an orb of electricity that detonates on hitting an enemy or reaching the end of its path, dealing <span className="stat--ad">70 / 140 / 210 / 280 / 350 (+130% bonus AD) physical damage</span>. Orbs fired through an Acceleration Gate travel farther and faster, <span className="stat--critChance">increasing their damage by 40%</span>.
+            <b className="stat--magres">Ranged:</b> Fires an orb of electricity that detonates on hitting an enemy or reaching the end of its path, dealing <span className="stat--ad">70 / 140 / 210 / 280 / 350 (+140% bonus AD) physical damage</span>. Orbs fired through an Acceleration Gate travel farther and faster, <span className="stat--critChance">increasing their damage by 40%</span>.
           </p>
         </div>
     },

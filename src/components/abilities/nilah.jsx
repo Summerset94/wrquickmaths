@@ -64,7 +64,7 @@ export default function milah({currentLevel, mod, bonus, atk, def, champ}) {
           </p>
 
           <p>
-          Deals 60% damage to monsters.
+          Deals 25% damage to monsters.
           </p>
         </div>
     },

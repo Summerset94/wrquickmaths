@@ -29,10 +29,10 @@ export default function amumu({currentLevel, mod, bonus, atk, def}) {
           </h5>
           <h5>
           Charge cooldown: 
-            {' '}{(14*mod.atkcdr).toFixed(1)} / 
-            {' '}{(13.5*mod.atkcdr).toFixed(1)} / 
-            {' '}{(13*mod.atkcdr).toFixed(1)} / 
-            {' '}{(12.5*mod.atkcdr).toFixed(1)} 
+            {' '}{(12*mod.atkcdr).toFixed(1)} / 
+            {' '}{(11.5*mod.atkcdr).toFixed(1)} / 
+            {' '}{(11*mod.atkcdr).toFixed(1)} / 
+            {' '}{(10.5*mod.atkcdr).toFixed(1)} 
           </h5>
            <h5 className="stat--mana">
           Cost: 
@@ -61,7 +61,7 @@ export default function amumu({currentLevel, mod, bonus, atk, def}) {
           </p>
 
           <p>
-            <b>Bandage Toss</b> charges are stored every 14 / 13.5 / 13 / 12.5 seconds up to 2 charges max.
+            <b>Bandage Toss</b> charges are stored every 12 / 11.5 / 11 / 10.5 seconds up to 2 charges max.
 
             <b>Active:</b> Launches a bandage that pulls Amumu to target, stuns the target fot 1 second and deals <span className="stat--ap">70 / 105 / 140 / 175 (+70% AP) Magic Damage</span> to target.            
           </p>
@@ -148,22 +148,22 @@ export default function amumu({currentLevel, mod, bonus, atk, def}) {
           </h5>
 
           <p className="stat--ap">Pre-mitigation: 
-            {' '}{Math.round(((90)+(atk.ap * 50 / 100)))} / 
-            {' '}{Math.round(((120)+(atk.ap * 50 / 100)))} / 
-            {' '}{Math.round(((150)+(atk.ap * 50 / 100)))} / 
-            {' '}{Math.round(((180)+(atk.ap * 50 / 100)))}
+            {' '}{Math.round(((110)+(atk.ap * 50 / 100)))} / 
+            {' '}{Math.round(((140)+(atk.ap * 50 / 100)))} / 
+            {' '}{Math.round(((170)+(atk.ap * 50 / 100)))} / 
+            {' '}{Math.round(((200)+(atk.ap * 50 / 100)))}
           </p>
 
           <p className="stat--ap">Post-mitigation: 
-            {' '}{Math.round(((90)+(atk.ap * 50 / 100)) * (1 - mod.defMagRed))} / 
-            {' '}{Math.round(((120)+(atk.ap * 50 / 100))* (1 - mod.defMagRed))} / 
-            {' '}{Math.round(((150)+(atk.ap * 50 / 100))* (1 - mod.defMagRed))} / 
-            {' '}{Math.round(((180)+(atk.ap * 50 / 100))* (1 - mod.defMagRed))}          
+            {' '}{Math.round(((110)+(atk.ap * 50 / 100)) * (1 - mod.defMagRed))} / 
+            {' '}{Math.round(((140)+(atk.ap * 50 / 100))* (1 - mod.defMagRed))} / 
+            {' '}{Math.round(((170)+(atk.ap * 50 / 100))* (1 - mod.defMagRed))} / 
+            {' '}{Math.round(((200)+(atk.ap * 50 / 100))* (1 - mod.defMagRed))}          
           </p>
 
           <p>
             <b>Passive:</b> Amumu blocks <span className="stat--ad">4 / 6 / 8 / 10 <span className="stat--armor">(+3% armor)</span> <span className="stat--magres">(+3% magic resistance)</span> Physical damage</span> on any instance of physical damage done to him. <br />
-            <b>ACTIVE:</b> Amumu throws a Tantrum dealing <span className="stat--ap">90 / 120 / 150 / 180 (+50% AP) Magic Damage</span> to all enemies in small area around him and slowing them by <b>20%</b> for 0.5 seconds. <br />
+            <b>ACTIVE:</b> Amumu throws a Tantrum dealing <span className="stat--ap">110 / 140 / 170 / 200 (+50% AP) Magic Damage</span> to all enemies in small area around him and slowing them by <b>20%</b> for 0.5 seconds. <br />
             Tantrum's cooldown is reduced by 0.5 seconds each time Amumu is hit by basic attack.
           </p>
         </div>

@@ -75,7 +75,7 @@ export default function tryndamere({currentLevel, mod, bonus, atk, def, champ, u
     
           <br />
           <p>
-           Reduces nearby enemy champions' <span className="stat--as">Attack Speed by 25/30/35/40%</span>  for 3 seconds. If target is moving away from Tryndamere, <span className="stat--moveSpeed">slow them by 35%</span>. 
+           Reduces nearby enemy champions' <span className="stat--as">Attack Speed by 25/30/35/40%</span>  for 3 seconds. If target is moving away from Tryndamere, <span className="stat--moveSpeed">slow them by 25% / 30% / 35% / 40%</span>. 
           </p>
         </div>
     },
@@ -88,10 +88,10 @@ export default function tryndamere({currentLevel, mod, bonus, atk, def, champ, u
     
           <h5>
           Cooldown: 
-            {' '}{(12*mod.atkcdr).toFixed(1)} / 
             {' '}{(11*mod.atkcdr).toFixed(1)} / 
             {' '}{(10*mod.atkcdr).toFixed(1)} / 
-            {' '}{(9*mod.atkcdr).toFixed(1)} 
+            {' '}{(9*mod.atkcdr).toFixed(1)} / 
+            {' '}{(8*mod.atkcdr).toFixed(1)} 
           </h5>
 
           <h5 className="stat--ad">
@@ -99,22 +99,22 @@ export default function tryndamere({currentLevel, mod, bonus, atk, def, champ, u
           </h5>
 
           <p className="stat--ad">Pre-mitigation: 
-            {' '}{Math.round(((80)+(bonus.attack * 130 / 100)+(atk.ap * 100 / 100)))} / 
-            {' '}{Math.round(((120)+(bonus.attack * 130 / 100)+(atk.ap * 100 / 100)))} / 
-            {' '}{Math.round(((160)+(bonus.attack * 130 / 100)+(atk.ap * 100 / 100)))} / 
-            {' '}{Math.round(((200)+(bonus.attack * 130 / 100)+(atk.ap * 100 / 100)))}
+            {' '}{Math.round(((80)+(bonus.attack * 135 / 100)+(atk.ap * 100 / 100)))} / 
+            {' '}{Math.round(((120)+(bonus.attack * 135 / 100)+(atk.ap * 100 / 100)))} / 
+            {' '}{Math.round(((160)+(bonus.attack * 135 / 100)+(atk.ap * 100 / 100)))} / 
+            {' '}{Math.round(((200)+(bonus.attack * 135 / 100)+(atk.ap * 100 / 100)))}
           </p>
 
           <p className="stat--ad">Post-mitigation: 
-            {' '}{Math.round(((80)+(bonus.attack * 130 / 100)+(atk.ap * 100 / 100)) * (1 - mod.defPhysRed))} / 
-            {' '}{Math.round(((120)+(bonus.attack * 130 / 100)+(atk.ap * 100 / 100))* (1 - mod.defPhysRed))} / 
-            {' '}{Math.round(((160)+(bonus.attack * 130 / 100)+(atk.ap * 100 / 100))* (1 - mod.defPhysRed))} / 
-            {' '}{Math.round(((200)+(bonus.attack * 130 / 100)+(atk.ap * 100 / 100))* (1 - mod.defPhysRed))}          
+            {' '}{Math.round(((80)+(bonus.attack * 135 / 100)+(atk.ap * 100 / 100)) * (1 - mod.defPhysRed))} / 
+            {' '}{Math.round(((120)+(bonus.attack * 135 / 100)+(atk.ap * 100 / 100))* (1 - mod.defPhysRed))} / 
+            {' '}{Math.round(((160)+(bonus.attack * 135 / 100)+(atk.ap * 100 / 100))* (1 - mod.defPhysRed))} / 
+            {' '}{Math.round(((200)+(bonus.attack * 135 / 100)+(atk.ap * 100 / 100))* (1 - mod.defPhysRed))}          
           </p>
     
           <br />
           <p>
-           Dashes, dealing <span className="stat--ad">80 / 120 / 160 / 200 (+130% bonus AD) (<span className="stat--ap">+100% AP</span>) physical damage </span> 
+           Dashes, dealing <span className="stat--ad">80 / 120 / 160 / 200 (+135% bonus AD) (<span className="stat--ap">+100% AP</span>) physical damage </span> 
           </p>
 
           <p>

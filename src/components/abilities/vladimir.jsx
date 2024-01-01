@@ -46,36 +46,36 @@ export default function vladimir({currentLevel, mod, bonus, atk, def, champ, upd
           </h5>
 
           <p className="stat--ap">Pre-mitigation: 
-            {' '}{Math.round(((80)+(atk.ap * 60 / 100)))} -
-            <span className="stat--critChance">{' '}{Math.round(((80)+(atk.ap * 60 / 100))*1.85)}</span> /
+            {' '}{Math.round(((70)+(atk.ap * 60 / 100)))} -
+            <span className="stat--critChance">{' '}{Math.round(((70)+(atk.ap * 60 / 100))*1.75)}</span> /
 
-            {' '}{Math.round(((110)+(atk.ap * 60 / 100)))} -
-            <span className="stat--critChance">{' '}{Math.round(((110)+(atk.ap * 60 / 100))*1.85)}</span> /
+            {' '}{Math.round(((100)+(atk.ap * 60 / 100)))} -
+            <span className="stat--critChance">{' '}{Math.round(((100)+(atk.ap * 60 / 100))*1.75)}</span> /
 
-            {' '}{Math.round(((140)+(atk.ap * 60 / 100)))} - 
-            <span className="stat--critChance">{' '}{Math.round(((140)+(atk.ap * 60 / 100))*1.85)}</span> /
+            {' '}{Math.round(((130)+(atk.ap * 60 / 100)))} - 
+            <span className="stat--critChance">{' '}{Math.round(((130)+(atk.ap * 60 / 100))*1.75)}</span> /
 
-            {' '}{Math.round(((170)+(atk.ap * 60 / 100)))} -
-            <span className="stat--critChance">{' '}{Math.round(((170)+(atk.ap * 60 / 100))*1.85)}</span>
+            {' '}{Math.round(((160)+(atk.ap * 60 / 100)))} -
+            <span className="stat--critChance">{' '}{Math.round(((160)+(atk.ap * 60 / 100))*1.75)}</span>
           </p>
 
           <p className="stat--ap">Post-mitigation: 
-            {' '}{Math.round(((80)+(atk.ap * 60 / 100)) * (1 - mod.defMagRed))} - 
-            <span className="stat--critChance">{' '}{Math.round(((80)+(atk.ap * 60 / 100)) * (1 - mod.defMagRed)*1.85)}</span> /
+            {' '}{Math.round(((70)+(atk.ap * 60 / 100)) * (1 - mod.defMagRed))} - 
+            <span className="stat--critChance">{' '}{Math.round(((70)+(atk.ap * 60 / 100)) * (1 - mod.defMagRed)*1.75)}</span> /
 
-            {' '}{Math.round(((110)+(atk.ap * 60 / 100))* (1 - mod.defMagRed))} - 
-            <span className="stat--critChance">{' '}{Math.round(((110)+(atk.ap * 60 / 100))* (1 - mod.defMagRed)*1.85)}</span> /
+            {' '}{Math.round(((100)+(atk.ap * 60 / 100))* (1 - mod.defMagRed))} - 
+            <span className="stat--critChance">{' '}{Math.round(((100)+(atk.ap * 60 / 100))* (1 - mod.defMagRed)*1.75)}</span> /
 
-            {' '}{Math.round(((140)+(atk.ap * 60 / 100))* (1 - mod.defMagRed))} -
-            <span className="stat--critChance"> {' '}{Math.round(((140)+(atk.ap * 60 / 100))* (1 - mod.defMagRed)*1.85)}</span> /
+            {' '}{Math.round(((130)+(atk.ap * 60 / 100))* (1 - mod.defMagRed))} -
+            <span className="stat--critChance"> {' '}{Math.round(((130)+(atk.ap * 60 / 100))* (1 - mod.defMagRed)*1.75)}</span> /
 
-            {' '}{Math.round(((170)+(atk.ap * 60 / 100))* (1 - mod.defMagRed))} - 
-            <span className="stat--critChance">{' '}{Math.round(((170)+(atk.ap * 60 / 100))* (1 - mod.defMagRed)*1.85)}</span>        
+            {' '}{Math.round(((160)+(atk.ap * 60 / 100))* (1 - mod.defMagRed))} - 
+            <span className="stat--critChance">{' '}{Math.round(((160)+(atk.ap * 60 / 100))* (1 - mod.defMagRed)*1.75)}</span>        
           </p>
     
           <br />
           <p>
-            Drains life from enemies, dealing <span className="stat--ap">80 / 110 / 140 / 170 (+60% AP) magic damage</span> and restoring <span className="stat--hp">15 / 20 / 25 / 30 (<span className="stat--ap">+35% AP</span>)</span>. When this ability's cooldown ends, generates a stack of <b>Bloodthirst</b>.
+            Drains life from enemies, dealing <span className="stat--ap">70 / 100 / 130 / 160 (+60% AP) magic damage</span> and restoring <span className="stat--hp">15 / 20 / 25 / 30 (<span className="stat--ap">+35% AP</span>)</span>. When this ability's cooldown ends, generates a stack of <b>Bloodthirst</b>.
           </p>
 
           <p>
@@ -119,7 +119,7 @@ export default function vladimir({currentLevel, mod, bonus, atk, def, champ, upd
     
           <br />
           <p>
-            Sinks into a blood pool, becoming untargetable for 2 seconds. Also gains <span className="stat--moveSpeed">35% bonus Movement Speed</span>  that gradually decays over 1 seconds. While the blood pool is active, enemies within the blood pool take <span className="stat--ap">20 / 40 / 60 / 80 (<span className="stat--hp">+2% Max Health</span>) magic damage</span> 0.5 seconds and are <span className="stat--moveSpeed">slowed by 40%</span>. Also restores  to <span className="stat--hp">Health equal 15% of the damage dealt</span>.
+            Sinks into a blood pool, becoming untargetable for 2 seconds. Also gains <span className="stat--moveSpeed">27.5% bonus Movement Speed</span>  that gradually decays over 1 seconds. While the blood pool is active, enemies within the blood pool take <span className="stat--ap">20 / 40 / 60 / 80 (<span className="stat--hp">+2% Max Health</span>) magic damage</span> 0.5 seconds and are <span className="stat--moveSpeed">slowed by 40%</span>. Also restores  to <span className="stat--hp">Health equal 15% of the damage dealt</span>.
           </p>
         </div>
     },

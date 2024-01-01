@@ -3,6 +3,7 @@ import champions from './Champions.jsx'
 import Abilities from "./Abilities";
 import Inventory from "./Inventory";
 import { useStats } from './StatsContext';
+import malphite from "./abilities/malphite.jsx";
 
 export default function AttackerTile(props) {
   // const champion = props.champ
@@ -12,7 +13,7 @@ export default function AttackerTile(props) {
     id: 'undefined',
   name: 'Not Selected',
   title: 'No title',
-  icon: '../images/portraits/AatroxSquare.webp',
+  icon: '../images/portraits/DefaultSquare.png',
   
   rolePrim: false,
   roleSecond: false,
@@ -143,6 +144,7 @@ const statGrowth = function(mod) {
     singedR: 0,
     jaxR: 0,
     dariusE: 0,
+    malphiteW: 0,
     sionW: 0,
     sennaP: 0,
     rengarP: 0,
@@ -208,6 +210,14 @@ const statGrowth = function(mod) {
 
     case 'Thresh':
       armorMod = abilitiesBonus.threshP * 2;
+      break;
+
+    case 'Malphite':
+      if (abilitiesBonus.malphiteW === 0) {
+        armorMod = 0;
+      } else {
+        armorMod = ((baseStats.armor + itemBonus.armor) * (15 + abilitiesBonus.malphiteW * 5) / 100)
+      }      
       break;
     default:
       armorMod = 0;
@@ -712,7 +722,7 @@ const statGrowth = function(mod) {
           <div className="selectOption">
             <h5>Select Champion: </h5>
         <select onChange={handleChampSelect}>
-          <option value={champTemplate} disabled>Select a champion</option>
+          <option value={champTemplate}>Select a champion</option>
           {champions.map((champion) => (
             <option key={champion.id} value={champion.name}>
               {champion.name}

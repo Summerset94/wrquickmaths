@@ -684,7 +684,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
         <h3>+10 Ability Haste</h3>
 
         <p>
-         <b>Demonbane:</b> <span className="stat--critChance">20% of the damage dealt</span>  is converted into a magic shield that absorbs up to <abbr title="60-400 based on level" className="stat--magres">{Math.round(60 + (340/14*(currentLevel-1)))} magic damage</abbr>. The shield decays by 5% per second.
+         <b>Demonbane:</b> <span className="stat--critChance">20% of the damage dealt by attacks or 15% physical damage dealt by abilities</span>  is converted into a magic shield that absorbs up to <abbr title="60-400 based on level" className="stat--magres">{Math.round(60 + (340/14*(currentLevel-1)))} magic damage</abbr>. The shield decays by 5% per second.
         </p>
 
       </div>
@@ -2700,8 +2700,8 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
 
       health: 0,
       mana: 0,
-      armor: 55,
-      magres: 55,
+      armor: 60,
+      magres: 60,
       attack: 0,
       ap: 0,
       as: 0,
@@ -2718,8 +2718,8 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
       description: 
         <div className='itemDescription'>
 
-          <h3 className="stat--armor">+55 Armor</h3>
-          <h3 className="stat--magres">+55 Magic Resistance</h3>
+          <h3 className="stat--armor">+60 Armor</h3>
+          <h3 className="stat--magres">+60 Magic Resistance</h3>
 
           <button onClick={() => updateItemEffects({ twinguard: !itemEffects.twinguard })}>
             Effect on / off

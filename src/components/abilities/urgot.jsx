@@ -126,10 +126,10 @@ export default function urgot({currentLevel, mod, bonus, atk, def, champ, update
     
           <h5>
           Cooldown: 
-            {' '}{(15*mod.atkcdr).toFixed(1)} / 
             {' '}{(14*mod.atkcdr).toFixed(1)} / 
             {' '}{(13*mod.atkcdr).toFixed(1)} / 
-            {' '}{(12*mod.atkcdr).toFixed(1)} 
+            {' '}{(12*mod.atkcdr).toFixed(1)} / 
+            {' '}{(11*mod.atkcdr).toFixed(1)} 
           </h5>
             <h5 className="stat--mana">
           Cost: 
@@ -144,10 +144,10 @@ export default function urgot({currentLevel, mod, bonus, atk, def, champ, update
           </h5>
 
           <p className="stat--hp">
-                {Math.round(((60)+(bonus.attack * 150 / 100)+(bonus.health * 15 /100)))} / 
-            {' '}{Math.round(((90)+(bonus.attack * 150 / 100)+(bonus.health * 15 /100)))} / 
-            {' '}{Math.round(((120)+(bonus.attack * 150 / 100)+(bonus.health * 15 /100)))} / 
-            {' '}{Math.round(((150)+(bonus.attack * 150 / 100)+(bonus.health * 15 /100)))}
+                {Math.round(((70)+(bonus.attack * 150 / 100)+(bonus.health * 15 /100)))} / 
+            {' '}{Math.round(((100)+(bonus.attack * 150 / 100)+(bonus.health * 15 /100)))} / 
+            {' '}{Math.round(((130)+(bonus.attack * 150 / 100)+(bonus.health * 15 /100)))} / 
+            {' '}{Math.round(((160)+(bonus.attack * 150 / 100)+(bonus.health * 15 /100)))}
           </p>
 
           <h5 className="stat--ad">
@@ -170,7 +170,7 @@ export default function urgot({currentLevel, mod, bonus, atk, def, champ, update
     
           <br />
           <p>
-           Gain a shield that absorbs <span className="stat--hp">60 / 90 / 120 / 150 (<span className="stat--ad">+150% bonus AD</span>) (+15% bonus Health)</span> for 4 seconds and charges forward, dealing <span className="stat--ad">90 / 130 / 170 / 210 (+100% bonus AD) physical damage</span> and <b>stunning</b> them for 1.5 seconds. Flings the first enemy champion over him and knock non-champions aside.
+           Gain a shield that absorbs <span className="stat--hp">70 / 100 / 130 / 160 (<span className="stat--ad">+150% bonus AD</span>) (+15% bonus Health)</span> for 4 seconds and charges forward, dealing <span className="stat--ad">90 / 130 / 170 / 210 (+100% bonus AD) physical damage</span> and <b>stunning</b> them for 1.5 seconds. Flings the first enemy champion over him and knock non-champions aside.
           </p>
         </div>
     },
@@ -184,8 +184,8 @@ export default function urgot({currentLevel, mod, bonus, atk, def, champ, update
     
           <h5>
           Cooldown: 
-            {' '}{(70*mod.atkcdr).toFixed(1)} / 
             {' '}{(60*mod.atkcdr).toFixed(1)} / 
+            {' '}{(55*mod.atkcdr).toFixed(1)} / 
             {' '}{(50*mod.atkcdr).toFixed(1)}
           </h5>
             <h5 className="stat--mana">

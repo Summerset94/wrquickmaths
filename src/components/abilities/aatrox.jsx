@@ -40,8 +40,15 @@ export default function aatrox({currentLevel, mod, bonus, atk, def}) {
           </p>
 
           <p>
-            Swings his giant blade, dealing <span className="stat--ad">15 / 45 / 75 / 105 (+70% / 75% / 80% / 85% AD) physical damage</span>. This ability can be cast 2 more times, with each cast dealing 25% more damage. <br />
-            Deals 65% damage to minions.
+            Swings his giant blade, dealing <span className="stat--ad">15 / 45 / 75 / 105 (+70% / 75% / 80% / 85% AD) physical damage</span>. This ability can be cast 2 more times, with each cast dealing 25% more damage.            
+          </p>
+
+          <p>
+          Deals 65% damage to minions.
+          </p>
+
+          <p>
+            Deals 70% damage to monsters.
           </p>
         </div>
     },

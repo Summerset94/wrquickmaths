@@ -43,21 +43,21 @@ export default function lucian({currentLevel, mod, bonus, atk, def, champ}) {
           </h5>
 
           <p className="stat--ad">Pre-mitigation: 
-            {' '}{Math.round(((110)+(bonus.attack * 60 / 100)))} / 
-            {' '}{Math.round(((150)+(bonus.attack * 80 / 100)))} / 
-            {' '}{Math.round(((190)+(bonus.attack * 100 / 100)))} / 
-            {' '}{Math.round(((230)+(bonus.attack * 120 / 100)))}
+            {' '}{Math.round(((100)+(bonus.attack * 65 / 100)))} / 
+            {' '}{Math.round(((145)+(bonus.attack * 85 / 100)))} / 
+            {' '}{Math.round(((190)+(bonus.attack * 105 / 100)))} / 
+            {' '}{Math.round(((235)+(bonus.attack * 125 / 100)))}
           </p>
 
           <p className="stat--ad">Post-mitigation: 
-            {' '}{Math.round(((110)+(bonus.attack * 60 / 100)) * (1 - mod.defPhysRed))} / 
-            {' '}{Math.round(((150)+(bonus.attack * 80 / 100))* (1 - mod.defPhysRed))} / 
-            {' '}{Math.round(((190)+(bonus.attack * 100 / 100))* (1 - mod.defPhysRed))} / 
-            {' '}{Math.round(((230)+(bonus.attack * 120 / 100))* (1 - mod.defPhysRed))}          
+            {' '}{Math.round(((100)+(bonus.attack * 65 / 100)) * (1 - mod.defPhysRed))} / 
+            {' '}{Math.round(((145)+(bonus.attack * 85 / 100))* (1 - mod.defPhysRed))} / 
+            {' '}{Math.round(((190)+(bonus.attack * 105 / 100))* (1 - mod.defPhysRed))} / 
+            {' '}{Math.round(((235)+(bonus.attack * 125 / 100))* (1 - mod.defPhysRed))}          
           </p>
     
           <p>
-          Shoots a bolt of piercing light through an enemy unit, damaging enemies in a line for <span className="stat--ad">110 / 150 / 190 / 230 (+60 / 80 / 100 / 120% bonus AD) physical damage</span>.
+          Shoots a bolt of piercing light through an enemy unit, damaging enemies in a line for <span className="stat--ad">100 / 145 / 190 / 235 (+65 / 85 / 105 / 125% bonus AD) physical damage</span>.
           </p>
 
           <p>

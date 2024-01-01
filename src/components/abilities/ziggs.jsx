@@ -8,18 +8,14 @@ export default function ziggs({currentLevel, mod, bonus, atk, def, champ, update
           <span className="marker--ability">P</span> SHORT FUSE
           </h4>
 
-          <h5 className="stat--ap">Current target damage: {Math.round((10 + (10 * currentLevel) + (atk.ap * (30 + (10 * Math.floor((currentLevel-1)/5)))/100)) * (1 - mod.defMagRed))}</h5>
-    
+          <h5 className="stat--ap">Enhanced bouncing bomb damage: {Math.round(((17 + (3 * currentLevel) + (atk.ap * 20))) * (1 - mod.defMagRed))}</h5>
+
           <p>
-            Enhances his next attack to deal an additional <abbr title="30-170 based on level +30% (+10% per 5 levels) AP" className="stat--ap">{Math.round(10 + (10 * currentLevel) + (atk.ap * (30 + (10 * Math.floor((currentLevel-1)/5)))/100))} magic damage</abbr>.
+          All of Ziggs’ abilities can deal 15% damage to turrets.
           </p>
 
           <p>
-            Short Fuse's cooldown is reduced by 4 (-1s per 5 lvl) seconds when Ziggs casts an ability.
-          </p>
-
-          <p>
-            Deals 150% damage to structures.
+          Enhanced Bouncing Bomb, deal <span className="stat--ap">17 (+ 3 per level) (+20% AP) additional magic damage</span>, 20% to turrets.
           </p>
         </div>
     },
@@ -51,22 +47,22 @@ export default function ziggs({currentLevel, mod, bonus, atk, def, champ, update
           </h5>
 
           <p className="stat--ap">Pre-mitigation: 
-            {' '}{Math.round(((75)+(atk.ap * 65 / 100)))} / 
-            {' '}{Math.round(((135)+(atk.ap * 65 / 100)))} / 
+            {' '}{Math.round(((65)+(atk.ap * 65 / 100)))} / 
+            {' '}{Math.round(((145)+(atk.ap * 65 / 100)))} / 
             {' '}{Math.round(((195)+(atk.ap * 65 / 100)))} / 
-            {' '}{Math.round(((255)+(atk.ap * 65 / 100)))}
+            {' '}{Math.round(((260)+(atk.ap * 65 / 100)))}
           </p>
 
           <p className="stat--ap">Post-mitigation: 
-            {' '}{Math.round(((75)+(atk.ap * 65 / 100)) * (1 - mod.defMagRed))} / 
-            {' '}{Math.round(((135)+(atk.ap * 65 / 100))* (1 - mod.defMagRed))} / 
+            {' '}{Math.round(((65)+(atk.ap * 65 / 100)) * (1 - mod.defMagRed))} / 
+            {' '}{Math.round(((145)+(atk.ap * 65 / 100))* (1 - mod.defMagRed))} / 
             {' '}{Math.round(((195)+(atk.ap * 65 / 100))* (1 - mod.defMagRed))} / 
-            {' '}{Math.round(((255)+(atk.ap * 65 / 100))* (1 - mod.defMagRed))}          
+            {' '}{Math.round(((260)+(atk.ap * 65 / 100))* (1 - mod.defMagRed))}          
           </p>
     
           <br />
           <p>
-            Throws a bouncing bomb that deals <span className="stat--ap">75 / 135 / 195 / 255 (+65% AP) magic damage</span>
+            Throws a bouncing bomb that deals <span className="stat--ap">65 / 145 / 195 / 260 (+65% AP) magic damage</span>
           </p>
         </div>
     },
@@ -115,6 +111,10 @@ export default function ziggs({currentLevel, mod, bonus, atk, def, champ, update
 
           <p>
            Damages turrets and demolishes them if they are below <span className="stat--hp">15 / 20 / 25 / 30% Health</span>. 
+          </p>
+
+          <p>
+            Can be detonated while in the air.
           </p>
         </div>
     },
@@ -189,20 +189,20 @@ export default function ziggs({currentLevel, mod, bonus, atk, def, champ, update
           </h5>
 
           <p className="stat--ap">Pre-mitigation: 
-            {' '}{Math.round(((300)+(atk.ap * 105 / 100)))} / 
-            {' '}{Math.round(((450)+(atk.ap * 105 / 100)))} / 
-            {' '}{Math.round(((600)+(atk.ap * 105 / 100)))}
+            {' '}{Math.round(((270)+(atk.ap * 85 / 100)))} / 
+            {' '}{Math.round(((375)+(atk.ap * 85 / 100)))} / 
+            {' '}{Math.round(((480)+(atk.ap * 85 / 100)))}
           </p>
 
           <p className="stat--ap">Post-mitigation: 
-            {' '}{Math.round(((300)+(atk.ap * 105 / 100)) * (1 - mod.defMagRed))} / 
-            {' '}{Math.round(((450)+(atk.ap * 105 / 100))* (1 - mod.defMagRed))} / 
-            {' '}{Math.round(((600)+(atk.ap * 105 / 100))* (1 - mod.defMagRed))}  
+            {' '}{Math.round(((270)+(atk.ap * 85 / 100)) * (1 - mod.defMagRed))} / 
+            {' '}{Math.round(((375)+(atk.ap * 85 / 100))* (1 - mod.defMagRed))} / 
+            {' '}{Math.round(((480)+(atk.ap * 85 / 100))* (1 - mod.defMagRed))}  
           </p>
     
           <br />
           <p>
-            Deploys the Mega Inferno Bomb to deal <span className="stat--ap">300 / 450 / 600 (+105% AP) magic damage</span>. Enemies not in the center take 66.67% damage.
+            Deploys the Mega Inferno Bomb to deal <span className="stat--ap">270 / 375 / 480 (+85% AP) magic damage</span> in a large zone.
           </p>
         </div>
     }

@@ -13,7 +13,7 @@ export default function blank({currentLevel, mod, bonus, atk, def, champ}) {
           </p>
 
           <p>
-          Attacks deal <abbr title="10 + 3 per level + 15% AP" className="stat--ap">{Math.round((10 + 3*currentLevel)+(atk.ap*15/100))} bonus magic damage</abbr>. Subsequent attacks against the same target within 4 seconds deal an additional <abbr title="2 + 0.6 per level + 3% AP" className="stat--ap">{Math.round((2 + 0.6*currentLevel)+(atk.ap*3/100))} bonus magic damage</abbr>. Stacks up to 2 times.
+          Attacks deal <abbr title="5 + 3 per level + 15% AP" className="stat--ap">{Math.round((5 + 3*currentLevel)+(atk.ap*15/100))} bonus magic damage</abbr>. Subsequent attacks against the same target within 4 seconds deal an additional <abbr title="2 + 0.6 per level + 3% AP" className="stat--ap">{Math.round((2 + 0.6*currentLevel)+(atk.ap*3/100))} bonus magic damage</abbr>. Stacks up to 2 times.
           </p>
         </div>
     },
@@ -176,19 +176,19 @@ export default function blank({currentLevel, mod, bonus, atk, def, champ}) {
           </h5>
 
           <p className="stat--ap">Pre-mitigation: 
-            {' '}{Math.round(((150)+(atk.ap * 70 / 100)))} / 
-            {' '}{Math.round(((225)+(atk.ap * 70 / 100)))} / 
-            {' '}{Math.round(((300)+(atk.ap * 70 / 100)))}
+            {' '}{Math.round(((200)+(atk.ap * 75 / 100)))} / 
+            {' '}{Math.round(((275)+(atk.ap * 75 / 100)))} / 
+            {' '}{Math.round(((350)+(atk.ap * 75 / 100)))}
           </p>
 
           <p className="stat--ap">Post-mitigation: 
-            {' '}{Math.round(((150)+(atk.ap * 70 / 100)) * (1 - mod.defMagRed))} / 
-            {' '}{Math.round(((225)+(atk.ap * 70 / 100))* (1 - mod.defMagRed))} / 
-            {' '}{Math.round(((300)+(atk.ap * 70 / 100))* (1 - mod.defMagRed))}
+            {' '}{Math.round(((200)+(atk.ap * 75 / 100)) * (1 - mod.defMagRed))} / 
+            {' '}{Math.round(((275)+(atk.ap * 75 / 100))* (1 - mod.defMagRed))} / 
+            {' '}{Math.round(((350)+(atk.ap * 75 / 100))* (1 - mod.defMagRed))}
           </p>
     
           <p>
-            Commands the Ball to unleash a shockwave, dealing <span className="stat--ap">150 / 225 / 300 (+70% AP) magic damage</span>
+            Commands the Ball to unleash a shockwave, dealing <span className="stat--ap">200 / 275 / 350 (+75% AP) magic damage</span>
           </p> and launching nearby enemies toward the Ball after a brief delay.
         </div>
     }

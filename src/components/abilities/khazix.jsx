@@ -8,7 +8,7 @@ export default function khazix({currentLevel, mod, bonus, atk, def, champ}) {
           </h4>
     
           <p>
-            Kha'zix enhances his next autoattack against enemy champions to deal bonus <abbr title='14-126 based on level + 40% bonus AD; pre-/post-mitigation damage' className="stat--ap">{Math.round((6)+(8*currentLevel)+(bonus.attack * 40 /100))} ({Math.round(((6)+(8*currentLevel)+(bonus.attack * 40 /100))* (1 - mod.defMagRed))}) Magic Damage</abbr> and slow them by <span className="stat--moveSpeed">25%</span> for 2 seconds.
+            Kha'zix enhances his next autoattack against enemy champions to deal bonus <abbr title='10 + 8 per level + 50% bonus AD; pre-/post-mitigation damage' className="stat--ap">{Math.round((10)+(8*currentLevel)+(bonus.attack * 50 /100))} ({Math.round(((10)+(8*currentLevel)+(bonus.attack * 50 /100))* (1 - mod.defMagRed))}) Magic Damage</abbr> and slow them by <span className="stat--moveSpeed">25%</span> for 2 seconds.
           </p>
 
           <p>

@@ -124,20 +124,20 @@ export default function pyke({currentLevel, mod, bonus, atk, def, champ}) {
 
           <p className="stat--ad">Pre-mitigation: 
             {' '}{Math.round(((120)+(bonus.attack * 100 / 100)))} / 
-            {' '}{Math.round(((170)+(bonus.attack * 100 / 100)))} / 
-            {' '}{Math.round(((220)+(bonus.attack * 100 / 100)))} / 
-            {' '}{Math.round(((270)+(bonus.attack * 100 / 100)))}
+            {' '}{Math.round(((175)+(bonus.attack * 100 / 100)))} / 
+            {' '}{Math.round(((230)+(bonus.attack * 100 / 100)))} / 
+            {' '}{Math.round(((285)+(bonus.attack * 100 / 100)))}
           </p>
 
           <p className="stat--ad">Post-mitigation: 
             {' '}{Math.round(((120)+(bonus.attack * 100 / 100)) * (1 - mod.defPhysRed))} / 
-            {' '}{Math.round(((170)+(bonus.attack * 100 / 100))* (1 - mod.defPhysRed))} / 
-            {' '}{Math.round(((220)+(bonus.attack * 100 / 100))* (1 - mod.defPhysRed))} / 
-            {' '}{Math.round(((270)+(bonus.attack * 100 / 100))* (1 - mod.defPhysRed))}          
+            {' '}{Math.round(((175)+(bonus.attack * 100 / 100))* (1 - mod.defPhysRed))} / 
+            {' '}{Math.round(((230)+(bonus.attack * 100 / 100))* (1 - mod.defPhysRed))} / 
+            {' '}{Math.round(((285)+(bonus.attack * 100 / 100))* (1 - mod.defPhysRed))}          
           </p>
     
           <p>
-           Dashes forward, leaving behind a phantom. After 1 second, the phantom returns to Pyke, dealing <span className="stat--ad">120 / 170 / 220 / 270 (+100% bonus AD) physical damage </span> to enemy champions and stunning for <b>1.5 (+1.5% flat armor pen)</b>  seconds.
+           Dashes forward, leaving behind a phantom. After 1 second, the phantom returns to Pyke, dealing <span className="stat--ad">120 / 175 / 230 / 285 (+100% bonus AD) physical damage </span> to enemy champions and stunning for <b>1.5 (+1.5% flat armor pen)</b>  seconds.
           </p>
 
           <p>
@@ -176,7 +176,7 @@ export default function pyke({currentLevel, mod, bonus, atk, def, champ}) {
           </p>
     
           <p>
-            Marks target area with an X, executing enemy champions below <span className="stat--critChance">250 (+80% bonus AD) (+250 / 400 / 550% flat Armor) health</span>. Non-champions and champions above the threshold take 50% of this amount as <span className="stat--ad">physical damage</span>.
+            Marks target area with an X, executing enemy champions below <span className="stat--critChance">250 (+80% bonus AD) (+250 / 400 / 550% flat Armor penetration) health</span>. Non-champions and champions above the threshold take 50% of this amount as <span className="stat--ad">physical damage</span>.
           </p>
 
           <p>
@@ -184,7 +184,7 @@ export default function pyke({currentLevel, mod, bonus, atk, def, champ}) {
           </p>
 
           <p>
-          Each execution grants Pyke 100% bounty gold. If there's an assisting ally, grant them 100% gold, and  grant Pyke 140% gold (up to 600). Enemies killed by an ally inside the X grant Pyke 140% gold (up to 600).
+          Each execution grants Pyke 100% bounty gold. If there's an assisting ally, grant them 100% gold, and  grant Pyke 160% gold (up to 600). Enemies killed by an ally inside the X grant Pyke 160% gold (up to 600).
           </p>
         </div>
     }

@@ -1,4 +1,20 @@
-export default function malphite({currentLevel, mod, bonus, atk, def, champ}) {
+import {useState, useEffect} from 'react';
+
+export default function malphite({currentLevel, mod, bonus, atk, def, champ, updateAbilitiesBonus}) {
+
+  const [abilLevel, setAbilLevel] = useState(0);
+
+  useEffect(() => {
+    const object = {
+      malphiteW: abilLevel
+    };
+    updateAbilitiesBonus(object)
+  }, [abilLevel]);  
+
+  const changeNumber = () => {
+    setAbilLevel(oldNum => oldNum < 4 ? oldNum + 1 : 0);
+  }
+
   const abilities = [
     {
       description:
@@ -8,7 +24,7 @@ export default function malphite({currentLevel, mod, bonus, atk, def, champ}) {
           </h4>
     
           <p>
-            Get <abbr title="9% Max Health" className="stat--hp">{Math.round(atk.health * 9 / 100)} damage shield</abbr> after not taking damage for <abbr title="At level 1 / 5 / 11">8 / 7 / 6 seconds</abbr>.
+            Get <abbr title="11% Max Health" className="stat--hp">{Math.round(atk.health * 11 / 100)} damage shield</abbr> after not taking damage for <abbr title="At level 1 / 5 / 11">8 / 7 / 6 seconds</abbr>.
           </p>
         </div>
     },
@@ -79,17 +95,17 @@ export default function malphite({currentLevel, mod, bonus, atk, def, champ}) {
           </h5>
 
           <p className="stat--ad">Pre-mitigation: 
-            {' '}{Math.round(((30)+(atk.ap * 40 / 100)+(atk.armor * 115 * 20 / 1000)))} / 
-            {' '}{Math.round(((50)+(atk.ap * 40 / 100)+(atk.armor * 120 * 20 / 1000)))} / 
-            {' '}{Math.round(((70)+(atk.ap * 40 / 100)+(atk.armor * 125 * 20 / 1000)))} / 
-            {' '}{Math.round(((90)+(atk.ap * 40 / 100)+(atk.armor * 130 * 20 / 1000)))}
+            {' '}{Math.round(((30)+(atk.ap * 40 / 100)+(atk.armor * 115 * 30 / 1000)))} / 
+            {' '}{Math.round(((50)+(atk.ap * 40 / 100)+(atk.armor * 120 * 30 / 1000)))} / 
+            {' '}{Math.round(((70)+(atk.ap * 40 / 100)+(atk.armor * 125 * 30 / 1000)))} / 
+            {' '}{Math.round(((90)+(atk.ap * 40 / 100)+(atk.armor * 130 * 30 / 1000)))}
           </p>
 
           <p className="stat--ad">Post-mitigation: 
-            {' '}{Math.round(((30)+(atk.ap * 40 / 100)+(atk.armor * 115 * 20 / 1000)) * (1 - mod.defPhysRed))} / 
-            {' '}{Math.round(((50)+(atk.ap * 40 / 100)+(atk.armor * 120 * 20 / 1000))* (1 - mod.defPhysRed))} / 
-            {' '}{Math.round(((70)+(atk.ap * 40 / 100)+(atk.armor * 125 * 20 / 1000))* (1 - mod.defPhysRed))} / 
-            {' '}{Math.round(((90)+(atk.ap * 40 / 100)+(atk.armor * 130 * 20 / 1000))* (1 - mod.defPhysRed))}          
+            {' '}{Math.round(((30)+(atk.ap * 40 / 100)+(atk.armor * 115 * 30 / 1000)) * (1 - mod.defPhysRed))} / 
+            {' '}{Math.round(((50)+(atk.ap * 40 / 100)+(atk.armor * 120 * 30 / 1000))* (1 - mod.defPhysRed))} / 
+            {' '}{Math.round(((70)+(atk.ap * 40 / 100)+(atk.armor * 125 * 30 / 1000))* (1 - mod.defPhysRed))} / 
+            {' '}{Math.round(((90)+(atk.ap * 40 / 100)+(atk.armor * 130 * 30 / 1000))* (1 - mod.defPhysRed))}          
           </p>
 
           <h5 className="stat--ad">
@@ -97,26 +113,31 @@ export default function malphite({currentLevel, mod, bonus, atk, def, champ}) {
           </h5>
 
           <p className="stat--ad">Pre-mitigation: 
-            {' '}{Math.round(((15)+(atk.ap * 20 / 100)+(atk.armor * 115 * 10 / 1000)))} / 
-            {' '}{Math.round(((20)+(atk.ap * 20 / 100)+(atk.armor * 120 * 10 / 1000)))} / 
-            {' '}{Math.round(((30)+(atk.ap * 20 / 100)+(atk.armor * 125 * 10 / 1000)))} / 
-            {' '}{Math.round(((40)+(atk.ap * 20 / 100)+(atk.armor * 130 * 10 / 1000)))}
+            {' '}{Math.round(((10)+(atk.ap * 20 / 100)+(atk.armor * 115 * 15 / 1000)))} / 
+            {' '}{Math.round(((20)+(atk.ap * 20 / 100)+(atk.armor * 120 * 15 / 1000)))} / 
+            {' '}{Math.round(((30)+(atk.ap * 20 / 100)+(atk.armor * 125 * 15 / 1000)))} / 
+            {' '}{Math.round(((40)+(atk.ap * 20 / 100)+(atk.armor * 130 * 15 / 1000)))}
           </p>
 
           <p className="stat--ad">Post-mitigation: 
-            {' '}{Math.round(((15)+(atk.ap * 20 / 100)+(atk.armor * 115 * 10 / 1000)) * (1 - mod.defPhysRed))} / 
-            {' '}{Math.round(((20)+(atk.ap * 20 / 100)+(atk.armor * 120 * 10 / 1000))* (1 - mod.defPhysRed))} / 
-            {' '}{Math.round(((30)+(atk.ap * 20 / 100)+(atk.armor * 125 * 10 / 1000))* (1 - mod.defPhysRed))} / 
-            {' '}{Math.round(((40)+(atk.ap * 20 / 100)+(atk.armor * 130 * 10 / 1000))* (1 - mod.defPhysRed))}          
-          </p>
-    
-          <p>
-            <b>PASSIVE:</b> Gain <abbr title="15 / 20 / 25 / 30% Total Armor" className="stat--armor">{Math.round(atk.armor * 15 / 100)} / {Math.round(atk.armor * 20 / 100)} / {Math.round(atk.armor * 25 / 100)} / {Math.round(atk.armor * 30 / 100)} Armor</abbr>
+            {' '}{Math.round(((10)+(atk.ap * 20 / 100)+(atk.armor * 115 * 15 / 1000)) * (1 - mod.defPhysRed))} / 
+            {' '}{Math.round(((20)+(atk.ap * 20 / 100)+(atk.armor * 120 * 15 / 1000))* (1 - mod.defPhysRed))} / 
+            {' '}{Math.round(((30)+(atk.ap * 20 / 100)+(atk.armor * 125 * 15 / 1000))* (1 - mod.defPhysRed))} / 
+            {' '}{Math.round(((40)+(atk.ap * 20 / 100)+(atk.armor * 130 * 15 / 1000))* (1 - mod.defPhysRed))}          
           </p>
 
           <p>
-            <b>ACTIVE:</b> For the next 6 seconds, attacks deal <span className="stat--ad">15 / 20 / 30 / 40 (<span className="stat--ap">+20% AP</span>) (<span className="stat--armor">+10% Armor</span>) physical damage</span> in a cone. The first attack is empowered to deal <span className="stat--ad">30 / 50 / 70 / 90 (<span className="stat--ap">+40% AP</span>) (<span className="stat--armor">+20% Armor</span>) bonus physical damage</span> to the target.
+            Toggle armor  bonus:
+            <button onClick={changeNumber}>Change ability level</button> Current ability level: <b className="stat--armor">{abilLevel}</b> 
           </p>
+    
+          <p>
+            <b>PASSIVE:</b> Gain <abbr title="20 / 25 / 30 / 35% Total Armor" className="stat--armor">{Math.round(atk.armor * 15 / 100)} / {Math.round(atk.armor * 20 / 100)} / {Math.round(atk.armor * 25 / 100)} / {Math.round(atk.armor * 30 / 100)} Armor</abbr>
+          </p>
+
+          <p>
+            <b>ACTIVE:</b> For the next 6 seconds, attacks deal <span className="stat--ad">10 / 20 / 30 / 40 (<span className="stat--ap">+20% AP</span>) (<span className="stat--armor">+15% Armor</span>) physical damage</span> in a cone. The first attack is empowered to deal <span className="stat--ad">30 / 50 / 70 / 90 (<span className="stat--ap">+40% AP</span>) (<span className="stat--armor">+30% Armor</span>) bonus physical damage</span> to the target.
+          </p>         
         </div>
     },
 

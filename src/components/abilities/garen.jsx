@@ -11,6 +11,10 @@ export default function garen({currentLevel, mod, bonus, atk, def, champ}) {
             Garen regenerates <abbr title="1.2% - 4% (based on level)" className="stat--hp">{1 + 0.2 * currentLevel}% of his missing health</abbr> per second. <br />
             Perseverance is disabled for 5 seconds whenever Garen takes damage from enemy champions, turrets, or epic monsters, or is hit by attacks or abilities, refreshing on subsequent damage and hits against him.
           </p>
+
+          <p>
+            When casting Demacian Justice and the target dies, moves out of range, becomes untargetable, or activates Zhonya’s Hourglass or Guardian Angel, spell will go on a 5s Cooldown.
+          </p>
         </div>
     },
 

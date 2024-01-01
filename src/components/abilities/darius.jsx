@@ -235,6 +235,10 @@ export default function darius({currentLevel, mod, bonus, atk, def, champ, updat
             Leaps to execute a champion. Deals <span className="stat--critChance">100 / 200 / 300 <span className="stat--ad">(+75% AD)</span> true damage</span> , increased by 20% per Hemorrhage stack, and applies Hemorrhage. <br />
             Killing the target with Noxian Guillotine refreshes its cooldown, mana cost, and grants Noxian Might for 5 seconds and causes nearby minions and monsters to flee for 1.5 seconds.
           </p>
+
+          <p>
+            When casting Noxian Guillotine and the target dies, moves out of range, becomes untargetable, or activates Zhonya’s Hourglass or Guardian Angel, the mana cost will be refunded and go on a 5s cooldown.
+          </p>
         </div>
     }
   ];

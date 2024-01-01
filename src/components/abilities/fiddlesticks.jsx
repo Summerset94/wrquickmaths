@@ -38,7 +38,7 @@ export default function fiddlesticks({currentLevel, mod, bonus, atk, def, champ}
           </h5>
     
           <p>
-            <b>Passive:</b> While out of combat and stationary, or not visible to the enemy team, Fiddlesticks' next damaging ability additionally fears targets hit for <b>11 / 1.2 / 1.4 / 1.6 seconds</b>.
+            <b>Passive:</b> While out of combat and stationary, or not visible to the enemy team, Fiddlesticks' next damaging ability additionally fears targets hit for <b>1 / 1.1 / 1.2 / 1.3 seconds</b>.
           </p>
 
           <p>
@@ -96,7 +96,7 @@ export default function fiddlesticks({currentLevel, mod, bonus, atk, def, champ}
           </p>
 
           <p>
-          Deals 150% damage to monsters. Deals 50% damage to minions.
+          Deals 160% damage to monsters. Deals 50% damage to minions.
           </p>
         </div>
     },
