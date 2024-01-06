@@ -3,12 +3,13 @@ import champions from './Champions.jsx'
 import Abilities from "./Abilities";
 import Inventory from "./Inventory";
 import { useStats } from './StatsContext';
-import malphite from "./abilities/malphite.jsx";
+import Runes from "./Runes.jsx";
 
 export default function AttackerTile(props) {
-  // const champion = props.champ
+  // for later calculations we need index 1 and 2 for champions
   const index = props.index
 
+  // fallback for champions value when nothing selected
   const champTemplate = {
     id: 'undefined',
   name: 'Not Selected',
@@ -57,7 +58,7 @@ export default function AttackerTile(props) {
   const [contentVisible, setContentVisible] = useState(true);
   const [currentLevel, setCurrentLevel] = useState(1);
 
-  
+  // cringe part. But it's easier than setting modifier for EVERY SINGLE champion
   const baseModifier = useMemo(() => {
     
     let critMultiplier;
@@ -81,11 +82,7 @@ export default function AttackerTile(props) {
 
   }, [champ, currentLevel])
 
- // THIS FORMULA is for how much statistics grow through level
-//  const g = stat.scale *  (0.67294 + 0.03846 * currentLevel)
-
-//  stat = base + ((stat.scale * (currentLevel - 1) * (0.67294 + 0.03846 * (currentLevel - 1)))
-0.03571
+ // Stats growth is non-linear. growth modifier changes from 75% to 125% with level ups
 
 const statGrowth = function(mod) {  
   if(currentLevel == 1) {
@@ -103,6 +100,7 @@ const statGrowth = function(mod) {
   }  
 }
 
+// Champions basic stats at a given level
   const baseStats = useMemo(() => {
     return {
       health: Math.ceil(champ.healthBase + statGrowth(champ.healthScale)),
@@ -118,7 +116,7 @@ const statGrowth = function(mod) {
     };
   }, [currentLevel, champ]);
 
-
+// bonus stats from items in inventory
   const [itemBonus, setItemBonus] = useState({
     health: 0,
     mana: 0,
@@ -139,7 +137,22 @@ const statGrowth = function(mod) {
     ah: 0,
     bootsPassive: false
   }, []);
-'s'
+
+  //  effects from runes
+  const [runesEffects, setRunesEffects] = useState({
+    attack: 0,
+    ap: 0,
+    health: 0,
+    armor: 0,
+    magres: 0,
+    as: 0,
+  })
+
+  const updateRunesEffects = (updatedValues) => {
+    setRunesEffects((prevStats) => ({...prevStats, ...updatedValues}))
+  };
+
+  // passive (mostly) efects from champions abilities
   const [abilitiesBonus, setAbilitiesBonus] = useState({
     singedR: 0,
     jaxR: 0,
@@ -271,30 +284,30 @@ const statGrowth = function(mod) {
         break;
       case 'Ornn':
         if (currentLevel <= 4) {
-          healthMod = (itemBonus.health * 7 /100)
+          healthMod = baseStats.health + ((itemBonus.health + runesEffects.health) * 7 /100)
         } else if (currentLevel >4 && currentLevel <= 8) {
-          healthMod = (itemBonus.health * 12 /100)
+          healthMod = baseStats.health + ((itemBonus.health + runesEffects.health) * 12 /100)
         } else if (currentLevel >8 && currentLevel <= 12) {
-          healthMod = (itemBonus.health * 17 /100)
+          healthMod = baseStats.health + ((itemBonus.health + runesEffects.health) * 17 /100)
         } else {
-          healthMod = (itemBonus.health * 22 /100)
+          healthMod = baseStats.health + ((itemBonus.health + runesEffects.health) * 22 /100)
         };
         break;
       case 'Sion':
-        healthMod = baseStats.health + itemBonus.health +  abilitiesBonus.sionW;
+        healthMod = baseStats.health + itemBonus.health + runesEffects.health + abilitiesBonus.sionW;
         break;
 
       case 'Swain':
-        healthMod = baseStats.health + itemBonus.health +  (abilitiesBonus.swainP * 16);
+        healthMod = baseStats.health + itemBonus.health + runesEffects.health +  (abilitiesBonus.swainP * 16);
         break;
       
       case 'Vladimir':
-        healthMod = baseStats.health + itemBonus.health + Math.round(itemBonus.ap * 120 / 100);
+        healthMod = baseStats.health + itemBonus.health + runesEffects.health + Math.round(itemBonus.ap * 120 / 100);
         break;
 
 
       default:
-        healthMod = baseStats.health + itemBonus.health;
+        healthMod = baseStats.health + itemBonus.health + runesEffects.health ;
         break;
 
       
@@ -306,10 +319,10 @@ const statGrowth = function(mod) {
         attackMod = Math.ceil(itemBonus.health / 14);
         break;
       case 'Zeri':
-        attackMod = baseStats.as + itemBonus.as >= 1.5 ? Math.floor((baseStats.as + itemBonus.as - 1.5) * (50 / champ.asBase)) : 0;
+        attackMod = baseStats.as + itemBonus.as + runesEffects.as >= 1.5 ? Math.floor((baseStats.as + itemBonus.as + runesEffects.as - 1.5) * (50 / champ.asBase)) : 0;
         break;
       case 'Jhin':
-        attackMod = Math.round((baseStats.attack + itemBonus.attack)*((5+55/14*(currentLevel-1))/100 + (itemBonus.as*(14 + (17/14*(currentLevel - 1))))/(champ.asBase*100) + (itemBonus.critChance*(23 + (26/14*(currentLevel - 1))))/100));
+        attackMod = Math.round((baseStats.attack + itemBonus.attack + runesEffects.attack)*((5+55/14*(currentLevel-1))/100 + ((itemBonus.as+ runesEffects.as)*(14 + (17/14*(currentLevel - 1))))/(champ.asBase*100) + (itemBonus.critChance*(23 + (26/14*(currentLevel - 1))))/100));
         break;
       case 'Hecarim':
         attackMod = Math.round(itemBonus.moveSpeed * 12 / 100);
@@ -322,15 +335,15 @@ const statGrowth = function(mod) {
         if (abilitiesBonus.rengarP == 0) {
           attackMod = 0
         } else if (abilitiesBonus.rengarP == 1) {
-          attackMod = ((baseStats.attack + itemBonus.attack) * 1/100)
+          attackMod = ((baseStats.attack + itemBonus.attack + runesEffects.attack) * 1/100)
         } else if (abilitiesBonus.rengarP == 2) {
-          attackMod = ((baseStats.attack + itemBonus.attack) * 4/100)
+          attackMod = ((baseStats.attack + itemBonus.attack + runesEffects.attack) * 4/100)
         } else if (abilitiesBonus.rengarP == 3) {
-          attackMod = ((baseStats.attack + itemBonus.attack) * 9/100)
+          attackMod = ((baseStats.attack + itemBonus.attack + runesEffects.attack) * 9/100)
         } else if (abilitiesBonus.rengarP == 4) {
-          attackMod = ((baseStats.attack + itemBonus.attack) * 16/100)
+          attackMod = ((baseStats.attack + itemBonus.attack + runesEffects.attack) * 16/100)
         } else if (abilitiesBonus.rengarP == 5) {
-          attackMod = ((baseStats.attack + itemBonus.attack) * 25/100)
+          attackMod = ((baseStats.attack + itemBonus.attack + runesEffects.attack) * 25/100)
         };
         break;
 
@@ -378,31 +391,31 @@ const statGrowth = function(mod) {
   // Attack Speed
     switch (champ.name) {
       case 'Zeri':
-        asMod = (baseStats.as + itemBonus.as) < 1.5 ? (baseStats.as + itemBonus.as) : 1.5;
+        asMod = (baseStats.as + itemBonus.as + runesEffects.as) < 1.5 ? (baseStats.as + itemBonus.as + runesEffects.as) : 1.5;
         break;
       case 'Jhin':
         asMod = baseStats.as;
         break;
       case 'Senna' :
-        asMod = baseStats.as + (itemBonus.as / 5);
+        asMod = baseStats.as + ((itemBonus.as + runesEffects.as) / 5);
         break;
 
       case 'Twisted Fate':
         if (abilitiesBonus.twistedFateE == 0) {
-          asMod = baseStats.as + itemBonus.as;
+          asMod = baseStats.as + itemBonus.as + runesEffects.as;
         } else if (abilitiesBonus.twistedFateE == 1) {
-          asMod = baseStats.as + itemBonus.as + (champ.asBase * 15 / 100);
+          asMod = baseStats.as + itemBonus.as +  (champ.asBase * 15 / 100)+ runesEffects.as;
         } else if (abilitiesBonus.twistedFateE == 2) {
-          asMod = baseStats.as + itemBonus.as + (champ.asBase * 20 / 100);
+          asMod = baseStats.as + itemBonus.as + (champ.asBase * 20 / 100)+ runesEffects.as;
         } else if (abilitiesBonus.twistedFateE == 3) {
-          asMod = baseStats.as + itemBonus.as + (champ.asBase * 25 / 100);
+          asMod = baseStats.as + itemBonus.as + (champ.asBase * 25 / 100)+ runesEffects.as;
         } else if (abilitiesBonus.twistedFateE == 4) {
-          asMod = baseStats.as + itemBonus.as + (champ.asBase * 30 / 100);
+          asMod = baseStats.as + itemBonus.as + (champ.asBase * 30 / 100)+ runesEffects.as;
         };
         break;
 
       default:
-        asMod = baseStats.as + itemBonus.as;
+        asMod = baseStats.as + itemBonus.as + runesEffects.as;
         break;
     }
 
@@ -507,8 +520,9 @@ const statGrowth = function(mod) {
       magres: magresMod,
       critMultiplier: critMultiplierMod,
     };
-  }, [champ, baseStats, itemBonus, currentLevel, abilitiesBonus]);
+  }, [champ, baseStats, itemBonus, currentLevel, abilitiesBonus, runesEffects]);
 
+// Some unique items bonuses tracker
   const [itemEffects, setItemEffects] = useState({
     rabadon: false,
     twinguard: false,    
@@ -581,18 +595,19 @@ const statGrowth = function(mod) {
     setRabadonApplied(oldState => !oldState)
   };
 
-  
-  
-  const totalMemo = useMemo(() => {
-    const combiner = {
-      health: champ.name !== 'Pyke' ? championModifier.health + itemEffectsMemo.health: baseStats.health,
-      mana: champ.manaBase ? baseStats.mana + itemBonus.mana : itemBonus.mana,
-      armor: baseStats.armor + itemBonus.armor + championModifier.armor + itemEffectsMemo.armor,
-      magres: baseStats.magres + itemBonus.magres + championModifier.magres + itemEffectsMemo.magres,
-      attack: baseStats.attack + itemBonus.attack + championModifier.attack + itemEffectsMemo.attack,
-      ap: itemBonus.ap + championModifier.ap + itemEffectsMemo.ap,
 
-      as: championModifier.as,
+  
+
+  const bonusStats = useMemo(() => {
+    const combiner = {
+      health: champ.name !== 'Pyke' ? itemBonus.health + itemEffectsMemo.health + runesEffects.health : 0,
+      mana: itemBonus.mana,
+      armor: itemBonus.armor + championModifier.armor + itemEffectsMemo.armor,
+      magres: itemBonus.magres + championModifier.magres + itemEffectsMemo.magres,
+      attack: itemBonus.attack + championModifier.attack + itemEffectsMemo.attack + runesEffects.attack,
+      ap: itemBonus.ap + championModifier.ap + itemEffectsMemo.ap + runesEffects.ap,
+
+      as: Math.max((championModifier.as - baseStats.as), 0),
 
       armPen: itemEffectsMemo.armPen + championModifier.armPen,
       magPen: itemBonus.magPen,
@@ -602,12 +617,74 @@ const statGrowth = function(mod) {
       magResReduction: itemBonus.magResReduction,
 
 
-      moveSpeed: baseStats.moveSpeed + itemBonus.moveSpeed + championModifier.moveSpeed,
+      moveSpeed: itemBonus.moveSpeed + championModifier.moveSpeed,
       ah: itemBonus.ah,
 
       critChance: championModifier.critChance,
       critMultiplier: championModifier.critMultiplier,
-      critDamage: ((baseStats.attack + itemBonus.attack))*(champ.name != 'Ashe' ? baseStats.critMultiplier + itemBonus.critMultiplier : 1),
+      
+    }
+
+    return {
+      health: combiner.health,
+      mana: combiner.mana,
+
+      armor: combiner.armor,
+      magres: combiner.magres,
+
+      attack: combiner.attack,      
+      ap: combiner.ap,
+      
+      as: combiner.as,
+      
+
+      flatArmPen: combiner.flatArmPen,
+      flatMagPen: combiner.flatMagPen,
+      armPen: combiner.armPen,
+      magPen: combiner.magPen,
+      armorReduction: combiner.armorReduction,
+      magResReduction: combiner.magResReduction,
+      
+
+      moveSpeed: combiner.moveSpeed,
+      critChance: combiner.critChance,
+      critMultiplier: combiner.critMultiplier,
+      
+      
+      ah: combiner.ah,
+      
+      
+      forceOfNature: combiner.forceOfNature,
+      bootsPassive: combiner.bootsPassive
+    }
+  }, [itemBonus, championModifier, currentLevel, itemEffectsMemo, runesEffects])
+  
+  
+  const totalMemo = useMemo(() => {
+    const combiner = {
+      health: champ.name !== 'Pyke' ? championModifier.health + itemBonus.health + itemEffectsMemo.health : baseStats.health,
+      mana: champ.manaBase ? baseStats.mana + bonusStats.mana : bonusStats.mana,
+      armor: baseStats.armor + bonusStats.armor + runesEffects.armor,
+      magres: baseStats.magres + bonusStats.magres + runesEffects.magres,
+      attack: baseStats.attack + bonusStats.attack,
+      ap: bonusStats.ap,
+
+      as: championModifier.as,
+
+      armPen: bonusStats.armPen,
+      magPen: bonusStats.magPen,
+      flatArmPen: bonusStats.flatArmPen,
+      flatMagPen: bonusStats.flatMagPen,
+      armorReduction: bonusStats.armorReduction,
+      magResReduction: bonusStats.magResReduction,
+
+
+      moveSpeed: baseStats.moveSpeed + bonusStats.moveSpeed,
+      ah: bonusStats.ah,
+
+      critChance: bonusStats.critChance,
+      critMultiplier: bonusStats.critMultiplier,
+      critDamage: ((baseStats.attack + bonusStats.attack))*(champ.name != 'Ashe' ? baseStats.critMultiplier + bonusStats.critMultiplier : 1),
 
       forceOfNature: itemEffectsMemo.forceOfNature,
       bootsPassive: itemEffectsMemo.bootsPassive
@@ -650,7 +727,7 @@ const statGrowth = function(mod) {
       forceOfNature: combiner.forceOfNature,
       bootsPassive: combiner.bootsPassive
     };
-  }, [baseStats, itemBonus, championModifier, currentLevel, itemEffectsMemo]);
+  }, [baseStats, bonusStats]);
 
 
   function levelSlider(n) {
@@ -678,13 +755,13 @@ const statGrowth = function(mod) {
       newTotalStats[0] = totalMemo;
       return newTotalStats;
     });
-  }, [itemBonus, totalMemo, currentLevel, rabadonApplied, twinguardApplied, fonStacked]);
+  }, [bonusStats, totalMemo, currentLevel, rabadonApplied, twinguardApplied, fonStacked]);
 
   const [activePageIndex, setActivePageIndex] = useState(0);
   const pages = [
     { component: <Inventory 
       base={baseStats}
-      bonus={itemBonus}
+      bonus={bonusStats}
       total={totalMemo}
       bonusEffects={bonusEffectsMemo}
       handleBonusChange={updateitemBonus}
@@ -700,8 +777,20 @@ const statGrowth = function(mod) {
       champ={champ}
       currentLevel={currentLevel}
       index={index}
-      bonus={itemBonus}            
+      bonus={bonusStats}            
       />, label: 'Abilities' },
+
+      { component: <Runes 
+        base={baseStats}
+        bonus={bonusStats}
+        total={totalMemo}
+        bonusEffects={bonusEffectsMemo}        
+        currentLevel={currentLevel}      
+        index={index}
+        champ={champ}
+        itemEffects={itemEffects}
+        updateRunesEffects={updateRunesEffects}
+      />, label: 'Runes (alpha stage)' },
     
    
   ];
@@ -857,57 +946,57 @@ const statGrowth = function(mod) {
           <tr>
             <td>Health</td>
             <td className='stat--hp'>{baseStats.health}</td>
-            <td className='stat--hp'>{itemBonus.health}</td>
-            <td className='stat--hp'>{totalMemo.health}</td>
+            <td className='stat--hp'>{Math.round(bonusStats.health)}</td>
+            <td className='stat--hp'>{Math.round(totalMemo.health)}</td>
           </tr>
 
           <tr>
             <td>Mana</td>
             <td className='stat--mana'>{baseStats.mana}</td>
-            <td className='stat--mana'>{itemBonus.mana}</td>
-            <td className='stat--mana'>{totalMemo.mana}</td>
+            <td className='stat--mana'>{Math.round(bonusStats.mana)}</td>
+            <td className='stat--mana'>{Math.round(totalMemo.mana)}</td>
           </tr>
 
           <tr>
             <td>Armor</td>
             <td className='stat--armor'>{baseStats.armor}</td>
-            <td className='stat--armor'>{itemBonus.armor}</td>
-            <td className='stat--armor'>{totalMemo.armor}</td>
+            <td className='stat--armor'>{Math.round(bonusStats.armor)}</td>
+            <td className='stat--armor'>{Math.round(totalMemo.armor)}</td>
           </tr>
 
           <tr>
             <td>Magic Resistance</td>
             <td className='stat--magres'>{baseStats.magres}</td>
-            <td className='stat--magres'>{itemBonus.magres}</td>
-            <td className='stat--magres'>{totalMemo.magres}</td>
+            <td className='stat--magres'>{Math.round(bonusStats.magres)}</td>
+            <td className='stat--magres'>{Math.round(totalMemo.magres)}</td>
           </tr>
 
           <tr>
             <td>Attack</td>
             <td className='stat--ad'>{baseStats.attack}</td>
-            <td className='stat--ad'>{itemBonus.attack}</td>
-            <td className='stat--ad'>{totalMemo.attack}</td>
+            <td className='stat--ad'>{Math.round(bonusStats.attack)}</td>
+            <td className='stat--ad'>{Math.round(totalMemo.attack)}</td>
           </tr>
 
           <tr>
             <td>Ability Power</td>
             <td className='stat--ap'>{baseStats.ap}</td>
-            <td className='stat--ap'>{itemBonus.ap}</td>
-            <td className='stat--ap'>{totalMemo.ap}</td>
+            <td className='stat--ap'>{Math.round(bonusStats.ap)}</td>
+            <td className='stat--ap'>{Math.round(totalMemo.ap)}</td>
           </tr>
 
           <tr>
             <td>Attack speed</td>
             <td className='stat--as'>{baseStats.as.toFixed(2)}</td>
-            <td className='stat--as'>{itemBonus.as.toFixed(2)}</td>
+            <td className='stat--as'>{bonusStats.as.toFixed(2)}</td>
             <td className='stat--as'>{totalMemo.as.toFixed(2)}</td>
           </tr>
 
           <tr>
             <td>Movespeed</td>
-            <td className='stat--moveSpeed'>{Math.ceil(baseStats.moveSpeed)}</td>
-            <td className='stat--moveSpeed'>{Math.ceil(itemBonus.moveSpeed)}</td>
-            <td className='stat--moveSpeed'>{Math.ceil(totalMemo.moveSpeed)}</td>
+            <td className='stat--moveSpeed'>{Math.round(baseStats.moveSpeed)}</td>
+            <td className='stat--moveSpeed'>{Math.round(bonusStats.moveSpeed)}</td>
+            <td className='stat--moveSpeed'>{Math.round(totalMemo.moveSpeed)}</td>
           </tr>
 
           <tr>

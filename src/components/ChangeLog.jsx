@@ -13,12 +13,13 @@ export default function ChangeLog() {
 
           {contentVisible && (<><p>In progress:</p>
           <ul>
-            <li>Champion Abilities</li>
+            <li>Runes</li>
             </ul>
           <br />
 
           <p>latest updates:</p>
           <ul>
+            <li>Keystones implemented</li>
             <li>29.12 Added Zyra, updated for 4.4d, Added Malphite passive armor from W with switch on ability page;</li>
             <li>07.12 Updated for 4.4c</li>
             <li>~01.12 The navigation is not as bad is it was now;</li>

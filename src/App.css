@@ -308,7 +308,7 @@ button:active {
 
 }
 
-.abilitiesWrap {
+.abilitiesWrap, .runeWrapper {
   display: flex;
   flex-direction:column;
   justify-content: center;
@@ -398,4 +398,32 @@ nav {
   flex-direction: row;
   justify-content: center;
   flex-wrap: wrap;
+}
+
+.runeWrapper {
+  padding: 8px;
+  color: white;
+}
+
+.keystoneTile {
+  border: 2px solid white;
+  padding: 5px;
+  margin: 5px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;  
+}
+
+.keystoneTile > h3 {
+  background-color: rgb(42, 42, 78);
+  padding: 3px;
+  margin: 3px;
+}
+
+.keystoneTile > img {
+  height: 100px;
+  width: 100px;
+  border: none;
+  border-radius: 50%;
+  margin: 5px;
 }
