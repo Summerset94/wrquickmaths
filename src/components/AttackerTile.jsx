@@ -146,6 +146,8 @@ const statGrowth = function(mod) {
     armor: 0,
     magres: 0,
     as: 0,
+    flatArmPen: 0,
+    flatMagPen : 0,
   })
 
   const updateRunesEffects = (updatedValues) => {
@@ -611,8 +613,8 @@ const statGrowth = function(mod) {
 
       armPen: itemEffectsMemo.armPen + championModifier.armPen,
       magPen: itemBonus.magPen,
-      flatArmPen: itemBonus.flatArmPen,
-      flatMagPen: itemBonus.flatMagPen,
+      flatArmPen: itemBonus.flatArmPen + runesEffects.flatArmPen,
+      flatMagPen: itemBonus.flatMagPen + runesEffects.flatMagPen,
       armorReduction: itemBonus.armorReduction,
       magResReduction: itemBonus.magResReduction,
 

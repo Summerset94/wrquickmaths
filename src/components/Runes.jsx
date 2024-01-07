@@ -94,11 +94,20 @@ const mod = useMemo(() => {
 
 // useReducer hook for tracking runes effects that have constant impact on character
 const initialRunesEffects = {
-  conqueror: 0,
-  grasp: 0,
-  aftershock: false,
-  tempoType: 'ranged',
-  tempo: 0,
+  keystones: {
+    conqueror: 0,
+    grasp: 0,
+    aftershock: false,
+    tempoType: 'ranged',
+    tempo: 0,
+  },
+  
+  path: {
+    suddenImpact: false,
+    eyeballCollector: 0,
+    zombieWard: 0,
+  }, 
+  
 };
 
 const runesEffectsReducer = (state, action) => {
@@ -106,37 +115,91 @@ const runesEffectsReducer = (state, action) => {
     case 'conqueror':
       return {
         ...state,
-        conqueror: state.conqueror < 6 ? state.conqueror + 1 : 0,
+        keystones: {
+          ...state.keystones,
+          conqueror: state.keystones.conqueror < 6 ? state.keystones.conqueror + 1 : 0,
+        }
+        
       };
 
     case 'grasp':
       return {
         ...state,
-        grasp: parseInt(action.payload) || 0
+        keystones: {
+          ...state.keystones,
+          grasp: parseInt(action.payload) || 0,
+        }
       };  
 
     case 'toggleAftershock':
       return {
         ...state,
-        aftershock: !state.aftershock
+        keystones: {
+          ...state.keystones,
+          aftershock: !state.keystones.aftershock
+        }        
       };
 
     case 'toggleTempoType':
       return {
         ...state,
-        tempoType: state.tempoType === 'ranged' ? 'melee' : 'ranged'
+        keystones: {
+          ...state.keystones,
+          tempoType: state.keystones.tempoType === 'ranged' ? 'melee' : 'ranged'
+        }
+        
       };
 
     case 'tempoStacks': 
       return {
         ...state,
-        tempo: state.tempo < 6 ? state.tempo + 1 : 0,
+        keystones: {
+          ...state.keystones,
+          tempo: state.keystones.tempo < 6 ? state.keystones.tempo + 1 : 0,
+        }        
       }
 
-    case 'reset':
+    case 'reset-keystones':
       return {
         ...state,
-        ...initialRunesEffects
+        keystones: {
+          ...initialRunesEffects.keystones
+        }        
+      };
+      
+    case 'reset-path':
+      return {
+        ...state,
+        path: {
+          ...initialRunesEffects.path
+        }        
+      };  
+
+    case 'toggleSuddenImpact':
+      return {
+        ...state,
+        path: {
+          ...state.path,
+          suddenImpact: !state.path.suddenImpact
+        }
+      };
+
+    case 'eyeball': 
+      return {
+        ...state,
+        path: {
+          ...state.path,
+          eyeballCollector: state.path.eyeballCollector < 10 ? state.path.eyeballCollector + 1 : 0,
+        }
+      };
+
+    case 'zombie ward': 
+      return {
+        ...state,
+        path: {
+          ...state.path,
+          zombieWard: state.path.zombieWard < 5 ? state.path.zombieWard + 1 : 0,
+        }
       };
 
     default:
@@ -232,10 +295,23 @@ const runeFormulas = useMemo(()=>{
   };
 
   const lethalTempo = {
-    base: runesEffects.tempoType === 'ranged' ? 4 : 7,
+    base: runesEffects.keystones.tempoType === 'ranged' ? 4 : 7,
     growth: 6,
-    bonus: runesEffects.tempo === 6 ? 40 : 0,
-    stacks: runesEffects.tempo
+    bonus: runesEffects.keystones.tempo === 6 ? 40 : 0,
+    stacks: runesEffects.keystones.tempo
+  }
+
+  const shieldBash = {
+    damage: {
+      base: 15,
+      growth: 35,
+      modifier: (bonus.attack * 15 / 100) + (atk.ap * 10 / 100)
+    }
+  }
+
+  const empoweredAA = {
+    base: 35,
+    growth: 15,
   }
   
   return { 
@@ -270,9 +346,9 @@ const runeFormulas = useMemo(()=>{
 
     conqueror:{
       bonus: damagetype === 'physical' ? 
-       ((conqueror.ad.base + conqueror.ad.growth/14*(currentLevel-1))*runesEffects.conqueror) :
-       ((conqueror.ap.base + conqueror.ap.growth/14*(currentLevel-1))*runesEffects.conqueror),
-      stacks: runesEffects.conqueror
+       ((conqueror.ad.base + conqueror.ad.growth/14*(currentLevel-1))*runesEffects.keystones.conqueror) :
+       ((conqueror.ap.base + conqueror.ap.growth/14*(currentLevel-1))*runesEffects.keystones.conqueror),
+      stacks: runesEffects.keystones.conqueror
     },
 
     fleetFootwork: {
@@ -309,6 +385,28 @@ const runeFormulas = useMemo(()=>{
 
     lethalTempo: {
       as: champ.asBase * ((lethalTempo.base + lethalTempo.growth/14*(currentLevel-1))*lethalTempo.stacks + lethalTempo.bonus)/100
+    },
+
+    shieldBash: {
+      damage: {
+        raw: shieldBash.damage.base + shieldBash.damage.growth/14 * (currentLevel-1) + shieldBash.damage.modifier,
+        mitigated: (shieldBash.damage.base + shieldBash.damage.growth/14 * (currentLevel-1) + shieldBash.damage.modifier) * (1 - (damagetype === 'physical' ? mod.defPhysRed : def.defMagRed))
+      }
+    },
+
+    empoweredAA: {
+      raw: empoweredAA.base + empoweredAA.growth/14*(currentLevel -1),
+      mitigated: empoweredAA.base + empoweredAA.growth/14*(currentLevel -1) * (1 - (damagetype === 'physical' ? mod.defPhysRed : def.defMagRed)),
+    },
+
+    eyeballCollector: {
+      bonus: (runesEffects.path.eyeballCollector + (runesEffects.path.eyeballCollector === 10 ? 10 : 0)) * (damagetype === 'magical' ? 2 : 1),
+      type: damagetype === 'magical' ? <span className='stat--ap'>Ability Power</span> : <span className='stat--ad'>Attack Damage</span>
+    },
+
+    zombieWard: {
+      bonus: (runesEffects.path.zombieWard * (damagetype === 'magical' ? 6 : 3) + (runesEffects.path.zombieWard === 5 ? damagetype === 'magical' ? 20 : 10 : 0)),
+      type: damagetype === 'magical' ? <span className='stat--ap'>Ability Power</span> : <span className='stat--ad'>Attack Damage</span>
     }
 
   }
@@ -317,12 +415,21 @@ const runeFormulas = useMemo(()=>{
 // effect for updating constant bonuses from runes
 useEffect(() => {
   const payload = {
-    attack: (runeFormulas.damagetype.type === 'physical' ? runeFormulas.conqueror.bonus : 0),
-    ap: (runeFormulas.damagetype.type === 'magical' ? runeFormulas.conqueror.bonus : 0),
-    health: (runesEffects.grasp * 5),
-    armor: (runesEffects.aftershock ? runeFormulas.aftershock.defence.armor : 0),
-    magres: (runesEffects.aftershock ? runeFormulas.aftershock.defence.magres : 0),
+    attack: (runeFormulas.damagetype.type === 'physical' ? runeFormulas.conqueror.bonus : 0) + (runeFormulas.damagetype.type === 'physical' ? runesEffects.path.eyeballCollector : 0) + (runeFormulas.damagetype.type === 'physical' && runesEffects.path.eyeballCollector === 10 ? 10 : 0) + (runeFormulas.damagetype.type === 'physical' ? (runesEffects.path.zombieWard * 3) : 0) + (runeFormulas.damagetype.type === 'physical' && runesEffects.path.zombieWard === 5 ? 10 : 0),
+
+    ap: (runeFormulas.damagetype.type === 'magical' ? runeFormulas.conqueror.bonus : 0) + (runeFormulas.damagetype.type === 'magical' ? (runesEffects.path.eyeballCollector * 2) : 0) + (runeFormulas.damagetype.type === 'magical' && runesEffects.path.eyeballCollector === 10 ? 20 : 0) + (runeFormulas.damagetype.type === 'magical' ? (runesEffects.path.zombieWard * 6) : 0) + (runeFormulas.damagetype.type === 'magical' && runesEffects.path.zombieWard === 5 ? 20 : 0),
+
+    health: (runesEffects.keystones.grasp * 5),
+
+    armor: (runesEffects.keystones.aftershock ? runeFormulas.aftershock.defence.armor : 0),
+
+    magres: (runesEffects.keystones.aftershock ? runeFormulas.aftershock.defence.magres : 0),
+
     as: (runeFormulas.lethalTempo.as),
+
+    flatArmPen: (runesEffects.path.suddenImpact ? 13 : 0),
+
+    flatMagPen: (runesEffects.path.suddenImpact ? 13 : 0),
   }
 
   updateRunesEffects(payload)
@@ -383,7 +490,7 @@ const keystones = [
   description:  <div className='runeDescription'>
   <p>Gain stacks of Adaptive Force when hitting a champion with separate attacks or abilities. Stacks up to 6 times. When fully stacked, gain bonus omnivamp</p>
 
-  <p>Stacks: {runesEffects.conqueror}</p>
+  <p>Stacks: {runesEffects.keystones.conqueror}</p>
   <button type='button' onClick={() => dispatch({ type: 'conqueror' })}>Change Stacks</button>
 
   <p>Active bonus: {runeFormulas.damagetype.description} {Math.round(runeFormulas.conqueror.bonus)}</p>
@@ -455,13 +562,13 @@ const keystones = [
           Set your <span className="stat--armor">Grasp</span> stacks:
           {' '}<input
             type="number"
-            value={runesEffects.grasp}
+            value={runesEffects.keystones.grasp}
             onChange={(e) => {dispatch({type: 'grasp', payload: e.target.value})}}
           />
         </label>            
         <ul>
-          <li>Stacks: {runesEffects.grasp}</li>
-          <li>Bonus health: <span className='stat--hp'>{(runesEffects.grasp * 5)}</span> </li>
+          <li>Stacks: {runesEffects.keystones.grasp}</li>
+          <li>Bonus health: <span className='stat--hp'>{(runesEffects.keystones.grasp * 5)}</span> </li>
         </ul>
       </div>
 </div>,
@@ -497,7 +604,7 @@ const keystones = [
 
     <p>toggle active Defence bonus:</p>
     <p>
-      Bonus: {runesEffects.aftershock ? 'active' : 'unactive'};
+      Bonus: {runesEffects.keystones.aftershock ? 'active' : 'unactive'};
     </p>
     <p>
       <button onClick={() => {dispatch({type: 'toggleAftershock'})}}>toggle bonus</button>
@@ -514,14 +621,14 @@ const keystones = [
       Gain stacks of attack speed when attacking enemy champions. Stacks up to 6 times, stacks lasts for 6 seconds. When fully stacked, you gain Bonus Attack Speed and can exceed <strong title='2.5 attacks per second'>*Attack Speed Cap</strong>.
     </p>
     <p>
-      Stacks: {runesEffects.tempo}
+      Stacks: {runesEffects.keystones.tempo}
     </p>
     <p>
       Attack Speed Bonus: {(runeFormulas.lethalTempo.as).toFixed(3)}
     </p>
 
      <p>
-      Current bonus type: {runesEffects.tempoType}
+      Current bonus type: {runesEffects.keystones.tempoType}
      </p>
      <p>
       Switch bonus types  and stacks 
@@ -565,32 +672,307 @@ const keystones = [
 
 ];
 
+const mainRunes = [
+  {
+    path: 'Domination',
+    path_Id: '763258c4-3c21-4a77-bb40-04f1c3254fc4',
+    icon: '../images/runes/domination.webp',
+    runes: [
+      {
+        name: 'Scorch',
+        icon: '../images/runes/scorch.webp',
+        id: '7cea6e4f-010c-4bb9-948c-fe61fbea2968',
+        slot: 0,
+        description: <div className='runeDescription'>
+          <p>
+            Damaging an enemy with an ability deals an additional 28-42 (based on level) <span className='stat--ap'>magic damage</span> after 1 second (8 seconds cooldown).
+          </p>
+
+          <p>
+            Damage (pre- / post-mitigation): <span className='stat--ap'>{Math.round(28 + (currentLevel - 1))}</span> / <span className='stat--ap'>{Math.round((28 + (currentLevel - 1)) * (1 - mod.atkMagRed))}</span>
+          </p>          
+        </div>
+      },
+
+      {
+        name: 'Shield Bash',
+        icon: '../images/runes/shieldBash.webp',
+        id: 'e1cf17ea-2aba-4e88-9d20-71640ca4871b',
+        slot: 0,
+        description: <div className='runeDescription'>
+          <p>Damage (pre- / post-mitigation): {Math.round(runeFormulas.shieldBash.damage.raw)} / {Math.round(runeFormulas.shieldBash.damage.mitigated)} {runeFormulas.damagetype.description} damage.</p>
+
+          <p>
+            After gaining a healing or shielding effect, your next attack on an enemy champion is empowered to deal 15-50 (based on level) (<span className='stat--ad'>+15 bonus AD</span>) (<span className='stat--ap'>+10% AP</span>) bonus adaptive damage. Empowered attack goes on cooldown after 5 seconds of shield expiring. 
+          </p>
+
+          <p>
+            7 Seconds cooldown.
+          </p>
+        </div>
+      },
+
+      {
+        name: 'Sudden Impact',
+        icon: '../images/runes/suddenImpact.webp',
+        id: '95347d1b-0597-4b95-aade-d4cd886c645d',
+        slot: 0,
+        description: <div className='runeDescription'>
+          <p>
+            Effect is: {runesEffects.path.suddenImpact ? <span className='stat--hp'>Active</span> : <span className='stat--vamp'>Disabled</span>}.
+          </p>
+          <p>
+            <button onClick={()=> {dispatch({type:'toggleSuddenImpact'})}}>Switch bonus penetration effect</button>
+          </p>
+          <p>After Exiting stealth or Using a dash, leap, blink, or teleport effect, damaging an enemy champion grants you <span className='stat--armor'>13 Armor Penetration</span> and <span className='stat--magres'>13 Magic Penetration </span>for 4 seconds.</p>
+
+          <p>
+            4 Seconds cooldown.
+          </p>
+        </div>
+      },
+
+      {
+        name: 'Empowered Attack',
+        icon: '../images/runes/empoweredAttack.webp',
+        id:'6a16395f-ef11-4565-8894-1545edb4e612',
+        slot: 1,
+        description: <div className='runeDescription'>
+          <p>Every 10 seconds the next attack will be empowered, dealing 35-50 (based on level) bonus adaptive damage</p>
+
+          <p>
+            Bonus (pre/post mitigation): {Math.round(runeFormulas.empoweredAA.raw)} / {Math.round(runeFormulas.empoweredAA.mitigated)} {runeFormulas.damagetype.description} damage
+          </p>
+        </div>
+      },
+
+      {
+        name: 'Cheap Shot',
+        icon: '../images/runes/cheapShot.webp',
+        id: 'a42d3c1c-b0cf-4a0c-8ae2-c1ac5d4c9eb6',
+        slot: 1,
+        description: <div className='runeDescription'>
+          <p>
+            Deal <span className='stat--vamp'>{10 + 35/14*(currentLevel-1)}</span> (10-45 based on level) bonus true damage to enemies whose movement is impaired.
+          </p>          
+        </div>
+      },
+
+      {
+        name: 'Mark of the Weak',
+        icon: '../images/runes/markOfTheWeak.webp',
+        id: '699413fd-ea39-4e40-96d5-0ef4d09d1240',
+        slot: 1,
+        description: <div className='runeDescription'>
+          <p>
+            Using abilities to deal damage to deal damage to enemy champions marks them as weak, increasing damage taken by 4%-7% (increased at level 5, 9, 13).
+          </p>
+          <p>
+            The mark disappears after they take ability damage 3 times or after 7 seconds.
+          </p>
+
+          <p>
+            coldown: 15 seconds
+          </p>
+        </div>
+      },
+
+      {
+        name: 'Eyeball Collector',
+        icon: '../images/runes/eyeballCollector.webp',
+        id: '09792921-c845-4e66-8f44-b2d34b1b4654',
+        slot: 2,
+        description: <div className='runeDescription'>
+        <p>
+          Current Stacks: {runesEffects.path.eyeballCollector}
+        </p>
+
+        <p>
+          Bonus: {runeFormulas.eyeballCollector.bonus} {runeFormulas.eyeballCollector.type}
+        </p>
+
+        <p>
+          <button onClick={() => {dispatch({type:'eyeball'})}}>Change stacks amount</button>
+        </p>
+
+        <p>
+          Gain <span className='stat--ad'>1 Attack Damage</span> or <span className='stat--ap'>2 Ability Power</span> after each enemy takedown stacking up to 10 times.
+        </p> 
+
+        <p>
+          At 10 stacks gain bonus <span className='stat--ad'>10 Attack Damage</span> or <span className='stat--ap'>20 Ability Power</span>
+        </p>
+        </div>
+      },
+
+      {
+        name: 'Ingenious Hunter',
+        icon: '../images/runes/ingeniousHunter.webp',
+        id: '35673a93-0283-4944-8182-210570657f08',
+        slot: 2,
+        description: <div className='runeDescription'>
+          Gain 20 Item Ability Haste. Gain a bonus 5 Item Ability Haste after each unique enemy champion takedown. Stacks up to 5 times.
+        </div>
+      },
+
+      {
+        name: 'Zombie Ward',
+        icon: '../images/runes/zombieWard.webp',
+        id: '06409904-eec6-48ec-982e-48cf34517bf1',
+        slot: 2,
+        description: <div className='runeDescription'>
+           <p>
+          Current Stacks: {runesEffects.path.zombieWard}
+        </p>
+
+        <p>
+          Bonus: {runeFormulas.zombieWard.bonus} {runeFormulas.zombieWard.type}
+        </p>
+
+        <p>
+          <button onClick={() => {dispatch({type:'zombie ward'})}}>Change stacks amount</button>
+        </p>
+
+          <p>
+            Removing an enemy ward (excluding Zombie Wards) within 10 seconds of damaging it will summon an allied Zombie Ward in its place. Zombie ward has 1 health and lasts for 120 seconds.
+          </p>
+          
+          <p>
+          Gain <span className='stat--ad'>3 Attack Damage</span> or <span className='stat--ap'>6 Ability Power</span> for each ward takedown stacking up to 5 times.
+          </p>
+
+          <p>
+          At 5 stacks gain bonus <span className='stat--ad'>10 Attack Damage</span> or <span className='stat--ap'>20 Ability Power</span>
+        </p>
+        </div>
+      }
+    ]
+  }
+]
+
 // tracking the runes that are active for current champion
 const [chosenRunes, setChosenRunes] = useState({
-  keystone: keystones[0].id
+  keystone: keystones[0].id,
+  path: mainRunes[0].path_Id,
+  primary: [mainRunes[0].runes[0].id, mainRunes[0].runes[3].id, mainRunes[0].runes[6].id],
+  secondary: ''
 });
 
 const updateKeystone = (e) => {
-  dispatch({type:'reset'})
+  dispatch({type:'reset-keystones'})
   setChosenRunes(oldRunes => ({
     ...oldRunes,
     keystone: e.target.value
   }));
 };
 
+const updateRunePath = (e) => {
+  dispatch({type:'reset-path'})
+  setChosenRunes(oldRunes => ({
+    ...oldRunes,
+    path: e.target.value
+  }));
+};
+
+const updateMainRune = (e, index) => {
+    dispatch({ type: 'reset-path' });
+    setChosenRunes((oldRunes) => ({
+      ...oldRunes,
+      primary: oldRunes.primary.map((value, i) => (i === index ? e.target.value : value)),
+    }));
+  };
+
+const mainRune = (index) => {
+  const selectedPath = mainRunes.find((path) => path.path_Id === chosenRunes.path);
+  if (selectedPath) {
+    const selectedRune = selectedPath.runes.find((rune) => rune.id === chosenRunes.primary[index]);
+    if (selectedRune) {
+      return (
+        <><h3 className='runeName'>{selectedRune.name}</h3>
+      <img src={selectedRune.icon} alt={selectedRune.name} />
+      {selectedRune.description}</>
+      );
+    }
+  }
+  return <p>No description available for the selected rune.</p>;
+};
+
+
+
 return (
   <div className='runeWrapper'>
-    <select name="keystoneselector" id="rune_main" onChange={updateKeystone} value={chosenRunes.keystone}>
+    <select name="keystoneselector" id="keystone-selector" onChange={updateKeystone} value={chosenRunes.keystone}>
       <option value="" disabled>Select a keystone</option>
       {keystones.map((keystone) => (
         <option key={keystone.id} value={keystone.id}>{keystone.name}</option>
       ))}
-    </select>
+    </select> 
 
     <div className='keystoneTile'>
       <h3 className='runeName'>{keystones.find(k => k.id === chosenRunes.keystone)?.name}</h3>
       <img src={keystones.find(k => k.id === chosenRunes.keystone)?.icon} alt={chosenRunes.keystone.name} />
       {keystones.find(k => k.id === chosenRunes.keystone)?.description}
+    </div>
+
+    <select name="primary-runes" id="rune-primary-selector" onChange={updateRunePath} value={chosenRunes.path}>
+      <option value='' disabled>Select a path</option>
+      {mainRunes.map((paths) => (
+        <option key={paths.path_Id} value={paths.path_Id}>{paths.path}</option>
+      ))}
+    </select>
+
+    <div className='runeTile'>
+        <select name="primary-slot-1" id="rune-primary-1" value={chosenRunes.primary[0]} onChange={(e) => updateMainRune(e, 0)}>
+        <option value='' disabled>Select a rune</option>
+      {mainRunes
+        .filter((path) => path.path_Id === chosenRunes.path)
+        .flatMap((item) =>
+          item.runes
+            .filter((rune) => rune.slot === 0)
+            .map((rune) => (
+              <option value={rune.id} key={rune.id}>
+                {rune.name}
+              </option>
+            ))
+        )}
+    </select>
+    {mainRune(0)}
+    </div>
+
+    <div className='runeTile'>
+        <select name="primary-slot-2" id="rune-primary-2" value={chosenRunes.primary[1]} onChange={(e) => updateMainRune(e, 1)}>
+          <option value='' disabled>Select a rune</option>
+      {mainRunes
+        .filter((path) => path.path_Id === chosenRunes.path)
+        .flatMap((item) =>
+          item.runes
+            .filter((rune) => rune.slot === 1)
+            .map((rune) => (
+              <option value={rune.id} key={rune.id}>
+                {rune.name}
+              </option>
+            ))
+        )}
+    </select>
+    {mainRune(1)}
+    </div>
+
+    <div className='runeTile'>
+        <select name="primary-slot-3" id="rune-primary-3" value={chosenRunes.primary[2]} onChange={(e) => updateMainRune(e, 2)}>
+          <option value='' disabled>Select a rune</option>
+      {mainRunes
+        .filter((path) => path.path_Id === chosenRunes.path)
+        .flatMap((item) =>
+          item.runes
+            .filter((rune) => rune.slot === 2)
+            .map((rune) => (
+              <option value={rune.id} key={rune.id}>
+                {rune.name}
+              </option>
+            ))
+        )}
+    </select>
+    {mainRune(2)}
     </div>
   </div>
 );
