@@ -148,6 +148,9 @@ const statGrowth = function(mod) {
     as: 0,
     flatArmPen: 0,
     flatMagPen : 0,
+    ah: 0,
+    moveSpeed: 0,
+    mana: 0,
   })
 
   const updateRunesEffects = (updatedValues) => {
@@ -327,7 +330,7 @@ const statGrowth = function(mod) {
         attackMod = Math.round((baseStats.attack + itemBonus.attack + runesEffects.attack)*((5+55/14*(currentLevel-1))/100 + ((itemBonus.as+ runesEffects.as)*(14 + (17/14*(currentLevel - 1))))/(champ.asBase*100) + (itemBonus.critChance*(23 + (26/14*(currentLevel - 1))))/100));
         break;
       case 'Hecarim':
-        attackMod = Math.round(itemBonus.moveSpeed * 12 / 100);
+        attackMod = Math.round((itemBonus.moveSpeed + runesEffects.moveSpeed) * 12 / 100);
         break;
       case 'Senna':
         attackMod = abilitiesBonus.sennaP;
@@ -457,7 +460,7 @@ const statGrowth = function(mod) {
   //Movement Speed
   switch (champ.name) {
     case 'Janna':
-      moveSpeedMod = (baseStats.moveSpeed + itemBonus.moveSpeed) * 5 / 100;
+      moveSpeedMod = (baseStats.moveSpeed + itemBonus.moveSpeed + runesEffects.moveSpeed) * 5 / 100;
       break;
     case 'Singed':
       if (abilitiesBonus.singedR === 0) {
@@ -544,9 +547,9 @@ const statGrowth = function(mod) {
     const rabadon = itemEffects.rabadon ? ((itemBonus.ap + championModifier.ap) * (20 + (25/14 * (currentLevel - 1))) / 100) : 0;
     const twinguardAR = itemEffects.twinguard ? ((baseStats.armor + itemBonus.armor + championModifier.armor) * 30 / 100) : 0;
     const twinguardMR = itemEffects.twinguard ? ((baseStats.magres + itemBonus.magres + championModifier.magres) * 30 / 100) : 0;
-    const seraphs = itemEffects.seraphs ? ((baseStats.mana? baseStats.mana + itemBonus.mana : itemBonus.mana) * 3/100) : 0;
-    const muramana = itemEffects.muramana ? ((baseStats.mana? baseStats.mana + itemBonus.mana : itemBonus.mana) * 1.5/100) : 0;
-    const fimbulwinter = itemEffects.fimbulwinter ? ((baseStats.mana? baseStats.mana + itemBonus.mana : itemBonus.mana) * 8/100) : 0;
+    const seraphs = itemEffects.seraphs ? ((baseStats.mana? baseStats.mana + itemBonus.mana + runesEffects.mana : itemBonus.mana + runesEffects.mana) * 3/100) : 0;
+    const muramana = itemEffects.muramana ? ((baseStats.mana? baseStats.mana + itemBonus.mana  + runesEffects.mana : itemBonus.mana  + runesEffects.mana) * 1.5/100) : 0;
+    const fimbulwinter = itemEffects.fimbulwinter ? ((baseStats.mana? baseStats.mana + itemBonus.mana  + runesEffects.mana : itemBonus.mana  + runesEffects.mana) * 8/100) : 0;
     const lastWhisper = itemEffects.lastWhisper ? ((15 + Number(currentLevel))/100) : 0;
     const forceOfNature = itemEffects.forceOfNature;
     const bootsPassive = itemEffects.bootsPassive;
@@ -602,8 +605,8 @@ const statGrowth = function(mod) {
 
   const bonusStats = useMemo(() => {
     const combiner = {
-      health: champ.name !== 'Pyke' ? itemBonus.health + itemEffectsMemo.health + runesEffects.health : 0,
-      mana: itemBonus.mana,
+      health: champ.name !== 'Pyke' ? itemBonus.health + itemEffectsMemo.health : 0,
+      mana: itemBonus.mana + runesEffects.mana,
       armor: itemBonus.armor + championModifier.armor + itemEffectsMemo.armor,
       magres: itemBonus.magres + championModifier.magres + itemEffectsMemo.magres,
       attack: itemBonus.attack + championModifier.attack + itemEffectsMemo.attack + runesEffects.attack,
@@ -619,8 +622,8 @@ const statGrowth = function(mod) {
       magResReduction: itemBonus.magResReduction,
 
 
-      moveSpeed: itemBonus.moveSpeed + championModifier.moveSpeed,
-      ah: itemBonus.ah,
+      moveSpeed: itemBonus.moveSpeed + championModifier.moveSpeed + runesEffects.moveSpeed,
+      ah: itemBonus.ah + runesEffects.ah,
 
       critChance: championModifier.critChance,
       critMultiplier: championModifier.critMultiplier,
@@ -664,7 +667,7 @@ const statGrowth = function(mod) {
   
   const totalMemo = useMemo(() => {
     const combiner = {
-      health: champ.name !== 'Pyke' ? championModifier.health + itemBonus.health + itemEffectsMemo.health : baseStats.health,
+      health: champ.name !== 'Pyke' ? championModifier.health + itemEffectsMemo.health : baseStats.health,
       mana: champ.manaBase ? baseStats.mana + bonusStats.mana : bonusStats.mana,
       armor: baseStats.armor + bonusStats.armor + runesEffects.armor,
       magres: baseStats.magres + bonusStats.magres + runesEffects.magres,

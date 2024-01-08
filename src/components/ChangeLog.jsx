@@ -19,6 +19,7 @@ export default function ChangeLog() {
 
           <p>latest updates:</p>
           <ul>
+            <li>Night of 08-09.01 Runes finished</li>
             <li>Keystones implemented</li>
             <li>29.12 Added Zyra, updated for 4.4d, Added Malphite passive armor from W with switch on ability page;</li>
             <li>07.12 Updated for 4.4c</li>

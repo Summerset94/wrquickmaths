@@ -14,84 +14,6 @@ const Runes = ({champ, currentLevel, index, bonus, updateRunesEffects}) => {
 const atk = totalStats[index === 1 ? 0 : 1];
 const def = totalStats[index === 1 ? 1 : 0];
 
-// Memo to track the defenders resistances change
-const mod = useMemo(() => {
-
-  const postMitigationArmor = (target, attacker) => {
-    let mitigatedArmor = 0
-    if (attacker.armorReduction && (target.armor * (1 - attacker.armorReduction) <= 0)) {
-      return (target.armor * (1 - attacker.armorReduction))
-    } else if (attacker.armorReduction) { 
-     
-      mitigatedArmor = ((target.armor * (1 - attacker.armorReduction)) * (1 - attacker.armPen) - attacker.flatArmPen);
-     
-      return (Math.max(mitigatedArmor, 0))
-
-    } else {
-      mitigatedArmor = (target.armor * ((1 - attacker.armPen)) - attacker.flatArmPen)
-
-      return (Math.max(mitigatedArmor, 0))
-    }
-  };
-
-  const postMitigationMres = (target, attacker) => {
-    let mitigatedMres = 0
-    if (attacker.magResReduction && (target.magres - attacker.magResReduction <= 0)) {
-      return Math.round(target.magres - attacker.magResReduction)
-    } else if (attacker.magResReduction) { 
-     
-      mitigatedMres = ((target.magres - attacker.magResReduction) * (1 - attacker.magPen) - attacker.flatMagPen);
-     
-      return Math.round(Math.max(mitigatedMres, 0))
-
-    } else {
-      mitigatedMres = (target.magres * (1 - attacker.magPen) - attacker.flatMagPen)
-
-      return Math.round(Math.max(mitigatedMres, 0))
-    }
-  };
-
-  
-
-  const physicalDamageReduction = (postMitigationArmor, champ) => {
-    return ((1 - (100/(100 + (postMitigationArmor))))*100*(1 + (champ.bootsPassive === 'Steelcaps' ? 0.1 : 0)));
-  };
-
-  const magicalDamageReduction = (postMitigationMres, champ) => {
-    return ((1 - (100/(100 + (postMitigationMres))))*100*(1 + (champ.bootsPassive === 'Mercury' ? 12 : 0) + (champ.fonEffect ? 25 : 0)));
-  };
-
-  const postMitigationArmorAttacker = postMitigationArmor(atk ,def);
-  const postMitigationArmorDefender = postMitigationArmor(def, atk);
-
-  const postMitigationMresAttacker = postMitigationMres(atk ,def);
-  const postMitigationMresDefender = postMitigationMres(def ,atk);
-
-  const physicalReductionAttacker = physicalDamageReduction(postMitigationArmorAttacker, atk);
-  const physicalReductionDefender = physicalDamageReduction(postMitigationArmorDefender, def);
-
-  const magicalReductionAttacker = magicalDamageReduction(postMitigationMresAttacker, atk);
-  const magicalReductionDefender = magicalDamageReduction(postMitigationMresDefender, def);
-
-  return {
-    attackerArmor: postMitigationArmorAttacker,
-    attackerMres: postMitigationMresAttacker,
-    atkPhysRed: physicalReductionAttacker/100,
-    atkMagRed: magicalReductionAttacker/100,
-    atkcdr:(1 - atk.cdr),
-
-
-    defenderArmor: postMitigationArmorDefender,
-    defenderMres: postMitigationMresDefender,
-    defPhysRed: physicalReductionDefender/100,
-    defMagRed: magicalReductionDefender/100,
-    defcdr:(1 - def.cdr)
-
-  }
-},
-[atk, def]);
-
-
 // useReducer hook for tracking runes effects that have constant impact on character
 const initialRunesEffects = {
   keystones: {
@@ -106,6 +28,15 @@ const initialRunesEffects = {
     suddenImpact: false,
     eyeballCollector: 0,
     zombieWard: 0,
+    gatheringStorm: 0,
+    legendAlacrity: 0,
+    loyalty: false,
+    overgrowth: 0,
+    perseverance: false,
+    transcendence: false,
+    pathfinder: false,
+    turretPlates: 0,
+    manaflow: 0,
   }, 
   
 };
@@ -202,12 +133,200 @@ const runesEffectsReducer = (state, action) => {
         }
       };
 
+    case 'gathering storm':
+      return {
+        ...state,
+        path: {
+          ...state.path,
+          gatheringStorm: parseInt(action.payload) || 0
+        }
+      }
+
+    case 'legend alacrity':
+      return {
+        ...state,
+        path: {
+          ...state.path,
+          legendAlacrity: (parseInt(action.payload) + 3) || 0
+        }
+      }
+
+    case 'toggleLoyalty':
+      return {
+        ...state,
+        path: {
+          ...state.path,
+          loyalty: !state.path.loyalty
+        }
+      };
+
+
+    case 'overgrowth':
+      return {
+        ...state,
+        path: {
+          ...state.path,
+          overgrowth: parseInt(action.payload) || 0
+        }
+      };
+
+    case 'togglePerseverance':
+      return {
+        ...state,
+        path: {
+          ...state.path,
+          perseverance: !state.path.perseverance
+        }
+      };
+
+    case 'toggleTranscendence':
+      return {
+        ...state,
+        path: {
+          ...state.path,
+          transcendence: !state.path.transcendence
+        }
+      };
+
+    case 'togglePathfinder':
+      return {
+        ...state,
+        path: {
+          ...state.path,
+          pathfinder: !state.path.pathfinder
+        }
+      };
+
+    case 'plates': 
+    return {
+      ...state,
+      path: {
+        ...state.path,
+        turretPlates: state.path.turretPlates < 4 ? state.path.turretPlates + 1 : 0
+      }
+    }; 
+    
+    case 'manaflow': 
+    return {
+      ...state,
+      path: {
+        ...state.path,
+        manaflow: state.path.manaflow < 10 ? state.path.manaflow + 1 : 0
+      }
+    };
+
+
     default:
       return state;
   }
 };
 
 const [runesEffects, dispatch] = useReducer(runesEffectsReducer, initialRunesEffects);
+
+// Memo to track the defenders resistances change
+const mod = useMemo(() => {
+
+  let turretArmor = {
+    armor: 25
+  };
+
+  
+  
+
+  switch (runesEffects.path.turretPlates) {
+    case 0:
+      turretArmor.armor = 25;
+      break;
+    case 1: 
+      turretArmor.armor = 65;
+      break;
+    case 2:
+      turretArmor.armor = 105;
+      break;
+    case 3:
+      turretArmor.armor = 185;
+      break;
+    case 4:
+      turretArmor.armor = 265;
+      break;
+
+  }
+  
+
+
+
+  const postMitigationArmor = (target, attacker) => {
+    let mitigatedArmor = 0
+    if (attacker.armorReduction && (target.armor * (1 - attacker.armorReduction) <= 0)) {
+      return (target.armor * (1 - attacker.armorReduction))
+    } else if (attacker.armorReduction) { 
+     
+      mitigatedArmor = ((target.armor * (1 - attacker.armorReduction)) * (1 - attacker.armPen) - attacker.flatArmPen);
+     
+      return (Math.max(mitigatedArmor, 0))
+
+    } else {
+      mitigatedArmor = (target.armor * ((1 - attacker.armPen)) - attacker.flatArmPen)
+
+      return (Math.max(mitigatedArmor, 0))
+    }
+  };
+
+  const postMitigationMres = (target, attacker) => {
+    let mitigatedMres = 0
+    if (attacker.magResReduction && (target.magres - attacker.magResReduction <= 0)) {
+      return Math.round(target.magres - attacker.magResReduction)
+    } else if (attacker.magResReduction) { 
+     
+      mitigatedMres = ((target.magres - attacker.magResReduction) * (1 - attacker.magPen) - attacker.flatMagPen);
+     
+      return Math.round(Math.max(mitigatedMres, 0))
+
+    } else {
+      mitigatedMres = (target.magres * (1 - attacker.magPen) - attacker.flatMagPen)
+
+      return Math.round(Math.max(mitigatedMres, 0))
+    }
+  };
+
+  
+
+  const physicalDamageReduction = (postMitigationArmor, champ) => {
+    return ((1 - (100/(100 + (postMitigationArmor))))*100*(1 + (champ.bootsPassive === 'Steelcaps' ? 0.1 : 0)));
+  };
+
+  const magicalDamageReduction = (postMitigationMres, champ) => {
+    return ((1 - (100/(100 + (postMitigationMres))))*100*(1 + (champ.bootsPassive === 'Mercury' ? 12 : 0) + (champ.fonEffect ? 25 : 0)));
+  };
+  
+  const postMitigationArmorDefender = postMitigationArmor(def, atk);
+  const postMitigationArmorTurret = postMitigationArmor(turretArmor, atk);
+
+  const postMitigationMresDefender = postMitigationMres(def ,atk);
+
+  
+  const physicalReductionDefender = physicalDamageReduction(postMitigationArmorDefender, def);
+
+  const physicalReductionTurret = physicalDamageReduction(postMitigationArmorTurret, def);
+
+  
+  const magicalReductionDefender = magicalDamageReduction(postMitigationMresDefender, def);
+
+  return {
+    
+    
+    atkcdr:(1 - atk.cdr),    
+    defPhysRed: physicalReductionDefender/100,
+    defMagRed: magicalReductionDefender/100,
+    defcdr:(1 - def.cdr),
+
+    turretMod: physicalReductionTurret/100
+
+
+
+  }
+},
+[atk, def, runesEffects]);
 
 // calculations of runes effects
 const runeFormulas = useMemo(()=>{
@@ -313,6 +432,23 @@ const runeFormulas = useMemo(()=>{
     base: 35,
     growth: 15,
   }
+
+  const GSformula = function(stacks, firstValue, incrementation) {
+    return (stacks / 2) * (2 * firstValue + (stacks - 1) * incrementation);
+  };  
+
+  const colossus = {
+    base: 25,
+    growth: 20,
+    modifier: (atk.health * 1 / 100)
+  }
+
+  const nullOrb = {
+    base: 60,
+    growth: 130
+  }
+
+  
   
   return { 
 
@@ -407,33 +543,69 @@ const runeFormulas = useMemo(()=>{
     zombieWard: {
       bonus: (runesEffects.path.zombieWard * (damagetype === 'magical' ? 6 : 3) + (runesEffects.path.zombieWard === 5 ? damagetype === 'magical' ? 20 : 10 : 0)),
       type: damagetype === 'magical' ? <span className='stat--ap'>Ability Power</span> : <span className='stat--ad'>Attack Damage</span>
-    }
+    },
+
+    gatheringStorm: {
+      type: damagetype === "physical" ? <span className='stat--ad'>Attack Damage</span> : <span className='stat--ap'>Ability Power</span>,
+      bonus: damagetype === 'physical' ? GSformula(runesEffects.path.gatheringStorm, 2 , 1) : GSformula(runesEffects.path.gatheringStorm, 4 , 2)
+    },
+
+    legendAlacrity: {
+      as: runesEffects.path.legendAlacrity > 0  ? (champ.asBase * (runesEffects.path.legendAlacrity + 3))/100 : 0,      
+    },
+
+    fontOfLife: {
+      healAlly: (atk.health * 3 / 100) + (atk.ap * 15 / 100),
+      healSelf: (atk.health * 1 / 100) + (atk.ap * 5 / 100)
+    },
+
+    colossus: {
+      shield: colossus.base + colossus.growth/14*(currentLevel-1) + colossus.modifier
+    },
+
+    nullOrb: {
+      shield: nullOrb.base + nullOrb.growth/14 * (currentLevel -1)
+    },
+
+    perseverance: 16 + 14/14*(currentLevel-1),
+
+    transcendence: currentLevel < 6 ? 6 : 12,
+
+    demolish: {
+      damage: (200 + atk.health * (30 / 100)) * (1 - mod.turretMod)
+    },
 
   }
-}, [mod, currentLevel, runesEffects])
+}, [mod, currentLevel, runesEffects, champ])
 
 // effect for updating constant bonuses from runes
 useEffect(() => {
   const payload = {
-    attack: (runeFormulas.damagetype.type === 'physical' ? runeFormulas.conqueror.bonus : 0) + (runeFormulas.damagetype.type === 'physical' ? runesEffects.path.eyeballCollector : 0) + (runeFormulas.damagetype.type === 'physical' && runesEffects.path.eyeballCollector === 10 ? 10 : 0) + (runeFormulas.damagetype.type === 'physical' ? (runesEffects.path.zombieWard * 3) : 0) + (runeFormulas.damagetype.type === 'physical' && runesEffects.path.zombieWard === 5 ? 10 : 0),
+    attack: (runeFormulas.damagetype.type === 'physical' ? runeFormulas.conqueror.bonus + runesEffects.path.eyeballCollector + (runesEffects.path.zombieWard * 3) + (runeFormulas.gatheringStorm.bonus) : 0) + (runeFormulas.damagetype.type === 'physical' && runesEffects.path.eyeballCollector === 10 ? 10 : 0) + (runeFormulas.damagetype.type === 'physical' && runesEffects.path.zombieWard === 5 ? 10 : 0),
 
-    ap: (runeFormulas.damagetype.type === 'magical' ? runeFormulas.conqueror.bonus : 0) + (runeFormulas.damagetype.type === 'magical' ? (runesEffects.path.eyeballCollector * 2) : 0) + (runeFormulas.damagetype.type === 'magical' && runesEffects.path.eyeballCollector === 10 ? 20 : 0) + (runeFormulas.damagetype.type === 'magical' ? (runesEffects.path.zombieWard * 6) : 0) + (runeFormulas.damagetype.type === 'magical' && runesEffects.path.zombieWard === 5 ? 20 : 0),
+    ap: (runeFormulas.damagetype.type === 'magical' ? runeFormulas.conqueror.bonus + (runesEffects.path.eyeballCollector * 2) + (runesEffects.path.zombieWard * 6) + (runeFormulas.gatheringStorm.bonus) : 0) + (runeFormulas.damagetype.type === 'magical' && runesEffects.path.eyeballCollector === 10 ? 20 : 0) + (runeFormulas.damagetype.type === 'magical' && runesEffects.path.zombieWard === 5 ? 20 : 0),
 
-    health: (runesEffects.keystones.grasp * 5),
+    health: (runesEffects.keystones.grasp * 5) + (runesEffects.path.overgrowth * 3) + (runesEffects.path.overgrowth > 29 ? (atk.health * 3.5 / 100) : 0),
 
-    armor: (runesEffects.keystones.aftershock ? runeFormulas.aftershock.defence.armor : 0),
+    mana: (runesEffects.path.manaflow * 30),
 
-    magres: (runesEffects.keystones.aftershock ? runeFormulas.aftershock.defence.magres : 0),
+    armor: (runesEffects.keystones.aftershock ? runeFormulas.aftershock.defence.armor : 0) + (runesEffects.path.loyalty ? 2 : 0) + (runesEffects.path.perseverance ? runeFormulas.perseverance : 0),
 
-    as: (runeFormulas.lethalTempo.as),
+    magres: (runesEffects.keystones.aftershock ? runeFormulas.aftershock.defence.magres : 0) + (runesEffects.path.loyalty ? 5 : 0) + (runesEffects.path.perseverance ? runeFormulas.perseverance : 0),
+
+    as: (runeFormulas.lethalTempo.as) + (runeFormulas.legendAlacrity.as),
 
     flatArmPen: (runesEffects.path.suddenImpact ? 13 : 0),
 
     flatMagPen: (runesEffects.path.suddenImpact ? 13 : 0),
+
+    ah: (runesEffects.path.transcendence ? runeFormulas.transcendence : 0),
+
+    moveSpeed: (runesEffects.path.pathfinder ? 50 : 0),
   }
 
   updateRunesEffects(payload)
-}, [runesEffects, currentLevel])
+}, [runesEffects, currentLevel, champ])
 
 // Array for storing keystones descriptions
 const keystones = [
@@ -579,7 +751,15 @@ const keystones = [
   icon: '../images/runes/aftershock.webp',
   id: 'a61d65e7-1b28-4e54-940f-0c3233617b3f',
   description: <div className='runeDescription'>
-    <p>After immobilizing an enemy champion, gain defences and deal a burst of magic damage around you</p>
+    
+
+    <p>
+      Defence bonus: {runesEffects.keystones.aftershock ? <span className='stat--hp'>Active</span> : <span className='stat--vamp'>Disabled</span>};
+    </p>
+    <p>
+      <button onClick={() => {dispatch({type: 'toggleAftershock'})}}>toggle defence bonus</button>
+    </p>
+
 
     <p>
       Damage (pre / post-mitigation): <span className='stat--ap'>{Math.round(runeFormulas.aftershock.damage.raw)} / {Math.round(runeFormulas.aftershock.damage.mitigated)} magic damage</span>
@@ -588,6 +768,8 @@ const keystones = [
     <p>
       Defence bonus: <span className='stat--armor'>{Math.round(runeFormulas.aftershock.defence.armor)} Armor</span> / <span className='stat--magres'>{Math.round(runeFormulas.aftershock.defence.magres)} Magic Resistance</span> 
     </p>
+
+    <p>After immobilizing an enemy champion, gain defences and deal a burst of magic damage around you</p>
 
     <p>
       Damage formula: 12-110 (based on level) (<span className='stat--hp'>
@@ -601,14 +783,8 @@ const keystones = [
     <p>
       Cooldown: 20 Seconds
     </p>
-
-    <p>toggle active Defence bonus:</p>
-    <p>
-      Bonus: {runesEffects.keystones.aftershock ? 'active' : 'unactive'};
-    </p>
-    <p>
-      <button onClick={() => {dispatch({type: 'toggleAftershock'})}}>toggle bonus</button>
-    </p>
+    
+    
   </div>,
  },
 
@@ -628,7 +804,7 @@ const keystones = [
     </p>
 
      <p>
-      Current bonus type: {runesEffects.keystones.tempoType}
+      Current bonus type: <u>{runesEffects.keystones.tempoType}</u>
      </p>
      <p>
       Switch bonus types  and stacks 
@@ -672,6 +848,7 @@ const keystones = [
 
 ];
 
+// Main runes broken down by rune paths
 const mainRunes = [
   {
     path: 'Domination',
@@ -689,7 +866,7 @@ const mainRunes = [
           </p>
 
           <p>
-            Damage (pre- / post-mitigation): <span className='stat--ap'>{Math.round(28 + (currentLevel - 1))}</span> / <span className='stat--ap'>{Math.round((28 + (currentLevel - 1)) * (1 - mod.atkMagRed))}</span>
+            Damage (pre- / post-mitigation): <span className='stat--ap'>{Math.round(28 + (currentLevel - 1))}</span> / <span className='stat--ap'>{Math.round((28 + (currentLevel - 1)) * (1 - mod.defMagRed))}</span>
           </p>          
         </div>
       },
@@ -847,7 +1024,533 @@ const mainRunes = [
         </div>
       }
     ]
+  },
+
+  { 
+  path: 'Precision',
+  path_Id: '3008a5ce-324f-4146-bdbb-19cc67f7f077',
+  icon: '../images/runes/precision.webp',
+  runes: [
+    {
+      name: 'Brutal',
+      icon: '../images/runes/brutal.webp',
+      id: 'fe664075-22a7-44d8-b5aa-35678f45dc59',
+      slot: 0,
+      description: <div className='runeDescription'>
+        <p>
+          Bonus: {Math.round(12 + (7/14 * (currentLevel-1)))} / {Math.round((12 + (7/14 * (currentLevel-1)) * (1 - (runeFormulas.damagetype.type === 'physical' ? mod.defPhysRed : def.defMagRed))))} {runeFormulas.damagetype.description} damage
+        </p>
+
+        <p>
+          Basic attacks deal 12-19 bonus <u>adaptive</u> damage <u>on-hit</u> against champions.
+        </p>
+      </div>
+    },
+
+    {
+      name: 'Triumph',
+      id: 'd6ef6071-597d-4286-aaba-70209db07f09',
+      icon: '../images/runes/triumph.webp',
+      slot: 0,
+      description: <div className='runeDescription'>
+        <p>
+          <span className='stat--hp'>Maximum healing: {Math.round(atk.health / 10)}</span>
+        </p>
+
+        {champ.manaBase && (<p>
+          <span className='stat--mana'>Mana restoration: {Math.round(atk.mana/10)}</span>
+        </p>)}
+
+        <p>
+          Champion takedowns restore <span className='stat--hp'>10% missing Health</span> and 10% of <span className='stat--mana'>total mana</span> or <span className='stat--armor'>total energy</span>.
+        </p>
+      </div>
+    },
+
+    {
+      name: 'Gathering Storm',
+      id: '72a32aa9-ac31-4b44-abe5-af9dae2ee316',
+      icon: '../images/runes/gatheringStorm.webp',
+      slot: 0,
+      description: <div className='runeDescription'>
+  
+        <div>
+          <label>
+            Set your <span className="stat--armor">Gathering Storm</span> stacks:
+            {' '}<input
+              type="number"
+              value={runesEffects.path.gatheringStorm}
+              onChange={(e) => {dispatch({type: 'gathering storm', payload: e.target.value})}}
+            />
+          </label>            
+          <ul>
+            <li>Stacks: {runesEffects.path.gatheringStorm}</li>
+            <li>Game Time: {runesEffects.path.gatheringStorm*3}:00</li>
+            <li>Bonus {runeFormulas.gatheringStorm.bonus} {runeFormulas.gatheringStorm.type}</li>
+          </ul>
+        </div>
+
+        <p>
+          Every <b>3 minutes</b> gain adaptive force:
+        </p>
+  
+        <p>
+          <span className='stat--ad'>Attack Damage: start from 2 AD</span>, each stack increments added value by 1 (2 = 2; 2 + 3 = 5; 2 + 3 + 4 = 9 and so on).
+        </p>
+  
+        <p>
+          <span className='stat--ap'>Ability Power: start from 4 AP</span>, each stack increments value by 2 (4 = 4; 4 + 6 = 10; 4 + 6 + 8 = 18 and so on).
+        </p>
+      </div>
+    },
+
+    {
+      name: 'Last Stand',
+      icon: '../images/runes/lastStand.webp',
+      id: '8670a32f-d3d4-4662-82ac-8e7f95749912',
+      slot: 1,
+      description: <div className='runeDescription'>
+        <p>
+          When your health lower than <span className='stat--hp'>{Math.round(atk.health * 60 / 100)}</span> (60%), attacks launched at champions deal 5-11% bonus {runeFormulas.damagetype.description} (adaptive) damage.
+        </p>
+        
+        <p>
+          Grants maximum bonus damage when health is lower than <span className='stat--hp'>{Math.round(atk.health * 30 / 100)}</span> (30%).
+        </p>
+      </div>
+    },
+
+    {
+      name: 'Giant Slayer',
+      icon: '../images/runes/giantSlayer.webp',
+      id: 'c0094161-1f7f-478c-b619-b1c675524ff9',
+      slot: 1,
+      description: <div className='runeDescription'>
+        <p>
+          Deal bonus damage based on enemy Champion's <span className='stat--hp'>bonus Health</span> (+1% per 50 bonus hp) up to 14% at <span className='stat--hp'>700 bonus Health</span>
+        </p>        
+      </div>
+    },
+
+    {
+      name: 'Coup de Grace',
+      icon: '../images/runes/coupDeGrace.webp',
+      id: '78c61594-676f-4118-b190-0089e9e808cd',
+      slot: 1,
+      description: <div className='runeDescription'>
+        <p>
+          Deal 7% increased damage (excluding <span className='stat--vamp'>true damage</span>) to enemy champions beolw <span className='stat--hp'>40% maximum Health</span>.
+        </p>
+      </div>
+    },
+
+    {
+      name: 'Legend: Alacrity',
+      icon: 'images/runes/legendAlacrity.webp',
+      id: '79482cca-80b1-4c54-a05c-6e48b75196e0',
+      slot: 2,
+      description: <div className='runeDescription'>
+        
+        <p>Change current Stacks: {runesEffects.path.legendAlacrity - 3}</p>
+        <label htmlFor="alacrity-stacks">          
+          <input type="range"
+          min="0"
+          max='17'
+          name="alacrity-stacks"
+          value={runesEffects.path.legendAlacrity - 3}
+          onChange={(e) => {dispatch({type: 'legend alacrity', payload: e.target.value})}} />
+        </label>
+        <p>
+          Gain <span className='stat--as'>3% (+1% per Legend stack) bonus Attack Speed</span> up to 20%
+        </p>
+         
+        <p>
+          Gain Legend stacks per 15 points earned (up to 17 times):
+        </p>
+
+        <ul>
+          <li>
+            15 points for champion takedown;
+          </li>
+          <li>15 points for epic monster;</li>
+          <li>5 points for large monster kill;</li>
+          <li>3 points for minion kill;</li>
+        </ul>
+      </div>
+    },
+
+    {
+      name: 'Legend: Tenacity',
+      icon: '../images/runes/legendTenacity.webp',
+      id: '45bd6ef9-2474-41b1-8c95-f64e9cfae79e',
+      slot: 2,
+      description: <div className='runeDescription'>
+        <p>Gain 3% Tenacity and 3% Slow Resist. Get Legend stacks and get up to 15% Tenacity and 20% Slow Resist.</p>
+
+        <p>
+          Points per stack: 15 / 15 / 15 / 30 / 15 / 30 / 15 / 30 / 15 / 30 / 15 / 30.
+        </p>
+
+        <ul>
+          <li>
+            15 points for champion takedown;
+          </li>
+          <li>15 points for epic monster;</li>
+          <li>5 points for large monster kill;</li>
+          <li>3 points for minion kill;</li>
+        </ul>
+      </div>
+    },
+
+    {
+      name: 'Legend: Bloodline',
+      icon: '../images/runes/legendBloodline.webp',
+      id: '7fc6ab32-54f6-4cef-9662-ebe7b94f7192',
+      slot: 2,
+      description: <div className='runeDescription'>
+        <p>Gain <span className='stat--vamp'>1% Omnivamp</span>. Gain Legend Stacks to get  and get up to <span className='stat--vamp'>7% Omnivamp</span>.</p>
+
+        <p>
+          Points per stack: 30 / 45 / 45 / 30 / 45 / 45
+        </p>
+
+        <ul>
+          <li>
+            15 points for champion takedown;
+          </li>
+          <li>15 points for epic monster;</li>
+          <li>5 points for large monster kill;</li>
+          <li>3 points for minion kill;</li>
+        </ul>
+      </div>
+    }
+  ]
+  },
+
+  {
+    path: 'Resolve',
+    path_Id: '95d9ea7b-df3e-4ddc-a0a2-5c485ee37d2d',
+    icon: '../images/runes/resolve.webp',
+    runes: [
+      {
+        name: 'Font of Life',
+        icon: '../images/runes/fontOfLife.webp',
+        id: "d4bbb5f0-357f-488f-b039-1cd7fa1eb1fb",
+        slot: 0,
+        description: <div className='runeDescription'>
+          <p><span className='stat--hp'>Healing</span> (ally / self): <span className='stat--hp'>{Math.round(runeFormulas.fontOfLife.healAlly)} / {Math.round(runeFormulas.fontOfLife.healSelf)} hp</span></p>
+
+          <p>Hitting an enemy champion with an attack or ability marks them. When allies or you damage marked champions, receive healing. Each ally (and you) can trigger healing once per mark.</p>
+
+          <p>Healing formula:</p>
+          <ul>
+            <li>
+              Ally: <span className='stat--hp'>3% of your Maximum Health</span> + <span className='stat--ap'>15% of your Ability Power</span>
+            </li>
+            <li>
+              Self: <span className='stat--hp'>1% of your Maximum Health</span> + <span className='stat--ap'>5% of your Ability Power</span>
+            </li>
+          </ul>
+
+          <p>Mark Duration: 3 seconds</p>
+
+          <p>Cooldown: 15s for Melee champions, 20s for Ranged champions.</p>
+          <p>
+            subsequent heals from other ally's marks are <u>reduced to 25% effectivenes</u>
+          </p>
+        </div>
+      },
+
+      {
+        name: 'Courage of the Colossus',
+        icon: '../images/runes/colossus.webp',
+        id: '7033ce9c-05df-4d2f-876a-881cb7879b0d',
+        slot: 0,
+        description: <div className='runeDescription'>
+          <p className='stat--armor'>Shield size: {Math.round(runeFormulas.colossus.shield)}</p>
+
+          <p>
+            Gain a shield that absorbs 25-45 (based on level) (<span className='stat--hp'>+1% of your Maximum Health</span>) for 3 seconds when you immobilize an enemy champion.
+          </p>
+
+          <p>
+            Cooldown: 10 seconds.
+          </p>
+        </div>
+      },
+
+      {
+        name: 'Nullifying Orb',
+        icon: '../images/runes/nullOrb.webp',
+        id: '75c9746d-2e79-477a-9731-37d66d932f45',
+        slot: 0,
+        description: <div className='runeDescription'>
+          <p className='stat--armor'>Shield size: {Math.round(runeFormulas.nullOrb.shield)}</p>
+
+          <p>
+            If you take damage that puts you under <span className='stat--hp'>{Math.round(atk.health * 35 / 100)} (35% of Maximum) health</span>, gain a shield that absorbs 60-190 (based on level) damage for 4 seconds. 
+          </p>
+
+          <p>
+            Cooldown: 60 seconds
+          </p>
+        </div>
+      },
+
+      {
+        name: 'Second Wind',
+        icon: '../images/runes/secondWind.webp',
+        id: '1fe514d5-9a9a-4981-85bb-f9b09ba8ecbb',
+        slot: 1,
+        description: <div>
+          <p>Gain <span className='stat--hp'>5 Health</span> every 5 seconds.</p>
+
+          <p>
+            After taking damage from an enemy regenerate <span className='stat--hp'>6 (+2% of your missing) Health</span> over the next 5 secons. Effect is doubled for melee champions.
+          </p>
+        </div>
+      },
+
+      {
+        name: 'Loyalty',
+        icon: '../images/runes/loyalty.webp',
+        id: 'fdc55ad8-6c21-492d-952f-b8f9611039db',
+        slot: 1,
+        description: <div className='runeDescription'>
+            <p>Bonus defence: {runesEffects.path.loyalty ? <span className='stat--hp'>Active</span> : <span className='stat--vamp'>Disabled</span>}</p>
+            <p>
+              <button onClick={() => {dispatch({type: 'toggleLoyalty'})}}>Switch rune status</button>
+            </p>
+
+            <p>
+              You gain <span className='stat--armor'>2 Armor</span> and <span className='stat--magres'>5 Magic Resistance</span>. Your closest ally champion gains <span className='stat--armor'>5 Armor</span> and <span className='stat--magres'>2 Magic Resistance</span>.
+            </p>
+        </div>
+      },
+
+      {
+        name: 'Bone Plating',
+        icon: '../images/runes/bonePlating.webp',
+        id: '465f0ab5-7416-465c-84fc-4583784ad2d5',
+        slot: 1,
+        description: <div className='runeDescription'>
+          <p>
+            When taking damage from a champion, the current and next 3 champion abilities or attacks against you within 1.5 seconds deal <span className='stat--armor'>{Math.round(30 + 30/14*(currentLevel-1))} (30-60 based on level) less damage</span>.
+          </p>
+
+          <p>
+            Coooldown: 30 seconds.
+          </p>
+        </div>
+      },
+
+      {
+        name: 'Overgrowth',
+        icon: '../images/runes/overgrowth.webp',
+        id: 'd4cc0d13-8fb2-42c7-95ca-ad344fff6717',
+        slot: 2,
+        description: <div className='runeDescription'>
+          <p>Current stacks: {runesEffects.path.overgrowth}</p>
+          <p className='stat--hp'>Bonus Health: {Math.round((runesEffects.path.overgrowth * 3))}</p>
+
+          <label htmlFor="overgrowth-stacks">
+            <p>Change stacks:</p>
+            <input type="number"
+             min="0"
+             value={runesEffects.path.overgrowth}
+             onChange={(e) => {dispatch({type: 'overgrowth', payload: e.target.value})}} />
+            </label>     
+
+          <p>
+            When 2 enemies or 1 monster dies near your champion, permanently gain <span className='stat--hp'>3 Maximum Health</span>. Can be gained infinitely. Gain a <span className='stat--hp'>3.5% Maximum health</span> bonus upon reaching 30 stacks.
+          </p>
+        </div>
+      },
+
+      {
+        name: 'Revitalize',
+        icon: '../images/runes/revitalize.webp',
+        id: 'dc069b87-cd0b-49a5-aa31-a6d0692aadd2',
+        slot: 2,
+        description: <div className='runeDescription'>
+          <p>Gain a 5% amplification effect when healing or granting shields. If the target's health lower than 20%, amplify effect by additional 10%</p>
+        </div>
+      },
+
+      {
+        name: 'Perseverance',
+        icon: '../images/runes/perseverance.webp',
+        id: 'aeaf58c5-84f5-4e45-865f-eec4b76f7ff5',
+        slot: 2,
+        description: <div className='runeDescription'>
+          <p>Defence bonus: {runesEffects.path.perseverance ? <span className='stat--hp'>Active</span> : <span className='stat--vamp'>Disabled</span>}</p>
+
+          <p><button onClick={() => {dispatch({type: 'togglePerseverance'})}}>Switch defence bonus</button></p>
+
+          <p>Gain 10% Tenacity. Gain <u className='stat--armor'>{Math.round(runeFormulas.perseverance)}</u>  (16-30 based on level) <span className='stat--armor'>Armor</span> and <span className='stat--magres'>Magic Resistance</span></p> for 1.5 seconds when immobilized. Refresh duration time when immobilized multiple times
+        </div>
+      }
+
+    ]
+  },
+
+  {
+    path: 'Inspiration',
+    path_Id: '9c9a3d34-896b-48d1-8002-a1b55fd94ae2',
+    icon: '../images/runes/inspiration.webp',
+    runes: [
+      {
+        name: 'Sweet Tooth',
+        icon: '../images/runes/sweetTooth.webp',
+        id: '3201c3c7-9b60-452f-9de3-282aa75b1788',
+        slot: 0,
+        description: <div className='runeDescription'>
+          <p>Increases <span className='stat--armor'>Honeyfruit</span> healing by <span className='stat--hp'>20%</span>.</p>
+
+          <p>
+            Whenever you or nearby ally eats a <span className='stat--armor'>Honeyfruit</span>, gain 15 gold.
+          </p>
+        </div>
+      },
+
+      {
+        name: 'Hexflash',
+        icon: '../images/runes/hexflash.webp',
+        id: '59152308-79a2-4ff2-9bdc-378b2d9f1a12',
+        slot: 0,
+        description: <div className='runeDescription'>
+          <p>While flash is on cooldown, it is replaced by <span className='stat--armor'>Hexflash</span>. You can blink to a new location after channeling for 2 seconds.</p>
+
+          <p>
+            Cooldown: 20 seconds.
+          </p>
+        </div>
+      },
+
+      {
+        name: 'Item Crafting',
+        icon: '../images/runes/itemCrafting.webp',
+        id: '222ca439-41ff-4254-a563-b90b2f8c65e3',
+        slot: 0,
+        description: <div className='runeDescription'>
+          <p>Every 3 minutes you can buy 1 item outside of the buy zone at the additional cost of <span className='stat--armor'>150 gold</span></p>
+        </div>
+      },
+
+      {
+        name: 'Transcendence',
+        icon: '../images/runes/transcendence.webp',
+        id: '3c34c87b-bd25-4eb6-bd12-2b2b36350169',
+        slot: 1,
+        description: <div className='runeDescription'>
+
+        <p>Ability Haste: {runesEffects.path.transcendence ? <span className='stat--hp'>Active</span> : <span className='stat--vamp'>Disabled</span>}</p>
+
+        <p><button onClick={() => {dispatch({type: 'toggleTranscendence'})}}>Switch AH bonus</button></p>
+
+          <p>Gain a bonus when reaching the following levels:</p>
+          <ul>
+            <li>
+              1: gain 6 Ability Haste;
+            </li>
+            <li>
+              6: gain 6 Ability Haste;
+            </li>
+            <li>
+              11: After Basic Ability hits the target reduce 15% of ability's cooldown time (8 seconds cooldown).
+            </li>
+          </ul>
+        </div>
+      },
+
+      {
+        name: 'Future\'s Market',
+        icon: '../images/runes/futuresMarket.webp',
+        id: '5709fe7e-4fc5-4333-972e-7a8359264d35',
+        slot: 1,
+        description: <div className='runeDescription'>
+          <p>You can purchase items on credit from 2 minutes onward.</p>
+          <p>
+            Credit limit: 145 + 7/minute
+          </p>
+        </div>
+      },
+
+      {
+        name: 'Pathfinder',
+        icon: '../images/runes/pathfinder.webp',
+        id: '51f7595f-4b61-4fe9-a636-1d47916ff41b',
+        slot: 1,
+        description: <div className='runeDescription'>
+          <p>River Movespeed bonus: {runesEffects.path.pathfinder ? <span className='stat--hp'>Active</span> : <span className='stat--vamp'>Disabled</span>}</p>
+
+          <p><button onClick={() => {dispatch({type: 'togglePathfinder'})}}>toggle Movement speed bonus</button></p>
+
+          <p>
+            Gain <span className='stat--moveSpeed'>50 bonus Movement Speed</span> in the river.
+          </p>
+
+          <p>
+            When in the river and out of combat restore <span className='stat--mana'>2% missing Mana</span> or <span className='stat--hp'>2% missing Health</span> (whichever is lower) every 1 second.
+          </p>
+        </div>
+      },
+
+      {
+        name: 'Nimbus Cloak',
+        icon: '../images/runes/nimbusCloak.webp',
+        id: 'a632eba9-b305-45b7-a2c2-22ee46bc12c3',
+        slot: 2,
+        description: <div className='runeDescription'>
+          After using a <b>Summoner Spell</b> (Flash, Ignite, etc), gain <span className='stat--moveSpeed'>10-40% Movement Speed bonus</span> for 3 seconds. bonus depends on spell cooldown.
+        </div>
+      },
+
+      {
+        name: 'Demolish',
+        icon: '../images/runes/demolish.webp',
+        id: '9ca63fae-dde6-4ecc-a298-5bf1ef564322',
+        slot: 2,
+        description: <div className='runeDescription'>
+          <p>Number of turret plates destroyed {runesEffects.path.turretPlates}</p>
+          
+          <p className='stat--ad'>Damage: {Math.round(runeFormulas.demolish.damage)}</p>
+          <p><button onClick={() => {dispatch({type: 'plates'})}}>Change number of destroyed plates</button></p>
+
+          
+          
+
+          <p>
+            When you are within 550 range of enemy turret, gain a charge every 0.5 seconds up to 6 times.
+          </p>
+
+          <p>
+            When fully charged, your next attack against the turret deals an additional <span className='stat--ad'>200 (<span className='stat--hp'>+30% Max Health</span>) physical damage</span>.
+          </p>
+
+          <p><sub>*Based on numbers of destroyed plates, turret <span className='stat--armor'>Armor value</span> equals: <span className='stat--armor'>25 / 65 / 105 / 185 / 265</span>. Tier 2 turrets have 15 armor, so ~like 0 plates. Tier 3 / Tier 1 without plates have 25 armor.</sub></p>
+
+          <p>
+            Cooldown: 35 seconds.
+          </p>          
+        </div>
+      },
+
+      {
+        name: 'Manaflow Band',
+        icon: '../images/runes/manaflow.webp',
+        id: 'e8a1b612-1307-49c4-a7c1-c576bbea9c0f',
+        slot: 2,
+        description: <div className='runeDescription'>
+          <p>Current bonus: <span className='stat--mana'>{Number(runesEffects.path.manaflow * 30)} mana</span></p>
+          <p><button onClick={() => dispatch({type: 'manaflow'})}>Add stack (resets after max)</button></p>
+          <p>Hitting an enemy with ability or empowered attack permanently increases your <span className='stat--mana'>Maximum mana</span> by <span className='stat--mana'>30</span> up to <span className='stat--mana'>300</span></p>
+        </div>
+      }
+    ]
   }
+
+ 
 ]
 
 // tracking the runes that are active for current champion
@@ -855,8 +1558,16 @@ const [chosenRunes, setChosenRunes] = useState({
   keystone: keystones[0].id,
   path: mainRunes[0].path_Id,
   primary: [mainRunes[0].runes[0].id, mainRunes[0].runes[3].id, mainRunes[0].runes[6].id],
-  secondary: ''
+  secondary: mainRunes[1].runes[0].id
 });
+
+const secondaryRunes = useMemo(() => {
+  const chosenPath = chosenRunes.path;
+
+  return mainRunes
+  .filter(path => path.path_Id !== chosenPath)
+  .flatMap(path => path.runes);
+}, [chosenRunes])
 
 const updateKeystone = (e) => {
   dispatch({type:'reset-keystones'})
@@ -866,14 +1577,42 @@ const updateKeystone = (e) => {
   }));
 };
 
-const updateRunePath = (e) => {
+const updateSecondary = (e) => {
   dispatch({type:'reset-path'})
   setChosenRunes(oldRunes => ({
     ...oldRunes,
-    path: e.target.value
+    secondary: e.target.value
   }));
 };
 
+const updateRunePath = (e) => {
+  dispatch({ type: 'reset-path' });
+
+  const newPathId = e.target.value;
+  const selectedPathObject = mainRunes.find(rune => rune.path_Id === newPathId);
+
+  setChosenRunes(oldRunes => {
+    const newState = {
+      ...oldRunes,
+      path: newPathId
+    };
+
+    if (selectedPathObject) {
+      newState.primary = [selectedPathObject.runes[0].id, selectedPathObject.runes[3].id, selectedPathObject.runes[6].id];
+    }
+
+    // Find the secondary rune from the non-selected path
+    const nonSelectedPathRunes = mainRunes.find(path => path.path_Id !== newPathId).runes;
+    newState.secondary = nonSelectedPathRunes[0].id;
+
+    return newState;
+  });
+};
+
+
+
+
+// with main rune at index
 const updateMainRune = (e, index) => {
     dispatch({ type: 'reset-path' });
     setChosenRunes((oldRunes) => ({
@@ -882,6 +1621,9 @@ const updateMainRune = (e, index) => {
     }));
   };
 
+
+
+// render the description of rune at selected index
 const mainRune = (index) => {
   const selectedPath = mainRunes.find((path) => path.path_Id === chosenRunes.path);
   if (selectedPath) {
@@ -895,6 +1637,23 @@ const mainRune = (index) => {
     }
   }
   return <p>No description available for the selected rune.</p>;
+};
+
+const secondaryRune = () => {
+    const chosenPath = chosenRunes.path;
+
+    const secondaryRunes =  mainRunes
+    .filter(path => path.path_Id !== chosenPath)
+    .flatMap(path => path.runes);
+
+    const selectedRune = secondaryRunes.find((rune) => rune.id === chosenRunes.secondary);    
+
+      return (
+        <><h3 className='runeName'>{selectedRune.name}</h3>
+      <img src={selectedRune.icon} alt={selectedRune.name} />
+      {selectedRune.description}</>
+      );
+    
 };
 
 
@@ -973,6 +1732,17 @@ return (
         )}
     </select>
     {mainRune(2)}
+    </div>
+
+    <select name="secondary-rune" id="secondary-rune-selector" onChange={updateSecondary} value={chosenRunes.secondary}>
+    <option value='' disabled>Secondary rune</option>
+    {secondaryRunes.map((rune) => (
+      <option key={rune.id} value={rune.id}>{rune.name}</option>
+    ))}
+    </select>
+
+    <div className='keystoneTile'>
+     {secondaryRune()}
     </div>
   </div>
 );
