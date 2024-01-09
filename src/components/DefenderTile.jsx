@@ -354,7 +354,7 @@ const statGrowth = function(mod) {
 
       case 'Yasuo':
       case 'Yone':
-        attackMod = Math.round(((itemBonus.critChance * 2) - 1) * 40)
+        attackMod = Math.max(Math.round(((itemBonus.critChance * 2) - 1) * 40), 0) 
         break;
         
       default:
@@ -795,7 +795,7 @@ const statGrowth = function(mod) {
         champ={champ}
         itemEffects={itemEffects}
         updateRunesEffects={updateRunesEffects}
-      />, label: 'Runes (alpha stage)' },
+      />, label: 'Runes' },
     
    
   ];

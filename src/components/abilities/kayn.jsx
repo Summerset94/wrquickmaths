@@ -8,11 +8,11 @@ export default function kayn({currentLevel, mod, bonus, atk, def, champ}) {
           </h4>
     
           <p>
-            <b>Blue:</b> After being out of combat for 6 seconds, his attacks and abilities deal <abbr title="44%-58% based on level" className="stat--ap">{Math.round(43 + currentLevel)}% bonus magic damage</abbr> for 3 seconds.
+            <b>Blue:</b> After being out of combat for 6 seconds, his attacks and abilities deal <abbr title="44%-58% based on level" className="stat--ap">{Math.round(43 + Number(currentLevel))}% bonus magic damage</abbr> for 3 seconds.
           </p>
 
           <p>
-            <b>Red:</b> Heals for <abbr title="20%-34% based on level" className="stat--hp">{Math.round(19 + currentLevel)}%</abbr> of <span className="stat--ad">physical damage</span> dealt to champions.
+            <b>Red:</b> Heals for <abbr title="20%-34% based on level" className="stat--hp">{Math.round(19 + Number( currentLevel))}%</abbr> of <span className="stat--ad">physical damage</span> dealt to champions.
           </p>
         </div>
     },

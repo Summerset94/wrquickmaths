@@ -1,4 +1,35 @@
+import { useMemo } from "react";
+
 export default function lucian({currentLevel, mod, bonus, atk, def, champ}) {
+  const numbers = useMemo(() => {
+    const passive = {
+      modifier: 50
+    };
+
+    switch (currentLevel) {
+      case currentLevel < 6:
+        passive.modifier = 50;
+        break;
+      case currentLevel >= 6 && currentLevel  < 11:
+        passive.modifier = 55;
+        break;
+      case currentLevel >= 11:
+        passive.modifier = 60;
+        break;
+      default:
+        passive.modifier = 50;
+    }
+
+    return {
+      passive: {
+        raw: (atk.attack * passive.modifier/100),
+        mitigated: (atk.attack * passive.modifier/100) * (1 - mod.defPhysRed),
+        rawCrit: (atk.attack * passive.modifier/100) * atk.critMultiplier,
+        mitigatedCrit: (atk.attack * passive.modifier/100) * (1 - mod.defPhysRed) * atk.critMultiplier
+      }
+    }
+  }, [atk, def, currentLevel])
+  
   const abilities = [
     {
       description:
@@ -6,6 +37,10 @@ export default function lucian({currentLevel, mod, bonus, atk, def, champ}) {
           <h4>
           <span className="marker--ability">P</span> LIGHTSLINGER
           </h4>
+
+          <h5 className="stat--ad">Second Shot damage:</h5>
+          <p className="stat--ad">Normal (pre / post mitigated): {Math.round(numbers.passive.raw)} / {Math.round(numbers.passive.mitigated)}</p>
+          <p className="stat--critChance">Crit (pre / post mitigated): {Math.round(numbers.passive.rawCrit)} / {Math.round(numbers.passive.mitigatedCrit)}</p>
     
           <p>
           After using an Ability, Lucian's next attack within 3.5 seconds will fire two shots.

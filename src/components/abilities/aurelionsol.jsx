@@ -12,12 +12,11 @@ export default function aurelionsol({currentLevel, mod, bonus, atk, def}) {
             Damage:
           </h5>
 
-          <p className="stat--ad"><abbr title="ATTENTION: ~approximate numbers until I figure out the correct equation">Pre-mitigation:</abbr>  
-            {' '}{Math.round(((15+(8.21429 * (currentLevel - 1)))+(atk.ap * 25 / 100)))}
+          <p className="stat--ad">Pre-mitigation:{' '}{Math.round(((15+(7.4285 * (currentLevel - 1)))+(atk.ap * 25 / 100)))}
           </p>
 
           <p className="stat--ad">Post-mitigation: 
-            {' '}{Math.round(((15+(8.21429 * (currentLevel - 1)))+(atk.ap * 25 / 100)) * (1 - mod.defMagRed))}
+            {' '}{Math.round(((15+(7.4285 * (currentLevel - 1)))+(atk.ap * 25 / 100)) * (1 - mod.defMagRed))}
           </p> 
 
     

@@ -13,7 +13,7 @@ export default function riven({currentLevel, mod, bonus, atk, def, champ}) {
           </p>
 
           <p>
-           Attacks expend charges to deal <abbr title="30% + 2% per level" className="stat--ad">{Math.round(atk.attack * (28 + 2*currentLevel)/100)} bonus physical damage</abbr> 
+           Attacks expend charges to deal <abbr title="30% + 2% AD per level" className="stat--ad">{Math.round(atk.attack * (28 + 2*currentLevel)/100)} bonus physical damage</abbr> 
           </p>
 
           <p>

@@ -11,7 +11,8 @@ export default function rengar({currentLevel, mod, bonus, atk, def, champ, updat
     updateAbilitiesBonus(object)
   }, [abilLevel]);  
 
-  const changeNumber = () => {
+  const changeNumber = (e) => {
+    e.preventDefault
     setAbilLevel(oldNum => oldNum < 5 ? oldNum + 1 : 0);
   }
 
@@ -28,7 +29,7 @@ export default function rengar({currentLevel, mod, bonus, atk, def, champ, updat
             Toggle <b>Bonetooth Necklace</b> bonus:
             <br />
 
-            <button onClick={changeNumber}>Change stacks number</button> Current stacks: <b className="stat--armor">{abilLevel}</b> 
+            <button type='button' onClick={changeNumber}>Change stacks number</button> Current stacks: <b className="stat--armor">{abilLevel}</b> 
           </p>
     
           <p>

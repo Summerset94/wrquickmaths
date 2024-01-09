@@ -8,7 +8,7 @@ export default function garen({currentLevel, mod, bonus, atk, def, champ}) {
           </h4> 
 
           <p>
-            Garen regenerates <abbr title="1.2% - 4% (based on level)" className="stat--hp">{1 + 0.2 * currentLevel}% of his missing health</abbr> per second. <br />
+            Garen regenerates <abbr title="1.2% - 4% (based on level)" className="stat--hp">{(1 + 0.2 * currentLevel).toFixed(1)}% of his missing health</abbr> per second. <br />
             Perseverance is disabled for 5 seconds whenever Garen takes damage from enemy champions, turrets, or epic monsters, or is hit by attacks or abilities, refreshing on subsequent damage and hits against him.
           </p>
 

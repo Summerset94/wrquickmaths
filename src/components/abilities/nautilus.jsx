@@ -8,7 +8,7 @@ export default function nautilus({currentLevel, mod, bonus, atk, def, champ}) {
           </h4>
     
           <p>
-            Attacks deal an additional <abbr title="13 + 8 per level" className="stat--ad">{13 + currentLevel * 8} physical damage</abbr> and root the target for <abbr title="1-1.75 based on level">{(1 + 0.05357 * (currentLevel - 1).toFixed(2))} seconds</abbr>.
+            Attacks deal an additional <abbr title="13 + 8 per level" className="stat--ad">{13 + Number(currentLevel * 8)} physical damage</abbr> and root the target for <abbr title="1-1.75 based on level">{(1 + 0.05357 * (currentLevel - 1)).toFixed(2)} seconds</abbr>.
           </p>
 
           <p>

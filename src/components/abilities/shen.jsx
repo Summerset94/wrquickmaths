@@ -57,21 +57,21 @@ export default function shen({currentLevel, mod, bonus, atk, def, champ}) {
           </h5>
 
           <p className="stat--ap">Normal: 
-          {' '}{Math.round(((12 + 3*currentLevel)+(def.health * (2.5 * (atk.ap  * 1.5 / 100))/100)) * (1 - mod.defMagRed))} / 
-            {' '}{Math.round(((12 + 3*currentLevel)+(def.health * (3 * (atk.ap  * 1.5 / 100))/100))* (1 - mod.defMagRed))} / 
-            {' '}{Math.round(((12 + 3*currentLevel)+(def.health * (3.5 * (atk.ap  * 1.5 / 100))/100))* (1 - mod.defMagRed))} / 
-            {' '}{Math.round(((12 + 3*currentLevel)+(def.health * (4 * (atk.ap  * 1.5 / 100))/100))* (1 - mod.defMagRed))}        
+          {' '}{Math.round(((12 + 3*currentLevel)+(def.health * (2.5 + (atk.ap  * 1.5 / 100))/100)) * (1 - mod.defMagRed))} / 
+            {' '}{Math.round(((12 + 3*currentLevel)+(def.health * (3 + (atk.ap  * 1.5 / 100))/100))* (1 - mod.defMagRed))} / 
+            {' '}{Math.round(((12 + 3*currentLevel)+(def.health * (3.5 + (atk.ap  * 1.5 / 100))/100))* (1 - mod.defMagRed))} / 
+            {' '}{Math.round(((12 + 3*currentLevel)+(def.health * (4 + (atk.ap  * 1.5 / 100))/100))* (1 - mod.defMagRed))}        
           </p>
 
           <p className="stat--ap">Enhanced: 
-            {' '}{Math.round(((12 + 3*currentLevel)+(def.health * (5 * (atk.ap  * 1.5 / 100))/100)) * (1 - mod.defMagRed))} / 
-            {' '}{Math.round(((12 + 3*currentLevel)+(def.health * (5.5 * (atk.ap  * 1.5 / 100))/100))* (1 - mod.defMagRed))} / 
-            {' '}{Math.round(((12 + 3*currentLevel)+(def.health * (6 * (atk.ap  * 1.5 / 100))/100))* (1 - mod.defMagRed))} / 
-            {' '}{Math.round(((12 + 3*currentLevel)+(def.health * (6.5 * (atk.ap  * 1.5 / 100))/100))* (1 - mod.defMagRed))}          
+            {' '}{Math.round(((12 + 3*currentLevel)+(def.health * (5 + (atk.ap  * 2 / 100))/100)) * (1 - mod.defMagRed))} / 
+            {' '}{Math.round(((12 + 3*currentLevel)+(def.health * (5.5 + (atk.ap  * 2 / 100))/100))* (1 - mod.defMagRed))} / 
+            {' '}{Math.round(((12 + 3*currentLevel)+(def.health * (6 + (atk.ap  * 2 / 100))/100))* (1 - mod.defMagRed))} / 
+            {' '}{Math.round(((12 + 3*currentLevel)+(def.health * (6.5 + (atk.ap  * 2 / 100))/100))* (1 - mod.defMagRed))}          
           </p>
     
           <p>
-            Recalls the <b>Spirit Blade</b> enhancing his next 3 attacks to deal an additional <abbr title='12 + 3 per level' className="stat--ap">{12 + 3*currentLevel}</abbr> <span className="stat--ap"> (<span className="stat--hp">+2.5 / 3 / 3.5 / 4% of tharget's Max Health</span> +2% AP) as magic damage</span>
+            Recalls the <b>Spirit Blade</b> enhancing his next 3 attacks to deal an additional <abbr title='12 + 3 per level' className="stat--ap">{12 + 3*currentLevel}</abbr> <span className="stat--ap"> (<span className="stat--hp">+2.5 / 3 / 3.5 / 4% of tharget's Max Health</span> +1.5% AP) as magic damage</span>
           </p>
 
           <p>

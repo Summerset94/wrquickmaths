@@ -8,7 +8,7 @@ export default function lillia({currentLevel, mod, bonus, atk, def, champ}) {
           </h4>
     
           <p>
-          Lillia's abilities apply <b>Dream Dust</b>, dealing <abbr title="6% + 0.012% AP" className="stat--ap">{(6 + (atk.ap * 0.012)).toFixed(2)}% Max Health magic damage</abbr> over 3 seconds.
+          Lillia's abilities apply <b>Dream Dust</b>, dealing <span className="stat--ap">{Math.round(def.health * (6 + (atk.ap * 0.012))/100 * (1 - mod.defMagRed))}</span> <u>for current target</u> (<abbr title="6% + 0.012% AP" className="stat--ap">{(6 + (atk.ap * 0.012)).toFixed(2)}% Max Health magic damage</abbr>) over 3 seconds.
           </p>
           <p>
             Lillia restores <abbr title="20 - 76 based on level + 6% ap" className="stat--hp">{Math.round(16 + (4 * currentLevel) + (atk.ap * 6 / 100))} health</abbr> over the duration against <b>monsters</b> and <abbr title="10 - 108 based on level + 15% ap" className="stat--hp">{Math.round(3 + (7 * currentLevel) + (atk.ap * 15 / 100))}  health</abbr> against champions.
