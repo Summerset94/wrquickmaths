@@ -21,14 +21,21 @@ export default function blank({currentLevel, mod, bonus, atk, def, champ, update
             {' '}{Math.round(((5 * currentLevel)+(atk.ap * 10 / 100)) * (1 - mod.defMagRed))}  /
             {' '}{Math.round(((5 * currentLevel)+(atk.ap * 10 / 100)) * 2 * (1 - mod.defMagRed))}
           </p>
+
+          <p className="stat--hp">Thorn Spitter Health: {Math.round(20 + (240/14*(Number(currentLevel)-1)) + (atk.ap * 35/100))}</p>.
     
           <p>
-            <b>Daadly Spines</b> and <b>Grasping Roots</b> spawns <b className="stat--armor">Thorn Spitter</b> with every ability cast. 
+            <b>Deadly Spines</b> and <b>Grasping Roots</b> spawns <b className="stat--armor">Thorn Spitter</b> with every ability cast. 
           </p>
 
-          <p>
-            <abbr title="Not oficial data">*</abbr> Thorn spitters live ~8 seconds, have <span className="stat--as">~0.8 Attack Speed</span> and deal <span className="stat--ap">5 per level (+10% AP)</span> magic damage
-          </p>
+          <p>Thorn Spitter:</p>
+
+          <ul>
+            <li>Lifetime: 6 seconds;</li>
+            <li>Damage: <span className="stat--ap">5</span> per level (<span className="stat--ap">+10% AP</span>) magic damage;</li>
+            <li>Attack Speed (empirically tested): <span className="stat--as">~0.8</span>;</li>
+            <li>Health: <span className="stat--hp"> 20-260</span> (based on level) (<span className="stat--ap">+35% AP</span>)</li>
+          </ul>          
 
           <p>
             Hitting a <b>Champion / Large monster / Epic Monster</b> spawns an additional <b className="stat--armor">Thorn Spitter</b>
@@ -183,7 +190,7 @@ export default function blank({currentLevel, mod, bonus, atk, def, champ, update
     
           <br />
           <p>
-            Zyra sends out vines that <b className="stat--armor">roots</b> champions hit for <b className="stat--armor">1.25 / 1.5 / 1.75 / 2</b> seconds and deal <span className="stat--ap">60 / 100 / 140 / 180 (+40% AP) magic damage</span>.
+            Zyra sends out vines that <b className="stat--armor">roots</b> champions hit for <b className="stat--armor">1 / 1.25 / 1.5 / 1.75</b> seconds and deal <span className="stat--ap">60 / 100 / 140 / 180 (+40% AP) magic damage</span>.
           </p>
 
           <p>

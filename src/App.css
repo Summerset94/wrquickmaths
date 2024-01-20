@@ -348,7 +348,7 @@ button:active {
   padding-top: 3px;
 }
 
-.abilityDescription > p {
+.abilityDescription > p, li {
   font-size:13px
 }
 

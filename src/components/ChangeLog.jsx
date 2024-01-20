@@ -19,6 +19,8 @@ export default function ChangeLog() {
 
           <p>latest updates:</p>
           <ul>
+            <li>20.01 Updated for 5.0</li>
+            <li>19.01 Syndra added</li>
             <li>Night of 08-09.01 Runes finished</li>
             <li>Keystones implemented</li>
             <li>29.12 Added Zyra, updated for 4.4d, Added Malphite passive armor from W with switch on ability page;</li>

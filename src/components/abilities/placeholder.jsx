@@ -1,27 +1,29 @@
-export default function placeholder({currentLevel, mod, bonus, atk, def, champ}) {
+import React from 'react';
+
+const Placeholder = () => {
   const abilities = [
     {
-      description:
+      description: (
         <div className="abilityDescription">
           <h4>
-          <span className="marker--ability">x</span> TBD
+            <span className="marker--ability">x</span> SELECT A CHAMPION
           </h4>
-    
-          <p>
-            Unfortunately abilities for {champ.name} are not ready yet. Stay tuned
-          </p>
+
+          <p>Nobody's here...</p>
         </div>
-    }
+      ),
+    },
   ];
 
-  return(
-    <>
-    {abilities.map((ability, index) => (
-      <div className="abilitiesTile">
-        <div key={index}>{ability.description}</div>
+  return (
+    <div>
+      {abilities.map((ability, index) => (
+        <div className="abilitiesTile" key={index}>
+          {ability.description}
         </div>
-    ))}   
-    </>
-     
-  )
-}
+      ))}
+    </div>
+  );
+};
+
+export default Placeholder;

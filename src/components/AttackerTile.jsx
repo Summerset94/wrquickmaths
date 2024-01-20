@@ -11,7 +11,7 @@ export default function AttackerTile(props) {
 
   // fallback for champions value when nothing selected
   const champTemplate = {
-    id: 'undefined',
+    id: 'placeholder',
   name: 'Not Selected',
   title: 'No title',
   icon: '../images/portraits/DefaultSquare.png',
@@ -170,6 +170,7 @@ const statGrowth = function(mod) {
     threshP: 0,
     twistedFateE: 0,
     veigarP: 0,
+    syndraP: false,
   });
 
   const updateAbilitiesBonus = function(updatedValues) {
@@ -536,9 +537,10 @@ const statGrowth = function(mod) {
     fimbulwinter: false,
     muramana: false,
     lastWhisper: false,
+    heartsteel: 0,
 
     forceOfNature: false,
-    bootsPassive: false,
+    bootsPassive: false,    
   });
 
   const itemEffectsMemo = useMemo(() =>{
@@ -551,6 +553,8 @@ const statGrowth = function(mod) {
     const muramana = itemEffects.muramana ? ((baseStats.mana? baseStats.mana + itemBonus.mana  + runesEffects.mana : itemBonus.mana  + runesEffects.mana) * 1.5/100) : 0;
     const fimbulwinter = itemEffects.fimbulwinter ? ((baseStats.mana? baseStats.mana + itemBonus.mana  + runesEffects.mana : itemBonus.mana  + runesEffects.mana) * 8/100) : 0;
     const lastWhisper = itemEffects.lastWhisper ? ((15 + Number(currentLevel))/100) : 0;
+    const heartsteel = itemEffects.heartsteel;
+
     const forceOfNature = itemEffects.forceOfNature;
     const bootsPassive = itemEffects.bootsPassive;
 
@@ -561,7 +565,7 @@ const statGrowth = function(mod) {
       ap: rabadon + seraphs,
       armor: twinguardAR,
       magres: twinguardMR,
-      health: fimbulwinter,
+      health: fimbulwinter + heartsteel,
       armPen: lastWhisper,
       forceOfNature: forceOfNature,
       bootsPassive: bootsPassive
@@ -610,7 +614,7 @@ const statGrowth = function(mod) {
       armor: itemBonus.armor + championModifier.armor + itemEffectsMemo.armor,
       magres: itemBonus.magres + championModifier.magres + itemEffectsMemo.magres,
       attack: itemBonus.attack + championModifier.attack + itemEffectsMemo.attack + runesEffects.attack,
-      ap: itemBonus.ap + championModifier.ap + itemEffectsMemo.ap + runesEffects.ap,
+      ap: itemBonus.ap + championModifier.ap + itemEffectsMemo.ap + runesEffects.ap + (abilitiesBonus.syndraP ? (itemBonus.ap * 0.15) : 0),
 
       as: Math.max((championModifier.as - baseStats.as), 0),
 

@@ -229,12 +229,12 @@ export default function jayce({currentLevel, mod, bonus, atk, def, champ}) {
             <b>ACTIVE:</b> Swaps between <span className="stat--armor">Mercury Hammer</span> and <span className="stat--magres">Mercury Cannon</span>:
           </p>
           <p>
-            <b className="stat--armor">Mercury Hammer:</b> First attack after swap is empowered to deal <span className="stat--ap">{Math.round((20 + 8 * currentLevel)+(bonus.attack * 25 / 100))} (Post-mitigated: {Math.round(((20 + 8 * currentLevel)+(bonus.attack * 25 / 100))*((1 - mod.defMagRed)))}) bonus magic damage</span>.
+            <b className="stat--armor">Mercury Hammer:</b> First attack after swap is empowered to deal <span className="stat--ap">{Math.round((20 + 8 * Number(currentLevel))+(bonus.attack * 25 / 100))} (Post-mitigated: {Math.round(((20 + 8 * Number(currentLevel))+(bonus.attack * 25 / 100))*((1 - mod.defMagRed)))}) bonus magic damage</span>.
             <br /> 
-             Passive: gain <span className="stat--as">{16 + currentLevel}% ({(champ.asBase * (16 + currentLevel)).toFixed(3)}) Attack Speed</span> and <span className="stat--armor">{Math.round((3 + 2 * currentLevel)+(atk.attack*9/100))} Armor</span> and <span className="stat--magres">Magic Resistance</span>
+             Passive: gain <span className="stat--as">{16 + Number(currentLevel)}% ({(champ.asBase * (16 + Number(currentLevel))/100).toFixed(3)}) Attack Speed</span> and <span className="stat--armor">{Math.round((3 + 2 * Number(currentLevel))+(atk.attack*9/100))} Armor</span> and <span className="stat--magres">Magic Resistance</span>
           </p>
           <p>
-          <b className="stat--magres">Mercury Cannon:</b> First attack is empowered to deal additional <span className="stat--ap">{Math.round((13 + currentLevel)+(bonus.attack * 10 / 100))} (Post-mitigated: {Math.round(((13 + currentLevel)+(bonus.attack * 10 / 100))*((1 - mod.defMagRed)))}) bonus magic damage</span> and reduce the target's <span className="stat--armor">Armor</span> and <span className="stat--magres">Magic Resist</span> by <span className="stat--armor">{Math.round(11 + currentLevel)}%:</span> for 5 seconds.
+          <b className="stat--magres">Mercury Cannon:</b> First attack is empowered to deal additional <span className="stat--ap">{Math.round((13 + Number(currentLevel))+(bonus.attack * 10 / 100))} (Post-mitigated: {Math.round(((13 + Number(currentLevel))+(bonus.attack * 10 / 100))*((1 - mod.defMagRed)))}) bonus magic damage</span> and reduce the target's <span className="stat--armor">Armor</span> and <span className="stat--magres">Magic Resist</span> by <span className="stat--armor">{Math.round(11 + Number(currentLevel))}%:</span> for 5 seconds.
 
           </p>
 

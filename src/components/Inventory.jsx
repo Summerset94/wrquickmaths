@@ -62,8 +62,19 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
   useEffect(() => {
     targetMres = postMitigationMres(target, total)
     targetArmor = postMitigationArmor(target, total)
-  }, [target, currentLevel]);  
+  }, [target, currentLevel]);
 
+  const [heartsteelStacks, setHeartsteelStacks] = useState(0);
+
+  const updateHeartsteel = (event) => {
+    event.preventDefault();
+    setHeartsteelStacks(oldStacks => event.target.value)
+  };
+
+  const heartSteelProc = () => {
+    const procDamage = (120 + (attacker.health * 5/100)) * (1 - modifier) * (12/100);
+    setHeartsteelStacks(oldStacks => oldStacks += procDamage)
+  }
   let physicalItemData = [
     {
       name: 'Empty slot',
@@ -91,7 +102,77 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
       description: 
         <div className='itemDescription'>Empty slot</div>
 
-    },   
+    },  
+    
+    {
+      name: 'Spear of Shojin',
+
+      icon: '../images/items/Shojin.webp',
+
+
+      health: 300,
+      mana: 0,
+      armor: 0,
+      magres: 0,
+      attack: 45,
+      ap: 0,
+      as: 0,
+      moveSpeed: 0,
+      flatArmPen: 0,
+      flatMagPen: 0,
+      armPen: 0,
+      magPen: 0,
+      critChance: 0,
+      critMultiplier: 0,
+      ah: 20,
+      armorReduction: 0,
+
+      description:
+        
+        <div className='itemDescription'>
+          <h3 className="stat--hp">+300 Health</h3>
+          <h3 className="stat--ad">+45 Attack Damage</h3>
+          <h3>+20 Ability Haste</h3>
+          <p>
+            <b>Dargon Awakening</b>: Increases Ability Haste of basic abilities by 25% for 6 seconds after casting an Ultimate, and grants <span className="stat--moveSpeed">30% bonus Movement Speed</span> that decays over 3 seconds. Scoring a takedown within 6 seconds refreshes the ability's duration (20s cooldown).
+          </p>
+         </div>
+
+    },
+
+    {
+      name: 'Tytanic Hydra',
+
+      icon: '../images/items/Titanic_Hydra.webp',
+      
+      health: 550,
+      mana: 0,
+      armor: 0,
+      magres: 0,
+      attack: (5 + (bonus.health * 25/1000)),
+      ap: 0,
+      as: 0,
+      moveSpeed: 0,
+      flatArmPen: 0,
+      flatMagPen: 0,
+      armPen: 0,
+      magPen: 0,
+      critChance: 0,
+      critMultiplier: 0,
+      armorReduction: 0,
+      
+      description: <div className='itemDescription'>               
+        <h3 className="stat--hp">+550 Health</h3>
+
+        <p>
+          <b>Colossus:</b> Gain <span className="stat--ad">Attack Damage</span> equal to <span className="stat--ad">5</span> + <span className="stat--hp">2.5% bonus Health</span>
+        </p>
+  
+        <p>
+          <b>Cleave: </b> Every 2.5 seconds, your next attack deals bonus physical damage equal to 25 + 3% bonus Health (pre / post-mitigation): <span className="stat--ad">{Math.round(25 + bonus.health * 3 / 100)} / {Math.round((25 + bonus.health * 3 / 100) * (1- modifier))}</span> (also applies to turrets), creating a shockwave that deals physical damage equal to 80 + 10% bonus Health: <span className="stat--ad">{Math.round(80 + bonus.health * 10 / 100)} / {Math.round((80 + bonus.health * 10 / 100) * (1- modifier))}</span> to enemies behind the target. (Ranged champions deal 75% of the damage.)
+        </p>
+      </div>
+    },  
     
     {
       name: 'Guardian Angel',
@@ -253,9 +334,9 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
       mana: 0,
       armor: 0,
       magres: 0,
-      attack: (bonus.attack > bonus.ap || bonus.ap == 0 ? 15 : 0),
-      ap: (bonus.ap > bonus.attack ? 30 : 0 ),
-      as: (base.asBase * 0.45),
+      attack: (bonus.attack > bonus.ap || bonus.ap == 0 ? 20 : 0),
+      ap: (bonus.ap > bonus.attack ? 40 : 0 ),
+      as: (base.asBase * 0.35),
       moveSpeed: 0,
       flatArmPen: 0,
       flatMagPen: 0,
@@ -268,10 +349,10 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
       description:
         <div className='itemDescription'>
           
-          <h3 className='stat--as'>+45% ({(base.asBase * 0.45).toFixed(3)}) Attack Speed</h3>          
+          <h3 className='stat--as'>+35% ({(base.asBase * 0.35).toFixed(3)}) Attack Speed</h3>          
   
           <p>
-            <b>Wind's Favor:</b> Gain <span className="stat--ad">15 Attack Damage</span> or <span className="stat--ap">30 Ability Power</span> (Adaptive).
+            <b>Wind's Favor:</b> Gain <span className="stat--ad">20 Attack Damage</span> or <span className="stat--ap">40 Ability Power</span> (Adaptive).
           </p>
 
           <p>
@@ -1419,7 +1500,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
         <div className='itemDescription'>
 
           <h3 className='stat--ap'>+{100} Ability Power</h3>
-          <p><b>Overkill:</b> Increases <span className="stat--ap">Ability Power</span> by <abbr title="20-45% based on level">{((bonus.ap) * (20 + (25/14 * (currentLevel - 1))) / 100)}</abbr></p>          
+          <p><b>Overkill:</b> Increases <span className="stat--ap">Ability Power</span> by <abbr title="20-45% based on level">{Math.round(20 + (25/14 * (currentLevel - 1)))}%</abbr></p>          
           
         </div>       
 
@@ -2170,6 +2251,57 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
     },
 
     {
+      name: 'Heartsteel',
+      icon: "../images/items/Heartsteel.webp",
+
+      health: 700,
+      mana: 0,
+      armor: 0,
+      magres: 0,
+      attack: 0,
+      ap: 0,
+      as: 0,
+      moveSpeed: 0,
+      flatArmPen: 0,
+      flatMagPen: 0,
+      armPen: 0,
+      magPen: 0,
+      critChance: 0,
+      critMultiplier: 0,
+      ah: 20,
+      armorReduction: 0,
+
+      description: 
+        <div className='itemDescription'>
+          <h3 className="stat--hp">+700 Health</h3>
+          <h3 className="stat--hp">150% base Health regeneration</h3>
+          <h3>20 Ability Haste</h3>
+
+          <div>
+            <p>Heartsteel Effect:</p>
+            <ul>
+              <li>Current bonus: {(heartsteelStacks).toFixed(0)}</li>
+              
+              <li>Change number of stacks: <input
+               type="number" 
+               min="0"
+               value={(heartsteelStacks).toFixed(0)}
+               onChange={(e) => {updateHeartsteel(e)}} /></li>
+
+              <li><button onClick={heartSteelProc}>Emulate current target strike</button></li>
+              <li><button onClick={() => {setHeartsteelStacks(oldStacks => 0)}}>Reset stacks</button></li>
+              
+            </ul>
+          </div>
+
+          <p>
+            <b>Colossal Consumption:</b> While within 700 units of an enemy champion, charges for 3 seconds before dealing a huge strike against the enemy champion. This charged attack deals bonus physical damage equal to 120 + 5% of maximum Health (<span className="stat--ad">{Math.round((120 + attacker.health * 5 / 100) * (1 - modifier))} damage</span>), and grants maximum Health equal to 12% of the damage dealt. The charge for each target has a 20-second cooldown.
+          </p>         
+        </div>
+
+    },
+
+    {
       name: 'Spirit Visage',
       icon: "../images/items/Spirit_Visage.png",
 
@@ -2231,7 +2363,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
           <h3 className="stat--armor">+65 Armor</h3>
 
           <p><b>Cold Steel:</b> reduces the attack speed of enemies by <b>15%</b> when struck by basic attack</p>
-          <p><b>Determination:</b> When you are getting critically struck store (25% for melee / 18% for ranged) pre-mitigation damage received as Datermination stacks for 5 seconds (500 stacks max). When you attack a champion consume all stacks and heal for the amount consumed.</p>
+          <p><b>Determination:</b> When you are getting critically struck store (25% for melee / 18% for ranged) pre-mitigation damage received as Datermination stacks for 5 seconds (500 stacks max). When you attack an enemy champion, consume all Determination and heal yourself for the same amount. If you still have unconsumed Determination after 5 seconds, automatically consume all Determination to heal yourself for half of the amount.</p>
         </div>
 
     },
@@ -2409,10 +2541,10 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
       name: 'Zeke\'s Convergence',
       icon: "../images/items/Zekes_Convergence.png",
 
-      health: 0,
+      health: 350,
       mana: 150,
       armor: 40,
-      magres: 40,
+      magres: 0,
       attack: 0,
       ap: 0,
       as: 0,
@@ -2428,9 +2560,8 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
 
       description: 
         <div className='itemDescription'>
-
-          <h3 className="stat--armor">+40 Armor</h3>
-          <h3 className="stat--magres">+40 Magic Resistance</h3>
+          <h3 className="stat--hp">+350 Maximum Health</h3>
+          <h3 className="stat--armor">+40 Armor</h3>          
           <h3 className="stat--mana">+150 Max mana</h3>
           <h3>+10 Ability Haste</h3>
 
@@ -2764,7 +2895,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
           <h3 className="stat--magres">+40 Magic Resistance</h3>
 
           <p>
-            <b>Lifeline:</b> Damage that puts you under <abbr title="35% max HP" className="stat--hp">{Math.round(total.health * 35 / 100)} Health</abbr> grants you a heal for <abbr title="200 + 50% BONUS HP" className="stat--hp">{Math.round(200 + bonus.health/2)} health</abbr> over 3 seconds, and provides <b>50% Slow Resistance</b> and <b>30 Movement Speed</b> for 3 seconds (90 second cooldown).
+            <b>Lifeline:</b> Damage that puts you under <abbr title="35% max HP" className="stat--hp">{Math.round(total.health * 35 / 100)} Health</abbr> grants bonus max Health equal to <abbr title="200 + 50% BONUS HP" className="stat--hp">{Math.round(200 + bonus.health/2)} health</abbr> over 3 seconds, and provides <b>50% Slow Resistance</b> and <b>30 Movement Speed</b> for 3 seconds (90 second cooldown).
           </p>
         </div>
 
@@ -2834,7 +2965,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
           <h3>+5 Ability Hate</h3>
 
           <p><b>Offering:</b> Generates a charge every 30 seconds, up to 3 charges. While you are near an allied champion, nearby minions that die will each consume a charge. Consuming a charge will grant 65 gold and heal you for 20 - 80 (based on missing health) You earn 50% reduced gold from killing minions and monsters. Killing minions will also grant 100% kill gold Gold 100% kill gold to the nearby ally.</p>
-          <p><b>Mission:</b> This item transforms into <b>Talisman of Ascension</b> after obtaining <b>500</b> gold.</p>
+          <p><b>Mission:</b> This item transforms into <b>Talisman of Ascension</b> after obtaining <b>750</b> gold.</p>
         </div>
     },
 
@@ -2901,7 +3032,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
 
           <p><b>Tribute:</b>  Generates a charge every 30 seconds, up to 3 charges. While you are near an allied champion, your damaging abilities and attacks against champions and structures consume up to one charge per attack or cast. Consuming a charge grants 65 gold and heals for <span className="stat--hp">20 - 80 health (based on missing health)</span> . You earn 50% reduced gold from killing minions and monsters. Killing minions will also grant 100% kill gold to the nearby ally.</p>
 
-          <p><b>Quest:</b> Earn <b>500</b> Gold with this item to transform it into <b>Black Mist Scythe</b>.</p>
+          <p><b>Quest:</b> Earn <b>750</b> Gold with this item to transform it into <b>Black Mist Scythe</b>.</p>
         </div>
 
     },
@@ -2976,7 +3107,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
           </p>
 
           <p>
-            <b>Quest:</b> earn <b>500</b> gold with this item to transform it into <b>Bulwark of the Mountain</b>
+            <b>Quest:</b> earn <b>750</b> gold with this item to transform it into <b>Bulwark of the Mountain</b>
           </p>
 
         </div>
@@ -3340,17 +3471,19 @@ const [Items, setItems] = useState(Array.from({ length: 5 }, () => ({...physical
   };
 //  automated item effects
   useEffect(() => {
+  const checkHeartsteel = Items.some((item) => item.name === 'Heartsteel');
   const payload = {
     rabadon: Items.some((item) => item.name === "Rabadon's Deathcap"),
     steraks: Items.some((item) => item.name === 'Sterak\'s Gage'),
     seraphs: Items.some((item) => item.name === 'Seraph\'s Embrace'),
     fimbulwinter: Items.some((item) => item.name === 'Fimbulwinter'),
     muramana: Items.some((item) => item.name === 'Muramana'),
-    lastWhisper:  Items.some((item) => item.name === 'Mortal Reminder' || item.name === 'Serylda\'s Grudge')
+    lastWhisper:  Items.some((item) => item.name === 'Mortal Reminder' || item.name === 'Serylda\'s Grudge'),
+    heartsteel: checkHeartsteel ? heartsteelStacks : 0,
   };
 
   updateItemEffects(payload);
-}, [Items, currentLevel]);
+}, [Items, currentLevel, heartsteelStacks]);
 
   //  State for Boots
   const [selectedBoots, setSelectedBoots] = useState({...bootsItemData[0]});

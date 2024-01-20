@@ -203,34 +203,23 @@ export default function leesin({currentLevel, mod, bonus, atk, def, champ}) {
           </h5>
 
           <p className="stat--ad">Pre-mitigation: 
-            {' '}{Math.round(((200)+(bonus.attack * 200 / 100)))} / 
-            {' '}{Math.round(((425)+(bonus.attack * 200 / 100)))} / 
-            {' '}{Math.round(((650)+(bonus.attack * 200 / 100)))}
+            {' '}{Math.round(((100)+(bonus.attack * 200 / 100)+(def.health * 10 / 100)))} / 
+            {' '}{Math.round(((300)+(bonus.attack * 200 / 100)+(def.health * 13 / 100)))} / 
+            {' '}{Math.round(((500)+(bonus.attack * 200 / 100)+(def.health * 16 / 100)))}
           </p>
 
           <p className="stat--ad">Post-mitigation: 
-            {' '}{Math.round(((200)+(bonus.attack * 200 / 100)) * (1 - mod.defPhysRed))} / 
-            {' '}{Math.round(((425)+(bonus.attack * 200 / 100))* (1 - mod.defPhysRed))} / 
-            {' '}{Math.round(((650)+(bonus.attack * 200 / 100))* (1 - mod.defPhysRed))}
-          </p>
-
-          <h5 className="stat--ad">
-            Minimal target collide damage:
-          </h5>
-
-          <p className="stat--ad">Pre-mitigation: 
-            {' '}{Math.round(((200)+(bonus.attack * 200 / 100)))} / 
-            {' '}{Math.round(((425)+(bonus.attack * 200 / 100)))} / 
-            {' '}{Math.round(((650)+(bonus.attack * 200 / 100)))}
-          </p>
+            {' '}{Math.round(((100)+(bonus.attack * 200 / 100)+(def.health * 10 / 100)) * (1 - mod.defPhysRed))} / 
+            {' '}{Math.round(((300)+(bonus.attack * 200 / 100)+(def.health * 13 / 100))* (1 - mod.defPhysRed))} / 
+            {' '}{Math.round(((500)+(bonus.attack * 200 / 100)+(def.health * 16 / 100))* (1 - mod.defPhysRed))}
+          </p>        
 
 
           <p>
-            Kicks an enemy champion, dealing <span className="stat--ad">200 / 425 / 650 (+200% bonus AD)</span> knicking it away.
+          Launches a powerful roundhouse kick at an enemy champion, dealing <span className="stat--ad">100 / 300 / 500 (+200% bonus AD) (<span className="stat--hp">+10 / 13 / 16% of target's maximum Health</span>) physical damage</span> and knocking them back. Enemies the target collides with along the way are knocked Airborne for 1 second and take physical damage equal to <span className="stat--ad">100 / 300 / 500 (+200% bonus AD) (<span className="stat--hp">+10 / 13 / 16% of target's maximum Health</span>)</span>.
           </p>
-
           <p>
-            Deals <span className="stat--ad">200 / 425 / 650 (+200% bonus AD) (<span className="stat--hp">+12% / 15% / 18% of target's BONUS health</span>)</span> to enemies hit by the kicked champion and knocks them up for 1 seconds.
+            Damage dealt to monsters is capped at 800.
           </p>
         </div>
     }

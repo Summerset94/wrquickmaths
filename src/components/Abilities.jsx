@@ -1,5 +1,5 @@
 import { useStats } from "./StatsContext";
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState, useEffect } from "react";
 
 export default function Abilities({champ, currentLevel, index, bonus, updateAbilitiesBonus}) {
 
@@ -85,31 +85,32 @@ const mod = useMemo(() => {
 [atk, def]);
 's'
 
-const AbilitiesGrid = React.lazy(() => import(`./abilities/${champ.id}.jsx`));
+const [importedComponent, setImportedComponent] = useState(null);
+
+useEffect(() => {
+  const importComponent = async () => {
+    const module = await import(`./abilities/${champ.id}.jsx`);
+    const AnotherComponent = module.default;
+    setImportedComponent(<AnotherComponent 
+      currentLevel={currentLevel}
+      mod={mod}
+      bonus={bonus}
+      atk={atk}
+      def={def}
+      champ={champ}
+      updateAbilitiesBonus={updateAbilitiesBonus} />);
+  };
+
+  importComponent();
+}, [champ.id, atk, def, currentLevel, bonus]);
+
 
 
   return (
-    <div className="abilitiesWrap">
-    {atk && def && (
-      <>
-
-
-          <div className="abilitiesGrid">
-            <React.Suspense fallback={<div>Loading...</div>}>
-              <AbilitiesGrid
-                currentLevel={currentLevel}
-                mod={mod}
-                bonus={bonus}
-                atk={atk}
-                def={def}
-                champ={champ}
-                updateAbilitiesBonus={updateAbilitiesBonus}
-              />
-            </React.Suspense>
-          </div>
-
-      </>
-    )}
-  </div>
+  <div className="abilitiesWrap">
+    <div className="abilitiesGrid">
+      {importedComponent && importedComponent}
+    </div>      
+    </div>
   )
 }
