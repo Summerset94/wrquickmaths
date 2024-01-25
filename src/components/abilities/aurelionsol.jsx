@@ -20,12 +20,12 @@ export default function aurelionsol({currentLevel, mod, bonus, atk, def, champ, 
         growth: 4
       },
       damage: {
-        base: (Math.round(currentLevel/2)) + 8,
+        base: (Math.round(currentLevel/2)) + 11,
         growth: 3,
         modifier: (atk.ap * 12 / 100)
       },
       burst: {
-        base: 45,
+        base: 55,
         growth: 10,
         modifier: (15+(5*Math.floor((currentLevel-1)/4))) +  (atk.ap * 35 / 100) + (def.health * (stardust * 3 / 100)/100)
       }
@@ -52,7 +52,7 @@ export default function aurelionsol({currentLevel, mod, bonus, atk, def, champ, 
         growth: 0
       },
       damage: {
-        base: 2,
+        base: 4,
         growth: 1.5,
         modifier: (atk.ap * 5 / 100)
       },
@@ -507,7 +507,7 @@ export default function aurelionsol({currentLevel, mod, bonus, atk, def, champ, 
           <ol className="stat--ap">
             <ul>
               <li>
-                Falling Star
+                <b className="stat--armor">Falling Star</b>
               </li>
               <li>Pre-mitigation:
                 {' '}{Math.round(calculations.r.damage.star.raw[1])} /
@@ -524,7 +524,7 @@ export default function aurelionsol({currentLevel, mod, bonus, atk, def, champ, 
 
             <ul>
               <li>
-                Skies Descend
+              <b className="stat--armor">Skies Descend</b>
               </li>
               <li>Pre-mitigation:
                 {' '}{Math.round(calculations.r.damage.skies.raw[1])} /
@@ -541,7 +541,7 @@ export default function aurelionsol({currentLevel, mod, bonus, atk, def, champ, 
 
             <ul>
               <li>
-                Shockwave
+              <b className="stat--armor">Shockwave</b>
               </li>
               <li>Pre-mitigation:
                 {' '}{Math.round(calculations.r.damage.shockwave.raw[1])} /

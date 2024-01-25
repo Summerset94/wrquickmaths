@@ -578,7 +578,7 @@ const runeFormulas = useMemo(()=>{
   }
 }, [mod, currentLevel, runesEffects, champ])
 
-// effect for updating constant bonuses from runes
+// push runes effects th character stats
 useEffect(() => {
   const payload = {
     attack: (runeFormulas.damagetype.type === 'physical' ? runeFormulas.conqueror.bonus + runesEffects.path.eyeballCollector + (runesEffects.path.zombieWard * 3) + (runeFormulas.gatheringStorm.bonus) : 0) + (runeFormulas.damagetype.type === 'physical' && runesEffects.path.eyeballCollector === 10 ? 10 : 0) + (runeFormulas.damagetype.type === 'physical' && runesEffects.path.zombieWard === 5 ? 10 : 0),
@@ -607,7 +607,7 @@ useEffect(() => {
   updateRunesEffects(payload)
 }, [runesEffects, currentLevel, champ])
 
-// Array for storing keystones descriptions
+// Keystone runes
 const keystones = [
   {
     name: 'Electrocute',    
@@ -1609,9 +1609,6 @@ const updateRunePath = (e) => {
   });
 };
 
-
-
-
 // with main rune at index
 const updateMainRune = (e, index) => {
     dispatch({ type: 'reset-path' });
@@ -1620,8 +1617,6 @@ const updateMainRune = (e, index) => {
       primary: oldRunes.primary.map((value, i) => (i === index ? e.target.value : value)),
     }));
   };
-
-
 
 // render the description of rune at selected index
 const mainRune = (index) => {
@@ -1655,8 +1650,6 @@ const secondaryRune = () => {
       );
     
 };
-
-
 
 return (
   <div className='runeWrapper'>
@@ -1748,7 +1741,5 @@ return (
 );
 
 };
-
-
 
 export default Runes

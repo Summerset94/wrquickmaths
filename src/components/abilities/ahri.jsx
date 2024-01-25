@@ -55,14 +55,14 @@ export default function ahri({currentLevel, mod, bonus, atk, def}) {
             Damage:
           </h5>
 
-          <p className="stat--ad">Pre-mitigation: 
+          <p className="stat--ap">Pre-mitigation: 
             {' '}{Math.round(((35)+(atk.ap * 35 / 100)))} + {Math.round(((35)+(atk.ap * 35 / 100)))} / 
             {' '}{Math.round(((70)+(atk.ap * 35 / 100)))} + {Math.round(((70)+(atk.ap * 35 / 100)))}  / 
             {' '}{Math.round(((105)+(atk.ap * 35 / 100)))} + {Math.round(((105)+(atk.ap * 35 / 100)))}  / 
             {' '}{Math.round(((140)+(atk.ap * 35 / 100)))} + {Math.round(((140)+(atk.ap * 35 / 100)))} 
           </p>
 
-          <p className="stat--ad">Post-mitigation: 
+          <p className="stat--ap">Post-mitigation: 
             {' '}{Math.round(((35)+(atk.ap * 35 / 100)) * (1 - mod.defMagRed))} + {Math.round(((35)+(atk.ap * 35 / 100)))}  / 
             {' '}{Math.round(((70)+(atk.ap * 35 / 100))* (1 - mod.defMagRed))} + {Math.round(((70)+(atk.ap * 35 / 100)))}  / 
             {' '}{Math.round(((105)+(atk.ap * 35 / 100))* (1 - mod.defMagRed))} + {Math.round(((105)+(atk.ap * 35 / 100)))}  / 
@@ -101,14 +101,14 @@ export default function ahri({currentLevel, mod, bonus, atk, def}) {
             Damage:
           </h5>
 
-          <p className="stat--ad">Pre-mitigation: 
+          <p className="stat--ap">Pre-mitigation: 
             {' '}{Math.round(((40)+(atk.ap * 30 / 100)))} / 
             {' '}{Math.round(((75)+(atk.ap * 30 / 100)))} / 
             {' '}{Math.round(((110)+(atk.ap * 30 / 100)))} / 
             {' '}{Math.round(((145)+(atk.ap * 30 / 100)))}
           </p>
 
-          <p className="stat--ad">Post-mitigation: 
+          <p className="stat--ap">Post-mitigation: 
             {' '}{Math.round(((40)+(atk.ap * 30 / 100)) * (1 - mod.defMagRed))} / 
             {' '}{Math.round(((75)+(atk.ap * 30 / 100))* (1 - mod.defMagRed))} / 
             {' '}{Math.round(((110)+(atk.ap * 30 / 100))* (1 - mod.defMagRed))} / 
@@ -116,7 +116,7 @@ export default function ahri({currentLevel, mod, bonus, atk, def}) {
           </p>
 
           <p>
-          <b>ACTIVE:</b> Ahri gains <abbr title="40%">{Math.round(atk.moveSpeed * 45 / 100)}</abbr> bonus movement speed that decays over 1.5 seconds and summons three flames which orbit her for up to 5 seconds. <br />
+          <b>ACTIVE:</b> Ahri gains <abbr title="40%" className="stat--moveSpeed">{Math.round(atk.moveSpeed * 45 / 100)} bonus movement speed</abbr> that decays over 1.5 seconds and summons three flames which orbit her for up to 5 seconds. <br />
           Each flame chases a nearby enemy, dealing magic damage, reduced to 30% for enemies taking flames beyond the first. <br />
           Flames prioritize targeting enemies hit by <span className="stat--ap">Charm</span>, then the last enemy Ahri attacked, and then the nearest enemy.
           </p>
@@ -149,14 +149,14 @@ export default function ahri({currentLevel, mod, bonus, atk, def}) {
             Damage:
           </h5>
 
-          <p className="stat--ad">Pre-mitigation: 
+          <p className="stat--ap">Pre-mitigation: 
             {' '}{Math.round(((60)+(atk.ap * 50 / 100)))} / 
             {' '}{Math.round(((100)+(atk.ap * 50 / 100)))} / 
             {' '}{Math.round(((140)+(atk.ap * 50 / 100)))} / 
             {' '}{Math.round(((180)+(atk.ap * 50 / 100)))}
           </p>
 
-          <p className="stat--ad">Post-mitigation: 
+          <p className="stat--ap">Post-mitigation: 
             {' '}{Math.round(((60)+(atk.ap * 50 / 100)) * (1 - mod.defMagRed))} / 
             {' '}{Math.round(((100)+(atk.ap * 50 / 100))* (1 - mod.defMagRed))} / 
             {' '}{Math.round(((140)+(atk.ap * 50 / 100))* (1 - mod.defMagRed))} / 
@@ -201,13 +201,13 @@ export default function ahri({currentLevel, mod, bonus, atk, def}) {
             Damage:
           </h5>
 
-          <p className="stat--ad">Pre-mitigation: 
+          <p className="stat--ap">Pre-mitigation: 
             {' '}{Math.round(((60)+(atk.ap * 35 / 100)))} / 
             {' '}{Math.round(((90)+(atk.ap * 35 / 100)))} / 
             {' '}{Math.round(((120)+(atk.ap * 35 / 100)))}
           </p>
 
-          <p className="stat--ad">Post-mitigation: 
+          <p className="stat--ap">Post-mitigation: 
             {' '}{Math.round(((60)+(atk.ap * 35 / 100)) * (1 - mod.defMagRed))} / 
             {' '}{Math.round(((90)+(atk.ap * 35 / 100))* (1 - mod.defMagRed))} / 
             {' '}{Math.round(((120)+(atk.ap * 35 / 100))* (1 - mod.defMagRed))}

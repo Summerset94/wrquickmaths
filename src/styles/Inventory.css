@@ -7,7 +7,7 @@
 }
 
 .inventory-itemSection {
-  height: 400px;
+
   overflow-y: scroll;
   overflow-x: hidden;
   border: 2px solid gray;
@@ -20,6 +20,7 @@
   flex-direction: row;
   width: 100%;
   flex-wrap: wrap;
+  height: 100%;
 }
 
 .inventory-button {
@@ -70,8 +71,9 @@
 
 .inventoryStore {
   display: flex;
+  flex-direction: row;
   flex-wrap: wrap;
-  justify-content: center;
+  
 }
 
 .inventroy-equippedTile {

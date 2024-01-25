@@ -72,7 +72,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
   };
 
   const heartSteelProc = () => {
-    const procDamage = (120 + (attacker.health * 5/100)) * (1 - modifier) * (12/100);
+    const procDamage = (120 + (attacker.health * 5/100)) * (1 - modifier) * (15/100);
     setHeartsteelStacks(oldStacks => oldStacks += procDamage)
   }
   let physicalItemData = [
@@ -114,7 +114,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
       mana: 0,
       armor: 0,
       magres: 0,
-      attack: 45,
+      attack: 50,
       ap: 0,
       as: 0,
       moveSpeed: 0,
@@ -124,7 +124,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
       magPen: 0,
       critChance: 0,
       critMultiplier: 0,
-      ah: 20,
+      ah: 25,
       armorReduction: 0,
 
       description:
@@ -134,14 +134,14 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
           <h3 className="stat--ad">+45 Attack Damage</h3>
           <h3>+20 Ability Haste</h3>
           <p>
-            <b>Dargon Awakening</b>: Increases Ability Haste of basic abilities by 25% for 6 seconds after casting an Ultimate, and grants <span className="stat--moveSpeed">30% bonus Movement Speed</span> that decays over 3 seconds. Scoring a takedown within 6 seconds refreshes the ability's duration (20s cooldown).
+            <b>Dargon Awakening</b>: Increases Ability Haste of basic abilities by 25% for 8 seconds after casting an Ultimate, and grants <span className="stat--moveSpeed">30% bonus Movement Speed</span> that decays over 3 seconds. Scoring a takedown within 8 seconds refreshes the ability's duration (20s cooldown).
           </p>
          </div>
 
     },
 
     {
-      name: 'Tytanic Hydra',
+      name: 'Titanic Hydra',
 
       icon: '../images/items/Titanic_Hydra.webp',
       
@@ -149,7 +149,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
       mana: 0,
       armor: 0,
       magres: 0,
-      attack: (5 + (bonus.health * 25/1000)),
+      attack: 0,
       ap: 0,
       as: 0,
       moveSpeed: 0,
@@ -165,11 +165,11 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
         <h3 className="stat--hp">+550 Health</h3>
 
         <p>
-          <b>Colossus:</b> Gain <span className="stat--ad">Attack Damage</span> equal to <span className="stat--ad">5</span> + <span className="stat--hp">2.5% bonus Health</span>
+          <b>Colossus:</b> Gain <span className="stat--ad">Attack Damage</span> equal to <span className="stat--ad">15</span> + <span className="stat--hp">2.5% bonus Health</span>
         </p>
   
         <p>
-          <b>Cleave: </b> Every 2.5 seconds, your next attack deals bonus physical damage equal to 25 + 3% bonus Health (pre / post-mitigation): <span className="stat--ad">{Math.round(25 + bonus.health * 3 / 100)} / {Math.round((25 + bonus.health * 3 / 100) * (1- modifier))}</span> (also applies to turrets), creating a shockwave that deals physical damage equal to 80 + 10% bonus Health: <span className="stat--ad">{Math.round(80 + bonus.health * 10 / 100)} / {Math.round((80 + bonus.health * 10 / 100) * (1- modifier))}</span> to enemies behind the target. (Ranged champions deal 75% of the damage.)
+          <b>Cleave: </b> Every 1.75 seconds, your next attack deals bonus physical damage equal to 25 + 3% bonus Health (pre / post-mitigation): <span className="stat--ad">{Math.round(25 + bonus.health * 3 / 100)} / {Math.round((25 + bonus.health * 3 / 100) * (1- modifier))}</span> (also applies to turrets), creating a shockwave that deals physical damage equal to 80 + 10% bonus Health: <span className="stat--ad">{Math.round(80 + bonus.health * 10 / 100)} / {Math.round((80 + bonus.health * 10 / 100) * (1- modifier))}</span> to enemies behind the target. (Ranged champions deal 75% of the damage.)
         </p>
       </div>
     },  
@@ -2295,7 +2295,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
           </div>
 
           <p>
-            <b>Colossal Consumption:</b> While within 700 units of an enemy champion, charges for 3 seconds before dealing a huge strike against the enemy champion. This charged attack deals bonus physical damage equal to 120 + 5% of maximum Health (<span className="stat--ad">{Math.round((120 + attacker.health * 5 / 100) * (1 - modifier))} damage</span>), and grants maximum Health equal to 12% of the damage dealt. The charge for each target has a 20-second cooldown.
+            <b>Colossal Consumption:</b> While within 700 units of an enemy champion, charges for 3 seconds before dealing a huge strike against the enemy champion. This charged attack deals bonus physical damage equal to 120 + 5% of maximum Health (<span className="stat--ad">{Math.round((120 + attacker.health * 5 / 100) * (1 - modifier))} damage</span>), and grants maximum Health equal to 15% of the damage dealt. The charge for each target has a 20-second cooldown.
           </p>         
         </div>
 
@@ -3480,6 +3480,7 @@ const [Items, setItems] = useState(Array.from({ length: 5 }, () => ({...physical
     muramana: Items.some((item) => item.name === 'Muramana'),
     lastWhisper:  Items.some((item) => item.name === 'Mortal Reminder' || item.name === 'Serylda\'s Grudge'),
     heartsteel: checkHeartsteel ? heartsteelStacks : 0,
+    titanicHydra: Items.some((item) => item.name === 'Titanic Hydra'),
   };
 
   updateItemEffects(payload);

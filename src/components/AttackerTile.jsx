@@ -1,9 +1,10 @@
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState, useMemo, useReducer } from "react";
 import champions from './Champions.jsx'
 import Abilities from "./Abilities";
 import Inventory from "./Inventory";
 import { useStats } from './StatsContext';
 import Runes from "./Runes.jsx";
+import aatrox from "./abilities/aatrox.jsx";
 
 export default function AttackerTile(props) {
   // for later calculations we need index 1 and 2 for champions
@@ -171,6 +172,7 @@ const statGrowth = function(mod) {
     twistedFateE: 0,
     veigarP: 0,
     syndraP: false,
+    aatroxUlt: 0
   });
 
   const updateAbilitiesBonus = function(updatedValues) {
@@ -352,6 +354,9 @@ const statGrowth = function(mod) {
           attackMod = ((baseStats.attack + itemBonus.attack + runesEffects.attack) * 25/100)
         };
         break;
+      case 'Aatrox':
+        attackMod = (baseStats.attack + itemBonus.attack + runesEffects.attack) * (abilitiesBonus.aatroxUlt > 0 ? (0.2 + (0.1 * abilitiesBonus.aatroxUlt)) : 0);
+        break;
 
       case 'Yasuo':
       case 'Yone':
@@ -474,6 +479,10 @@ const statGrowth = function(mod) {
         moveSpeedMod = 80
       }
       break;
+    
+    case 'Aatrox':      
+      moveSpeedMod = (baseStats.moveSpeed + itemBonus.moveSpeed + runesEffects.moveSpeed) * (abilitiesBonus.aatroxUlt > 0 ? 0.4 + (0.2 * abilitiesBonus.aatroxUlt) : 0);
+      break;
     default:
       moveSpeedMod = 0;
       break;
@@ -537,7 +546,9 @@ const statGrowth = function(mod) {
     fimbulwinter: false,
     muramana: false,
     lastWhisper: false,
+    titanicHydra: false,
     heartsteel: 0,
+    
 
     forceOfNature: false,
     bootsPassive: false,    
@@ -554,6 +565,8 @@ const statGrowth = function(mod) {
     const fimbulwinter = itemEffects.fimbulwinter ? ((baseStats.mana? baseStats.mana + itemBonus.mana  + runesEffects.mana : itemBonus.mana  + runesEffects.mana) * 8/100) : 0;
     const lastWhisper = itemEffects.lastWhisper ? ((15 + Number(currentLevel))/100) : 0;
     const heartsteel = itemEffects.heartsteel;
+    const titanicHydra = itemEffects.titanicHydra ? (15 + ((championModifier.health + itemEffects.heartsteel - baseStats.health) * 25 /1000)) : 0;
+
 
     const forceOfNature = itemEffects.forceOfNature;
     const bootsPassive = itemEffects.bootsPassive;
@@ -561,7 +574,7 @@ const statGrowth = function(mod) {
 
     
     return {
-      attack: steraks + muramana,
+      attack: steraks + muramana + titanicHydra,
       ap: rabadon + seraphs,
       armor: twinguardAR,
       magres: twinguardMR,
@@ -800,14 +813,68 @@ const statGrowth = function(mod) {
         itemEffects={itemEffects}
         updateRunesEffects={updateRunesEffects}
       />, label: 'Runes' },
-    
-   
   ];
 
- 
+// to sort based on various stats
+const [sortedList, setSortedList] = useState(champions);
+
+const sortingHat = (type = 'alphabetical') => {
+  let comparisonStat = 0;
+
+  switch (type) {
+    case 'baseHealth':
+      champions.forEach((object) => (object.toCompare = object.healthBase));
+      break;
+    case 'totalHealth':
+      champions.forEach(
+        (object) => (object.toCompare = object.healthBase + object.healthScale * 14)
+      );
+      break;
+    case 'baseAttack':
+      champions.forEach((object) => (object.toCompare = object.attackBase));
+      break;
+    case 'totalAttack':
+      champions.forEach(
+        (object) => (object.toCompare = object.attackBase + object.attackScale * 14)
+      );
+      break;
+    case 'baseArmor':
+      champions.forEach((object) => (object.toCompare = object.armorBase));
+      break;
+    case 'totalArmor':
+      champions.forEach(
+        (object) => (object.toCompare = object.armorBase + object.armorScale * 14)
+      );
+      break;
+    case 'baseMagres':
+      champions.forEach((object) => (object.toCompare = object.magresBase));
+      break;
+    case 'totalMagres':
+      champions.forEach(
+        (object) => (object.toCompare = object.magresBase + object.magresScale * 14)
+      );
+      break;
+
+      case 'baseAS':
+        champions.forEach((object) => (object.toCompare = object.asBase));
+        break;
+      case 'totalAS':
+        champions.forEach(
+          (object) => (object.toCompare = object.asBase + object.asBaseBonus +  object.asScale * 14)
+        );
+        break;
+    case 'alphabetical':
+    default:
+      champions.forEach((object) => (object.toCompare = object.name));
+  }
+
+  const sortedChampions = [...champions].sort((a, b) => b.toCompare - a.toCompare);
+
+  setSortedList(sortedChampions);
+};
 
 
-  return (
+    return (
     <div className='champTile'>
 
            
@@ -818,10 +885,25 @@ const statGrowth = function(mod) {
         <img src={champion.icon} alt="Champion Icon" className='champIcon'/>
         <div className='nameTile'>
           <div className="selectOption">
+            <h5>Sort by:</h5>
+            <select onChange={(e) => {sortingHat(e.target.value)}}>
+          <option value="alphabetical">Alpabetical (default)</option>
+          <option value="baseHealth">Health base</option>
+          <option value="totalHealth">Health natural at 15</option>
+          <option value="baseAttack">Attack base</option>
+          <option value="totalAttack">Attack natural at 15</option>
+          <option value="baseArmor">Armor base</option>
+          <option value="totalArmor">Armor natural at 15</option>
+          <option value="baseMagres">Magic Resistance base</option>
+          <option value="totalMagres">Magic Resistance natural at 15</option>
+          <option value="baseAS">Attack speed base</option>
+          <option value="totalAS">Attack Speed natural at 15</option>
+        </select>
+            
             <h5>Select Champion: </h5>
         <select onChange={handleChampSelect}>
           <option value={champTemplate}>Select a champion</option>
-          {champions.map((champion) => (
+          {sortedList.map((champion) => (
             <option key={champion.id} value={champion.name}>
               {champion.name}
             </option>
