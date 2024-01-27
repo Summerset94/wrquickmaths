@@ -9,7 +9,7 @@ export default function pyke({currentLevel, mod, bonus, atk, def, champ}) {
           </h4>
     
           <p>
-          Stores <abbr title="10% + 0.35% of FLAT armor penetration" className="stat--vamp">{(10 + atk.flatArmPen * 0.35 / 100).toFixed(1)}%</abbr> of damage taken from champions, increased to <abbr title="50% + 0.65% of FLAT armor penetration" className="stat--vamp">{(50 + atk.flatArmPen * 0.65 / 100).toFixed(1)}%</abbr> if there are two or more visible enemy champions nearby. Damage stored cannot exceed <abbr title="MINIMUM between 65% Health and 146 + 800 bonus AD" className="stat--hp">{Math.round(Math.min((atk.health*65/100),(160 + bonus.attack * 800 / 100)))} health</abbr>
+          Stores <abbr title="10% + 0.35% of FLAT armor penetration" className="stat--vamp">{(10 + atk.flatArmPen * 0.35 / 100).toFixed(1)}%</abbr> of damage taken from champions, increased to <abbr title="50% + 0.65% of FLAT armor penetration" className="stat--vamp">{(50 + atk.flatArmPen * 0.65 / 100).toFixed(1)}%</abbr> if there are two or more visible enemy champions nearby. Damage stored cannot exceed <abbr title="MINIMUM between 65% Health and 146 + 800% bonus AD" className="stat--hp">{Math.round(Math.min((atk.health*65/100),(160 + bonus.attack * 800 / 100)))} health</abbr>
           </p>
 
           <p>

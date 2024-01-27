@@ -7,7 +7,7 @@ export default function masteryi({currentLevel, mod, bonus, atk, def, champ}) {
           <span className="marker--ability">P</span> DOUBLE STRIKE
           </h4>
           <p>
-          Every 4th consecutive attack strikes twice for <abbr title="150% AD" className="stat--ad">{Math.round(atk.attack * 150 / 100)} ({Math.round((atk.attack * 150 / 100)*(1 - mod.defPhysRed))} post-mitigation)</abbr>
+          Every 4th consecutive attack strikes twice for a total of <abbr title="150% AD" className="stat--ad">{Math.round(atk.attack * 150 / 100)} ({Math.round((atk.attack * 150 / 100)*(1 - mod.defPhysRed))} post-mitigation) physical damage</abbr>.
           </p>
         </div>
     },

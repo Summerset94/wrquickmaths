@@ -462,7 +462,7 @@ const runeFormulas = useMemo(()=>{
       cooldown: (electrocute.cooldown.base + electrocute.cooldown.growth/14 * (currentLevel-1)),
       damage: {
         raw: (electrocute.damage.base + electrocute.damage.growth/14*(currentLevel-1) + electrocute.damage.modifier),
-        mitigated: ((electrocute.damage.base + electrocute.damage.growth/14*(currentLevel-1) + electrocute.damage.modifier) * (1 - (damagetype === 'physical' ? mod.defPhysRed : def.defMagRed)))
+        mitigated: ((electrocute.damage.base + electrocute.damage.growth/14*(currentLevel-1) + electrocute.damage.modifier) * (1 - (damagetype === 'physical' ? mod.defPhysRed : mod.defMagRed)))
     }
     },
 

@@ -95,17 +95,17 @@ export default function malphite({currentLevel, mod, bonus, atk, def, champ, upd
           </h5>
 
           <p className="stat--ad">Pre-mitigation: 
-            {' '}{Math.round(((30)+(atk.ap * 40 / 100)+(atk.armor * 115 * 30 / 1000)))} / 
-            {' '}{Math.round(((50)+(atk.ap * 40 / 100)+(atk.armor * 120 * 30 / 1000)))} / 
-            {' '}{Math.round(((70)+(atk.ap * 40 / 100)+(atk.armor * 125 * 30 / 1000)))} / 
-            {' '}{Math.round(((90)+(atk.ap * 40 / 100)+(atk.armor * 130 * 30 / 1000)))}
+            {' '}{Math.round(((30)+(atk.ap * 40 / 100)+(atk.armor* 30 / 100)))} / 
+            {' '}{Math.round(((50)+(atk.ap * 40 / 100)+(atk.armor* 30 / 100)))} / 
+            {' '}{Math.round(((70)+(atk.ap * 40 / 100)+(atk.armor* 30 / 100)))} / 
+            {' '}{Math.round(((90)+(atk.ap * 40 / 100)+(atk.armor* 30 / 100)))}
           </p>
 
           <p className="stat--ad">Post-mitigation: 
-            {' '}{Math.round(((30)+(atk.ap * 40 / 100)+(atk.armor * 115 * 30 / 1000)) * (1 - mod.defPhysRed))} / 
-            {' '}{Math.round(((50)+(atk.ap * 40 / 100)+(atk.armor * 120 * 30 / 1000))* (1 - mod.defPhysRed))} / 
-            {' '}{Math.round(((70)+(atk.ap * 40 / 100)+(atk.armor * 125 * 30 / 1000))* (1 - mod.defPhysRed))} / 
-            {' '}{Math.round(((90)+(atk.ap * 40 / 100)+(atk.armor * 130 * 30 / 1000))* (1 - mod.defPhysRed))}          
+            {' '}{Math.round(((30)+(atk.ap * 40 / 100)+(atk.armor* 30 / 100)) * (1 - mod.defPhysRed))} / 
+            {' '}{Math.round(((50)+(atk.ap * 40 / 100)+(atk.armor * 30 / 100))* (1 - mod.defPhysRed))} / 
+            {' '}{Math.round(((70)+(atk.ap * 40 / 100)+(atk.armor * 30 / 100))* (1 - mod.defPhysRed))} / 
+            {' '}{Math.round(((90)+(atk.ap * 40 / 100)+(atk.armor * 30 / 100))* (1 - mod.defPhysRed))}          
           </p>
 
           <h5 className="stat--ad">
@@ -113,17 +113,17 @@ export default function malphite({currentLevel, mod, bonus, atk, def, champ, upd
           </h5>
 
           <p className="stat--ad">Pre-mitigation: 
-            {' '}{Math.round(((10)+(atk.ap * 20 / 100)+(atk.armor * 115 * 15 / 1000)))} / 
-            {' '}{Math.round(((20)+(atk.ap * 20 / 100)+(atk.armor * 120 * 15 / 1000)))} / 
-            {' '}{Math.round(((30)+(atk.ap * 20 / 100)+(atk.armor * 125 * 15 / 1000)))} / 
-            {' '}{Math.round(((40)+(atk.ap * 20 / 100)+(atk.armor * 130 * 15 / 1000)))}
+            {' '}{Math.round(((10)+(atk.ap * 20 / 100)+(atk.armor* 15 / 100)))} / 
+            {' '}{Math.round(((20)+(atk.ap * 20 / 100)+(atk.armor * 15 / 100)))} / 
+            {' '}{Math.round(((30)+(atk.ap * 20 / 100)+(atk.armor * 15 / 100)))} / 
+            {' '}{Math.round(((40)+(atk.ap * 20 / 100)+(atk.armor * 15 / 100)))}
           </p>
 
           <p className="stat--ad">Post-mitigation: 
-            {' '}{Math.round(((10)+(atk.ap * 20 / 100)+(atk.armor * 115 * 15 / 1000)) * (1 - mod.defPhysRed))} / 
-            {' '}{Math.round(((20)+(atk.ap * 20 / 100)+(atk.armor * 120 * 15 / 1000))* (1 - mod.defPhysRed))} / 
-            {' '}{Math.round(((30)+(atk.ap * 20 / 100)+(atk.armor * 125 * 15 / 1000))* (1 - mod.defPhysRed))} / 
-            {' '}{Math.round(((40)+(atk.ap * 20 / 100)+(atk.armor * 130 * 15 / 1000))* (1 - mod.defPhysRed))}          
+            {' '}{Math.round(((10)+(atk.ap * 20 / 100)+(atk.armor * 15 / 100)) * (1 - mod.defPhysRed))} / 
+            {' '}{Math.round(((20)+(atk.ap * 20 / 100)+(atk.armor * 15 / 100))* (1 - mod.defPhysRed))} / 
+            {' '}{Math.round(((30)+(atk.ap * 20 / 100)+(atk.armor * 15 / 100))* (1 - mod.defPhysRed))} / 
+            {' '}{Math.round(((40)+(atk.ap * 20 / 100)+(atk.armor * 15 / 100))* (1 - mod.defPhysRed))}          
           </p>
 
           <p>
@@ -132,7 +132,7 @@ export default function malphite({currentLevel, mod, bonus, atk, def, champ, upd
           </p>
     
           <p>
-            <b>PASSIVE:</b> Gain <abbr title="20 / 25 / 30 / 35% Total Armor" className="stat--armor">{Math.round(atk.armor * 15 / 100)} / {Math.round(atk.armor * 20 / 100)} / {Math.round(atk.armor * 25 / 100)} / {Math.round(atk.armor * 30 / 100)} Armor</abbr>
+            <b>PASSIVE:</b> Gain <span className='stat--armor'>20 / 25 / 30 / 35% bonus Armor</span> 
           </p>
 
           <p>

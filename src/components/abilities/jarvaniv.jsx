@@ -101,8 +101,8 @@ export default function jarvaniv({currentLevel, mod, bonus, atk, def, champ}) {
     
           <p>
           Unleashes a regal aura that slows surrounding enemies by <span className="stat--moveSpeed">20% / 25% / 30% / 35%</span> for 2 seconds; <br />
-          Grants a shiel that absorbs <span className="stat--hp">80 / 120 / 160 / 200 (+ 4% maximul Health ) damage</span>  for 5 seconds. <br />
-          Absorbs <span className="stat--hp">(1.6% / 1.9% / 2.2% / 2.5% HP) more damage</span> for each nearby enemy champion.
+          Grants a shiel that absorbs <span className="stat--hp">80 / 120 / 160 / 200 (+ 4% maximum Health ) damage</span>  for 5 seconds. <br />
+          Absorbs <span className="stat--hp">(1.6% / 1.9% / 2.2% / 2.5% Maximum Health) more damage</span> for each nearby enemy champion.
 
           </p>
         </div>
@@ -202,10 +202,10 @@ export default function jarvaniv({currentLevel, mod, bonus, atk, def, champ}) {
           </p>
     
           <p>
-          Heroically leaps to an enemy champion, <span className="stat--ad">dealing 200 / 350 / 500 
-          (+170% AD) physical damage</span> in ana area; <br />
+          Heroically leaps to an enemy champion, dealing <span className="stat--ad">200 / 350 / 500 
+          (+170% AD) physical damage</span> in an area; <br />
           Creating an arena of impassable terrain around initial target for 3.5 seconds. <br />
-          Damage from enemies is reduced by <span className="stat--armor">12/16/20% inside Cataclysm</span>, the effect will be removed when leaving Cataclysm or the barrier surrounding the terrain collapses.
+          Damage from enemies is reduced by <span className="stat--armor">12 / 16 / 20% inside Cataclysm</span>, the effect will be removed when leaving Cataclysm or the barrier surrounding the terrain collapses.
           </p>
         </div>
     }

@@ -207,11 +207,11 @@ export default function nunu({currentLevel, mod, bonus, atk, def, champ}) {
             {' '}{100}
           </h5>
 
-          <h5 className="stat--hp">
-            Healing:
+          <h5 className="stat--armor">
+            Shield:
           </h5>
 
-          <p className="stat--hp">
+          <p className="stat--armor">
                 {Math.round(((65)+(atk.ap * 180 / 100)+(bonus.health * 30 / 100)))} / 
             {' '}{Math.round(((75)+(atk.ap * 180 / 100)+(bonus.health * 40 / 100)))} / 
             {' '}{Math.round(((85)+(atk.ap * 180 / 100)+(bonus.health * 50 / 100)))}

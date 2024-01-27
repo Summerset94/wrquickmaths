@@ -8,7 +8,7 @@ export default function missfortune({currentLevel, mod, bonus, atk, def, champ})
           </h4>
     
           <p>
-            First attack against an enemy deal <abbr title="49 - 150% AD based on level" className="stat--ad">{Math.round(atk.attack * (45 + 4* currentLevel) /100)} ({Math.round((atk.attack * (45 + 4* currentLevel) /100)* (1 - mod.defPhysRed))} post-mitigation) bonus physical damage</abbr>
+            First attack against an enemy deal <abbr title="49 - 150% AD based on level" className="stat--ad">{Math.round(atk.attack * (49 + 101/14 * (Number(currentLevel)-1)) /100)} ({Math.round((atk.attack * (49 + 101/14 * (Number(currentLevel)-1)) /100)* (1 - mod.defPhysRed))} post-mitigation) bonus physical damage</abbr>
           </p>
 
           <p>

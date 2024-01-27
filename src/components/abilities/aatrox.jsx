@@ -48,7 +48,7 @@ export default function aatrox({currentLevel, mod, bonus, atk, def, updateAbilit
 
       damage: {
         base: (def.health * 5 / 100),
-        growth: (def.health * 10 / 100) * (Number(currentLevel)-1)
+        growth: (def.health * 10 / 100)/14 * (Number(currentLevel)-1)
       },
     };
 

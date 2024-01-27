@@ -727,7 +727,7 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
            
           <h3 className='stat--hp'>+{250} Max Health</h3>
           <h3 className='stat--ad'>+{30} Attack Damage</h3>
-          <h3 className='stat--as'>+30% ({(base.asBase * 0.3)}) Attack Speed</h3>
+          <h3 className='stat--as'>+30% ({(base.asBase * 0.3).toFixed(3)}) Attack Speed</h3>
           <h3>+{25} Ability Haste</h3>
 
           <p><b>Fervor: </b>+{(base.moveSpeed * 0.05).toFixed(2)} Move Speed</p>
@@ -2295,7 +2295,8 @@ export default function Inventory({base, bonus, total, handleBonusChange, curren
           </div>
 
           <p>
-            <b>Colossal Consumption:</b> While within 700 units of an enemy champion, charges for 3 seconds before dealing a huge strike against the enemy champion. This charged attack deals bonus physical damage equal to 120 + 5% of maximum Health (<span className="stat--ad">{Math.round((120 + attacker.health * 5 / 100) * (1 - modifier))} damage</span>), and grants maximum Health equal to 15% of the damage dealt. The charge for each target has a 20-second cooldown.
+            <b>Colossal Consumption:</b> While within 700 units of an enemy champion, charges for 3 seconds befo
+            re dealing a huge strike against the enemy champion. This charged attack deals bonus physical damage equal to 120 + 5% of maximum Health (<span className="stat--ad">{Math.round((120 + attacker.health * 5 / 100) * (1 - modifier))} damage</span>), and grants maximum Health equal to 15% of the damage dealt. The charge for each target has a 20-second cooldown.
           </p>         
         </div>
 

@@ -12,7 +12,7 @@ export default function blitzcrank({currentLevel, mod, bonus, atk, def}) {
             {' '}{(50*mod.atkcdr).toFixed(1)} / 
           </h5>
             
-          <h5 className="stat--hp">
+          <h5 className="stat--armor">
             Shield: {Math.round(atk.mana * 30 / 100)}
           </h5>
            <p>
@@ -47,14 +47,14 @@ export default function blitzcrank({currentLevel, mod, bonus, atk, def}) {
             Damage:
           </h5>
 
-          <p className="stat--ad">Pre-mitigation: 
+          <p className="stat--ap">Pre-mitigation: 
             {' '}{Math.round(((100)+(atk.ap * 100 / 100)))} / 
             {' '}{Math.round(((160)+(atk.ap * 100 / 100)))} / 
             {' '}{Math.round(((220)+(atk.ap * 100 / 100)))} / 
             {' '}{Math.round(((280)+(atk.ap * 100 / 100)))}
           </p>
 
-          <p className="stat--ad">Post-mitigation: 
+          <p className="stat--ap">Post-mitigation: 
             {' '}{Math.round(((100)+(atk.ap * 100 / 100)) * (1 - mod.defMagRed))} / 
             {' '}{Math.round(((160)+(atk.ap * 100 / 100))* (1 - mod.defMagRed))} / 
             {' '}{Math.round(((220)+(atk.ap * 100 / 100))* (1 - mod.defMagRed))} / 
@@ -62,7 +62,7 @@ export default function blitzcrank({currentLevel, mod, bonus, atk, def}) {
           </p>
     
           <p>
-          Blitzcrank fires his right hand in a line in the target direction, catching the first enemy hit to deal them <span className="stat--ap">100 / 160 / 220 / 280 (+100% AP)</span> and pull them to Blitzcrank.
+          Blitzcrank fires his right hand in a line in the target direction, catching the first enemy hit to deal them <span className="stat--ap">100 / 160 / 220 / 280 (+100% AP) magic damage</span> and pull them to Blitzcrank.
           </p>
         </div>
     },
@@ -167,13 +167,13 @@ export default function blitzcrank({currentLevel, mod, bonus, atk, def}) {
             Mark damage:
           </h5>
 
-          <p className="stat--ad">Pre-mitigation: 
+          <p className="stat--ap">Pre-mitigation: 
             {' '}{Math.round(((40)+(atk.ap * 15 / 100)))} / 
             {' '}{Math.round(((80)+(atk.ap * 15 / 100)))} / 
             {' '}{Math.round(((120)+(atk.ap * 15 / 100)))}
           </p>
 
-          <p className="stat--ad">Post-mitigation: 
+          <p className="stat--ap">Post-mitigation: 
             {' '}{Math.round(((40)+(atk.ap * 15 / 100)) * (1 - mod.defMagRed))} / 
             {' '}{Math.round(((80)+(atk.ap * 15 / 100))* (1 - mod.defMagRed))} / 
             {' '}{Math.round(((120)+(atk.ap * 15 / 100))* (1 - mod.defMagRed))}
@@ -183,13 +183,13 @@ export default function blitzcrank({currentLevel, mod, bonus, atk, def}) {
           Cast damage:
           </h5>
 
-          <p className="stat--ad">Pre-mitigation: 
+          <p className="stat--ap">Pre-mitigation: 
             {' '}{Math.round(((200)+(atk.ap * 80 / 100)))} / 
             {' '}{Math.round(((325)+(atk.ap * 80 / 100)))} / 
             {' '}{Math.round(((450)+(atk.ap * 80 / 100)))}
           </p>
 
-          <p className="stat--ad">Post-mitigation: 
+          <p className="stat--ap">Post-mitigation: 
             {' '}{Math.round(((200)+(atk.ap * 80 / 100)) * (1 - mod.defMagRed))} / 
             {' '}{Math.round(((325)+(atk.ap * 80 / 100))* (1 - mod.defMagRed))} / 
             {' '}{Math.round(((450)+(atk.ap * 80 / 100))* (1 - mod.defMagRed))}

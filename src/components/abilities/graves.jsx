@@ -1,4 +1,45 @@
+import {useMemo} from 'react'
 export default function graves({currentLevel, mod, bonus, atk, def, champ}) {
+  const calculations = useMemo(()=> {
+    const p = {
+      damage: {
+        base: atk.attack * 70/100,
+        growth: atk.attack * (2 * Number(currentLevel))/100,
+        bulletBonus: {
+          base: 24 /100,
+          growth: (9.3)/ 14* (Number(currentLevel-1)) / 100
+        }
+      }
+      
+    };
+
+    return {
+      p : {
+        damage: {
+          bullet: {
+            raw: p.damage.base + p.damage.growth,
+            mitigated: (p.damage.base + p.damage.growth) * (1- mod.defPhysRed)
+          },
+          salvo: {
+            raw: (p.damage.base + p.damage.growth) + (p.damage.base + p.damage.growth) * (p.damage.bulletBonus.base + p.damage.bulletBonus.growth) * 3,
+            mitigated: ((p.damage.base + p.damage.growth) + (p.damage.base + p.damage.growth) * (p.damage.bulletBonus.base + p.damage.bulletBonus.growth) * 3) * (1- mod.defPhysRed),
+          }
+        },
+
+        crit: {
+          bullet: {
+            raw: (p.damage.base + p.damage.growth) * 1.3,
+            mitigated: (p.damage.base + p.damage.growth) * 1.3 * (1- mod.defPhysRed)
+          },
+          salvo: {
+            raw: (p.damage.base + p.damage.growth) * 1.3 + ((p.damage.base + p.damage.growth) * (p.damage.bulletBonus.base + p.damage.bulletBonus.growth) * 1.3) * 5,
+            mitigated: ((p.damage.base + p.damage.growth) * 1.3 + ((p.damage.base + p.damage.growth) * (p.damage.bulletBonus.base + p.damage.bulletBonus.growth) * 1.3) * 5) * (1- mod.defPhysRed),
+          }
+        }
+      }
+    }
+  }, [currentLevel, mod, bonus, atk])
+
   const abilities = [
     {
       description:
@@ -12,20 +53,20 @@ export default function graves({currentLevel, mod, bonus, atk, def, champ}) {
           </h5>
 
           <p className="stat--ad">Pre-mitigation: 
-            {' '}Bullet: {Math.round(((atk.attack * (70 + 2 * currentLevel) / 100)))} / 
-            {' '}Salvo: {Math.round(((atk.attack * (70 + 2 * currentLevel) / 100)*(1 + ((0.24+ 0.664*(currentLevel -1))*3))))} / 
+            {' '}Bullet: {Math.round(calculations.p.damage.bullet.raw)} / 
+            {' '}Salvo: {Math.round(calculations.p.damage.salvo.raw)} / 
             <span className="stat--critChance">
-              {' '}Crit-bullet: {Math.round(((atk.attack * (70 + 2 * currentLevel) / 100)) * (130 / 100))} / 
-              {' '}Crit-salvo: {Math.round(((atk.attack * (70 + 2 * currentLevel) / 100) * (130 / 100)) * (1 + ((0.24+ 0.664*(currentLevel -1))*6) * 1.3))}
+              {' '}Crit-bullet: {Math.round(calculations.p.crit.bullet.raw)} / 
+              {' '}Crit-salvo: {Math.round(calculations.p.crit.salvo.raw)}
             </span> 
           </p>
 
           <p className="stat--ad">Post-mitigation: 
-            {' '}Bullet: {Math.round(((atk.attack * (70 + 2 * currentLevel) / 100)) * (1 - mod.defPhysRed))} / 
-            {' '}Salvo: {Math.round(((atk.attack * (70 + 2 * currentLevel) / 100)*(1 + ((0.24+ 0.664*(currentLevel -1))*3))) * (1 - mod.defPhysRed))} /
+            {' '}Bullet: {Math.round(calculations.p.damage.bullet.mitigated)} / 
+            {' '}Salvo: {Math.round(calculations.p.damage.salvo.mitigated)} / 
             <span className="stat--critChance">
-              {' '}Crit-bullet: {Math.round((((atk.attack * (70 + 2 * currentLevel) / 100)) * (130 / 100)) * (1 - mod.defPhysRed))} / 
-              {' '}Crit-salvo: {Math.round((((atk.attack * (70 + 2 * currentLevel) / 100) * (130 / 100)) * (1 + ((0.24+ 0.664*(currentLevel -1))*6) * 1.3)) * (1 - mod.defPhysRed))}
+              {' '}Crit-bullet: {Math.round(calculations.p.crit.bullet.mitigated)} / 
+              {' '}Crit-salvo: {Math.round(calculations.p.crit.salvo.mitigated)}
             </span>
           </p>
     

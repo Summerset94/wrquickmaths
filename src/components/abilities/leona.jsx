@@ -96,10 +96,10 @@ export default function leona({currentLevel, mod, bonus, atk, def, champ}) {
           <h5>Bonus <span className="stat--armor">Armor</span> and <span className="stat--magres">Magic Resistance</span>:</h5>
 
           <p>
-            <span className="stat--armor">{Math.round((35 + bonus.armor * 20 / 100))}</span> , <span className="stat--magres">{Math.round(35 + bonus.magres * 20 / 100)}</span> /
-            {' '}<span className="stat--armor">{Math.round((50 + bonus.armor * 20 / 100))}</span> , <span className="stat--magres">{Math.round(50 + bonus.magres * 20 / 100)}</span> /
-            {' '}<span className="stat--armor">{Math.round((65 + bonus.armor * 20 / 100))}</span> , <span className="stat--magres">{Math.round(65 + bonus.magres * 20 / 100)}</span> / 
-            {' '}<span className="stat--armor">{Math.round((80 + bonus.armor * 20 / 100))}</span> , <span className="stat--magres">{Math.round(80 + bonus.magres * 20 / 100)}</span>
+            <span className="stat--armor">{Math.round((35 + bonus.armor * 20 / 100))}</span>, <span className="stat--magres">{Math.round(35 + bonus.magres * 20 / 100)}</span> /
+            {' '}<span className="stat--armor">{Math.round((50 + bonus.armor * 20 / 100))}</span>, <span className="stat--magres">{Math.round(50 + bonus.magres * 20 / 100)}</span> /
+            {' '}<span className="stat--armor">{Math.round((65 + bonus.armor * 20 / 100))}</span>, <span className="stat--magres">{Math.round(65 + bonus.magres * 20 / 100)}</span> / 
+            {' '}<span className="stat--armor">{Math.round((80 + bonus.armor * 20 / 100))}</span>, <span className="stat--magres">{Math.round(80 + bonus.magres * 20 / 100)}</span>
           </p>
     
           <p>
